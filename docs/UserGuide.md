@@ -127,26 +127,70 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+  
+### Deleting a person : `cdelete`
 
-### Deleting a person : `delete`
+Deletes the specified person from the contact list.
 
-Deletes the specified person from the address book.
+Format: `cdelete INDEX1[-INDEX2]`
 
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+- Deletes the person at the specified `INDEX1` or between the specified
+  range from `INDEX1` to `INDEX2` inclusively.
+- The index refers to the index number shown in the displayed person list.
+- The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+- `clist` followed by `cdelete 2` deletes the 2nd person from the contact list.
+- `cfind Betsy` followed by `cdelete 1` deletes the 1st person from the results of the `cfind` command.
+- `cdelete 3-5` deletes people with index between 3 and 5 inclusively from the contact list.
 
-### Clearing all entries : `clear`
+### Clearing all persons : `cclear`
 
-Clears all entries from the address book.
+Clears all entries of contacts from the contact list.
 
-Format: `clear`
+Format: `cclear`
+
+## Managing Events
+
+### Adding an event: `eadd`
+
+Adds an event to the event list.
+
+Format: `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​`
+
+💡 **Tip:** An event can have any number of tags (including 0)
+
+Take note of the following time format:
+
+- Start time should be of format “dd-MM-yyyy HH:mm” (date-month-year Hour:minutes in 24 hr format).
+
+Examples:
+
+- `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
+- `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/18:00
+  z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDHk t/lecture`
+
+### Listing all events: `elist`
+
+Shows a list of all events in the event list, with all of their details by default.
+
+Format: `elist [at] [end] [d] [a] [z] [t]`
+
+- Returned list will always include names of all events in the event list.
+- When no optional fields are provided, e.g `elist` , the list will show all available details of all events
+  in the event list.
+- When optional fields are provided, the list will only show the names of all events in the event list and
+  the corresponding fields specified by the user.
+- More than one optional field can be provided.
+- The order of the optional fields does not matter. e.g both `elist d at` and `elist at d` will return a list
+  of only the names, descriptions and starting times in the event list.
+- If the specified field has no value for certain events in the event list, it will not show anything for
+  that corresponding field for that particular event.
+
+Examples:
+
+- `elist` returns a list of all events in the event list with all the available details for each event.
+- `elist d at` returns a list of all events in the event list, showing only their names, starting times and descriptions (if available).
 
 ### Exiting the program : `exit`
 
