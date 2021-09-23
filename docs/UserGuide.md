@@ -64,53 +64,65 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
+## Managing Contacts
 
 
-### Adding a person: `add`
+### Adding a person: `cadd`
 
-Adds a person to the address book.
+Adds a person to the contact list.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+* A person can have any number of tags (including 0)
+
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor`
+* `cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH`
 
-### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+### Listing all persons : `clist`
 
-Format: `list`
+Shows a list of all persons in the contact list, with all of their details by default.
 
-### Editing a person : `edit`
+Format: `clist [e] [p] [a] [th] [z] [t]`
 
-Edits an existing person in the address book.
+* Returned list will always include names of all persons in the contact list.
+* When no optional fields are provided, e.g `clist`, the list will show all available details of all persons in the contact list.
+* When optional fields are provided, the list will only show the names of all persons in the contact list and the corresponding fields specified by the user.
+* More than one optional field can be provided.
+* The order of the optional fields does not matter. e.g both `clist e p` and `clist p e` will return a list of only the names, email addresses and phone numbers of all persons in the contact list.
+* If the specified field has no value for certain persons in the contact list, it will not show anything for that corresponding field for that particular person.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Examples:
+* `clist` returns a list of all persons in the contact list with all the available details for each person.
+* `clist e p` returns a list of all persons in the contact list, showing only their names, email addresses and phone numbers (if available).
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+
+### Editing a person : `cedit`
+
+Edits an existing person in the contact list.
+
+Format: `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]… `
+
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3,…
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* You can use `t/` to add a tag.
+* You can remove a specific tag by typing `dt/` with the tag.
+* You can remove all the person’s tags by typing `dt/*` without specifying any tags after it.
+* When editing tags, the tags to be deleted will be removed first, before new tags are added.
+
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the 2nd person of the contact list to be 91234567 and agentX@thehightable.com respectively.
+* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd person from the results of the cfind command to be Betsy Crower and clears all existing tags.
+* `cedit 3 dt/TA`  deletes the TA tag from the 3rd person.
+* `cedit 4 dt/*` deletes all tags from the 4th person.
+* `cedit 5 dt/classmate t/friend` first deletes the classmate tag, then adds friend tag from the 5th person.
 
-### Locating persons by name: `find`
+
+### Locating persons by name: `cfind`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -119,14 +131,13 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Partial words can be matched e.g. `Han` will match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `cfind John` returns `john` and `Johnathon Doe`
+* `cfind alex david` returns `Alex Yeoh`, `David Li`
 
 ### Deleting a person : `delete`
 
