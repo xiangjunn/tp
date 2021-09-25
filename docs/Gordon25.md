@@ -1,6 +1,6 @@
 ### Gordon Yit Hongyao
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/Gordon25.png" width="200px">
 
 [[github](http://github.com/Gordon25)]
 [[portfolio](team/AboutUs.md)]
