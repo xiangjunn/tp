@@ -13,7 +13,7 @@ to **manage the contacts** of their professors and tutors, and **keep track of**
 - Add, delete, view events
   - Check upcoming events
   - [Future implementation] Link events to other contacts as participants!
-- View more information at our user guide: [https://ay2122s1-cs2103t-w15-3.github.io/tp](https://ay2122s1-cs2103t-w15-3.github.io/tp)
+- View the detailed documentation of this project at our [user guide](https://ay2122s1-cs2103t-w15-3.github.io/tp/UserGuide.html)
 
 ## Acknowledgement
 

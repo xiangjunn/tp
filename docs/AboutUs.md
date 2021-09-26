@@ -5,15 +5,6 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at our emails
-```
-gordonyit25@u.nus.edu
-e0564779@u.nus.edu
-e0559731@u.nus.edu
-chunweilee.99@u.nus.edu
-ng.xiangjun99@u.nus.edu
-```
-
 ## Project team
 
 ### John Doe
@@ -40,7 +31,8 @@ ng.xiangjun99@u.nus.edu
 
 <img src="images/chunwei.png" width="200px">
 
-[[github](http://github.com/chunweii)] [[portfolio](team/chunwei.md)]
+[[github](http://github.com/chunweii)]
+[[portfolio](team/chunweii.md)]
 
 * Role: Team Lead, Deliverables and Deadlines
 * Responsibilities: UI
