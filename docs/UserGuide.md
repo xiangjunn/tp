@@ -73,7 +73,9 @@ Adds a person to the contact list.
 
 Format: `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…`
 
-* A person can have any number of tags (including 0)
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A person can have any number of tags (including 0)
+</div>
 
 
 Examples:
@@ -105,7 +107,7 @@ Edits an existing person in the contact list.
 
 Format: `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]… `
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3,…
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
@@ -115,29 +117,29 @@ Format: `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDL
 
 
 Examples:
-* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the 2nd person of the contact list to be 91234567 and agentX@thehightable.com respectively.
-* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd person from the results of the cfind command to be Betsy Crower and clears all existing tags.
-* `cedit 3 dt/TA`  deletes the TA tag from the 3rd person.
+* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the 2nd person of the contact list to be `91234567` and `agentX@thehightable.com` respectively.
+* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd person from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
+* `cedit 3 dt/TA`  deletes the `TA` tag from the 3rd person.
 * `cedit 4 dt/*` deletes all tags from the 4th person.
-* `cedit 5 dt/classmate t/friend` first deletes the classmate tag, then adds friend tag from the 5th person.
+* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag from the 5th person.
 
 
 ### Locating persons by name: `cfind`
 
 Finds persons whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `cfind KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Partial words can be matched e.g. `Han` will match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`
 
 Examples:
 * `cfind John` returns `john` and `Johnathon Doe`
-* `cfind alex david` returns `Alex Yeoh`, `David Li`
+* `cfind alex david` returns `Alex Yeoh` and `David Li`
 
 ### Deleting a person : `delete`
 
