@@ -53,7 +53,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/giang.png" width="200px">
 
 [[github](http://github.com/pcgiang)]
-[[portfolio](team/giang.md)]
+[[portfolio](team/pcgiang.md)]
 
 * Role: Testing
 * Responsibilities: Model
