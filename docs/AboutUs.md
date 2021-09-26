@@ -21,7 +21,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Janice Chen
 
-<img src="images/janjanchen.jpg" width="200px">
+<img src="images/janjanchen.png" width="200px">
 
 [[github](http://github.com/janjanchen)]
 [[portfolio](team/janjanchen.md)]
