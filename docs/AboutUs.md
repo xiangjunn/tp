@@ -37,15 +37,15 @@ We are a team based in the [School of Computing, National University of Singapor
 * Role: Team Lead, Deliverables and Deadlines
 * Responsibilities: UI
 
-### Jean Doe
+### Ng Xiang Jun
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/xiangjunn.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/xiangjunn)]
+[[portfolio](team/xiangjunn.md)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Integration
+* Responsibilities: UI
 
 ### Pham Chau Giang
 
