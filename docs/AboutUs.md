@@ -5,8 +5,6 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
-
 ## Project team
 
 ### John Doe
@@ -19,24 +17,25 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Janice Chen
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/janjanchen.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/janjanchen)]
+[[portfolio](team/janjanchen.md)]
 
-* Role: Team Lead
+* Role: Code Quality
+* Responsibilities: Model
+
+### Lee Chun Wei
+
+<img src="images/chunwei.png" width="200px">
+
+[[github](http://github.com/chunweii)]
+[[portfolio](team/chunweii.md)]
+
+* Role: Team Lead, Deliverables and Deadlines
 * Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
 
 ### Ng Xiang Jun
 
@@ -48,12 +47,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Integration
 * Responsibilities: UI
 
-### James Doe
+### Pham Chau Giang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/giang.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/pcgiang)]
+[[portfolio](team/pcgiang.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Testing
+* Responsibilities: Model
