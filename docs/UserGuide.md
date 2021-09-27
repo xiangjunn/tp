@@ -3,7 +3,10 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+SoConnect is a **desktop app for SoC students to managing contacts of professors and teaching assistants, 
+as well as to keep track of noteworthy events, optimized for use via a Command Line Interface** (CLI) while still having 
+the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done 
+faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -14,27 +17,27 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `soconnect.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect app.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * **`elist`** : Lists all events.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * **`cadd`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the contact list.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * **`cdelete`**`3` : Deletes the 3rd contact shown in the contact list.
 
-   * **`clear`** : Deletes all contacts.
+   * **`eclear`** : Deletes all events.
 
    * **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -62,71 +65,86 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* Date and time must follow dd-MM-yyyy HH:mm format.
+
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
+## Managing Contacts
 
 
-### Adding a person: `add`
+### Adding a person: `cadd`
 
-Adds a person to the address book.
+Adds a person to the contact list.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
+
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor`
+* `cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH`
 
-### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+### Listing all persons : `clist`
 
-Format: `list`
+Shows a list of all persons in the contact list, with all of their details by default.
 
-### Editing a person : `edit`
+Format: `clist [e] [p] [a] [th] [z] [t]`
 
-Edits an existing person in the address book.
+* Returned list will always include names of all persons in the contact list.
+* When no optional fields are provided, e.g `clist`, the list will show all available details of all persons in the contact list.
+* When optional fields are provided, the list will only show the names of all persons in the contact list and the corresponding fields specified by the user.
+* More than one optional field can be provided.
+* The order of the optional fields does not matter. e.g both `clist e p` and `clist p e` will return a list of only the names, email addresses and phone numbers of all persons in the contact list.
+* If the specified field has no value for certain persons in the contact list, it will not show anything for that corresponding field for that particular person.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Examples:
+* `clist` returns a list of all persons in the contact list with all the available details for each person.
+* `clist e p` returns a list of all persons in the contact list, showing only their names, email addresses and phone numbers (if available).
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+
+### Editing a person : `cedit`
+
+Edits an existing person in the contact list.
+
+Format: `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]… `
+
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* You can use `t/` to add a tag.
+* You can remove a specific tag by typing `dt/` with the tag.
+* You can remove all the person’s tags by typing `dt/*` without specifying any tags after it.
+* When editing tags, the tags to be deleted will be removed first, before new tags are added.
+
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the 2nd person of the contact list to be `91234567` and `agentX@thehightable.com` respectively.
+* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd person from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
+* `cedit 3 dt/TA`  deletes the `TA` tag from the 3rd person.
+* `cedit 4 dt/*` deletes all tags from the 4th person.
+* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag from the 5th person.
 
-### Locating persons by name: `find`
+
+### Locating persons by name: `cfind`
 
 Finds persons whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `cfind KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Partial words can be matched e.g. `Han` will match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `cfind John` returns `john` and `Johnathon Doe`
+* `cfind alex david` returns `Alex Yeoh` and `David Li`
 
 ### Deleting a person : `delete`
 
@@ -175,21 +193,39 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SoConnect home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
+### Managing Contacts
+
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
+**Add** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/James Ho p/22224444 e/hohohojames@u.nus.edu a/123, Clementi Rd, 1234665 t/Professor`
+**Clear** | `cclear`
+**Delete** | `cdelete INDEX1[-INDEX2]`<br> e.g., `cdelete 3` <br> e.g., `cdelete 1-5`
+**Edit** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.,`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g., `cedit 3 dt/*`
+**Find** | `cfind KEYWORD [MORE_KEYWORDS]`<br> e.g., `cfind James Jake`
+**List** | `clist [e] [p] [a] [th] [z] [t]` <br> e.g., `clist` <br> e.g., `clist e p`
+
+### Managing Events
+
+Action | Format, Examples
+--------|------------------
+**Add** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
+**Clear** | `eclear`
+**Delete** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
+**Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
+**Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
+**List** | `elist [at] [end] [d] [a] [z] [t]` <br> e.g., `elist` <br> e.g., `elist at d`
+
+### General
+Action | Format, Examples
+--------|------------------
 **Help** | `help`
+
 
 ### Editing an event : `eedit`
 
@@ -253,3 +289,6 @@ Examples:
 Clears all entries of all events from the event list.
 
 Format: `eclear`
+
+**Exit** | `exit`
+
