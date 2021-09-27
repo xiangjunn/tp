@@ -17,15 +17,15 @@ We are a team based in the [School of Computing, National University of Singapor
 
 * Role: Project Advisor
 
-### Jane Doe
+### Janice Chen
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/janjanchen.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/janjanchen)]
+[[portfolio](team/janjanchen.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Code Quality
+* Responsibilities: Model
 
 ### Lee Chun Wei
 
@@ -47,12 +47,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Pham Chau Giang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/giang.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/pcgiang)]
+[[portfolio](team/pcgiang.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Testing
+* Responsibilities: Model
