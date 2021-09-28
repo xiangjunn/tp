@@ -169,6 +169,8 @@ Clears all entries of contacts from the contact list.
 
 Format: `cclear`
 
+
+
 ## Managing Events
 
 ### Adding an event: `eadd`
@@ -211,6 +213,72 @@ Examples:
 - `elist` returns a list of all events in the event list with all the available details for each event.
 - `elist d at` returns a list of all events in the event list, showing only their names, starting times and descriptions (if available).
 
+### Editing an event : `eedit`
+
+Edits an existing event in the event list.
+
+Format: `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`
+
+
+<div markdown="span" class="alert alert-info">
+   
+:information_source: **Note:** Start time should be of format “dd-MM-yyyy HH:mm” (date-month-year Hour:minutes in 24 hr format).
+   
+</div>
+
+* `elist` followed by `eedit` 2 edits the 2nd event from the event list.
+* Edits the event at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed event list. `INDEX` **must be a positive integer** eg 1, 2, 3, …​
+* **At least one** of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* use `t/` to add a tag.
+* use `dt/` to remove a tag.
+* use `dt/*` to remove **all** tags
+* When editing tags, the tags to be deleted will be removed first, before new tags are added
+
+Examples:
+* `elist` followed by `eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` changes the name and tag of the 2nd event on the event list to `CS2103T Exam` and `Hard_exams` respectively.
+* `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the 2nd event from the results of the `efind` command to be `Betsy’s Wedding`
+* `eedit 4 dt/*` deletes all tags from the 4th event.
+
+### Locating persons by name : `efind`
+
+Finds events which contain any of the given keywords.
+
+Format: `efind KEYWORD [MORE_KEYWORDS]`
+
+* **Case-insensitive**. e.g `exams` will match `Exams`
+* Order of the keywords does not matter. e.g. `Exam Hard` will match `Hard Exam`
+* Only the **name** is searched.
+* Partial words can be matched e.g. `Exa` will match `CS2103T Exam` 
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`
+
+Examples:
+`efind ex` returns `exams` and `Examinations`
+`efind CS Exam` returns `CS2100 Exam`,  `CS2101` 
+
+### Deleting a person : `edelete`
+
+Deletes the specified event from the event list.
+
+Format: `edelete INDEX1[-INDEX2]`
+
+* Deletes the event at the specified `INDEX1` or between the specified range from `INDEX1` to `INDEX2` inclusive.
+* `INDEX` refers to the index number shown in the displayed event list.
+* `INDEX` **must be a positive integer**, eg 1, 2, 3, …​
+
+Examples:
+`elist` followed by `edelete 2` deletes the 2nd event from the event list.
+`efind Exam` followed by `edelete 1` deletes the 1st event from the results of the `efind` command.
+`edelete 3-5` deletes events with index between 3 and 5 inclusively from the event list.
+
+
+### Clearing all events: `eclear`
+
+Clears all entries of all events from the event list.
+
+________________________________________________________________________________________________________________
+
+
 ## General
 
 ### Viewing help : `help`
@@ -223,9 +291,9 @@ Format: `help`
 
 ### Exiting the program : `exit`
 
-Exits the program.
 
-Format: `exit`
+**Exit** | `exit`
+
 
 ### Saving the data
 
@@ -272,8 +340,14 @@ Action | Format, Examples
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
 **List** | `elist [at] [end] [d] [a] [z] [t]` <br> e.g., `elist` <br> e.g., `elist at d`
 
+________________________________________________________________________________________________________________
+
 ### General
+
 Action | Format, Examples
 --------|------------------
 **Help** | `help`
-**Exit** | `exit`
+
+
+
+

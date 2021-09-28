@@ -7,15 +7,15 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project team
 
-### John Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/gordon25.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/gordon25)]
+[[portfolio](team/gordon25.md)]
 
-* Role: Project Advisor
+* Role: Documentation, Scheduling and Tracking
+* Responsibilities: Storage
+
 
 ### Janice Chen
 
@@ -26,6 +26,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 * Role: Code Quality
 * Responsibilities: Model
+
 
 ### Lee Chun Wei
 
