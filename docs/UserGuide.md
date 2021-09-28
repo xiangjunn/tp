@@ -5,8 +5,8 @@ title: User Guide
 
 SoConnect is a **desktop app for SoC students to managing contacts of professors and teaching assistants, 
 as well as to keep track of noteworthy events, optimized for use via a Command Line Interface** (CLI) while still having 
-the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done 
-faster than traditional GUI apps.
+the benefits of a Graphical User Interface (GUI). If you can type fast, SoConnect can get your contact management tasks
+done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -143,8 +143,76 @@ Format: `cfind KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`
 
 Examples:
+
 * `cfind John` returns `john` and `Johnathon Doe`
 * `cfind alex david` returns `Alex Yeoh` and `David Li`
+  
+### Deleting a person : `cdelete`
+
+Deletes the specified person from the contact list.
+
+Format: `cdelete INDEX1[-INDEX2]`
+
+- Deletes the person at the specified `INDEX1` or between the specified
+  range from `INDEX1` to `INDEX2` inclusively.
+- The index refers to the index number shown in the displayed person list.
+- The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+- `clist` followed by `cdelete 2` deletes the 2nd person from the contact list.
+- `cfind Betsy` followed by `cdelete 1` deletes the 1st person from the results of the `cfind` command.
+- `cdelete 3-5` deletes people with index between 3 and 5 inclusively from the contact list.
+
+### Clearing all persons : `cclear`
+
+Clears all entries of contacts from the contact list.
+
+Format: `cclear`
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Managing Events
+
+### Adding an event: `eadd`
+
+Adds an event to the event list.
+
+Format: `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​`
+
+💡 **Tip:** An event can have any number of tags (including 0)
+
+Take note of the following time format:
+
+- Start time should be of format “dd-MM-yyyy HH:mm” (date-month-year Hour:minutes in 24 hr format).
+
+Examples:
+
+- `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
+- `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/18:00
+  z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDHk t/lecture`
+
+### Listing all events: `elist`
+
+Shows a list of all events in the event list, with all of their details by default.
+
+Format: `elist [at] [end] [d] [a] [z] [t]`
+
+- Returned list will always include names of all events in the event list.
+- When no optional fields are provided, e.g `elist` , the list will show all available details of all events
+  in the event list.
+- When optional fields are provided, the list will only show the names of all events in the event list and
+  the corresponding fields specified by the user.
+- More than one optional field can be provided.
+- The order of the optional fields does not matter. e.g both `elist d at` and `elist at d` will return a list
+  of only the names, descriptions and starting times in the event list.
+- If the specified field has no value for certain events in the event list, it will not show anything for
+  that corresponding field for that particular event.
+
+Examples:
+
+- `elist` returns a list of all events in the event list with all the available details for each event.
+- `elist d at` returns a list of all events in the event list, showing only their names, starting times and descriptions (if available).
 
 ### Editing an event : `eedit`
 
@@ -209,7 +277,8 @@ Examples:
 
 Clears all entries of all events from the event list.
 
-________________________________________________________________________
+________________________________________________________________________________________________________________
+
 
 ## General
 
