@@ -8,10 +8,10 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project team
 
 
-<img src="images/Gordon25.png" width="200px">
+<img src="docs/images/gordon25.png" width="200px">
 
-[[github](http://github.com/Gordon25)]
-[[portfolio](team/Gordon25.md)]
+[[github](http://github.com/gordon25)]
+[[portfolio](team/gordon25.md)]
 
 * Role: Documentation, Scheduling and Tracking
 * Responsibilities: Storage
