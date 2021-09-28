@@ -8,7 +8,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project team
 
 
-<img src="docs/images/gordon25.png" width="200px">
+<img src="images/gordon25.png" width="200px">
 
 [[github](http://github.com/gordon25)]
 [[portfolio](team/gordon25.md)]
