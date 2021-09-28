@@ -283,45 +283,225 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SoConnect Application System (SAS)` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**1. Use case: UC1 - Add contact details**
+
+**Guarantees:** The contact will be stored in the system if and only if the user enters the correct syntax.
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User types in command to add contact information with the name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
+
+2.  SAS stores the contact internally and outputs a success message to indicate that the contact has been successfully added.
+    
+    Use case ends.
+
+**Extensions**
+
+* 1a. SAS detects an error in the input command.
+  
+    * 1a1. SAS outputs the error message to the user.
+      
+    * 1a2. User types in a new command based on steps 1 to 2.
+      
+    * 1a3. Repeat steps 1a to 1a2 until the command entered is of correct syntax.
+      
+      Resume use case from step 2.
+    
+
+* 1b. SAS detects a duplicate contact with the same name.
+
+    * 1b1. SAS gives the user the option of adding the contact anyway.
+    
+    * 1b2. User proceeds to add the contact anyway.
+
+      Resume use case from step 2.
+    
+    
+* *a. At any time. user chooses not to add the contact.
+
+    Use case ends.
+
+
+**2. Use case: UC2 - Edit events**
+
+**Preconditions:** There is at least one event in the list.
+
+**Guarantees:** The event will be updated accordingly if and only if the command syntax is correct.
+
+**MSS**
+
+1.  User types in command view the list of events.
+    
+2. User decides on the event to edit.
+   
+3. User types in commnand to edit the event. 
+
+4. SAS updates the event accordingly and outputs a success message to indicate that the event has been successfully edited.
+   
+    Use case ends.
+
+
+**Extensions**
+
+* 3a. SAS detects an error in the input command.
+
+    * 3a1. SAS outputs the error message to the user.
+
+    * 3a2. User types in a new command based on steps 3.
+
+    Steps 3a1 to 3a2 are repeated until command entered is correct
+
+    Use case resumes from step 4.
+
+
+* *a. User chooses not to edit the event.
+
+    Use case ends.
+
+
+**3. Use case: UC3 - Delete contacts**
+
+**Preconditions:** There is at least one contact in the contact list.
+
+**Guarantees:** The contact list will be updated according to which contact(s) are deleted if and only if the command syntax is correct.
+
+**MSS**
+
+1.  User types in command view the list of contacts.
+
+2. User decides on the contact(s) to delete.
+
+3. User types in the command to delete the contact(s).
+
+4. SAS deletes the specified contact(s), updates the contact list accordingly, and outputs a success message to indicate that the contact(s) has been successfully deleted.
+   
+    Use case ends.
+
+
+**Extensions**
+
+* 3a. SAS detects an error in the input command.
+
+    * 3a1. SAS outputs the error message to the user.
+
+    * 3a2. User types in a new command based on steps 3.
+
+  Steps 3a1 to 3a2 are repeated until command entered is of correct syntax.
+
+  Use case resumes from step 4.
+  
+
+* *a. User chooses not to delete the contact(s).
+
+    Use case ends.
+
+
+**4. Use case: UC4 - Find contact details**
+
+**Guarantees:** A filtered list of contacts that match the user key words will be shown, if and only if the command syntax is correct.
+
+**MSS**
+
+1. User decides on the keyword(s) to find.
+
+2. User types in the command to find contact(s) that match with the specified keyword(s).
+
+3. SAS lists the matched contacts accordingly and outputs a success message to indicate the number of matched contacts found.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. SAS fails to find any matched contacts.
 
-  Use case ends.
+    * 2a1. SAS outputs 0 matched contacts.
 
-* 3a. The given index is invalid.
+    * 2a2. User types in a new command based on step 2 with a different keyword.
 
-    * 3a1. AddressBook shows an error message.
+  Steps 2a1 to 2a2 are repeated until the user finds the contacts of interest.
 
-      Use case resumes at step 2.
+  Use case resumes from step 3.
+
+
+* *a. User chooses not to find contact(s).
+
+    Use case ends.
+
+
+**5. Use case: UC5 - Sort events**
+
+**Preconditions:** List of events to be sorted is displayed.
+
+**Guarantees:** The displayed list of events is sorted lexicographically according to the specified field, if the given field and command syntax are valid.
+
+**MSS**
+
+1. User types in the command to sort and provides a field to sort by. 
+   
+2. SAS sorts the list of events. 
+   
+3. SAS displays the sorted list of events.
+
+    Use case ends
+
+**Extensions**
+
+* 1a. SAS detects that the input command contains an invalid field. 
+    
+    * 1a1. SAS outputs the error message to the user.
+  
+    * 1a2. User types in a new command based on step 1.
+      
+    Steps 1a1-1a2 are repeated until the command contains a valid field. 
+  
+    Use case resumes from step 2.
+
+
+* 1b. SAS detects that the input command contains more than one field.
+  
+    * 1a1. SAS sorts the list by the first entered field. 
+      
+    Use case resumes from step 3.
+    
+
+* *a. User chooses not to sort the list.
+
+    Use case ends.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should not depend on Internet connection.
+5. Only one user should be able to use the system at one time.
+6. Should be usable by colorblind students
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Mainstream OS**: Windows, Linux, Unix, OS-X.
+
+
+* MSS: [Main Success Scenario](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html). Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
+
+
+* CLI: Command Line Interface. Text-based user interface.
+
+
+* GUI: Graphical User Interface. Graphic-based user interface.
+
+
+* Interface: The place at which independent and often unrelated systems meet and act on or communicate with each other/ a way for the user to interact with the system.
+
+
+* Telegram handle: Username of a [Telegram](https://telegram.org/) user.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
