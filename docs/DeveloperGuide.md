@@ -255,31 +255,58 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user:** [School of Computing](https://www.comp.nus.edu.sg) (SoC) students who:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Need to manage large number of contacts and events
+* Prefer desktop apps over other types
+* Can type fast and prefer typing to mouse interactions
+* Are reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
-
+**Value proposition**: Manage contacts of peers, professors and events such as classes and Co-Curricular Activities in
+a single system faster than a typical mouse/GUI driven app while maintaining user-friendliness
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
+#### Contacts
+
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `* * *` | hardworking student | add contact of my TA/prof (phone number, email address, tele handle, zoom link/class room location) | save their contacts and ask them questions on my modules. |
+| `* * *` | careless student | edit the contact of my TA/prof | correct any mistakes or change the details when my TA changes number |
+| `* * *` | senior SoC student | delete the contact of my TA/prof | remove contact of my TA after I have completed the module |
+| `* * *` | SoC student | view the contact of my TA/prof | contact them when necessary |
+| `* * *` | year 4 SoC student with many contacts | search for contact of my TA/prof | contact them when necessary |
+| `* *` | year 4 SoC student with many contacts | sort the contacts of my TAs | view the contacts based on the sorting settings |
+| `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted / changed |
+| `* *` | organised SoC students | categorize the contacts of TAs/students/profs | view them separately |
+| `* *` | user with many contacts | add the profile picture of TA/Prof | more easily differentiate my contacts and remember their faces |
+| `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
+| `*` | long term user | archive some contacts | still save old contacts without cluttering my current screen |
 
-*{More to be added}*
+#### Events
+
+| Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
+| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `* * *` | SoC student | add details of event | keep track of the CCA dates and time |
+| `* * *` | SoC student | to delete details of event | remove events that have finished or are cancelled |
+| `* * *` | SoC student | to edit details of event | edit events that need to be edited |
+| `* * *` | SoC student | view all CCA/events | have a rough overview of my schedule | 
+| `* * *` | SoC student | search for an event based on event name | know more about the event |
+| `* *` | SoC student | sort the events by time | know which event is coming up next |
+| `* *` | SoC student with busy schedule | make sure my new event does not clash with any of the current event | better plan my timetable for additional activities |
+| `* *` | SoC student with many different events to manage | categorize my events according to different tags like classes and CCAs | easily filter and search for the events I want |
+| `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | easily switch calendars to manage my events |
+| `*` | long term user | archive some events that have ended | still save details of past events without cluttering my current screen |
+| `*` | Soc student with many commitments | have a reminder for upcoming events | remember to attend those events |
+
+#### Personalisation and Others
+
+| Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
+| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `* * *` | first time user | have a help message | know which are the basic features, which controls there are and how to start using |
+| `*` | first time user | set up my background | personalize the screen to my liking |
 
 ### Use cases
 
