@@ -341,6 +341,7 @@ Action | Format, Examples
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
 **List** | `elist [at] [end] [d] [a] [z] [t]` <br> e.g., `elist` <br> e.g., `elist at d`
 
+________________________________________________________________________________________________________________
 
 ### General
 Action | Format, Examples
