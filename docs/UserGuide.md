@@ -153,7 +153,11 @@ Edits an existing event in the event list.
 Format: `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`
 
 
+<div markdown="span" class="alert alert-info">
+   
 :information_source: **Note:** Start time should be of format “dd-MM-yyyy HH:mm” (date-month-year Hour:minutes in 24 hr format).
+   
+</div>
 
 * `elist` followed by `eedit` 2 edits the 2nd event from the event list.
 * Edits the event at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed event list. `INDEX` **must be a positive integer** eg 1, 2, 3, …​
@@ -167,9 +171,7 @@ Format: `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/
 Examples:
 * `elist` followed by `eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` changes the name and tag of the 2nd event on the event list to `CS2103T Exam` and `Hard_exams` respectively.
 * `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the 2nd event from the results of the `efind` command to be `Betsy’s Wedding`
-* `eedit 3 dt/TA`  deletes the `TA` tag from the 3rd event.
 * `eedit 4 dt/*` deletes all tags from the 4th event.
-* `eedit 5 dt/Easy_exams t/Hard_exams` first deletes the `Easy_exams` tag, then adds `Hard_exams` tag to the 5th event.
 
 ### Locating persons by name : `efind`
 
