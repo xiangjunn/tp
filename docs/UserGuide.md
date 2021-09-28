@@ -209,7 +209,7 @@ Examples:
 
 Clears all entries of all events from the event list.
 
-
+________________________________________________________________________
 
 ## General
 
