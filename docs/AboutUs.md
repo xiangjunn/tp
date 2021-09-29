@@ -9,6 +9,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Gordon Yit Hongyao
 
+### Gordon Yit Hongyao
+
 <img src="images/gordon25.png" width="200px">
 
 [[github](http://github.com/gordon25)]
@@ -51,7 +53,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Pham Chau Giang
 
-<img src="images/giang.png" width="200px">
+<img src="images/pcgiang.png" width="200px">
 
 [[github](http://github.com/pcgiang)]
 [[portfolio](team/pcgiang.md)]

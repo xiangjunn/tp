@@ -54,7 +54,7 @@ done faster than traditional GUI apps.
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -135,17 +135,17 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `cfind KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
-* Partial words can be matched e.g. `Han` will match `Hans`
+* Partial words can be matched e.g. `Han` will match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
 
 Examples:
 
-* `cfind John` returns `john` and `Johnathon Doe`
-* `cfind alex david` returns `Alex Yeoh` and `David Li`
+* `cfind John` returns `john` and `Johnathon Doe`.
+* `cfind alex david` returns `Alex Yeoh` and `David Li`.
   
 ### Deleting a person : `cdelete`
 
