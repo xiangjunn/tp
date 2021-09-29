@@ -13,7 +13,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [github](http://github.com/gordon25) |
 [portfolio](team/gordon25.md) |
-[email](e0564958@u.nus.edu) 
+[email](https://e0564958@u.nus.edu) 
 
 * Role: Documentation, Scheduling and Tracking
 * Responsibilities: Storage
@@ -25,7 +25,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [github](http://github.com/janjanchen) |
 [portfolio](team/janjanchen.md) |
-[email](e0559731@u.nus.edu)
+[email](https://e0559731@u.nus.edu)
 
 * Role: Code Quality
 * Responsibilities: Model
@@ -37,7 +37,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [github](http://github.com/chunweii) | 
 [portfolio](team/chunweii.md) |
-[email](chunweilee.99@u.nus.edu)
+[email](https://chunweilee.99@u.nus.edu)
 
 * Role: Team Lead, Deliverables and Deadlines
 * Responsibilities: UI
@@ -48,7 +48,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [github](http://github.com/xiangjunn) |
 [portfolio](team/xiangjunn.md) | 
-[email](ng.xiangjun99@u.nus.edu)
+[email](https://ng.xiangjun99@u.nus.edu)
 
 * Role: Integration
 * Responsibilities: UI
@@ -59,7 +59,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [github](http://github.com/pcgiang) |
 [portfolio](team/pcgiang.md) |
-[email](e0559731@u.nus.edu)
+[email](https://e0559731@u.nus.edu)
 
 * Role: Testing
 * Responsibilities: Model
