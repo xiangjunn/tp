@@ -262,7 +262,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Can type fast and prefer typing to mouse interactions
 * Are reasonably comfortable using CLI apps
 
-**Value proposition**: Manage contacts of peers, professors and events such as classes and Co-Curricular Activities in
+**Value proposition**: Manage contacts of peers, professors (Prof) and events such as classes and Co-Curricular Activities in
 a single system faster than a typical mouse/ GUI driven app while maintaining user-friendliness
 
 ### User stories
@@ -273,7 +273,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *` | hardworking student | add contact of my TA/Prof (phone number, email address, telegram handle, zoom link/class room location) | save their contacts and ask them questions on my modules. |
+| `* * *` | hardworking student | add contact of my Teaching Assistants (TA)/Prof (phone number, email address, telegram handle, zoom link/class room location) | save their contacts and ask them questions on my modules. |
 | `* * *` | careless student | edit the contact of my TA/Prof | correct any mistakes or change the details when my TA changes number |
 | `* * *` | senior SoC student | delete the contact of my TA/Prof | remove contact of my TA after I have completed the module |
 | `* * *` | SoC student | view the contact of my TA/Prof | contact them when necessary |
