@@ -59,7 +59,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [github](http://github.com/pcgiang) |
 [portfolio](team/pcgiang.md) |
-[email](mailto:e0559731@u.nus.edu)
+[email](mailto:e0564779@u.nus.edu)
 
 * Role: Testing
 * Responsibilities: Model
