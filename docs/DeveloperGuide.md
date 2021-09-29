@@ -263,7 +263,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Are reasonably comfortable using CLI apps
 
 **Value proposition**: Manage contacts of peers, professors and events such as classes and Co-Curricular Activities in
-a single system faster than a typical mouse/GUI driven app while maintaining user-friendliness
+a single system faster than a typical mouse/ GUI driven app while maintaining user-friendliness
 
 ### User stories
 
@@ -273,14 +273,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *` | hardworking student | add contact of my TA/prof (phone number, email address, tele handle, zoom link/class room location) | save their contacts and ask them questions on my modules. |
-| `* * *` | careless student | edit the contact of my TA/prof | correct any mistakes or change the details when my TA changes number |
-| `* * *` | senior SoC student | delete the contact of my TA/prof | remove contact of my TA after I have completed the module |
-| `* * *` | SoC student | view the contact of my TA/prof | contact them when necessary |
-| `* * *` | year 4 SoC student with many contacts | search for contact of my TA/prof | contact them when necessary |
-| `* *` | year 4 SoC student with many contacts | sort the contacts of my TAs | view the contacts based on the sorting settings |
-| `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted / changed |
-| `* *` | organised SoC students | categorize the contacts of TAs/students/profs | view them separately |
+| `* * *` | hardworking student | add contact of my TA/Prof (phone number, email address, telegram handle, zoom link/class room location) | save their contacts and ask them questions on my modules. |
+| `* * *` | careless student | edit the contact of my TA/Prof | correct any mistakes or change the details when my TA changes number |
+| `* * *` | senior SoC student | delete the contact of my TA/Prof | remove contact of my TA after I have completed the module |
+| `* * *` | SoC student | view the contact of my TA/Prof | contact them when necessary |
+| `* * *` | year 4 SoC student with many contacts | search for contact of my TA/Prof | contact them when necessary |
+| `* *` | year 4 SoC student with many contacts | sort the contacts of my TA | view the contacts based on the sorting settings |
+| `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
+| `* *` | organised SoC students | categorize the contacts of students/TA//Prof | view them separately |
 | `* *` | user with many contacts | add the profile picture of TA/Prof | more easily differentiate my contacts and remember their faces |
 | `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
 | `*` | long term user | archive some contacts | still save old contacts without cluttering my current screen |
