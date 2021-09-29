@@ -11,8 +11,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/gordon25.png" width="200px">
 
-[[github](http://github.com/gordon25)]
-[[portfolio](team/gordon25.md)]
+[github](http://github.com/gordon25) |
+[portfolio](team/gordon25.md) |
+[email](e0564958@u.nus.edu) 
 
 * Role: Documentation, Scheduling and Tracking
 * Responsibilities: Storage
@@ -22,8 +23,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/janjanchen.png" width="200px">
 
-[[github](http://github.com/janjanchen)]
-[[portfolio](team/janjanchen.md)]
+[github](http://github.com/janjanchen) |
+[portfolio](team/janjanchen.md) |
+[email](e0559731@u.nus.edu)
 
 * Role: Code Quality
 * Responsibilities: Model
@@ -33,8 +35,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/chunweii.png" width="200px">
 
-[[github](http://github.com/chunweii)]
-[[portfolio](team/chunweii.md)]
+[github](http://github.com/chunweii) | 
+[portfolio](team/chunweii.md) |
+[email](chunweilee.99@u.nus.edu)
 
 * Role: Team Lead, Deliverables and Deadlines
 * Responsibilities: UI
@@ -43,8 +46,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/xiangjunn.png" width="200px">
 
-[[github](http://github.com/xiangjunn)]
-[[portfolio](team/xiangjunn.md)]
+[github](http://github.com/xiangjunn) |
+[portfolio](team/xiangjunn.md) | 
+[email](ng.xiangjun99@u.nus.edu)
 
 * Role: Integration
 * Responsibilities: UI
@@ -53,8 +57,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/giang.png" width="200px">
 
-[[github](http://github.com/pcgiang)]
-[[portfolio](team/pcgiang.md)]
+[github](http://github.com/pcgiang) |
+[portfolio](team/pcgiang.md) |
+[email](e0559731@u.nus.edu)
 
 * Role: Testing
 * Responsibilities: Model
