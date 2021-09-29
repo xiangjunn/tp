@@ -290,8 +290,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *` | SoC student | add details of event | keep track of the CCA dates and time |
-| `* * *` | SoC student | to delete details of event | remove events that have finished or are cancelled |
-| `* * *` | SoC student | to edit details of event | edit events that need to be edited |
+| `* * *` | SoC student | delete details of event | remove events that have finished or are cancelled |
+| `* * *` | SoC student | edit details of event | edit events that need to be edited |
 | `* * *` | SoC student | view all CCA/events | have a rough overview of my schedule | 
 | `* * *` | SoC student | search for an event based on event name | know more about the event |
 | `* *` | SoC student | sort the events by time | know which event is coming up next |
