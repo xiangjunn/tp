@@ -280,7 +280,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | year 4 SoC student with many contacts | search for contact of my TA/Prof | contact them when necessary |
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my TA | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
-| `* *` | organised SoC students | categorize the contacts of students/TA//Prof | view them separately |
+| `* *` | organised SoC students | categorize the contacts of students/TA/Prof | view them separately |
 | `* *` | user with many contacts | add the profile picture of TA/Prof | more easily differentiate my contacts and remember their faces |
 | `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
 | `*` | long term user | archive some contacts | still save old contacts without cluttering my current screen |
