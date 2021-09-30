@@ -7,7 +7,6 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project team
 
-### Gordon Yit Hongyao
 
 ### Gordon Yit Hongyao
 
