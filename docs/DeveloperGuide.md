@@ -314,25 +314,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **1. Use case: UC1 - Add contact details**
 
-**Guarantees:** The contact will be stored in the system if and only if the user enters the correct syntax.
+**Guarantees:** The contact will be stored in the system if and only if the user enters the correct inputs.
 
 **MSS**
 
-1.  User types in command to add contact information with the name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
+1.  User chooses to add contact information.
 
-2.  SAS stores the contact internally and outputs a success message to indicate that the contact has been successfully added.
+2.  SAS stores the contact and notifies the user that the contact has been successfully added.
     
     Use case ends.
 
 **Extensions**
 
-* 1a. SAS detects an error in the input command.
+* 1a. SAS detects an error in the inputs.
   
-    * 1a1. SAS outputs the error message to the user.
+    * 1a1. SAS requests for correct inputs.
       
-    * 1a2. User types in a new command based on steps 1 to 2.
+    * 1a2. User enters new inputs.
       
-    * 1a3. Repeat steps 1a to 1a2 until the command entered is of correct syntax.
+    * 1a3. Repeat steps 1a1 to 1a2 until the inputs entered are correct.
       
       Resume use case from step 2.
     
@@ -341,7 +341,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 1b1. SAS gives the user the option of adding the contact anyway.
     
-    * 1b2. User proceeds to add the contact anyway.
+    * 1b2. User proceeds to add the contact.
 
       Resume use case from step 2.
     
@@ -355,30 +355,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:** There is at least one event in the list.
 
-**Guarantees:** The event will be updated accordingly if and only if the command syntax is correct.
+**Guarantees:** The event will be updated accordingly if and only if the user enters the correct inputs.
 
 **MSS**
 
-1.  User types in command view the list of events.
+1.  User wants to view the list of events.
     
-2. User decides on the event to edit.
+2. User decides on an event to edit.
    
-3. User types in commnand to edit the event. 
+3. User edits the event. 
 
-4. SAS updates the event accordingly and outputs a success message to indicate that the event has been successfully edited.
+4. SAS updates the event accordingly and notifies user that the event has been successfully edited.
    
     Use case ends.
 
 
 **Extensions**
 
-* 3a. SAS detects an error in the input command.
+* 3a. SAS detects an error in the inputs.
 
-    * 3a1. SAS outputs the error message to the user.
+    * 3a1. SAS requests for correct inputs.
 
-    * 3a2. User types in a new command based on steps 3.
+    * 3a2. User enters new inputs.
 
-    Steps 3a1 to 3a2 are repeated until command entered is correct
+    Steps 3a1 to 3a2 are repeated until inputs entered are correct.
 
     Use case resumes from step 4.
 
@@ -392,30 +392,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:** There is at least one contact in the contact list.
 
-**Guarantees:** The contact list will be updated according to which contact(s) are deleted if and only if the command syntax is correct.
+**Guarantees:** The contact list will be updated according to which contact(s) are deleted if and only if the user enters the correct inputs.
 
 **MSS**
 
-1.  User types in command view the list of contacts.
+1.  User wants to view the list of contacts.
 
 2. User decides on the contact(s) to delete.
 
-3. User types in the command to delete the contact(s).
+3. User deletes the contact(s).
 
-4. SAS deletes the specified contact(s), updates the contact list accordingly, and outputs a success message to indicate that the contact(s) has been successfully deleted.
+4. SAS deletes the specified contact(s), updates the contact list accordingly, and notifies user that the contact(s) has been successfully deleted.
    
     Use case ends.
 
 
 **Extensions**
 
-* 3a. SAS detects an error in the input command.
+* 3a. SAS detects an error in the inputs.
 
-    * 3a1. SAS outputs the error message to the user.
+    * 3a1. SAS requests for correct inputs.
 
-    * 3a2. User types in a new command based on steps 3.
+    * 3a2. User enters new inputs.
 
-  Steps 3a1 to 3a2 are repeated until command entered is of correct syntax.
+  Steps 3a1 to 3a2 are repeated until inputs entered are correct.
 
   Use case resumes from step 4.
   
@@ -427,15 +427,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **4. Use case: UC4 - Find contact details**
 
-**Guarantees:** A filtered list of contacts that match the user key words will be shown, if and only if the command syntax is correct.
+**Guarantees:** A filtered list of contacts that match the user key words will be shown, if and only if  the user enters the correct inputs.
 
 **MSS**
 
 1. User decides on the keyword(s) to find.
 
-2. User types in the command to find contact(s) that match with the specified keyword(s).
+2. User enters specified keyword(s).
 
-3. SAS lists the matched contacts accordingly and outputs a success message to indicate the number of matched contacts found.
+3. SAS shows the matched contacts accordingly and notifies user of search success.
 
     Use case ends.
 
@@ -445,7 +445,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 2a1. SAS outputs 0 matched contacts.
 
-    * 2a2. User types in a new command based on step 2 with a different keyword.
+    * 2a2. User enters new keyword(s).
 
   Steps 2a1 to 2a2 are repeated until the user finds the contacts of interest.
 
@@ -465,9 +465,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User types in the command to sort and provides a field to sort by. 
+1. User decides on a field to sort by.
+
+2. User sorts the list.
    
-2. SAS sorts the list of events. 
+3. SAS sorts the list of events by the field provided in step 2.
    
 3. SAS displays the sorted list of events.
 
@@ -475,20 +477,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. SAS detects that the input command contains an invalid field. 
+* 1a. SAS detects that the input is an invalid field. 
     
-    * 1a1. SAS outputs the error message to the user.
+    * 1a1. SAS requests for a correct input.
   
-    * 1a2. User types in a new command based on step 1.
+    * 1a2. User enters a new input.
       
-    Steps 1a1-1a2 are repeated until the command contains a valid field. 
-  
+    Steps 1a1-1a2 are repeated until user enters a  valid field.
+
     Use case resumes from step 2.
 
 
-* 1b. SAS detects that the input command contains more than one field.
+* 1b. SAS detects that the input contains more than one field.
   
-    * 1a1. SAS sorts the list by the first entered field. 
+    * 1a1. SAS sorts the list by the first field entered. 
       
     Use case resumes from step 3.
     
