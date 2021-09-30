@@ -531,7 +531,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * Telegram handle: Username of a [Telegram](https://telegram.org/) user.
 
-
+* Contact details: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
