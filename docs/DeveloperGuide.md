@@ -332,9 +332,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       
     * 1a2. User enters new inputs.
       
-    * 1a3. Repeat steps 1a1 to 1a2 until the inputs entered are correct.
+    Repeat steps 1a1 to 1a2 until the inputs entered are correct.
       
-      Resume use case from step 2.
+    Resume use case from step 2.
     
 
 * 1b. SAS detects a duplicate contact with the same name.
@@ -359,7 +359,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User wants to view the list of events.
+1. User wants to view the list of events.
     
 2. User decides on an event to edit.
    
@@ -483,7 +483,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   
     * 1a2. User enters a new input.
       
-    Steps 1a1-1a2 are repeated until user enters a  valid field.
+    Steps 1a1-1a2 are repeated until user enters a valid field.
 
     Use case resumes from step 2.
 
