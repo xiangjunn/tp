@@ -57,7 +57,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/giang.png" width="200px">
 
-[github](http://github.com/pcgiang) |
+[github](http://github.com/pcgiang.png) |
 [portfolio](team/pcgiang.md) |
 [email](mailto:e0564779@u.nus.edu)
 
