@@ -517,7 +517,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
 
 
-* MSS: [Main Success Scenario](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html). Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
+* MSS: [Main Success Scenario](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html#requirements-specifying-requirements-use-cases-details). Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
 
 
 * CLI: Command Line Interface. Text-based user interface.
@@ -531,7 +531,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * Telegram handle: Username of a [Telegram](https://telegram.org/) user.
 
+
 * Contact details: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
