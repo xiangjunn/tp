@@ -296,16 +296,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | SoC student | search for an event based on event name | easily refer to the event details |
 | `* *` | SoC student | sort the events by time | prepare for upcoming events |
 | `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
-| `* *` | SoC student with many different events to manage | categorize my events according to different tags like classes and CCAs | easily filter and search for the events I want |
+| `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
 | `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | easily switch calendars to manage my events |
-| `*` | long term user | archive some events that have ended | still save details of past events without cluttering my current screen |
-| `*` | Soc student with many commitments | have a reminder for upcoming events | remember to attend those events |
+| `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |
+| `*` | Soc student with many commitments | have a reminder of upcoming events | |
 
 #### Personalisation and Others
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *` | first time user | have a help message | know which are the basic features, which controls there are and how to start using |
+| `* * *` | first time user | have a help message I can refer to | understand and start using basic features |
 | `*` | first time user | set up my background | personalize the screen to my liking |
 
 ### Use cases
