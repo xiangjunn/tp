@@ -262,7 +262,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Can type fast and prefer typing to mouse interactions
 * Are reasonably comfortable using *CLI* apps
 
-**Value proposition**: Manage contacts of peers, *Prof* and events such as classes and Co-Curricular Activities in
+**Value proposition**: Manage contacts of peers, *Profs* and events such as classes and Co-Curricular Activities in
 a single system faster than a typical mouse/ *GUI* driven app while maintaining user-friendliness
 
 ### User stories
@@ -273,15 +273,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *` | hardworking student | add contact of my *TA*/*Prof* | save their contacts and ask them questions on my modules. |
-| `* * *` | careless student | edit the contact of my *TA*/*Prof* | correct mistakes while adding contacts or update my TA contact details |
-| `* * *` | senior SoC student | delete the contact of my *TA*/*Prof* | remove contact of my *TA* after I have completed the module |
-| `* * *` | SoC student | view the contact of my *TA*/*Prof* | have a rough overview of my existing contacts |
-| `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Prof* | contact them when necessary |
+| `* * *` | hardworking student | add contact of my *TA*/*Profs* | save their contacts and ask them questions on my modules. |
+| `* * *` | careless student | edit the contact of my *TA*/*Profs* | correct mistakes while adding contacts or update my TA contact details |
+| `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
+| `* * *` | SoC student | view the contact of my *TA*/*Profs* | have a rough overview of my existing contacts |
+| `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
-| `* *` | organised SoC students | categorize the contacts of students/*TA*/*Prof* | view them separately |
-| `* *` | student with many contacts | add the profile picture of *TA*/*Prof* | more easily differentiate my contacts and remember their faces |
+| `* *` | organised SoC students | categorize the contacts of students/*TA*/*Profs* | view them separately |
+| `* *` | student with many contacts | add the profile picture of *TA*/*Profs* | more easily differentiate my contacts and remember their faces |
 | `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
 | `*` | long term user | archive some contacts | still save old contacts without cluttering my current screen |
 
@@ -297,7 +297,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *` | SoC student | sort the events by time | prepare for upcoming events |
 | `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
 | `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
-| `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | easily switch calendars to manage my events |
+| `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | synchronize my events across my calendars |
 | `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |
 | `*` | Soc student with many commitments | have a reminder of upcoming events | |
 
@@ -467,7 +467,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User decides on a field to sort by.
 
-2. User sorts the list.
+2. User inputs the specific field.
    
 3. SAS sorts the list of events by the specified field provided in step 2.
    
@@ -532,10 +532,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * Telegram handle: Username of a [Telegram](https://telegram.org/) user.
 
 
-* Prof: A group of professors who are facilitators of a specified module.
+* Professor (Prof): A lecturer who teaches a module in NUS.
 
 
-* TA: A group of teaching assistants who are facilitators of a specified module. 
+* Teaching Assistant (TA): A student tutor employed to teach small group lessons in NUS.
 
 
 * Contact information: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
