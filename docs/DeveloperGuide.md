@@ -255,31 +255,58 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user:** [School of Computing](https://www.comp.nus.edu.sg) (SoC) students who:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Need to manage large number of contacts and events
+* Prefer desktop apps over other types
+* Can type fast and prefer typing to mouse interactions
+* Are reasonably comfortable using *CLI* apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
-
+**Value proposition**: Manage contacts of peers, *Profs* and events such as classes and Co-Curricular Activities in
+a single system faster than a typical mouse/ *GUI* driven app while maintaining user-friendliness
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
+#### Contacts
+
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `* * *` | hardworking student | add contact of my *TA*/*Profs* | save their contacts and ask them questions on my modules. |
+| `* * *` | careless student | edit the contact of my *TA*/*Profs* | correct mistakes while adding contacts or update my TA contact details |
+| `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
+| `* * *` | SoC student | view the contact of my *TA*/*Profs* | |
+| `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
+| `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
+| `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
+| `* *` | organised SoC students | categorize the contacts of students/*TA*/*Profs* | view them separately |
+| `* *` | student with many contacts | add the profile picture of *TA*/*Profs* | more easily differentiate my contacts and remember their faces |
+| `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
+| `*` | long term user | archive some contacts | still save old contacts without cluttering my current screen |
 
-*{More to be added}*
+#### Events
+
+| Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
+| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `* * *` | SoC student | add details of event | keep track of the CCA dates and time |
+| `* * *` | SoC student | delete details of event | remove events that have finished or are cancelled |
+| `* * *` | SoC student | edit details of event | update event details |
+| `* * *` | SoC student | view all CCA/events | have a rough overview of my schedule | 
+| `* * *` | SoC student | search for an event based on event name | easily refer to the event details |
+| `* *` | SoC student | sort the events by time | prepare for upcoming events |
+| `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
+| `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
+| `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | synchronize my events across my calendars |
+| `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |
+| `*` | Soc student with many commitments | have a reminder of upcoming events | |
+
+#### Personalisation and Others
+
+| Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
+| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `* * *` | first time user | have a help message I can refer to | understand and start using basic features |
+| `*` | first time user | set up my background | personalize the screen to my liking |
 
 ### Use cases
 
@@ -287,36 +314,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **1. Use case: UC1 - Add contact details**
 
-**Guarantees:** The contact will be stored in the system if and only if the user enters the correct syntax.
+**Guarantees:** The contact will be stored in the system if and only if the user enters the correct inputs.
 
-**MSS**
+***MSS***
 
-1.  User types in command to add contact information with the name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
+1.  User chooses to add *contact information*.
 
-2.  SAS stores the contact internally and outputs a success message to indicate that the contact has been successfully added.
+2.  SAS stores the contact and notifies the user that the contact has been successfully added.
     
     Use case ends.
 
 **Extensions**
 
-* 1a. SAS detects an error in the input command.
+* 1a. SAS detects an error in the inputs.
   
-    * 1a1. SAS outputs the error message to the user.
+    * 1a1. SAS requests for correct inputs.
       
-    * 1a2. User types in a new command based on steps 1 to 2.
+    * 1a2. User enters new inputs.
       
-    * 1a3. Repeat steps 1a to 1a2 until the command entered is of correct syntax.
+    Steps 1a1 to 1a2 are repeated until the inputs entered are correct.
       
-      Resume use case from step 2.
+    Use case resumes from step 2.
     
 
 * 1b. SAS detects a duplicate contact with the same name.
 
     * 1b1. SAS gives the user the option of adding the contact anyway.
     
-    * 1b2. User proceeds to add the contact anyway.
-
-      Resume use case from step 2.
+    * 1b2. User proceeds to add the contact.
+      
+    Use case resumes from step 2.
     
     
 * *a. At any time. user chooses not to add the contact.
@@ -326,32 +353,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **2. Use case: UC2 - Edit events**
 
-**Preconditions:** There is at least one event in the list.
+**Preconditions:** There is at least one event in the event list.
 
-**Guarantees:** The event will be updated accordingly if and only if the command syntax is correct.
+**Guarantees:** The event will be updated accordingly if and only if the user enters the correct inputs.
 
-**MSS**
+***MSS***
 
-1.  User types in command view the list of events.
+1. User wants to view the list of events.
     
-2. User decides on the event to edit.
+2. User decides on an event to edit.
    
-3. User types in commnand to edit the event. 
+3. User edits the event. 
 
-4. SAS updates the event accordingly and outputs a success message to indicate that the event has been successfully edited.
+4. SAS updates the event accordingly and notifies user that the event has been successfully edited.
    
     Use case ends.
 
 
 **Extensions**
 
-* 3a. SAS detects an error in the input command.
+* 3a. SAS detects an error in the inputs.
 
-    * 3a1. SAS outputs the error message to the user.
+    * 3a1. SAS requests for correct inputs.
 
-    * 3a2. User types in a new command based on steps 3.
+    * 3a2. User enters new inputs.
 
-    Steps 3a1 to 3a2 are repeated until command entered is correct
+    Steps 3a1 to 3a2 are repeated until inputs entered are correct.
 
     Use case resumes from step 4.
 
@@ -365,30 +392,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:** There is at least one contact in the contact list.
 
-**Guarantees:** The contact list will be updated according to which contact(s) are deleted if and only if the command syntax is correct.
+**Guarantees:** The contact list will be updated according to which contact(s) are deleted if and only if the user enters the correct inputs.
 
-**MSS**
+***MSS***
 
-1.  User types in command view the list of contacts.
+1.  User wants to view the list of contacts.
 
 2. User decides on the contact(s) to delete.
 
-3. User types in the command to delete the contact(s).
+3. User deletes the contact(s).
 
-4. SAS deletes the specified contact(s), updates the contact list accordingly, and outputs a success message to indicate that the contact(s) has been successfully deleted.
+4. SAS deletes the specified contact(s), updates the contact list accordingly, and notifies user that the contact(s) has been successfully deleted.
    
     Use case ends.
 
 
 **Extensions**
 
-* 3a. SAS detects an error in the input command.
+* 3a. SAS detects an error in the inputs.
 
-    * 3a1. SAS outputs the error message to the user.
+    * 3a1. SAS requests for correct inputs.
 
-    * 3a2. User types in a new command based on steps 3.
+    * 3a2. User enters new inputs.
 
-  Steps 3a1 to 3a2 are repeated until command entered is of correct syntax.
+  Steps 3a1 to 3a2 are repeated until inputs entered are correct.
 
   Use case resumes from step 4.
   
@@ -400,15 +427,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **4. Use case: UC4 - Find contact details**
 
-**Guarantees:** A filtered list of contacts that match the user key words will be shown, if and only if the command syntax is correct.
+**Guarantees:** A filtered list of contacts that match the user keywords will be shown, if and only if  the user enters the correct inputs.
 
-**MSS**
+***MSS***
 
 1. User decides on the keyword(s) to find.
 
-2. User types in the command to find contact(s) that match with the specified keyword(s).
+2. User enters specified keyword(s).
 
-3. SAS lists the matched contacts accordingly and outputs a success message to indicate the number of matched contacts found.
+3. SAS shows the matched contacts accordingly and notifies user of search success.
 
     Use case ends.
 
@@ -418,7 +445,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 2a1. SAS outputs 0 matched contacts.
 
-    * 2a2. User types in a new command based on step 2 with a different keyword.
+    * 2a2. User enters new keyword(s).
 
   Steps 2a1 to 2a2 are repeated until the user finds the contacts of interest.
 
@@ -434,36 +461,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:** List of events to be sorted is displayed.
 
-**Guarantees:** The displayed list of events is sorted lexicographically according to the specified field, if the given field and command syntax are valid.
+**Guarantees:** The displayed list of events is sorted lexicographically according to the specified field, if the given field is valid.
 
-**MSS**
+***MSS***
 
-1. User types in the command to sort and provides a field to sort by. 
+1. User decides on a field to sort by.
+
+2. User inputs the specific field.
    
-2. SAS sorts the list of events. 
+3. SAS sorts the list of events by the specified field provided in step 2.
    
-3. SAS displays the sorted list of events.
+4. SAS displays the sorted list of events.
 
     Use case ends
 
 **Extensions**
 
-* 1a. SAS detects that the input command contains an invalid field. 
+* 2a. SAS detects that the input is an invalid field. 
     
-    * 1a1. SAS outputs the error message to the user.
+    * 2a1. SAS requests for a correct input.
   
-    * 1a2. User types in a new command based on step 1.
+    * 2a2. User enters a new input.
       
-    Steps 1a1-1a2 are repeated until the command contains a valid field. 
-  
-    Use case resumes from step 2.
+    Steps 2a1-2a2 are repeated until user enters a valid field.
 
-
-* 1b. SAS detects that the input command contains more than one field.
-  
-    * 1a1. SAS sorts the list by the first entered field. 
-      
     Use case resumes from step 3.
+
+
+* 2b. SAS detects that the input contains more than one field.
+  
+    * 2b1. SAS sorts the list by the first field entered. 
+      
+    Use case resumes from step 4.
     
 
 * *a. User chooses not to sort the list.
@@ -488,13 +517,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
 
 
-* MSS: [Main Success Scenario](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html). Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
+* [Main Success Scenario](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html#requirements-specifying-requirements-use-cases-details) (MSS): Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
 
 
-* CLI: Command Line Interface. Text-based user interface.
+* Command Line Interface (CLI): Text-based user interface.
 
 
-* GUI: Graphical User Interface. Graphic-based user interface.
+* Graphical User Interface (GUI): Graphic-based user interface.
 
 
 * Interface: The place at which independent and often unrelated systems meet and act on or communicate with each other/ a way for the user to interact with the system.
@@ -502,6 +531,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * Telegram handle: Username of a [Telegram](https://telegram.org/) user.
 
+
+* Professor (Prof): A lecturer who teaches a module in NUS.
+
+
+* Teaching Assistant (TA): A student tutor employed to teach small group lessons in NUS.
+
+
+* Contact information: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
 
 --------------------------------------------------------------------------------------------------------------------
 
