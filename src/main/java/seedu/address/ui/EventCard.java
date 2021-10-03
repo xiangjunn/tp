@@ -58,12 +58,12 @@ public class EventCard extends UiPart<Region> {
             new HashSet<>(List.of(new Tag("Lectures"), new Tag("Recurring")))
             );
         id.setText("1. ");
-        name.setText(event.eventName);
-        from.setText(event.from);
-        address.setText(event.address);
-        meetingLink.setText(event.meetingLink);
-        description.setText(event.description);
-        event.tags.stream()
+        name.setText(event.getEventName());
+        from.setText(event.getFrom());
+        address.setText(event.getAddress());
+        meetingLink.setText(event.getMeetingLink());
+        description.setText(event.getDescription());
+        event.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -76,13 +76,13 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.event = event;
         id.setText(displayedIndex + ". ");
-        name.setText(event.eventName);
-        from.setText(event.from);
-        to.setText(event.to);
-        address.setText(event.address);
-        meetingLink.setText(event.meetingLink);
-        description.setText(event.description);
-        event.tags.stream()
+        name.setText(event.getEventName());
+        from.setText(event.getFrom());
+        to.setText(event.getTo());
+        address.setText(event.getAddress());
+        meetingLink.setText(event.getMeetingLink());
+        description.setText(event.getDescription());
+        event.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

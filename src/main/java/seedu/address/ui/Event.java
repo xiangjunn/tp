@@ -9,13 +9,13 @@ import seedu.address.model.tag.Tag;
  * Just a temporary class for UI testing
  */
 public class Event {
-    String eventName;
-    String from;
-    String to;
-    String address;
-    String meetingLink;
-    String description;
-    Set<Tag> tags;
+    private final String eventName;
+    private final String from;
+    private final String to;
+    private final String address;
+    private final String meetingLink;
+    private final String description;
+    private final Set<Tag> tags;
 
     Event(
         String eventName, String from, String to, String address, String meetingLink, String description,
@@ -29,6 +29,34 @@ public class Event {
         this.tags = tags;
     }
 
+    public String getEventName() {
+        return eventName;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getMeetingLink() {
+        return meetingLink;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -38,10 +66,10 @@ public class Event {
             return false;
         }
         Event event = (Event) o;
-        return Objects.equals(eventName, event.eventName) && Objects.equals(from, event.from) &&
-            Objects.equals(to, event.to) && Objects.equals(address, event.address) &&
-            Objects.equals(meetingLink, event.meetingLink) &&
-            Objects.equals(description, event.description) && Objects.equals(tags, event.tags);
+        return Objects.equals(eventName, event.eventName) && Objects.equals(from, event.from)
+            && Objects.equals(to, event.to) && Objects.equals(address, event.address)
+            && Objects.equals(meetingLink, event.meetingLink)
+            && Objects.equals(description, event.description) && Objects.equals(tags, event.tags);
     }
 
     @Override
