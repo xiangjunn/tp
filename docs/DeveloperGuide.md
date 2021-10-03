@@ -255,73 +255,290 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user:** [School of Computing](https://www.comp.nus.edu.sg) (SoC) students who:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Need to manage large number of contacts and events
+* Prefer desktop apps over other types
+* Can type fast and prefer typing to mouse interactions
+* Are reasonably comfortable using *CLI* apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
-
+**Value proposition**: Manage contacts of peers, *Profs* and events such as classes and Co-Curricular Activities in
+a single system faster than a typical mouse/ *GUI* driven app while maintaining user-friendliness
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
+#### Contacts
+
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `* * *` | hardworking student | add contact of my *TA*/*Profs* | save their contacts and ask them questions on my modules. |
+| `* * *` | careless student | edit the contact of my *TA*/*Profs* | correct mistakes while adding contacts or update my TA contact details |
+| `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
+| `* * *` | SoC student | view the contact of my *TA*/*Profs* | |
+| `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
+| `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
+| `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
+| `* *` | organised SoC students | categorize the contacts of students/*TA*/*Profs* | view them separately |
+| `* *` | student with many contacts | add the profile picture of *TA*/*Profs* | more easily differentiate my contacts and remember their faces |
+| `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
+| `*` | long term user | archive some contacts | still save old contacts without cluttering my current screen |
 
-*{More to be added}*
+#### Events
+
+| Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
+| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `* * *` | SoC student | add details of event | keep track of the CCA dates and time |
+| `* * *` | SoC student | delete details of event | remove events that have finished or are cancelled |
+| `* * *` | SoC student | edit details of event | update event details |
+| `* * *` | SoC student | view all CCA/events | have a rough overview of my schedule | 
+| `* * *` | SoC student | search for an event based on event name | easily refer to the event details |
+| `* *` | SoC student | sort the events by time | prepare for upcoming events |
+| `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
+| `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
+| `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | synchronize my events across my calendars |
+| `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |
+| `*` | Soc student with many commitments | have a reminder of upcoming events | |
+
+#### Personalisation and Others
+
+| Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
+| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `* * *` | first time user | have a help message I can refer to | understand and start using basic features |
+| `*` | first time user | set up my background | personalize the screen to my liking |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SoConnect Application System (SAS)` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**1. Use case: UC1 - Add contact details**
 
-**MSS**
+**Guarantees:** The contact will be stored in the system if and only if the user enters the correct inputs.
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+***MSS***
+
+1.  User chooses to add *contact information*.
+
+2.  SAS stores the contact and notifies the user that the contact has been successfully added.
+    
+    Use case ends.
+
+**Extensions**
+
+* 1a. SAS detects an error in the inputs.
+  
+    * 1a1. SAS requests for correct inputs.
+      
+    * 1a2. User enters new inputs.
+      
+    Steps 1a1 to 1a2 are repeated until the inputs entered are correct.
+      
+    Use case resumes from step 2.
+    
+
+* 1b. SAS detects a duplicate contact with the same name.
+
+    * 1b1. SAS gives the user the option of adding the contact anyway.
+    
+    * 1b2. User proceeds to add the contact.
+      
+    Use case resumes from step 2.
+    
+    
+* *a. At any time. user chooses not to add the contact.
+
+    Use case ends.
+
+
+**2. Use case: UC2 - Edit events**
+
+**Preconditions:** There is at least one event in the event list.
+
+**Guarantees:** The event will be updated accordingly if and only if the user enters the correct inputs.
+
+***MSS***
+
+1. User wants to view the list of events.
+    
+2. User decides on an event to edit.
+   
+3. User edits the event. 
+
+4. SAS updates the event accordingly and notifies user that the event has been successfully edited.
+   
+    Use case ends.
+
+
+**Extensions**
+
+* 3a. SAS detects an error in the inputs.
+
+    * 3a1. SAS requests for correct inputs.
+
+    * 3a2. User enters new inputs.
+
+    Steps 3a1 to 3a2 are repeated until inputs entered are correct.
+
+    Use case resumes from step 4.
+
+
+* *a. User chooses not to edit the event.
+
+    Use case ends.
+
+
+**3. Use case: UC3 - Delete contacts**
+
+**Preconditions:** There is at least one contact in the contact list.
+
+**Guarantees:** The contact list will be updated according to which contact(s) are deleted if and only if the user enters the correct inputs.
+
+***MSS***
+
+1.  User wants to view the list of contacts.
+
+2. User decides on the contact(s) to delete.
+
+3. User deletes the contact(s).
+
+4. SAS deletes the specified contact(s), updates the contact list accordingly, and notifies user that the contact(s) has been successfully deleted.
+   
+    Use case ends.
+
+
+**Extensions**
+
+* 3a. SAS detects an error in the inputs.
+
+    * 3a1. SAS requests for correct inputs.
+
+    * 3a2. User enters new inputs.
+
+  Steps 3a1 to 3a2 are repeated until inputs entered are correct.
+
+  Use case resumes from step 4.
+  
+
+* *a. User chooses not to delete the contact(s).
+
+    Use case ends.
+
+
+**4. Use case: UC4 - Find contact details**
+
+**Guarantees:** A filtered list of contacts that match the user keywords will be shown, if and only if  the user enters the correct inputs.
+
+***MSS***
+
+1. User decides on the keyword(s) to find.
+
+2. User enters specified keyword(s).
+
+3. SAS shows the matched contacts accordingly and notifies user of search success.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. SAS fails to find any matched contacts.
 
-  Use case ends.
+    * 2a1. SAS outputs 0 matched contacts.
 
-* 3a. The given index is invalid.
+    * 2a2. User enters new keyword(s).
 
-    * 3a1. AddressBook shows an error message.
+  Steps 2a1 to 2a2 are repeated until the user finds the contacts of interest.
 
-      Use case resumes at step 2.
+  Use case resumes from step 3.
+
+
+* *a. User chooses not to find contact(s).
+
+    Use case ends.
+
+
+**5. Use case: UC5 - Sort events**
+
+**Preconditions:** List of events to be sorted is displayed.
+
+**Guarantees:** The displayed list of events is sorted lexicographically according to the specified field, if the given field is valid.
+
+***MSS***
+
+1. User decides on a field to sort by.
+
+2. User inputs the specific field.
+   
+3. SAS sorts the list of events by the specified field provided in step 2.
+   
+4. SAS displays the sorted list of events.
+
+    Use case ends
+
+**Extensions**
+
+* 2a. SAS detects that the input is an invalid field. 
+    
+    * 2a1. SAS requests for a correct input.
+  
+    * 2a2. User enters a new input.
+      
+    Steps 2a1-2a2 are repeated until user enters a valid field.
+
+    Use case resumes from step 3.
+
+
+* 2b. SAS detects that the input contains more than one field.
+  
+    * 2b1. SAS sorts the list by the first field entered. 
+      
+    Use case resumes from step 4.
+    
+
+* *a. User chooses not to sort the list.
+
+    Use case ends.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should not depend on Internet connection.
+5. Only one user should be able to use the system at one time.
+6. Should be usable by colorblind students
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Mainstream OS**: Windows, Linux, Unix, OS-X.
+
+
+* [Main Success Scenario](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html#requirements-specifying-requirements-use-cases-details) (MSS): Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
+
+
+* Command Line Interface (CLI): Text-based user interface.
+
+
+* Graphical User Interface (GUI): Graphic-based user interface.
+
+
+* Interface: The place at which independent and often unrelated systems meet and act on or communicate with each other/ a way for the user to interact with the system.
+
+
+* Telegram handle: Username of a [Telegram](https://telegram.org/) user.
+
+
+* Professor (Prof): A lecturer who teaches a module in NUS.
+
+
+* Teaching Assistant (TA): A student tutor employed to teach small group lessons in NUS.
+
+
+* Contact information: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
 
 --------------------------------------------------------------------------------------------------------------------
 

@@ -5,55 +5,62 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
-
 ## Project team
 
-### John Doe
 
-<img src="images/johndoe.png" width="200px">
+### Gordon Yit Hongyao
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+<img src="images/gordon25.png" width="200px">
 
-* Role: Project Advisor
+[github](http://github.com/gordon25) |
+[portfolio](team/gordon25.md) |
+[email](mailto:e0564958@u.nus.edu) 
 
-### Jane Doe
+* Role: Documentation, Scheduling and Tracking
+* Responsibilities: Storage
 
-<img src="images/johndoe.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+### Janice Chen
 
-* Role: Team Lead
+<img src="images/janjanchen.png" width="200px">
+
+[github](http://github.com/janjanchen) |
+[portfolio](team/janjanchen.md) |
+[email](mailto:e0559731@u.nus.edu)
+
+* Role: Code Quality
+* Responsibilities: Model
+
+
+### Lee Chun Wei
+
+<img src="images/chunweii.png" width="200px">
+
+[github](http://github.com/chunweii) | 
+[portfolio](team/chunweii.md) |
+[email](mailto:chunweilee.99@u.nus.edu)
+
+* Role: Team Lead, Deliverables and Deadlines
 * Responsibilities: UI
 
-### Johnny Doe
+### Ng Xiang Jun
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/xiangjunn.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[github](http://github.com/xiangjunn) |
+[portfolio](team/xiangjunn.md) | 
+[email](mailto:ng.xiangjun99@u.nus.edu)
 
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
+* Role: Integration
 * Responsibilities: UI
+
+### Pham Chau Giang
+
+<img src="images/pcgiang.png" width="200px">
+
+[github](http://github.com/pcgiang) |
+[portfolio](team/pcgiang.md) |
+[email](mailto:e0564779@u.nus.edu)
+
+* Role: Testing
+* Responsibilities: Model
