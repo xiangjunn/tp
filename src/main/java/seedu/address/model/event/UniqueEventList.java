@@ -79,7 +79,7 @@ public class UniqueEventList implements Iterable<Event> {
         }
     }
 
-    public void setEvent(UniqueEventList replacement) {
+    public void setEvents(UniqueEventList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
