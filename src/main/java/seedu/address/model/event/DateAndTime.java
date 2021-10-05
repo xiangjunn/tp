@@ -1,12 +1,10 @@
 package seedu.address.model.event;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.time.LocalDateTime;
 
 /**
  * Represents time of an event in the event list.
- * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
+ * Guarantees: immutable;
  */
 
 public class DateAndTime {
@@ -27,20 +25,7 @@ public class DateAndTime {
      * @param time A valid start DateAndTime
      */
     public DateAndTime(String time) {
-        checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
         this.time = LocalDateTime.parse(time);
-    }
-
-    /**
-     * Returns true if a given dateAndTime is valid
-     */
-    public static boolean isValidTime(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return time.toString();
     }
 
     @Override
@@ -49,11 +34,4 @@ public class DateAndTime {
                 || (other instanceof seedu.address.model.event.DateAndTime // instanceof handles nulls
                 && time.equals(((DateAndTime) other).time)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return time.hashCode();
-    }
-
-
 }

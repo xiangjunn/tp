@@ -16,10 +16,4 @@ class StartDateTimeTest {
     public void dummyTest() {
         assertEquals(2, 2);
     }
-
-    // TODO: 10/5/2021 update DateAndTime format
-    @Test
-    void isValidTime() {
-        assertThrows(NullPointerException.class, () -> StartDateTime.isValidTime(null));
-    }
 }
