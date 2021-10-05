@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents zoom link of an event.
  * Guarantees: immutable}
  */
 public class ZoomLink {
+
+    // TODO: 10/6/2021 add validation
+    public static final String VALIDATION_REGEX = "";
 
     public final String value;
 

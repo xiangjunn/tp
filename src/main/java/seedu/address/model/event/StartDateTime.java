@@ -7,7 +7,7 @@ package seedu.address.model.event;
 public class StartDateTime extends DateAndTime {
 
     /**
-     * Constructs an {@code EndDateTime}
+     * Constructs an {@code StartDateTime}
      *
      * @param time A valid DateAndTime
      */
