@@ -22,19 +22,9 @@ public class ZoomLink {
     }
 
     @Override
-    public String toString() {
-        return value;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ZoomLink // instanceof handles nulls
                 && value.equals(((ZoomLink) other).value)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
     }
 }

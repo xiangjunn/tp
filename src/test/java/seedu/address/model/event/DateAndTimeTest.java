@@ -1,6 +1,5 @@
 package seedu.address.model.event;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -14,8 +13,8 @@ class DateAndTimeTest {
     // TODO: 10/5/2021 update DateAndTime format
     @Test
     void isValidTime() {
-        //dummy test
-        assertEquals(2, 2);
+        assertThrows(NullPointerException.class, () -> DateAndTime.isValidTime(null));
     }
+
 }
 

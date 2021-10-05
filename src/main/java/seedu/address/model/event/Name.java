@@ -37,22 +37,10 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
-
-    @Override
-    public String toString() {
-        return fullName;
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof seedu.address.model.event.Name // instanceof handles nulls
                 && fullName.equals(((seedu.address.model.event.Name) other).fullName)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return fullName.hashCode();
-    }
-
 }
