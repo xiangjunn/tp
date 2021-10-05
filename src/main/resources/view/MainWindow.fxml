@@ -56,7 +56,7 @@
             <padding>
               <Insets right="10" bottom="10" left="10" />
             </padding>
-            <Label fx:id="contact" text="Contacts" alignment="TOP_CENTER"></Label>
+            <Label fx:id="contact" text="Your contacts" alignment="TOP_CENTER"></Label>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
           </VBox>
           <!-- Events -->
@@ -65,7 +65,7 @@
             <padding>
               <Insets right="10" bottom="10" left="10" />
             </padding>
-            <Label fx:id="event" text="Events" alignment="TOP_CENTER"></Label>
+            <Label fx:id="event" text="Your events" alignment="TOP_CENTER"></Label>
             <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
           </VBox>
         </HBox>
