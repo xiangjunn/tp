@@ -15,19 +15,19 @@ public class Event {
     private final String from;
     private final String to;
     private final String address;
-    private final String meetingLink;
+    private final String zoomLink;
     private final String description;
     private final Set<Tag> tags;
 
     Event(
-        String eventName, String from, String to, String address, String meetingLink, String description,
+        String eventName, String from, String to, String address, String zoomLink, String description,
         Set<Tag> tags) {
-        requireAllNonNull(eventName, from, to, address, meetingLink, description, tags);
+        requireAllNonNull(eventName, from, to, address, zoomLink, description, tags);
         this.eventName = eventName;
         this.from = from;
         this.to = to;
         this.address = address;
-        this.meetingLink = meetingLink;
+        this.zoomLink = zoomLink;
         this.description = description;
         this.tags = tags;
     }
@@ -48,8 +48,8 @@ public class Event {
         return address;
     }
 
-    public String getMeetingLink() {
-        return meetingLink;
+    public String getZoomLink() {
+        return zoomLink;
     }
 
     public String getDescription() {
@@ -71,12 +71,12 @@ public class Event {
         Event event = (Event) o;
         return Objects.equals(eventName, event.eventName) && Objects.equals(from, event.from)
             && Objects.equals(to, event.to) && Objects.equals(address, event.address)
-            && Objects.equals(meetingLink, event.meetingLink)
+            && Objects.equals(zoomLink, event.zoomLink)
             && Objects.equals(description, event.description) && Objects.equals(tags, event.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventName, from, to, address, meetingLink, description, tags);
+        return Objects.hash(eventName, from, to, address, zoomLink, description, tags);
     }
 }

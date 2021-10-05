@@ -53,7 +53,7 @@ public class EventCard extends UiPart<Region> {
         from.setText("from: " + event.getFrom());
         to.setText("to: " + event.getTo());
         address.setText("location: " + event.getAddress());
-        meetingLink.setText("link: " + event.getMeetingLink());
+        meetingLink.setText("link: " + event.getZoomLink());
         description.setText("description: " + event.getDescription());
         event.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
