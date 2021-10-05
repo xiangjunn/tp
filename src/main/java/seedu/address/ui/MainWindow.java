@@ -116,11 +116,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         ObservableList<Event> events = FXCollections.observableArrayList(
-            new Event("CS2103T project meeting", "02 October 2021, 21:00", null, null,
+            new Event("CS2103T project meeting", "02 October 2021, 21:00", "", "",
                 "nus-sg.zoom.us/j/21342513543", "Meeting every week",
                 Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
             new Event("Basketball training", "02 October 2021, 20:00", "02 October 2021, 21:00",
-                "NUS Sport Centre", null, "Meeting every week",
+                "NUS Sport Centre", "", "Meeting every week",
                 Set.of(new Tag("Recurring"), new Tag("CCA")))
         );
 

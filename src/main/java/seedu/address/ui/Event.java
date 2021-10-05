@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class Event {
     Event(
         String eventName, String from, String to, String address, String meetingLink, String description,
         Set<Tag> tags) {
+        requireAllNonNull(eventName, from, to, address, meetingLink, description, tags);
         this.eventName = eventName;
         this.from = from;
         this.to = to;
