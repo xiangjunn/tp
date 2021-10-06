@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class ZoomLink {
 
     // TODO: 10/6/2021 add validation
-    public static final String VALIDATION_REGEX = "";
+    public static final String VALIDATION_REGEX = ".*";
 
     public final String value;
 
@@ -22,6 +22,14 @@ public class ZoomLink {
     public ZoomLink(String link) {
         requireNonNull(link);
         value = link;
+    }
+
+    // TODO: 10/6/2021 add test cases for invalid zoom link
+    /**
+     * Returns true if a given string is a valid zoom link.
+     */
+    public static boolean isValidZoomLink(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

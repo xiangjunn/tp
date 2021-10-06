@@ -29,10 +29,18 @@ public class Name {
         fullName = name;
     }
 
+    // TODO: 10/6/2021 update test cases for isValidName()
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.event.Name // instanceof handles nulls
-                && fullName.equals(((seedu.address.model.event.Name) other).fullName)); // state check
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
     }
 }
