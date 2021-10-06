@@ -32,7 +32,7 @@ public class EventCard extends UiPart<Region> {
     private Label address;
 
     @FXML
-    private Label meetingLink;
+    private Label zoomLink;
 
     @FXML
     private Label description;
@@ -52,7 +52,7 @@ public class EventCard extends UiPart<Region> {
         from.setText("from: " + event.getFrom());
         to.setText("to: " + event.getTo());
         address.setText("location: " + event.getAddress());
-        meetingLink.setText("link: " + event.getZoomLink());
+        zoomLink.setText("link: " + event.getZoomLink());
         description.setText("description: " + event.getDescription());
         event.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))

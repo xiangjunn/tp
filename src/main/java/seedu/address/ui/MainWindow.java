@@ -121,7 +121,18 @@ public class MainWindow extends UiPart<Stage> {
                 Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
             new Event("Basketball training", "02 October 2021, 20:00", "02 October 2021, 21:00",
                 "NUS Sport Centre", "", "Meeting every week",
-                Set.of(new Tag("Recurring"), new Tag("CCA")))
+                Set.of(new Tag("Recurring"), new Tag("CCA"))),
+            new Event("Google Interview", "09 October 2021, 15:30", "",
+                "", "www.google.com", "Technical Interview for Google Summer Internship",
+                Set.of(new Tag("Internship"))),
+            new Event("Dance class", "13 October 2021, 20:00", "13 October 2021, 21:00",
+                "NUS UTown", "", "Meeting every week",
+                Set.of(new Tag("Recurring"), new Tag("CCA"))),
+            new Event("CS2101 OP2", "26 October 2021, 12:00", "26 October 2021, 14:00",
+                "", "nus-sg.zoom.us/j/567435822643", "Lorem ipsum dolor sit amet, consectetur"
+                + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
+                + "lobortis nisl, convallis placerat urna.",
+                Set.of(new Tag("Recurring"), new Tag("CS2101")))
         );
 
         personListPanel = new EventListPanel(events);

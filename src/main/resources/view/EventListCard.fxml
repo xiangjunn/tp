@@ -25,7 +25,7 @@
             <Label fx:id="from" styleClass="cell_small_label" text="\$from" />
             <Label fx:id="to" styleClass="cell_small_label" text="\$to" />
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="meetingLink" styleClass="cell_small_label" text="\$meeting-link" />
+            <Label fx:id="zoomLink" styleClass="cell_small_label" text="\$meeting-link" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
             <FlowPane fx:id="tags" />
         </VBox>
