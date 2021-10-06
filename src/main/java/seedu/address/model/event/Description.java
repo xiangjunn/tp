@@ -11,9 +11,9 @@ public class Description {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Description}.
      *
-     * @param remark A valid address.
+     * @param remark A valid description.
      */
     public Description(String remark) {
         requireNonNull(remark);
