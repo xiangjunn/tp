@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
-import java.util.Objects;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -61,19 +60,20 @@ public class EventCard extends UiPart<Region> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+
+        // instanceof handles nulls
+        if (!(other instanceof EventCard)) {
             return false;
         }
-        EventCard eventCard = (EventCard) o;
-        return Objects.equals(event, eventCard.event) && Objects.equals(id, eventCard.id);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(event, id);
+        // state check
+        EventCard card = (EventCard) other;
+        return id.getText().equals(card.id.getText())
+            && event.equals(card.event);
     }
 }
