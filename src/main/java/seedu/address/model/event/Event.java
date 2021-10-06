@@ -22,7 +22,7 @@ public class Event {
     private final DateAndTime endDateAndTime;
     private final Description description;
     private final Address address;
-    private final Zoom zoom;
+    private final ZoomLink zoomLink;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -30,14 +30,14 @@ public class Event {
      * All fields must be present and not null (currently).
      */
     public Event(Name name, DateAndTime startDateAndTime, DateAndTime endDateAndTime,
-                 Description description, Address address, Zoom zoom, Set<Tag> tags) {
-        requireAllNonNull(name, startDateAndTime, endDateAndTime, description, address, zoom, tags);
+                 Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
+        requireAllNonNull(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
         this.endDateAndTime = endDateAndTime;
         this.description = description;
         this.address = address;
-        this.zoom = zoom;
+        this.zoomLink = zoomLink;
         this.tags.addAll(tags);
     }
 
@@ -61,8 +61,8 @@ public class Event {
         return address;
     }
 
-    public Zoom getZoom() {
-        return zoom;
+    public ZoomLink getZoomLink() {
+        return zoomLink;
     }
 
     /**
@@ -106,7 +106,7 @@ public class Event {
                 && otherEvent.getEndDateAndTime().equals(getEndDateAndTime())
                 && otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getAddress().equals(getAddress())
-                && otherEvent.getZoom().equals(getZoom())
+                && otherEvent.getZoomLink().equals(getZoomLink())
                 && otherEvent.getTags().equals(getTags());
     }
 
@@ -114,7 +114,7 @@ public class Event {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, startDateAndTime, endDateAndTime, description,
-                address, zoom, tags);
+                address, zoomLink, tags);
     }
 
     @Override
@@ -129,8 +129,8 @@ public class Event {
                 .append(getDescription())
                 .append("; Address: ")
                 .append(getAddress())
-                .append("; Zoom: ")
-                .append(getZoom());
+                .append("; ZoomLink: ")
+                .append(getZoomLink());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
