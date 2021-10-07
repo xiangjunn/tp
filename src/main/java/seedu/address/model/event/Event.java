@@ -7,37 +7,34 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents an Event in SoConnect.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
-
-    // Identity fields
+    //Compulsory fields
     private final Name name;
-    private final Time startTime;
-    private final Time endTime;
-    private final String description;
-    private final String zoomLink;
+    private final DateAndTime startDateAndTime;
 
-
-    // Data fields
+    //Optional fields
+    private final DateAndTime endDateAndTime;
+    private final Description description;
     private final Address address;
+    private final ZoomLink zoomLink;
+
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * All fields must be present and not null (currently).
      */
-    public Event(Name name, Time startTime, Time endTime, String description, Address address, String zoomLink,
-                 Set<Tag> tags) {
-        requireAllNonNull(name, startTime, endTime, description, address, zoomLink, tags);
+    public Event(Name name, DateAndTime startDateAndTime, DateAndTime endDateAndTime,
+                 Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
+        requireAllNonNull(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
         this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDateAndTime = startDateAndTime;
+        this.endDateAndTime = endDateAndTime;
         this.description = description;
         this.address = address;
         this.zoomLink = zoomLink;
@@ -48,15 +45,15 @@ public class Event {
         return name;
     }
 
-    public Time getStartTime() {
-        return this.startTime;
+    public DateAndTime getStartDateAndTime() {
+        return startDateAndTime;
     }
 
-    public Time getEndTime() {
-        return this.endTime;
+    public DateAndTime getEndDateAndTime() {
+        return endDateAndTime;
     }
 
-    public String getDescription() {
+    public Description getDescription() {
         return description;
     }
 
@@ -64,7 +61,7 @@ public class Event {
         return address;
     }
 
-    public String getZoomLink() {
+    public ZoomLink getZoomLink() {
         return zoomLink;
     }
 
@@ -77,8 +74,8 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both events have the same name.
+     * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
@@ -90,8 +87,8 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both events have the same details.
+     * This defines a stronger notion of equality between two events.
      */
     @Override
     public boolean equals(Object other) {
@@ -105,8 +102,8 @@ public class Event {
 
         Event otherEvent = (Event) other;
         return otherEvent.getName().equals(getName())
-                && otherEvent.getStartTime().equals(getStartTime())
-                && otherEvent.getEndTime().equals(getEndTime())
+                && otherEvent.getStartDateAndTime().equals(getStartDateAndTime())
+                && otherEvent.getEndDateAndTime().equals(getEndDateAndTime())
                 && otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getAddress().equals(getAddress())
                 && otherEvent.getZoomLink().equals(getZoomLink())
@@ -116,22 +113,23 @@ public class Event {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, description, address, zoomLink, tags);
+        return Objects.hash(name, startDateAndTime, endDateAndTime, description,
+                address, zoomLink, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("; StartTime: ")
-                .append(getStartTime())
-                .append("; EndTime: ")
-                .append(getEndTime())
+                .append("; Start: ")
+                .append(getStartDateAndTime())
+                .append("; End: ")
+                .append(getEndDateAndTime())
                 .append("; Description: ")
                 .append(getDescription())
                 .append("; Address: ")
                 .append(getAddress())
-                .append("; Zoom Link: ")
+                .append("; ZoomLink: ")
                 .append(getZoomLink());
 
         Set<Tag> tags = getTags();
@@ -141,7 +139,5 @@ public class Event {
         }
         return builder.toString();
     }
-
-
 }
 
