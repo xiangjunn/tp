@@ -31,15 +31,10 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return value;
     }
 
     @Override
@@ -48,10 +43,4 @@ public class Address {
                 || (other instanceof Address // instanceof handles nulls
                 && value.equals(((Address) other).value)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }

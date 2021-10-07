@@ -1,13 +1,11 @@
 package seedu.address.model.event;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents time of an event in the event list.
- * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
+ * Guarantees: immutable;
  */
 
 public class DateAndTime {
@@ -18,7 +16,7 @@ public class DateAndTime {
      * @// TODO: 10/5/2021 add requirement for time
      *
      */
-    public static final String VALIDATION_REGEX = "";
+    public static final String VALIDATION_REGEX = ".*";
 
     public final LocalDateTime time;
 
@@ -28,33 +26,21 @@ public class DateAndTime {
      * @param time A valid start DateAndTime
      */
     public DateAndTime(String time) {
-        checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
         this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
+    // TODO: 10/6/2021 add test case for invalid date and time
     /**
-     * Returns true if a given dateAndTime is valid
+     * Returns true if a given string is a valid DateAndTime.
      */
-    public static boolean isValidTime(String test) {
+    public static boolean isValidDateTime(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return time.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.event.DateAndTime // instanceof handles nulls
+                || (other instanceof DateAndTime // instanceof handles nulls
                 && time.equals(((DateAndTime) other).time)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return time.hashCode();
-    }
-
-
 }

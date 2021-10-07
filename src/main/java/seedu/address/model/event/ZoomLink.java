@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents zoom link of an event.
  * Guarantees: immutable}
  */
 public class ZoomLink {
+
+    // TODO: 10/6/2021 add validation
+    public static final String VALIDATION_REGEX = ".*";
 
     public final String value;
 
@@ -21,9 +24,12 @@ public class ZoomLink {
         value = link;
     }
 
-    @Override
-    public String toString() {
-        return value;
+    // TODO: 10/6/2021 add test cases for invalid zoom link
+    /**
+     * Returns true if a given string is a valid zoom link.
+     */
+    public static boolean isValidZoomLink(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -31,10 +37,5 @@ public class ZoomLink {
         return other == this // short circuit if same object
                 || (other instanceof ZoomLink // instanceof handles nulls
                 && value.equals(((ZoomLink) other).value)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
     }
 }
