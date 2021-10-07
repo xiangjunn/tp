@@ -1,10 +1,10 @@
-package seedu.address.model.event;
+package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
 
 /**
- * Represents zoom link of an event.
+ * Represents zoom link of a person (usually a professor or tutor).
  * Guarantees: immutable
  */
 public class ZoomLink {
