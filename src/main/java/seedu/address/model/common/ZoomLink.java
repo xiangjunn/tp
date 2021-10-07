@@ -9,6 +9,9 @@ import static java.util.Objects.requireNonNull;
  */
 public class ZoomLink {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Zoom link should be in http://[link].com format";
+
     // TODO: 10/6/2021 add validation
     public static final String VALIDATION_REGEX = ".*";
 

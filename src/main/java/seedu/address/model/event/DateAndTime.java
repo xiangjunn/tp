@@ -1,6 +1,7 @@
 package seedu.address.model.event;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents time of an event in the event list.
@@ -25,7 +26,7 @@ public class DateAndTime {
      * @param time A valid start DateAndTime
      */
     public DateAndTime(String time) {
-        this.time = LocalDateTime.parse(time);
+        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     // TODO: 10/6/2021 add test case for invalid date and time
