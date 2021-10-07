@@ -19,6 +19,13 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Address;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.EndDateTime;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.Name;
+import seedu.address.model.event.StartDateTime;
+import seedu.address.model.event.ZoomLink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -116,23 +123,24 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         ObservableList<Event> events = FXCollections.observableArrayList(
-            new Event("CS2103T project meeting", "02 October 2021, 21:00", "", "",
-                "nus-sg.zoom.us/j/21342513543", "Meeting every week",
+            new Event(new Name("CS2103T project meeting"), new StartDateTime("2021-10-02T21:00"),
+                new EndDateTime("2021-10-02T22:00"), new Description(""), new Address("."),
+                new ZoomLink("nus-sg.zoom.us/j/21342513543"),
                 Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
-            new Event("Basketball training", "02 October 2021, 20:00", "02 October 2021, 21:00",
-                "NUS Sport Centre", "", "Meeting every week",
+            new Event(new Name("Basketball training"), new StartDateTime("2021-10-02T20:00"),
+                new EndDateTime("2021-10-02T21:00"), new Description("Meeting every week"),
+                new Address("NUS Sport Centre"), new ZoomLink("."),
                 Set.of(new Tag("Recurring"), new Tag("CCA"))),
-            new Event("Google Interview", "09 October 2021, 15:30", "",
-                "", "www.google.com", "Technical Interview for Google Summer Internship",
+            new Event(new Name("Google Interview"), new StartDateTime("2021-10-09T15:30"),
+                new EndDateTime("2021-10-09T16:00"), new Description(""), new Address("."),
+                new ZoomLink("careers.google.com/summer"),
                 Set.of(new Tag("Internship"))),
-            new Event("Dance class", "13 October 2021, 20:00", "13 October 2021, 21:00",
-                "NUS UTown", "", "Meeting every week",
-                Set.of(new Tag("Recurring"), new Tag("CCA"))),
-            new Event("CS2101 OP2", "26 October 2021, 12:00", "26 October 2021, 14:00",
-                "", "nus-sg.zoom.us/j/567435822643", "Lorem ipsum dolor sit amet, consectetur"
+            new Event(new Name("Dance class"), new StartDateTime("2021-10-13T20:00"),
+                new EndDateTime("2021-10-13T22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
                 + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
-                + "lobortis nisl, convallis placerat urna.",
-                Set.of(new Tag("Recurring"), new Tag("CS2101")))
+                + "lobortis nisl, convallis placerat urna."),
+                new Address("NUS UTown"), new ZoomLink("."),
+                Set.of(new Tag("Recurring"), new Tag("CCA")))
         );
 
         personListPanel = new EventListPanel(events);

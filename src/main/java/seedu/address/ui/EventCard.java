@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of an {@code Event}.
@@ -48,12 +49,12 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.event = event;
         id.setText(displayedIndex + ". ");
-        name.setText(event.getEventName());
-        from.setText("from: " + event.getFrom());
-        to.setText("to: " + event.getTo());
-        address.setText("location: " + event.getAddress());
-        zoomLink.setText("link: " + event.getZoomLink());
-        description.setText("description: " + event.getDescription());
+        name.setText(event.getName().fullName);
+        from.setText("from: " + event.getStartDateAndTime().time);
+        to.setText("to: " + event.getEndDateAndTime().time);
+        address.setText("location: " + event.getAddress().value);
+        zoomLink.setText("link: " + event.getZoomLink().value);
+        description.setText("description: " + event.getDescription().value);
         event.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
