@@ -15,7 +15,7 @@ import seedu.address.model.event.exceptions.EventNotFoundException;
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
  * An event is considered unique by comparing using {@code Event#isSameEvent(Event)}. As such, adding and updating of
  * events uses Event#isSameEvent(Event) for equality so as to ensure that the event being added or updated is
- * unique in terms of details in the UniqueEventList. However, the removal of an event uses Event#equals(Object) so
+ * unique in terms of event name in the UniqueEventList. However, the removal of an event uses Event#equals(Object) so
  * as to ensure that the event with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -51,7 +51,7 @@ public class UniqueEventList implements Iterable<Event> {
     /**
      * Replaces the event {@code target} in the list with {@code editedEvent}.
      * {@code target} must exist in the list.
-     * The event details of {@code editedEvent} must not be the same as another existing event in the list.
+     * The event name of {@code editedEvent} must not be the same as another existing event in the list.
      */
     public void setEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
