@@ -90,7 +90,7 @@ public class UniqueEventList implements Iterable<Event> {
      */
     public void setEvents(List<Event> events) {
         requireAllNonNull(events);
-        if (!personsAreUnique(events)) {
+        if (!eventsAreUnique(events)) {
             throw new DuplicateEventException();
         }
 
