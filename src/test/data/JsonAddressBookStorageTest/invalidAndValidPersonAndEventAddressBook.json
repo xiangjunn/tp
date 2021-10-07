@@ -1,0 +1,38 @@
+{
+  "persons": [ {
+    "name": "Valid Person",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "address": "4th street"
+  }, {
+    "name": "Person With Invalid Phone Field",
+    "phone": "948asdf2424",
+    "email": "hans@example.com",
+    "address": "4th street"
+  } ],
+  "events": [ {
+    "name": "Valid Event",
+    "start": "",
+    "end": "",
+    "description": "blah blah blah",
+    "address": "4th street",
+    "zoom": "a valid zoom link",
+    "tagged": [ ]
+  }, {
+    "name": "Event With Invalid startDateTime Field",
+    "start": "rsvrthbtrdbrbs",
+    "end": "",
+    "description": "",
+    "address": "4th street",
+    "zoom": "",
+    "tagged": [ ]
+  }, {
+    "name": "Event With Invalid endDateTime Field",
+    "start": "",
+    "end": "what time is this",
+    "description": "",
+    "address": "4th street",
+    "zoom": "",
+    "tagged": [ ]
+  }]
+}
