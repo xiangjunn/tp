@@ -117,12 +117,12 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== Manage Persons ======================
+    //=========== Manage Events ======================
 
     @Override
-    public boolean hasEvent(Event person) {
-        requireNonNull(person);
-        return addressBook.hasEvent(person);
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return addressBook.hasEvent(event);
     }
 
     @Override
@@ -131,8 +131,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addEvent(Event person) {
-        addressBook.addEvent(person);
+    public void addEvent(Event event) {
+        addressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 

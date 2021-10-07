@@ -55,6 +55,7 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     //=========== Person Management =============================================================
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
