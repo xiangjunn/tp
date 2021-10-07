@@ -9,10 +9,13 @@ public class TelegramHandle {
         "Telegram handles should only contain alphanumeric characters or underscores, with minimum 5 characters.";
 
     /*
-     * At least 5 characters of a-z or A-Z or 0-9 or _
+     * At least 5 characters of a-z or A-Z or 0-9 or _.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}_]{5,}";
 
+    /**
+     * The telegram username of a person.
+     */
     public final String handle;
 
     /**
@@ -39,6 +42,12 @@ public class TelegramHandle {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Gets the link to the person's telegram chat.
+     */
+    public String getTelegramLink() {
+        return link;
+    }
 
     @Override
     public String toString() {
@@ -48,8 +57,8 @@ public class TelegramHandle {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Name // instanceof handles nulls
-            && handle.equals(((Name) other).fullName)); // state check
+            || (other instanceof TelegramHandle // instanceof handles nulls
+            && handle.equals(((TelegramHandle) other).handle)); // state check
     }
 
     @Override
