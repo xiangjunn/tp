@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -147,6 +148,38 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public boolean hasEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void deleteEvent(Event target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEvent(Event target, Event editedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Event> getFilteredEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredEventList(Predicate<Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -164,6 +197,24 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return this.person.isSamePerson(person);
+        }
+    }
+
+    /**
+     * A Model stub that contains a single person.
+     */
+    private class ModelStubWithEvent extends ModelStub {
+        private final Event event;
+
+        ModelStubWithEvent(Event event) {
+            requireNonNull(event);
+            this.event = event;
+        }
+
+        @Override
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return this.event.isSameEvent(event);
         }
     }
 
