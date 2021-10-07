@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +19,14 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Address;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.EndDateTime;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.Name;
+import seedu.address.model.event.StartDateTime;
+import seedu.address.model.event.ZoomLink;
+import seedu.address.model.tag.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -27,14 +38,14 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private Logic logic;
+    private final Stage primaryStage;
+    private final Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    // private EventListPanel eventListPanel; <-- to be uncommented after implementation for this is completed
+    private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
+    private final HelpWindow helpWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -82,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -117,7 +129,32 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        ObservableList<Event> events = FXCollections.observableArrayList(
+            new Event(new Name("CS2103T project meeting"), new StartDateTime("2021-10-02T21:00"),
+                new EndDateTime("2021-10-02T22:00"), new Description(""), new Address("."),
+                new ZoomLink("nus-sg.zoom.us/j/21342513543"),
+                Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
+            new Event(new Name("Basketball training"), new StartDateTime("2021-10-02T20:00"),
+                new EndDateTime("2021-10-02T21:00"), new Description("Meeting every week"),
+                new Address("NUS Sport Centre"), new ZoomLink("."),
+                Set.of(new Tag("Recurring"), new Tag("CCA"))),
+            new Event(new Name("Google Interview"), new StartDateTime("2021-10-09T15:30"),
+                new EndDateTime("2021-10-09T16:00"), new Description(""), new Address("."),
+                new ZoomLink("careers.google.com/summer"),
+                Set.of(new Tag("Internship"))),
+            new Event(new Name("Dance class"), new StartDateTime("2021-10-13T20:00"),
+                new EndDateTime("2021-10-13T22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
+                + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
+                + "lobortis nisl, convallis placerat urna."),
+                new Address("NUS UTown"), new ZoomLink("."),
+                Set.of(new Tag("Recurring"), new Tag("CCA")))
+        );
+
+        eventListPanel = new EventListPanel(events);
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
         // commented out code below is for rendering of events. Waiting for its implementation first.
+        // ObservableList<Event>,old eventListPanel and eventListPanelPlaceholder to be removed after that.
         // eventListPanel = new EventListPanel(logic.getFilteredEventList());
         // eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -164,15 +201,15 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
+    //    public PersonListPanel getPersonListPanel() {
+    //        return personListPanel;
+    //    }
 
     /**
      * Executes the command and returns the result.
