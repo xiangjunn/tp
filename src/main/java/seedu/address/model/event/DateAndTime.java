@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents time of an event in the event list.
@@ -28,7 +29,7 @@ public class DateAndTime {
      */
     public DateAndTime(String time) {
         checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
-        this.time = LocalDateTime.parse(time);
+        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     /**
