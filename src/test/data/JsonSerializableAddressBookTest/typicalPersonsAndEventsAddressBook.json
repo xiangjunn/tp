@@ -45,56 +45,56 @@
   } ],
   "events": [ {
     "name": "Summer vacation",
-    "start": "2021-03-27T10:15:30",
-    "end": "2021-03-27T10:15:30",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
     "description": "",
     "address": "123, Jurong West Ave 6, #08-111",
     "zoom": "http://zoomlink.com",
     "tagged": [ "holiday" ]
   }, {
     "name": "Lunch appointment",
-    "start": "2021-03-27T10:15:30",
-    "end": "2021-03-27T10:15:30",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
     "description": "",
     "address": "311, Clementi Ave 2, #02-25",
     "zoom": "http://zoomlink.com",
     "tagged": [ "date", "appointments" ]
   }, {
     "name": "Midterm",
-    "start": "2021-03-27T10:15:30",
-    "end": "2021-03-27T10:15:30",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
     "description": "",
     "address": "online street",
     "zoom": "http://zoomlink.com",
     "tagged": [ "exams" ]
   }, {
     "name": "project meeting",
-    "start": "2021-03-27T10:15:30",
-    "end": "2021-03-27T10:15:30",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
     "description": "",
     "address": "22 Beach rd",
     "zoom": "http://zoomlink.com",
     "tagged": [ "project" ]
   }, {
     "name": "ABC company Interview",
-    "start": "2021-03-27T10:15:30",
-    "end": "2021-03-27T10:15:30",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
     "description": "",
     "address": "michegan ave",
     "zoom": "http://zoomlink.com",
     "tagged": [ ]
   }, {
     "name": "Visit museum",
-    "start": "2021-03-27T10:15:30",
-    "end": "2021-03-27T10:15:30",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
     "description": "",
     "address": "Arts Science Museum",
     "zoom": "http://zoomlink.com",
     "tagged": [ ]
   }, {
     "name": "Hackathon",
-    "start": "2021-03-27T10:15:30",
-    "end": "2021-03-27T10:15:30",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
     "description": "",
     "address": "10 Baker st",
     "zoom": "http://zoomlink.com",
