@@ -60,6 +60,16 @@ public class JsonAddressBookStorageTest {
         assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
     }
 
+    //TODO implement these methods
+
+    @Test
+    public void readAddressBook_invalidEventAddressBook_throwDataConversionException() {
+    }
+
+    @Test
+    public void readAddressBook_invalidAndValidEventAddressBook_throwDataConversionException() {
+    }
+
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
@@ -77,6 +87,8 @@ public class JsonAddressBookStorageTest {
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
+
+        //TODO add code to add and remove event
 
         // Save and read without specifying file path
         original.addPerson(IDA);

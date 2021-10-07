@@ -1,0 +1,43 @@
+{
+  "_comment": "AddressBook save file which contains the same Event values as in Typicalevnts#getTypicalAddressBook()",
+  "events" : [ {
+    "name" : "Summer vacation",
+    "start" : "",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ "holiday" ]
+  }, {
+    "name" : "Lunch appointment",
+    "start" : "",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "date", "appointments" ]
+  }, {
+    "name" : "Midterm",
+    "start" : "",
+    "end" : "",
+    "address" : "online street",
+    "tagged" : [ "exams" ]
+  }, {
+    "name" : "project meeting",
+    "start" : "",
+    "end" : "",
+    "zoom" : "",
+    "tagged" : [ "project" ]
+  }, {
+    "name" : "ABC company Interview",
+    "start" : "",
+    "address" : "michegan ave",
+    "tagged" : [ ]
+  }, {
+    "name" : "Visit museum",
+    "start" : "",
+    "end" : "",
+    "address" : "Arts Science Museum",
+    "tagged" : [ ]
+  }, {
+    "name" : "Hackathon",
+    "start" : "",
+    "end" : "",
+    "zoom" : "",
+    "tagged" : [ ]
+  } ]
+}

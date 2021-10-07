@@ -1,0 +1,14 @@
+{
+  "events": [ {
+    "name": "Valid Event",
+    "start": "",
+    "end": "",
+    "description": "blah blah blah",
+    "address": "4th street",
+    "zoom": "a valid zoom link"
+  }, {
+    "name": "Event With Invalid startDateTime Field",
+    "start": "rsvrthbtrdbrbs",
+    "address": "4th street"
+  } ]
+}
