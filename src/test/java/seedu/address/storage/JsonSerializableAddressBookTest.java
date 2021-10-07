@@ -44,4 +44,15 @@ public class JsonSerializableAddressBookTest {
                 dataFromFile::toModelType);
     }
 
+    @Test
+    public void toModelType_typicalEventsFile_success() {
+    }
+
+    @Test
+    public void toModelType_invalidEventFile_throwsIllegalValueException() throws Exception {
+    }
+
+    @Test
+    public void toModelType_duplicateEvents_throwsIllegalValueException() throws Exception {
+    }
 }
