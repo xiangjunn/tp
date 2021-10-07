@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -69,7 +68,8 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-        for(JsonAdaptedEvent jsonAdaptedEvent : events) {
+
+        for (JsonAdaptedEvent jsonAdaptedEvent : events) {
             Event event = jsonAdaptedEvent.toModelType();
             if (addressBook.hasEvent(event)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
@@ -78,7 +78,5 @@ class JsonSerializableAddressBook {
         }
         return addressBook;
     }
-
-
 }
 

@@ -14,8 +14,8 @@ import seedu.address.model.event.Address;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.StartDateTime;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.StartDateTime;
 import seedu.address.model.event.ZoomLink;
 import seedu.address.model.tag.Tag;
 

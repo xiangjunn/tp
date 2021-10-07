@@ -1,10 +1,9 @@
 package seedu.address.storage;
 
+
 import org.junit.jupiter.api.Test;
 
-
 class JsonAdaptedEventTest {
-
     //TODO implement these
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws Exception {
