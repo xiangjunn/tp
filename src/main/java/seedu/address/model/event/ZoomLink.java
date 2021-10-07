@@ -9,6 +9,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class ZoomLink {
 
+    public static final String MESSAGE_CONSTRAINTS = "Event zoom links should not be blank";
+
     // TODO: 10/6/2021 add validation
     public static final String VALIDATION_REGEX = ".*";
 
