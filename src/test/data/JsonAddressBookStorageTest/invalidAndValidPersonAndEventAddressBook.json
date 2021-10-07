@@ -12,8 +12,8 @@
   } ],
   "events": [ {
     "name": "Valid Event",
-    "start": "",
-    "end": "",
+    "start": "2021-03-27T10:15:30",
+    "end": "2021-03-27T10:15:30",
     "description": "blah blah blah",
     "address": "4th street",
     "zoom": "a valid zoom link",
@@ -21,18 +21,18 @@
   }, {
     "name": "Event With Invalid startDateTime Field",
     "start": "rsvrthbtrdbrbs",
-    "end": "",
-    "description": "",
+    "end": "2021-03-27T10:15:30",
+    "description": "2021-03-27T10:15:30",
     "address": "4th street",
-    "zoom": "",
+    "zoom": "http://zoomlink.com",
     "tagged": [ ]
   }, {
     "name": "Event With Invalid endDateTime Field",
-    "start": "",
+    "start": "2021-03-27T10:15:30",
     "end": "what time is this",
     "description": "",
     "address": "4th street",
-    "zoom": "",
+    "zoom": "http://zoomlink.com",
     "tagged": [ ]
   }]
 }

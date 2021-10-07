@@ -13,19 +13,19 @@
   } ],
   "events": [ {
     "name": "CS2103T lecture",
-    "start": "",
-    "end": "",
+    "start": "2021-03-27T10:15:30",
+    "end": "2021-03-27T10:15:30",
     "description": "",
     "address": "123, Jurong West Ave 6, #08-111",
-    "zoom": "",
+    "zoom": "http://zoomlink.com",
     "tagged": [ "its lecture time" ]
   }, {
     "name": "CS2103T lecture",
-    "start": "",
-    "end": "",
+    "start": "2021-03-27T10:15:30",
+    "end": "2021-03-27T10:15:30",
     "description": "",
     "address": "123, Jurong West Ave 6, #08-111",
-    "zoom": "",
+    "zoom": "http://zoomlink.com",
     "tagged": [ ]
   } ]
 }

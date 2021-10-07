@@ -7,11 +7,11 @@
   } ],
   "events": [ {
     "name": "Event with invalid name field: !gtr@@@&&&&t4jfer",
-    "start": "",
-    "end": "",
+    "start": "2021-03-27T10:15:30",
+    "end": "2021-03-27T10:15:30",
     "description": "",
     "address": "4th street",
-    "zoom": "",
+    "zoom": "http://zoomlink.com",
     "tagged": [ ]
   } ]
 }

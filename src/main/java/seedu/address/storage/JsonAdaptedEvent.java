@@ -40,7 +40,7 @@ class JsonAdaptedEvent {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("name") String name, @JsonProperty("start") String startDateTime,
                             @JsonProperty("end") String endDateTime, @JsonProperty("description") String description,
-                            @JsonProperty("address") String address, @JsonProperty("zoom link") String zoomLink,
+                            @JsonProperty("address") String address, @JsonProperty("zoom") String zoomLink,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.startDateTime = startDateTime;

@@ -7,11 +7,11 @@
   } ],
   "events": [ {
     "name": "Summer vacation",
-    "start": "",
+    "start": "2021-03-27T10:15:30",
     "end": "invalid end",
     "description": "",
     "address": "4th street",
-    "zoom": "",
+    "zoom": "http://zoomlink.com",
     "tagged": [ ]
   } ]
 }
