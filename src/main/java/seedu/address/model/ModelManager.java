@@ -91,7 +91,8 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    // manage personList
+    //=========== Manage Persons ======================
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -116,7 +117,8 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    // manage eventList
+    //=========== Manage Persons ======================
+
     @Override
     public boolean hasEvent(Event person) {
         requireNonNull(person);
@@ -131,7 +133,7 @@ public class ModelManager implements Model {
     @Override
     public void addEvent(Event person) {
         addressBook.addEvent(person);
-        updateFilteredEventList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
@@ -141,7 +143,7 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Person List Accessors =====================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -158,7 +160,7 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Event List Accessors =============================================================
+    //=========== Filtered Event List Accessors =======================
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
      * {@code versionedAddressBook}
@@ -173,7 +175,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -191,7 +192,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredEvents.equals(other.filteredEvents);
     }
-
 }
