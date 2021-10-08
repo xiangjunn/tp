@@ -18,10 +18,10 @@ public class ZoomLink {
     public final String value;
 
     /**
-     * Constructs a {@code ZoomLink}.
-     *
-     * @param link A valid zoom link.
-     */
+    * Constructs a {@code ZoomLink}.
+    *
+    * @param link A valid zoom link.
+    */
     public ZoomLink(String link) {
         requireNonNull(link);
         value = link;
