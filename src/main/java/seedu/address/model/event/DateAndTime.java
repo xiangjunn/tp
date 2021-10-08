@@ -50,6 +50,7 @@ public class DateAndTime {
      */
     @Override
     public String toString() {
-        return this.time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return this.time.format(formatter);
     }
 }
