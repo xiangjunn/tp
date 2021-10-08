@@ -13,12 +13,6 @@ class AddressTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new seedu.address.model.event.Address(invalidAddress));
-    }
-
-    @Test
     void isValidAddress() {
         //null address
         assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
