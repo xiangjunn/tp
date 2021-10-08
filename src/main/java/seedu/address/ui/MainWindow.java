@@ -130,20 +130,20 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ObservableList<Event> events = FXCollections.observableArrayList(
-            new Event(new Name("CS2103T project meeting"), new StartDateTime("2021-10-02T21:00"),
-                new EndDateTime("2021-10-02T22:00"), new Description(""), new Address("."),
+            new Event(new Name("CS2103T project meeting"), new StartDateTime("2021-10-02 21:00"),
+                new EndDateTime("2021-10-02 22:00"), new Description(""), new Address("."),
                 new ZoomLink("nus-sg.zoom.us/j/21342513543"),
                 Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
-            new Event(new Name("Basketball training"), new StartDateTime("2021-10-02T20:00"),
-                new EndDateTime("2021-10-02T21:00"), new Description("Meeting every week"),
+            new Event(new Name("Basketball training"), new StartDateTime("2021-10-02 20:00"),
+                new EndDateTime("2021-10-02 21:00"), new Description("Meeting every week"),
                 new Address("NUS Sport Centre"), new ZoomLink("."),
                 Set.of(new Tag("Recurring"), new Tag("CCA"))),
-            new Event(new Name("Google Interview"), new StartDateTime("2021-10-09T15:30"),
-                new EndDateTime("2021-10-09T16:00"), new Description(""), new Address("."),
+            new Event(new Name("Google Interview"), new StartDateTime("2021-10-09 15:30"),
+                new EndDateTime("2021-10-09 16:00"), new Description(""), new Address("."),
                 new ZoomLink("careers.google.com/summer"),
                 Set.of(new Tag("Internship"))),
-            new Event(new Name("Dance class"), new StartDateTime("2021-10-13T20:00"),
-                new EndDateTime("2021-10-13T22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
+            new Event(new Name("Dance class"), new StartDateTime("2021-10-13 20:00"),
+                new EndDateTime("2021-10-13 22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
                 + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
                 + "lobortis nisl, convallis placerat urna."),
                 new Address("NUS UTown"), new ZoomLink("."),

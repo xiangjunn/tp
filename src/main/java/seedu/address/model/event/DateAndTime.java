@@ -43,4 +43,14 @@ public class DateAndTime {
                 || (other instanceof DateAndTime // instanceof handles nulls
                 && time.equals(((DateAndTime) other).time)); // state check
     }
+
+    /**
+     * Returns a string representing a DateAndTime object.
+     * @return A string representation of a DateAndTime object.
+     */
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return this.time.format(formatter);
+    }
 }
