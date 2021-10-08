@@ -7,6 +7,11 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.EndDateTime;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.StartDateTime;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -40,10 +45,36 @@ public class SampleDataUtil {
         };
     }
 
+    public static Event[] getSampleEvents() {
+        return new Event[] {
+            new Event(new seedu.address.model.event.Name("CS2103T project meeting"),
+                new StartDateTime("2021-10-02 21:00"), new EndDateTime("2021-10-02 22:00"), new Description(""),
+                new Address("."), new ZoomLink("nus-sg.zoom.us/j/21342513543"),
+                Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
+            new Event(new seedu.address.model.event.Name("Basketball training"), new StartDateTime("2021-10-02 20:00"),
+                new EndDateTime("2021-10-02 21:00"), new Description("Meeting every week"),
+                new Address("NUS Sport Centre"), new ZoomLink("."),
+                Set.of(new Tag("Recurring"), new Tag("CCA"))),
+            new Event(new seedu.address.model.event.Name("Google Interview"), new StartDateTime("2021-10-09 15:30"),
+                new EndDateTime("2021-10-09 16:00"), new Description(""),
+                new Address("."), new ZoomLink("careers.google.com/summer"),
+                Set.of(new Tag("Internship"))),
+            new Event(new seedu.address.model.event.Name("Dance class"), new StartDateTime("2021-10-13 20:00"),
+                new EndDateTime("2021-10-13 22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
+                + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
+                + "lobortis nisl, convallis placerat urna."),
+                new Address("NUS UTown"), new ZoomLink("."),
+                Set.of(new Tag("Recurring"), new Tag("CCA")))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Event sampleEvent : getSampleEvents()) {
+            sampleAb.addEvent(sampleEvent);
         }
         return sampleAb;
     }

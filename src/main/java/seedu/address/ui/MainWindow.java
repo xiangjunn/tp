@@ -1,10 +1,7 @@
 package seedu.address.ui;
 
-import java.util.Set;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,14 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.common.Address;
-import seedu.address.model.common.ZoomLink;
-import seedu.address.model.event.Description;
-import seedu.address.model.event.EndDateTime;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.Name;
-import seedu.address.model.event.StartDateTime;
-import seedu.address.model.tag.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,7 +31,8 @@ public class MainWindow extends UiPart<Stage> {
     private final Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private EventListPanel personListPanel;
+    private PersonListPanel personListPanel;
+    private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private final HelpWindow helpWindow;
 
@@ -54,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane eventListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -122,29 +115,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ObservableList<Event> events = FXCollections.observableArrayList(
-            new Event(new Name("CS2103T project meeting"), new StartDateTime("2021-10-02 21:00"),
-                new EndDateTime("2021-10-02 22:00"), new Description(""), new Address("."),
-                new ZoomLink("nus-sg.zoom.us/j/21342513543"),
-                Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
-            new Event(new Name("Basketball training"), new StartDateTime("2021-10-02 20:00"),
-                new EndDateTime("2021-10-02 21:00"), new Description("Meeting every week"),
-                new Address("NUS Sport Centre"), new ZoomLink("."),
-                Set.of(new Tag("Recurring"), new Tag("CCA"))),
-            new Event(new Name("Google Interview"), new StartDateTime("2021-10-09 15:30"),
-                new EndDateTime("2021-10-09 16:00"), new Description(""), new Address("."),
-                new ZoomLink("careers.google.com/summer"),
-                Set.of(new Tag("Internship"))),
-            new Event(new Name("Dance class"), new StartDateTime("2021-10-13 20:00"),
-                new EndDateTime("2021-10-13 22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
-                + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
-                + "lobortis nisl, convallis placerat urna."),
-                new Address("NUS UTown"), new ZoomLink("."),
-                Set.of(new Tag("Recurring"), new Tag("CCA")))
-        );
-
-        personListPanel = new EventListPanel(events);
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -195,10 +170,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-
-    //    public PersonListPanel getPersonListPanel() {
-    //        return personListPanel;
-    //    }
 
     /**
      * Executes the command and returns the result.
