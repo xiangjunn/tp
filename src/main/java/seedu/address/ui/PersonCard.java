@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -39,7 +40,13 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label telegramHandle;
+    @FXML
+    private Label zoom;
+    @FXML
     private FlowPane tags;
+    @FXML
+    private ImageView emailIcon;
 
     /**
      * Creates a {@code PersonCard} with the given {@code Person} and index to display.
@@ -49,9 +56,14 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        // Compulsory fields
+        phone.setText("phone: " + person.getPhone().value);
+        email.setText("email: " + person.getEmail().value);
+        // Optional fields
+        // TODO: after optional fields are implemented, setManaged to true if the value exists to show the Label in UI
+        address.setText("address: " + person.getAddress().value);
+        telegramHandle.setText("telegram handle: "); // TODO: include getTelegramHandle
+        zoom.setText("zoom: "); // TODO: include getZoom
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

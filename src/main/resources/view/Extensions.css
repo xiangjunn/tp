@@ -18,3 +18,13 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+#contact, #event {
+    -fx-text-fill: white;
+    -fx-padding: 10 5 10 5;
+    -fx-background-insets: 10;
+}
+
+#emailIcon {
+    -fx-text-fill: white;
+}
