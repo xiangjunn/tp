@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Address;
+import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.StartDateTime;
-import seedu.address.model.event.ZoomLink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -62,7 +62,7 @@ class JsonAdaptedEvent {
         endDateTime = source.getEndDateAndTime().toString();
         description = source.getDescription().value;
         address = source.getAddress().value;
-        zoomLink = source.getZoomLink().value;
+        zoomLink = source.getZoomLink().link;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

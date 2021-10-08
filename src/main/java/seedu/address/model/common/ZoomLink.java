@@ -1,11 +1,11 @@
-package seedu.address.model.event;
+package seedu.address.model.common;
 
 import static java.util.Objects.requireNonNull;
 
 
 /**
- * Represents zoom link of an event.
- * Guarantees: immutable}
+ * Represents zoom link of a person (usually a professor or tutor).
+ * Guarantees: immutable
  */
 public class ZoomLink {
 
@@ -15,7 +15,7 @@ public class ZoomLink {
     // TODO: 10/6/2021 add validation
     public static final String VALIDATION_REGEX = ".*";
 
-    public final String value;
+    public final String link;
 
     /**
     * Constructs a {@code ZoomLink}.
@@ -24,7 +24,7 @@ public class ZoomLink {
     */
     public ZoomLink(String link) {
         requireNonNull(link);
-        value = link;
+        this.link = link;
     }
 
     // TODO: 10/6/2021 add test cases for invalid zoom link
@@ -39,6 +39,6 @@ public class ZoomLink {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ZoomLink // instanceof handles nulls
-                && value.equals(((ZoomLink) other).value)); // state check
+                && link.equals(((ZoomLink) other).link)); // state check
     }
 }

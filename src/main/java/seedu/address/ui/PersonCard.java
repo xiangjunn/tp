@@ -61,9 +61,15 @@ public class PersonCard extends UiPart<Region> {
         email.setText("email: " + person.getEmail().value);
         // Optional fields
         // TODO: after optional fields are implemented, setManaged to true if the value exists to show the Label in UI
-        address.setText("address: " + person.getAddress().value);
-        telegramHandle.setText("telegram handle: "); // TODO: include getTelegramHandle
-        zoom.setText("zoom: "); // TODO: include getZoom
+        if (person.getAddress() != null) {
+            address.setText("address: " + person.getAddress().value);
+        }
+        if (person.getTelegramHandle() != null) {
+            telegramHandle.setText("telegram handle: " + person.getTelegramHandle().handle);
+        }
+        if (person.getZoomLink() != null) {
+            zoom.setText("zoom: " + person.getZoomLink().link);
+        }
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

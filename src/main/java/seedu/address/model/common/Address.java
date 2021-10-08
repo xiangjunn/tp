@@ -1,10 +1,10 @@
-package seedu.address.model.event;
+package seedu.address.model.common;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents address of an event in the event list.
+ * Represents address of an event or person in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
@@ -15,7 +15,7 @@ public class Address {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = ".*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
@@ -31,10 +31,15 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is a valid address.
+     * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 
     @Override
@@ -43,4 +48,10 @@ public class Address {
                 || (other instanceof Address // instanceof handles nulls
                 && value.equals(((Address) other).value)); // state check
     }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
 }

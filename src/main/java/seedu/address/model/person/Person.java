@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,21 +21,27 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final TelegramHandle telegramHandle;
 
     // Data fields
+    private final ZoomLink zoomLink;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Every field, except telegram handle and zoom link must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(
+        Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
+        TelegramHandle telegramHandle, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.telegramHandle = telegramHandle;
+        this.zoomLink = zoomLink;
     }
 
     public Name getName() {
@@ -50,6 +58,14 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public TelegramHandle getTelegramHandle() {
+        return telegramHandle;
+    }
+
+    public ZoomLink getZoomLink() {
+        return zoomLink;
     }
 
     /**
@@ -73,34 +89,6 @@ public class Person {
                 && otherPerson.getName().equals(getName());
     }
 
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Person)) {
-            return false;
-        }
-
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
-    }
-
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -110,7 +98,11 @@ public class Person {
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append("; Zoom Link: ")
+                .append(getZoomLink())
+                .append("; Telegram: ")
+                .append(getTelegramHandle());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
@@ -120,4 +112,27 @@ public class Person {
         return builder.toString();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Person person = (Person) other;
+        return Objects.equals(getName(), person.getName())
+            && Objects.equals(getPhone(), person.getPhone())
+            && Objects.equals(getEmail(), person.getEmail())
+            && Objects.equals(getTelegramHandle(), person.getTelegramHandle())
+            && Objects.equals(getZoomLink(), person.getZoomLink())
+            && Objects.equals(getAddress(), person.getAddress())
+            && Objects.equals(getTags(), person.getTags());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            getName(), getPhone(), getEmail(), getTelegramHandle(), getZoomLink(), getAddress(), getTags());
+    }
 }
