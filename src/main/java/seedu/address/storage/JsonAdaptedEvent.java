@@ -62,7 +62,7 @@ class JsonAdaptedEvent {
         endDateTime = source.getEndDateAndTime().toString();
         description = source.getDescription().value;
         address = source.getAddress().value;
-        zoomLink = source.getZoomLink().value;
+        zoomLink = source.getZoomLink().link;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
