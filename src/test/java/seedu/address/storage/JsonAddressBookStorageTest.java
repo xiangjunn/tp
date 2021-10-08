@@ -20,7 +20,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
 public class JsonAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths
+            .get("src", "test", "data", "JsonAddressBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -52,12 +53,24 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+        assertThrows(DataConversionException.class, () ->
+                readAddressBook("invalidPersonAndEventAddressBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+        assertThrows(DataConversionException.class, () ->
+                readAddressBook("invalidAndValidPersonAndEventAddressBook.json"));
+    }
+
+    //TODO implement these methods
+
+    @Test
+    public void readAddressBook_invalidEventAddressBook_throwDataConversionException() {
+    }
+
+    @Test
+    public void readAddressBook_invalidAndValidEventAddressBook_throwDataConversionException() {
     }
 
     @Test
@@ -77,6 +90,8 @@ public class JsonAddressBookStorageTest {
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
+
+        //TODO add code to add and remove event
 
         // Save and read without specifying file path
         original.addPerson(IDA);
