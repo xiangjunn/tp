@@ -50,8 +50,8 @@ public class EventCard extends UiPart<Region> {
         this.event = event;
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().fullName);
-        from.setText("from: " + event.getStartDateAndTime().time);
-        to.setText("to: " + event.getEndDateAndTime().time);
+        from.setText("from: " + event.getStartDateAndTime());
+        to.setText("to: " + event.getEndDateAndTime());
         address.setText("location: " + event.getAddress().value);
         zoomLink.setText("link: " + event.getZoomLink().value);
         description.setText("description: " + event.getDescription().value);
