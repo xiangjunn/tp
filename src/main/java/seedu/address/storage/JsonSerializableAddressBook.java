@@ -22,22 +22,22 @@ import seedu.address.model.event.Event;
 
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate contact(s).";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "Contacts list contains duplicate contact(s).";
 
     public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
 
-    private final List<JsonAdaptedContact> persons = new ArrayList<>();
+    private final List<JsonAdaptedContact> contacts = new ArrayList<>();
 
     private final List<JsonAdaptedEvent> events = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons and events.
+     * Constructs a {@code JsonSerializableAddressBook} with the given contacts and events.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedContact> persons,
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedContact> contacts,
                                        @JsonProperty("events") List<JsonAdaptedEvent> events) {
-        if (persons != null) {
-            this.persons.addAll(persons);
+        if (contacts != null) {
+            this.contacts.addAll(contacts);
         }
         if (events != null) {
             this.events.addAll(events);
@@ -50,7 +50,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getContactList().stream().map(JsonAdaptedContact::new).collect(Collectors.toList()));
+        contacts.addAll(source.getContactList().stream().map(JsonAdaptedContact::new).collect(Collectors.toList()));
         events.addAll(source.getEventList().stream().map(JsonAdaptedEvent::new).collect(Collectors.toList()));
     }
 
@@ -61,10 +61,10 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedContact jsonAdaptedContact : persons) {
+        for (JsonAdaptedContact jsonAdaptedContact : contacts) {
             Contact contact = jsonAdaptedContact.toModelType();
             if (addressBook.hasContact(contact)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CONTACT);
             }
             addressBook.addContact(contact);
         }

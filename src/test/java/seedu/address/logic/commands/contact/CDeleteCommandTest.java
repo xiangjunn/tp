@@ -28,39 +28,39 @@ public class CDeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Contact contactToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        CDeleteCommand CDeleteCommand = new CDeleteCommand(INDEX_FIRST_PERSON);
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
-        assertCommandSuccess(CDeleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(cDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        CDeleteCommand CDeleteCommand = new CDeleteCommand(outOfBoundIndex);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(CDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(cDeleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Contact contactToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        CDeleteCommand CDeleteCommand = new CDeleteCommand(INDEX_FIRST_PERSON);
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(CDeleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(cDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -71,9 +71,9 @@ public class CDeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
 
-        CDeleteCommand CDeleteCommand = new CDeleteCommand(outOfBoundIndex);
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(CDeleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(cDeleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -102,8 +102,8 @@ public class CDeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
+        model.updateFilteredContactList(p -> false);
 
-        assertTrue(model.getFilteredPersonList().isEmpty());
+        assertTrue(model.getFilteredContactList().isEmpty());
     }
 }

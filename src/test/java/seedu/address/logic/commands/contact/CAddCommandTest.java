@@ -49,7 +49,8 @@ public class CAddCommandTest {
         CAddCommand addCommand = new CAddCommand(validContact);
         ModelStub modelStub = new ModelStubWithPerson(validContact);
 
-        assertThrows(CommandException.class, CAddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, CAddCommand.MESSAGE_DUPLICATE_CONTACT, () ->
+            addCommand.execute(modelStub));
     }
 
     @Test
@@ -141,12 +142,12 @@ public class CAddCommandTest {
         }
 
         @Override
-        public ObservableList<Contact> getFilteredPersonList() {
+        public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Contact> predicate) {
+        public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -197,7 +198,7 @@ public class CAddCommandTest {
         @Override
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
-            return this.contact.isSamePerson(contact);
+            return this.contact.isSameContact(contact);
         }
     }
 
@@ -228,7 +229,7 @@ public class CAddCommandTest {
         @Override
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
-            return personsAdded.stream().anyMatch(contact::isSamePerson);
+            return personsAdded.stream().anyMatch(contact::isSameContact);
         }
 
         @Override

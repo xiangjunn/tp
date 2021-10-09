@@ -31,7 +31,7 @@ class JsonAdaptedContact {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given contact details.
+     * Constructs a {@code JsonAdaptedContact} with the given contact details.
      */
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
@@ -65,9 +65,9 @@ class JsonAdaptedContact {
      * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public Contact toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> contactTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            contactTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -102,7 +102,7 @@ class JsonAdaptedContact {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(contactTags);
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, null, null, modelTags);
     }
 

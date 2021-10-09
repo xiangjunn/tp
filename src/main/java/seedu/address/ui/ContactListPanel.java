@@ -11,28 +11,28 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of contacts.
  */
 public class ContactListPanel extends UiPart<Region> {
     private static final String FXML = "ContactListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ContactListPanel.class);
 
     @FXML
-    private ListView<Contact> personListView;
+    private ListView<Contact> contactListView;
 
     /**
      * Creates a {@code ContactListPanel} with the given {@code ObservableList}.
      */
     public ContactListPanel(ObservableList<Contact> contactList) {
         super(FXML);
-        personListView.setItems(contactList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        contactListView.setItems(contactList);
+        contactListView.setCellFactory(listView -> new ContactListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code ContactCard}.
      */
-    class PersonListViewCell extends ListCell<Contact> {
+    class ContactListViewCell extends ListCell<Contact> {
         @Override
         protected void updateItem(Contact contact, boolean empty) {
             super.updateItem(contact, empty);

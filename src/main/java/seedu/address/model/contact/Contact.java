@@ -77,10 +77,10 @@ public class Contact {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both contacts have the same name.
+     * This defines a weaker notion of equality between two contacts.
      */
-    public boolean isSamePerson(Contact otherContact) {
+    public boolean isSameContact(Contact otherContact) {
         if (otherContact == this) {
             return true;
         }

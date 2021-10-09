@@ -107,7 +107,7 @@ public class ModelManager implements Model {
     @Override
     public void addContact(Contact contact) {
         addressBook.addContact(contact);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     @Override
@@ -150,12 +150,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Contact> getFilteredPersonList() {
+    public ObservableList<Contact> getFilteredContactList() {
         return filteredContacts;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Contact> predicate) {
+    public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
     }

@@ -13,7 +13,7 @@ import seedu.address.model.event.Event;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Contact> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /**
@@ -81,13 +81,13 @@ public interface Model {
     void setContact(Contact target, Contact editedContact);
 
     /** Returns an unmodifiable view of the filtered contact list */
-    ObservableList<Contact> getFilteredPersonList();
+    ObservableList<Contact> getFilteredContactList();
 
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Contact> predicate);
+    void updateFilteredContactList(Predicate<Contact> predicate);
 
     //=========== Event Management =============================================================
 

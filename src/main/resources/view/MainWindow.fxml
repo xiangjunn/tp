@@ -57,7 +57,7 @@
               <Insets right="10" bottom="10" left="10" />
             </padding>
             <Label fx:id="contact" text="Your contacts" alignment="TOP_CENTER"></Label>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
+            <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
           </VBox>
 
           <!-- Events -->

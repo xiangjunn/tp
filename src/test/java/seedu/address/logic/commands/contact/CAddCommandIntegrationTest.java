@@ -39,7 +39,7 @@ public class CAddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Contact contactInList = model.getAddressBook().getContactList().get(0);
-        assertCommandFailure(new CAddCommand(contactInList), model, CAddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new CAddCommand(contactInList), model, CAddCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
 }

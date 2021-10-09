@@ -12,7 +12,7 @@ import seedu.address.model.event.UniqueEventList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -34,7 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Contacts and Events in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -47,8 +47,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the contact list with {@code contacts}.
      * {@code contacts} must not contain duplicate contacts.
      */
-    public void setPersons(List<Contact> contacts) {
-        this.contacts.setPersons(contacts);
+    public void setContacts(List<Contact> contacts) {
+        this.contacts.setContacts(contacts);
     }
 
     /**
@@ -65,7 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getContactList());
+        setContacts(newData.getContactList());
         setEvents(newData.getEventList());
     }
 
@@ -133,7 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setContact(Contact target, Contact editedContact) {
         requireNonNull(editedContact);
 
-        contacts.setPerson(target, editedContact);
+        contacts.setContact(target, editedContact);
     }
 
     /**
