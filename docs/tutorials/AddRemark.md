@@ -242,7 +242,7 @@ Let’s change `RemarkCommand` and `RemarkCommandParser` to use the new `Remark`
 
 Without getting too deep into `fxml`, let’s go on a 5 minute adventure to get some placeholder text to show up for each person.
 
-Simply add the following to [`seedu.address.ui.ContactCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
+Simply add the following to [`seedu.address.ui.PersonCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
 
 **`PersonCard.java`:**
 
@@ -344,14 +344,14 @@ save it with `Model#setPerson()`.
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedContact = new Person(
+        Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), remark, personToEdit.getTags());
 
-        model.setPerson(personToEdit, editedContact);
+        model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedContact));
+        return new CommandResult(generateSuccessMessage(editedPerson));
     }
 
     /**
