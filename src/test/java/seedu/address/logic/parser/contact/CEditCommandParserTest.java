@@ -36,7 +36,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CEditCommand.EditContactDescriptor;
-import seedu.address.logic.parser.contact.CEditCommandParser;
 import seedu.address.model.common.Address;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
@@ -44,7 +43,7 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-public class CCEditCommandParserTest {
+public class CEditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
@@ -137,7 +136,8 @@ public class CCEditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        CEditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        CEditCommand.EditContactDescriptor descriptor =
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
         CEditCommand expectedCommand = new CEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -186,7 +186,8 @@ public class CCEditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        CEditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        CEditCommand.EditContactDescriptor descriptor =
+                new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
         CEditCommand expectedCommand = new CEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

@@ -9,10 +9,9 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.contact.CFindCommand;
-import seedu.address.logic.parser.contact.CFindCommandParser;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
 
-public class CCFindCommandParserTest {
+public class CFindCommandParserTest {
 
     private CFindCommandParser parser = new CFindCommandParser();
 

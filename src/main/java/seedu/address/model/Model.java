@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.event.Event;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * The API of the Model component.
@@ -76,7 +76,7 @@ public interface Model {
     /**
      * Replaces the given contact {@code target} with {@code editedContact}.
      * {@code target} must exist in the address book.
-     * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
+     * The contact name of {@code editedContact} must not be the same as another existing contact in the address book.
      */
     void setPerson(Contact target, Contact editedContact);
 

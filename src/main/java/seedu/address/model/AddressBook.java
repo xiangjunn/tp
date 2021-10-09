@@ -6,9 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
-import seedu.address.model.contact.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,7 +16,7 @@ import seedu.address.model.contact.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueContactList contacts;
     private final UniqueEventList events;
 
     /*
@@ -27,7 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        contacts = new UniqueContactList();
         events = new UniqueEventList();
     }
 
@@ -48,7 +48,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code contacts} must not contain duplicate contacts.
      */
     public void setPersons(List<Contact> contacts) {
-        this.persons.setPersons(contacts);
+        this.contacts.setPersons(contacts);
     }
 
     /**
@@ -114,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Contact contact) {
         requireNonNull(contact);
-        return persons.contains(contact);
+        return contacts.contains(contact);
     }
 
     /**
@@ -122,18 +122,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The contact must not already exist in the address book.
      */
     public void addPerson(Contact p) {
-        persons.add(p);
+        contacts.add(p);
     }
 
     /**
      * Replaces the given contact {@code target} in the list with {@code editedContact}.
      * {@code target} must exist in the address book.
-     * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
+     * The contact name of {@code editedContact} must not be the same as another existing contact in the address book.
      */
     public void setPerson(Contact target, Contact editedContact) {
         requireNonNull(editedContact);
 
-        persons.setPerson(target, editedContact);
+        contacts.setPerson(target, editedContact);
     }
 
     /**
@@ -141,21 +141,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Contact key) {
-        persons.remove(key);
+        contacts.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons\n"
+        return contacts.asUnmodifiableObservableList().size() + " contacts\n"
                 + events.asUnmodifiableObservableList().size() + " events";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Contact> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return contacts.asUnmodifiableObservableList();
     }
 
     @Override
@@ -167,12 +167,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons)
+                && contacts.equals(((AddressBook) other).contacts)
                 && events.equals(((AddressBook) other).events));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return contacts.hashCode();
     }
 }

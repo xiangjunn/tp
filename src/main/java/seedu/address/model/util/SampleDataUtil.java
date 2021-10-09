@@ -9,13 +9,13 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.common.Address;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Name;
+import seedu.address.model.contact.Phone;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.StartDateTime;
-import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

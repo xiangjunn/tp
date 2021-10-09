@@ -40,7 +40,7 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
-public class CCAddCommandParserTest {
+public class CAddCommandParserTest {
     private CAddCommandParser parser = new CAddCommandParser();
 
     @Test

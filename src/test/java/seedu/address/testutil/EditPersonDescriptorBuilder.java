@@ -7,9 +7,9 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CEditCommand.EditContactDescriptor;
 import seedu.address.model.common.Address;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 

@@ -13,16 +13,16 @@ import seedu.address.model.contact.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A contact is considered unique by comparing using {@code Contact#isSamePerson(Contact)}. As such, adding and updating of
- * persons uses Contact#isSamePerson(Contact) for equality so as to ensure that the contact being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a contact uses Contact#equals(Object) so
- * as to ensure that the contact with exactly the same fields will be removed.
+ * A contact is considered unique by comparing using {@code Contact#isSamePerson(Contact)}. As such, adding and updating
+ * of persons uses Contact#isSamePerson(Contact) for equality so as to ensure that the contact being added or updated is
+ * unique in terms of identity in the UniqueContactList. However, the removal of a contact uses Contact#equals(Object)
+ * so as to ensure that the contact with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see Contact#isSamePerson(Contact)
  */
-public class UniquePersonList implements Iterable<Contact> {
+public class UniqueContactList implements Iterable<Contact> {
 
     private final ObservableList<Contact> internalList = FXCollections.observableArrayList();
     private final ObservableList<Contact> internalUnmodifiableList =
@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<Contact> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPersons(UniqueContactList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Contact> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueContactList // instanceof handles nulls
+                        && internalList.equals(((UniqueContactList) other).internalList));
     }
 
     @Override

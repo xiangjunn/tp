@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.contact.CDeleteCommand;
-import seedu.address.logic.parser.contact.CDeleteCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -17,7 +16,7 @@ import seedu.address.logic.parser.contact.CDeleteCommandParser;
  * The path variation for those two cases occur inside the ParserUtil, and
  * therefore should be covered by the ParserUtilTest.
  */
-public class CCDeleteCommandParserTest {
+public class CDeleteCommandParserTest {
 
     private CDeleteCommandParser parser = new CDeleteCommandParser();
 
