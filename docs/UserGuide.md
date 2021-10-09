@@ -99,7 +99,7 @@ Format: `clist [e] [p] [a] [th] [z] [t]`
 * When optional fields are provided, the list will only show the names of all persons in the contact list and the corresponding fields specified by the user.
 * More than one optional field can be provided.
 * The order of the optional fields does not matter. e.g both `clist e p` and `clist p e` will return a list of only the names, email addresses and phone numbers of all persons in the contact list.
-* If the specified field has no value for certain contacts in the contact list, it will not show anything for that corresponding field for that particular person.
+* If the specified field has no value for certain persons in the contact list, it will not show anything for that corresponding field for that particular person.
 
 Examples:
 * `clist` returns a list of all persons in the contact list with all the available details for each person.
@@ -126,7 +126,7 @@ Examples:
 * `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd person from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
 * `cedit 3 dt/TA`  deletes the `TA` tag from the 3rd person.
 * `cedit 4 dt/*` deletes all tags from the 4th person.
-* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag from the 5th contact.
+* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag from the 5th person.
 
 
 ### Locating persons by name: `cfind`
@@ -165,7 +165,7 @@ Examples:
 
 ### Clearing all persons : `cclear`
 
-Clears all entries of persons from the contact list.
+Clears all entries of contacts from the contact list.
 
 Format: `cclear`
 
