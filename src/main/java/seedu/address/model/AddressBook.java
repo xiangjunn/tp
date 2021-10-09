@@ -65,7 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getContactList());
         setEvents(newData.getEventList());
     }
 
@@ -112,7 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a contact with the same identity as {@code contact} exists in the address book.
      */
-    public boolean hasPerson(Contact contact) {
+    public boolean hasContact(Contact contact) {
         requireNonNull(contact);
         return contacts.contains(contact);
     }
@@ -121,7 +121,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
-    public void addPerson(Contact p) {
+    public void addContact(Contact p) {
         contacts.add(p);
     }
 
@@ -130,7 +130,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The contact name of {@code editedContact} must not be the same as another existing contact in the address book.
      */
-    public void setPerson(Contact target, Contact editedContact) {
+    public void setContact(Contact target, Contact editedContact) {
         requireNonNull(editedContact);
 
         contacts.setPerson(target, editedContact);
@@ -140,7 +140,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Contact key) {
+    public void removeContact(Contact key) {
         contacts.remove(key);
     }
 
@@ -154,7 +154,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Contact> getPersonList() {
+    public ObservableList<Contact> getContactList() {
         return contacts.asUnmodifiableObservableList();
     }
 

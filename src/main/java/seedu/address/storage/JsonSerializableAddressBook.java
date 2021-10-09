@@ -26,7 +26,7 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedContact> persons = new ArrayList<>();
 
     private final List<JsonAdaptedEvent> events = new ArrayList<>();
 
@@ -34,7 +34,7 @@ class JsonSerializableAddressBook {
      * Constructs a {@code JsonSerializableAddressBook} with the given persons and events.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedContact> persons,
                                        @JsonProperty("events") List<JsonAdaptedEvent> events) {
         if (persons != null) {
             this.persons.addAll(persons);
@@ -50,7 +50,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getContactList().stream().map(JsonAdaptedContact::new).collect(Collectors.toList()));
         events.addAll(source.getEventList().stream().map(JsonAdaptedEvent::new).collect(Collectors.toList()));
     }
 
@@ -61,12 +61,12 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Contact contact = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(contact)) {
+        for (JsonAdaptedContact jsonAdaptedContact : persons) {
+            Contact contact = jsonAdaptedContact.toModelType();
+            if (addressBook.hasContact(contact)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(contact);
+            addressBook.addContact(contact);
         }
 
         for (JsonAdaptedEvent jsonAdaptedEvent : events) {

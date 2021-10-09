@@ -30,7 +30,7 @@ public class CAddCommandIntegrationTest {
         Contact validContact = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validContact);
+        expectedModel.addContact(validContact);
 
         assertCommandSuccess(new CAddCommand(validContact), model,
                 String.format(CAddCommand.MESSAGE_SUCCESS, validContact), expectedModel);
@@ -38,7 +38,7 @@ public class CAddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Contact contactInList = model.getAddressBook().getPersonList().get(0);
+        Contact contactInList = model.getAddressBook().getContactList().get(0);
         assertCommandFailure(new CAddCommand(contactInList), model, CAddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

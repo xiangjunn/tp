@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredContacts = new FilteredList<>(this.addressBook.getPersonList());
+        filteredContacts = new FilteredList<>(this.addressBook.getContactList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
     }
 
@@ -91,30 +91,30 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    //=========== Manage Persons ======================
+    //=========== Manage Contacts ======================
 
     @Override
-    public boolean hasPerson(Contact contact) {
+    public boolean hasContact(Contact contact) {
         requireNonNull(contact);
-        return addressBook.hasPerson(contact);
+        return addressBook.hasContact(contact);
     }
 
     @Override
-    public void deletePerson(Contact target) {
-        addressBook.removePerson(target);
+    public void deleteContact(Contact target) {
+        addressBook.removeContact(target);
     }
 
     @Override
-    public void addPerson(Contact contact) {
-        addressBook.addPerson(contact);
+    public void addContact(Contact contact) {
+        addressBook.addContact(contact);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Contact target, Contact editedContact) {
+    public void setContact(Contact target, Contact editedContact) {
         requireAllNonNull(target, editedContact);
 
-        addressBook.setPerson(target, editedContact);
+        addressBook.setContact(target, editedContact);
     }
 
     //=========== Manage Events ======================
