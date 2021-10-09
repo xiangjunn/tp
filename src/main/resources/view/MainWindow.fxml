@@ -51,7 +51,7 @@
 
         <HBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
           <!-- Contacts -->
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+          <VBox fx:id="contactList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
                 VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
             <padding>
               <Insets right="10" bottom="10" left="10" />

@@ -72,14 +72,14 @@ done faster than traditional GUI apps.
 ## Managing Contacts
 
 
-### Adding a person: `cadd`
+### Adding a contact: `cadd`
 
-Adds a person to the contact list.
+Adds a contact to the contact list.
 
 Format: `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A contact can have any number of tags (including 0)
 </div>
 
 
@@ -88,50 +88,50 @@ Examples:
 * `cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH`
 
 
-### Listing all persons : `clist`
+### Listing all contacts : `clist`
 
-Shows a list of all persons in the contact list, with all of their details by default.
+Shows a list of all contacts in the contact list, with all of their details by default.
 
 Format: `clist [e] [p] [a] [th] [z] [t]`
 
-* Returned list will always include names of all persons in the contact list.
-* When no optional fields are provided, e.g `clist`, the list will show all available details of all persons in the contact list.
-* When optional fields are provided, the list will only show the names of all persons in the contact list and the corresponding fields specified by the user.
+* Returned list will always include names of all contacts in the contact list.
+* When no optional fields are provided, e.g `clist`, the list will show all available details of all contacts in the contact list.
+* When optional fields are provided, the list will only show the names of all contacts in the contact list and the corresponding fields specified by the user.
 * More than one optional field can be provided.
-* The order of the optional fields does not matter. e.g both `clist e p` and `clist p e` will return a list of only the names, email addresses and phone numbers of all persons in the contact list.
-* If the specified field has no value for certain persons in the contact list, it will not show anything for that corresponding field for that particular person.
+* The order of the optional fields does not matter. e.g both `clist e p` and `clist p e` will return a list of only the names, email addresses and phone numbers of all contacts in the contact list.
+* If the specified field has no value for certain contacts in the contact list, it will not show anything for that corresponding field for that particular contact.
 
 Examples:
-* `clist` returns a list of all persons in the contact list with all the available details for each person.
-* `clist e p` returns a list of all persons in the contact list, showing only their names, email addresses and phone numbers (if available).
+* `clist` returns a list of all contacts in the contact list with all the available details for each contact.
+* `clist e p` returns a list of all contacts in the contact list, showing only their names, email addresses and phone numbers (if available).
 
 
-### Editing a person : `cedit`
+### Editing a contact : `cedit`
 
-Edits an existing person in the contact list.
+Edits an existing contact in the contact list.
 
 Format: `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]… `
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
 * You can remove a specific tag by typing `dt/` with the tag.
-* You can remove all the person’s tags by typing `dt/*` without specifying any tags after it.
+* You can remove all the contact’s tags by typing `dt/*` without specifying any tags after it.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
 
 Examples:
-* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the 2nd person of the contact list to be `91234567` and `agentX@thehightable.com` respectively.
-* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd person from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
-* `cedit 3 dt/TA`  deletes the `TA` tag from the 3rd person.
-* `cedit 4 dt/*` deletes all tags from the 4th person.
-* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag from the 5th person.
+* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the 2nd contact of the contact list to be `91234567` and `agentX@thehightable.com` respectively.
+* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd contact from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
+* `cedit 3 dt/TA`  deletes the `TA` tag from the 3rd contact.
+* `cedit 4 dt/*` deletes all tags from the 4th contact.
+* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag from the 5th contact.
 
 
-### Locating persons by name: `cfind`
+### Locating contacts by name: `cfind`
 
-Finds persons whose names contain any of the given keywords.
+Finds contacts whose names contain any of the given keywords.
 
 Format: `cfind KEYWORD [MORE_KEYWORDS]`
 
@@ -147,23 +147,23 @@ Examples:
 * `cfind John` returns `john` and `Johnathon Doe`.
 * `cfind alex david` returns `Alex Yeoh` and `David Li`.
   
-### Deleting a person : `cdelete`
+### Deleting a contact : `cdelete`
 
-Deletes the specified person from the contact list.
+Deletes the specified contact from the contact list.
 
 Format: `cdelete INDEX1[-INDEX2]`
 
-- Deletes the person at the specified `INDEX1` or between the specified
+- Deletes the contact at the specified `INDEX1` or between the specified
   range from `INDEX1` to `INDEX2` inclusively.
-- The index refers to the index number shown in the displayed person list.
+- The index refers to the index number shown in the displayed contact list.
 - The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-- `clist` followed by `cdelete 2` deletes the 2nd person from the contact list.
-- `cfind Betsy` followed by `cdelete 1` deletes the 1st person from the results of the `cfind` command.
+- `clist` followed by `cdelete 2` deletes the 2nd contact from the contact list.
+- `cfind Betsy` followed by `cdelete 1` deletes the 1st contact from the results of the `cfind` command.
 - `cdelete 3-5` deletes people with index between 3 and 5 inclusively from the contact list.
 
-### Clearing all persons : `cclear`
+### Clearing all contacts : `cclear`
 
 Clears all entries of contacts from the contact list.
 
@@ -240,7 +240,7 @@ Examples:
 * `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the 2nd event from the results of the `efind` command to be `Betsy’s Wedding`
 * `eedit 4 dt/*` deletes all tags from the 4th event.
 
-### Locating persons by name : `efind`
+### Locating contacts by name : `efind`
 
 Finds events which contain any of the given keywords.
 
@@ -256,7 +256,7 @@ Examples:
 `efind ex` returns `exams` and `Examinations`
 `efind CS Exam` returns `CS2100 Exam`,  `CS2101` 
 
-### Deleting a person : `edelete`
+### Deleting a contact : `edelete`
 
 Deletes the specified event from the event list.
 
