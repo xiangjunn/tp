@@ -31,9 +31,8 @@ public class Contact {
     /**
      * Every field, except telegram handle and zoom link must be present and not null.
      */
-    public Contact(
-        Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-        TelegramHandle telegramHandle, Set<Tag> tags) {
+    public Contact(Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
+            TelegramHandle telegramHandle, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
