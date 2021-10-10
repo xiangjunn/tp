@@ -10,9 +10,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,6 +95,36 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String telegramHandle} into an {@code TelegramHandle}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code telegramHandle} is invalid.
+     */
+    public static TelegramHandle parseTelegram(String telegramHandle) throws ParseException {
+        requireNonNull(telegramHandle);
+        String trimmedTelegram = telegramHandle.trim();
+        if (!TelegramHandle.isValidHandle(trimmedTelegram)) {
+            throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
+        }
+        return new TelegramHandle(telegramHandle);
+    }
+
+    /**
+     * Parses a {@code String zoomLink} into an {@code ZoomLink}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code zoomLink} is invalid.
+     */
+    public static ZoomLink parseZoom(String zoomLink) throws ParseException {
+        requireNonNull(zoomLink);
+        String trimmedZoomLink = zoomLink.trim();
+        if (!ZoomLink.isValidZoomLink(trimmedZoomLink)) {
+            throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
+        }
+        return new ZoomLink(zoomLink);
     }
 
     /**
