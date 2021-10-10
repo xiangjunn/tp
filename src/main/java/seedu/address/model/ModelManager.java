@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,7 +22,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Contact> filteredContacts;
     private final FilteredList<Event> filteredEvents;
 
     /**
@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredContacts = new FilteredList<>(this.addressBook.getContactList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
     }
 
@@ -91,30 +91,30 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    //=========== Manage Persons ======================
+    //=========== Manage Contacts ======================
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasContact(Contact contact) {
+        requireNonNull(contact);
+        return addressBook.hasContact(contact);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteContact(Contact target) {
+        addressBook.removeContact(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addContact(Contact contact) {
+        addressBook.addContact(contact);
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setContact(Contact target, Contact editedContact) {
+        requireAllNonNull(target, editedContact);
 
-        addressBook.setPerson(target, editedPerson);
+        addressBook.setContact(target, editedContact);
     }
 
     //=========== Manage Events ======================
@@ -143,21 +143,21 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
-    //=========== Filtered Person List Accessors =====================
+    //=========== Filtered Contact List Accessors =====================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Contact> getFilteredContactList() {
+        return filteredContacts;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredContacts.setPredicate(predicate);
     }
 
     //=========== Filtered Event List Accessors =======================
@@ -192,7 +192,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
+                && filteredContacts.equals(other.filteredContacts)
                 && filteredEvents.equals(other.filteredEvents);
     }
 }

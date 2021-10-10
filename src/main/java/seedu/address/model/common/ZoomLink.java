@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 
 /**
- * Represents zoom link of a person (usually a professor or tutor).
+ * Represents zoom link of a contact (usually a professor or tutor).
  * Guarantees: immutable
  */
 public class ZoomLink {

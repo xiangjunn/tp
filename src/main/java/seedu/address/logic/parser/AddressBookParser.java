@@ -6,15 +6,19 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.contact.CAddCommand;
+import seedu.address.logic.commands.contact.CClearCommand;
+import seedu.address.logic.commands.contact.CDeleteCommand;
+import seedu.address.logic.commands.contact.CEditCommand;
+import seedu.address.logic.commands.contact.CFindCommand;
+import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.general.ExitCommand;
+import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.parser.contact.CAddCommandParser;
+import seedu.address.logic.parser.contact.CDeleteCommandParser;
+import seedu.address.logic.parser.contact.CEditCommandParser;
+import seedu.address.logic.parser.contact.CFindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -44,23 +48,23 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case CAddCommand.COMMAND_WORD:
+            return new CAddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case CEditCommand.COMMAND_WORD:
+            return new CEditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case CDeleteCommand.COMMAND_WORD:
+            return new CDeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case CClearCommand.COMMAND_WORD:
+            return new CClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case CFindCommand.COMMAND_WORD:
+            return new CFindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case CListCommand.COMMAND_WORD:
+            return new CListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -16,13 +16,13 @@ class NameTest {
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
         String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new seedu.address.model.person.Name(invalidName));
+        assertThrows(IllegalArgumentException.class, () -> new seedu.address.model.contact.Name(invalidName));
     }
 
     @Test
     public void isValidName() {
         // null name
-        assertThrows(NullPointerException.class, () -> seedu.address.model.person.Name.isValidName(null));
+        assertThrows(NullPointerException.class, () -> seedu.address.model.contact.Name.isValidName(null));
 
         // invalid name
         assertFalse(Name.isValidName("")); // empty string
