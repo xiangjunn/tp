@@ -14,7 +14,6 @@ import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
@@ -43,11 +42,11 @@ public class CAddCommandParser implements Parser<CAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CAddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Name name = ContactParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ContactParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Email email = ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Address address = ContactParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Tag> tagList = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Contact contact = new Contact(name, phone, email, address, null, null, tagList);
 
