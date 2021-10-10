@@ -25,7 +25,7 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new CAddCommand object
  */
 public class CAddCommandParser implements Parser<CAddCommand> {
 

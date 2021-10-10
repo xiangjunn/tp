@@ -10,13 +10,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new CFindCommand object
  */
 public class CFindCommandParser implements Parser<CFindCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CFindCommand
+     * and returns a CFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public CFindCommand parse(String args) throws ParseException {

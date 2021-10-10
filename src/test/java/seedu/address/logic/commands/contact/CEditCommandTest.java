@@ -28,7 +28,7 @@ import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for CEditCommand.
  */
 public class CEditCommandTest {
 

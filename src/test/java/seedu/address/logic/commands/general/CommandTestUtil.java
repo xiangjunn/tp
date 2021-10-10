@@ -16,7 +16,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.contact.CEditCommand;
+import seedu.address.logic.commands.contact.CEditCommand.EditContactDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -60,8 +60,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final CEditCommand.EditContactDescriptor DESC_AMY;
-    public static final CEditCommand.EditContactDescriptor DESC_BOB;
+    public static final EditContactDescriptor DESC_AMY;
+    public static final EditContactDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -78,7 +78,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-                                            Model expectedModel) {
+            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
