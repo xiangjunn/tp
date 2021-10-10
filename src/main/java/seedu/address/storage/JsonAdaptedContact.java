@@ -28,6 +28,8 @@ class JsonAdaptedContact {
     private final String phone;
     private final String email;
     private final String address;
+    private final String telegramHandle;
+    private final String zoomLink;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,11 +38,14 @@ class JsonAdaptedContact {
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("telegramHandle") String telegramHandle, @JsonProperty("zoomLink") String zoomLink,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.telegramHandle = telegramHandle;
+        this.zoomLink = zoomLink;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -54,6 +59,8 @@ class JsonAdaptedContact {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        telegramHandle = source.getTelegramHandle().handle;
+        zoomLink = source.getZoomLink().link;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
