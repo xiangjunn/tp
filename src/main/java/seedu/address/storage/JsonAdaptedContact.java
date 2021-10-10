@@ -11,10 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -109,8 +111,25 @@ class JsonAdaptedContact {
         }
         final Address modelAddress = new Address(address);
 
+        if (telegramHandle == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        if (!TelegramHandle.isValidHandle(telegramHandle)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+        final TelegramHandle modelTelegramHandle = new TelegramHandle(telegramHandle);
+
+        if (zoomLink == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        if (!ZoomLink.isValidZoomLink(zoomLink)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+        final ZoomLink modelZoomLink = new ZoomLink(zoomLink);
+
         final Set<Tag> modelTags = new HashSet<>(contactTags);
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, null, null, modelTags);
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelZoomLink,
+                modelTelegramHandle, modelTags);
     }
 
 }
