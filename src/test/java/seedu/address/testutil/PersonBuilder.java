@@ -80,7 +80,7 @@ public class PersonBuilder {
      * Sets the {@code Address} of the {@code Contact} that we are building.
      */
     public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.address = address != null ? new Address(address) : null;
         return this;
     }
 
@@ -88,7 +88,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Contact} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.phone = phone != null ? new Phone(phone) : null;
         return this;
     }
 
@@ -104,7 +104,7 @@ public class PersonBuilder {
      * Sets the {@code TelegramHandle} of the {@code Contact} that we are building.
      */
     public PersonBuilder withTelegramHandle(String telegramHandle) {
-        this.telegramHandle = new TelegramHandle(telegramHandle);
+        this.telegramHandle = telegramHandle != null ? new TelegramHandle(telegramHandle) : null;
         return this;
     }
 
@@ -112,7 +112,7 @@ public class PersonBuilder {
      * Sets the {@code ZoomLink} of the {@code Contact} that we are building.
      */
     public PersonBuilder withZoomLink(String zoomLink) {
-        this.zoomLink = new ZoomLink(zoomLink);
+        this.zoomLink = zoomLink != null ? new ZoomLink(zoomLink) : null;
         return this;
     }
 

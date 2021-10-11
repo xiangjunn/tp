@@ -13,9 +13,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.common.Address;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.testutil.PersonBuilder;
 
 public class JsonAdaptedContactTest {
     private static final String INVALID_NAME = "R@chel";
@@ -67,11 +69,10 @@ public class JsonAdaptedContactTest {
     }
 
     @Test
-    public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedContact person = new JsonAdaptedContact(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS,
-            VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_nullPhone_returnsPerson() throws Exception {
+        Contact contactWithNullPhone = new PersonBuilder().withPhone(null).build();
+        JsonAdaptedContact person = new JsonAdaptedContact(contactWithNullPhone);
+        assertEquals(contactWithNullPhone, person.toModelType());
     }
 
     @Test
@@ -101,11 +102,10 @@ public class JsonAdaptedContactTest {
     }
 
     @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedContact person = new JsonAdaptedContact(VALID_NAME, VALID_PHONE, VALID_EMAIL, null,
-            VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_nullAddress_returnsPerson() throws Exception {
+        Contact contactWithNullAddress = new PersonBuilder().withAddress(null).build();
+        JsonAdaptedContact person = new JsonAdaptedContact(contactWithNullAddress);
+        assertEquals(contactWithNullAddress, person.toModelType());
     }
 
     @Test

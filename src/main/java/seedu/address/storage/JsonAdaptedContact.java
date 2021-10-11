@@ -57,10 +57,12 @@ class JsonAdaptedContact {
      * Converts a given {@code Contact} into this class for Jackson use.
      */
     public JsonAdaptedContact(Contact source) {
+        // compulsory fields
         name = source.getName().fullName;
-        phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        // optional fields
+        phone = source.getPhone() != null ? source.getPhone().value : null;
+        address = source.getAddress() != null ? source.getAddress().value : null;
         telegramHandle = source.getTelegramHandle() != null ? source.getTelegramHandle().handle : null;
         zoomLink = source.getZoomLink() != null ? source.getZoomLink().link : null;
         tagged.addAll(source.getTags().stream()
@@ -87,14 +89,6 @@ class JsonAdaptedContact {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
-
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -103,21 +97,24 @@ class JsonAdaptedContact {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (phone != null && !Phone.isValidPhone(phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        if (!Address.isValidAddress(address)) {
+        final Phone modelPhone = phone != null ? new Phone(phone) : null;
+
+
+        if (address != null && !Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Address modelAddress = address != null ? new Address(address) : null;
 
         if (telegramHandle != null && !TelegramHandle.isValidHandle(telegramHandle)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(TelegramHandle.MESSAGE_CONSTRAINTS);
         }
         final TelegramHandle modelTelegramHandle = telegramHandle != null ? new TelegramHandle(telegramHandle) : null;
 
         if (zoomLink != null && !ZoomLink.isValidZoomLink(zoomLink)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(ZoomLink.MESSAGE_CONSTRAINTS);
         }
         final ZoomLink modelZoomLink = zoomLink != null ? new ZoomLink(zoomLink) : null;
 
