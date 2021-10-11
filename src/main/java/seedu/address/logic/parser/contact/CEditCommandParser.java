@@ -12,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -70,6 +69,12 @@ public class CEditCommandParser implements Parser<CEditCommand> {
                 ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editContactDescriptor::setTags);
+
+        // Check for delete all
+        if (argMultimap.getAllValues(PREFIX_DELETE_TAG).stream().anyMatch(arg -> arg.equals("*"))) {
+            editContactDescriptor.setShouldDeleteAllTags(true);
+            System.out.println("Delete all");
+        }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editContactDescriptor::setTagsToDelete);
 
         if (!editContactDescriptor.isAnyFieldEdited()) {
@@ -81,8 +86,7 @@ public class CEditCommandParser implements Parser<CEditCommand> {
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * If {@code tags} contain an asterisk, it will be ignored.
      */
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
@@ -90,8 +94,9 @@ public class CEditCommandParser implements Parser<CEditCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        // To handle case for dt/*
+        tags.remove("*");
+        return Optional.of(ParserUtil.parseTags(tags));
     }
 
 }

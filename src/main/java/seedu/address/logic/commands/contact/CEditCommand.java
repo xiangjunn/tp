@@ -91,7 +91,8 @@ public class CEditCommand extends Command {
         ZoomLink updatedZoomLink = editContactDescriptor.getZoomLink().orElse(contactToEdit.getZoomLink());
         Set<Tag> updatedNewTags = editContactDescriptor.getTags().orElse(new HashSet<>());
         Set<Tag> updatedDeletedTags = editContactDescriptor.getTagsToDelete().orElse(new HashSet<>());
-        Set<Tag> updatedTags = addAndRemoveTags(updatedNewTags, updatedDeletedTags, contactToEdit.getTags());
+        Set<Tag> updatedTags = editContactDescriptor.isShouldDeleteAllTags()
+            ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, contactToEdit.getTags());
 
         return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedZoomLink,
             updatedTelegram, updatedTags);
@@ -118,7 +119,6 @@ public class CEditCommand extends Command {
         }
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
-        // TODO: what if deleted tag does not exist
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor);
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
@@ -161,6 +161,7 @@ public class CEditCommand extends Command {
         private ZoomLink zoomLink;
         private Set<Tag> tags;
         private Set<Tag> tagsToDelete;
+        private boolean shouldDeleteAllTags = false;
 
         public EditContactDescriptor() {
         }
@@ -178,6 +179,7 @@ public class CEditCommand extends Command {
             setTelegramHandle(toCopy.telegramHandle);
             setTags(toCopy.tags);
             setTagsToDelete(toCopy.tagsToDelete);
+            setShouldDeleteAllTags(toCopy.shouldDeleteAllTags);
         }
 
         /**
@@ -268,6 +270,17 @@ public class CEditCommand extends Command {
          */
         public void setTagsToDelete(Set<Tag> tagsToDelete) {
             this.tagsToDelete = tagsToDelete != null ? new HashSet<>(tagsToDelete) : null;
+        }
+
+        public boolean isShouldDeleteAllTags() {
+            return shouldDeleteAllTags;
+        }
+
+        /**
+         * Sets the boolean condition of whether all tags should be cleared first.
+         */
+        public void setShouldDeleteAllTags(boolean shouldDeleteAllTags) {
+            this.shouldDeleteAllTags = shouldDeleteAllTags;
         }
 
         @Override
