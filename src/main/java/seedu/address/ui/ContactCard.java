@@ -57,18 +57,23 @@ public class ContactCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
         // Compulsory fields
-        phone.setText("phone: " + contact.getPhone().value);
         email.setText("email: " + contact.getEmail().value);
         // Optional fields
-        // TODO: after optional fields are implemented, setManaged to true if the value exists to show the Label in UI
+        if (contact.getPhone() != null) {
+            phone.setText("phone: " + contact.getPhone().value);
+            phone.setManaged(true);
+        }
         if (contact.getAddress() != null) {
             address.setText("address: " + contact.getAddress().value);
+            address.setManaged(true);
         }
         if (contact.getTelegramHandle() != null) {
             telegramHandle.setText("telegram handle: " + contact.getTelegramHandle().handle);
+            telegramHandle.setManaged(true);
         }
         if (contact.getZoomLink() != null) {
             zoom.setText("zoom: " + contact.getZoomLink().link);
+            zoom.setManaged(true);
         }
         contact.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

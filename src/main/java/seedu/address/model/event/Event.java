@@ -33,7 +33,7 @@ public class Event {
      */
     public Event(Name name, DateAndTime startDateAndTime, DateAndTime endDateAndTime,
                  Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
-        requireAllNonNull(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
+        requireAllNonNull(name, startDateAndTime, tags);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
         this.endDateAndTime = endDateAndTime;
@@ -94,22 +94,20 @@ public class Event {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
+        if (this == other) {
             return true;
         }
-
-        if (!(other instanceof Event)) {
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
-
-        Event otherEvent = (Event) other;
-        return otherEvent.getName().equals(getName())
-                && otherEvent.getStartDateAndTime().equals(getStartDateAndTime())
-                && otherEvent.getEndDateAndTime().equals(getEndDateAndTime())
-                && otherEvent.getDescription().equals(getDescription())
-                && otherEvent.getAddress().equals(getAddress())
-                && otherEvent.getZoomLink().equals(getZoomLink())
-                && otherEvent.getTags().equals(getTags());
+        Event event = (Event) other;
+        return Objects.equals(getName(), event.getName())
+            && Objects.equals(getStartDateAndTime(), event.getStartDateAndTime())
+            && Objects.equals(getEndDateAndTime(), event.getEndDateAndTime())
+            && Objects.equals(getDescription(), event.getDescription())
+            && Objects.equals(getAddress(), event.getAddress())
+            && Objects.equals(getZoomLink(), event.getZoomLink())
+            && Objects.equals(getTags(), event.getTags());
     }
 
     @Override
