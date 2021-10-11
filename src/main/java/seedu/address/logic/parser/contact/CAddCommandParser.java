@@ -58,7 +58,7 @@ public class CAddCommandParser implements Parser<CAddCommand> {
         TelegramHandle handle = null;
         ZoomLink zoomLink = null;
         if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
-            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NAME).get());
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_PHONE)) {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());

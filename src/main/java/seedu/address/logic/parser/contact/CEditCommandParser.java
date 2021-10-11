@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +37,8 @@ public class CEditCommandParser implements Parser<CEditCommand> {
     public CEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                    PREFIX_ZOOM, PREFIX_TELEGRAM, PREFIX_TAG);
 
         Index index;
 
@@ -57,6 +60,13 @@ public class CEditCommandParser implements Parser<CEditCommand> {
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editContactDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ZOOM).isPresent()) {
+            editContactDescriptor.setZoomLink(ParserUtil.parseZoom(argMultimap.getValue(PREFIX_ZOOM).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TELEGRAM).isPresent()) {
+            editContactDescriptor.setTelegramHandle(
+                ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editContactDescriptor::setTags);
 
