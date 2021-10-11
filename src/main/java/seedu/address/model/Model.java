@@ -81,7 +81,7 @@ public interface Model {
     void setContact(Contact target, Contact editedContact);
 
     /**
-     * Remove all contacts from the addressbook.
+     * Remove all contacts from SoConnect.
      */
     void resetContacts();
 
