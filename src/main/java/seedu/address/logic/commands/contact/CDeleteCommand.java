@@ -50,7 +50,7 @@ public class CDeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
         if (startIndex.isMoreThan(endIndex)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_RANGE);
+            throw new CommandException(Messages.MESSAGE_START_MORE_THAN_END_INDEX);
         }
 
         String commandResult = "";
