@@ -49,12 +49,26 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.event = event;
         id.setText(displayedIndex + ". ");
+        // compulsory fields
         name.setText(event.getName().fullName);
         from.setText("from: " + event.getStartDateAndTime());
-        to.setText("to: " + event.getEndDateAndTime());
-        address.setText("location: " + event.getAddress().value);
-        zoomLink.setText("link: " + event.getZoomLink().link);
-        description.setText("description: " + event.getDescription().value);
+        // optional fields
+        if (event.getEndDateAndTime() != null) {
+            to.setText("to: " + event.getEndDateAndTime());
+            to.setManaged(true);
+        }
+        if (event.getAddress() != null) {
+            address.setText("location: " + event.getAddress().value);
+            address.setManaged(true);
+        }
+        if (event.getZoomLink() != null) {
+            zoomLink.setText("link: " + event.getZoomLink().link);
+            zoomLink.setManaged(true);
+        }
+        if (event.getDescription() != null) {
+            description.setText("description: " + event.getDescription().value);
+            description.setManaged(true);
+        }
         event.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
