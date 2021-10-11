@@ -61,8 +61,8 @@ class JsonAdaptedContact {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        telegramHandle = source.getTelegramHandle().handle;
-        zoomLink = source.getZoomLink().link;
+        telegramHandle = source.getTelegramHandle() != null ? source.getTelegramHandle().handle : null;
+        zoomLink = source.getZoomLink() != null ? source.getZoomLink().link : null;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -111,21 +111,15 @@ class JsonAdaptedContact {
         }
         final Address modelAddress = new Address(address);
 
-        if (telegramHandle == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!TelegramHandle.isValidHandle(telegramHandle)) {
+        if (telegramHandle != null && !TelegramHandle.isValidHandle(telegramHandle)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final TelegramHandle modelTelegramHandle = new TelegramHandle(telegramHandle);
+        final TelegramHandle modelTelegramHandle = telegramHandle != null ? new TelegramHandle(telegramHandle) : null;
 
-        if (zoomLink == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!ZoomLink.isValidZoomLink(zoomLink)) {
+        if (zoomLink != null && !ZoomLink.isValidZoomLink(zoomLink)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final ZoomLink modelZoomLink = new ZoomLink(zoomLink);
+        final ZoomLink modelZoomLink = zoomLink != null ? new ZoomLink(zoomLink) : null;
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelZoomLink,
