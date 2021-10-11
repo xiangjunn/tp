@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.range.Range;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
@@ -21,6 +22,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_RANGE = "Range given is invalid.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -33,6 +35,36 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses parameter into a {@code Range} and returns it. Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the specified range is invalid.
+     */
+    public static Range parseRange(String range) throws ParseException {
+        String trimmedRange = range.trim();
+        if (!StringUtil.isValidRange(trimmedRange)) {
+            throw new ParseException(MESSAGE_INVALID_RANGE);
+        }
+        String[] rangeArr = trimmedRange.split("-");
+        Index start = parseIndex(rangeArr[0]);
+        Index end = parseIndex(rangeArr[1]);
+        return new Range(start, end);
+    }
+
+    /**
+     * Parses parameter into a {@code Range} and returns it. Leading and trailing whitespaces will be trimmed.
+     * First, it will try to parse into an {@code Index}. If successful, the index will be converted to a
+     * Range from itself to itself. Else, it will parse into a Range.
+     * @throws ParseException if specified argument can neither be parsed into an Index nor a Range.
+     */
+    public static Range parseDeleteArgument(String args) throws ParseException {
+        try {
+            Index index = parseIndex(args);
+            return new Range(index, index);
+        } catch (ParseException pe) {
+            return parseRange(args);
+        }
     }
 
     /**

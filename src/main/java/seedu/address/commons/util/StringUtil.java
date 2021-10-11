@@ -65,4 +65,9 @@ public class StringUtil {
             return false;
         }
     }
+
+    public static boolean isValidRange(String s) {
+        requireNonNull(s);
+        return s.matches("\\d-\\d");
+    }
 }
