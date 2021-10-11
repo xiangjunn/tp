@@ -7,12 +7,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Clears the contacts.
+ * Clears all entries of contacts from the contact list.
  */
 public class CClearCommand extends Command {
 
     public static final String COMMAND_WORD = "cclear";
-    public static final String MESSAGE_SUCCESS = "Contacts have been cleared!";
+    public static final String MESSAGE_SUCCESS = "All entries of contacts have been cleared!";
 
 
     @Override
