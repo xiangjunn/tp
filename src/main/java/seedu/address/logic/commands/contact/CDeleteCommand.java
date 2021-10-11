@@ -23,7 +23,7 @@ public class CDeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
             + "Parameters: INDEX[-INDEX] (must be a positive integer)\n"
-            + "Example 1: " + COMMAND_WORD + " 1"
+            + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
@@ -43,13 +43,18 @@ public class CDeleteCommand extends Command {
         requireNonNull(model);
         List<Contact> lastShownList = model.getFilteredContactList();
 
-        int end = targetRange.getEnd().getZeroBased();
+        Index startIndex = targetRange.getStart();
+        Index endIndex = targetRange.getEnd();
+        int end = endIndex.getZeroBased();
         if (end >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
+        if (startIndex.isMoreThan(endIndex)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_RANGE);
+        }
 
         String commandResult = "";
-        int indexToDelete = targetRange.getStart().getZeroBased();
+        int indexToDelete = startIndex.getZeroBased();
         // delete the same index starting from the start index, since after deleting a contact,
         // the remaining contacts with larger indexes will have their index decreased by 1. Hence,
         // the next bigger index will have the same index as the deleted contact.

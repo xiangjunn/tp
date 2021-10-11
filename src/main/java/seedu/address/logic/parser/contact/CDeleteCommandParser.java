@@ -2,7 +2,6 @@ package seedu.address.logic.parser.contact;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.parser.Parser;

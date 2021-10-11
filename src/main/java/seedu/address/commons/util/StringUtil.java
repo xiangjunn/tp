@@ -66,8 +66,11 @@ public class StringUtil {
         }
     }
 
+    /**
+     * Returns true if {@code s} represents a valid range; false otherwise.
+     */
     public static boolean isValidRange(String s) {
         requireNonNull(s);
-        return s.matches("\\d-\\d");
+        return s.matches("\\d+-\\d+");
     }
 }
