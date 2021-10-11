@@ -106,6 +106,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
+    public void resetEvents() {
+        this.events.resetEvents();
+    }
+
 
     //// contact-level operations
 

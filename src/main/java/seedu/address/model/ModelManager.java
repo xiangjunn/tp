@@ -143,6 +143,11 @@ public class ModelManager implements Model {
         addressBook.setEvent(target, editedEvent);
     }
 
+    @Override
+    public void resetEvents() {
+        this.addressBook.resetEvents();
+    }
+
     //=========== Filtered Contact List Accessors =====================
 
     /**
