@@ -89,10 +89,23 @@ public class CEditCommand extends Command {
         TelegramHandle updatedTelegram = editContactDescriptor.getTelegramHandle()
             .orElse(contactToEdit.getTelegramHandle());
         ZoomLink updatedZoomLink = editContactDescriptor.getZoomLink().orElse(contactToEdit.getZoomLink());
-        Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
+        Set<Tag> updatedNewTags = editContactDescriptor.getTags().orElse(new HashSet<>());
+        Set<Tag> updatedDeletedTags = editContactDescriptor.getTagsToDelete().orElse(new HashSet<>());
+        Set<Tag> updatedTags = addAndRemoveTags(updatedNewTags, updatedDeletedTags, contactToEdit.getTags());
 
         return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedZoomLink,
             updatedTelegram, updatedTags);
+    }
+
+    /**
+     * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
+     * tags in {@code toRemove} will be excluded.
+     */
+    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+        Set<Tag> updatedTags = new HashSet<>(original);
+        toRemove.forEach(updatedTags::remove);
+        updatedTags.addAll(toAdd);
+        return updatedTags;
     }
 
     @Override
@@ -147,6 +160,7 @@ public class CEditCommand extends Command {
         private TelegramHandle telegramHandle;
         private ZoomLink zoomLink;
         private Set<Tag> tags;
+        private Set<Tag> tagsToDelete;
 
         public EditContactDescriptor() {
         }
@@ -163,13 +177,15 @@ public class CEditCommand extends Command {
             setZoomLink(toCopy.zoomLink);
             setTelegramHandle(toCopy.telegramHandle);
             setTags(toCopy.tags);
+            setTagsToDelete(toCopy.tagsToDelete);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, telegramHandle, zoomLink, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, telegramHandle, zoomLink,
+                tags, tagsToDelete);
         }
 
         public Optional<Name> getName() {
@@ -221,7 +237,7 @@ public class CEditCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable tag set to be added, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
@@ -235,6 +251,23 @@ public class CEditCommand extends Command {
          */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set to be removed, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToDelete} is null.
+         */
+        public Optional<Set<Tag>> getTagsToDelete() {
+            return tagsToDelete != null ? Optional.of(Collections.unmodifiableSet((tagsToDelete))) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tagsToDelete} to this object's {@code tagsToDelete}.
+         * A defensive copy of {@code tagsToDelete} is used internally.
+         */
+        public void setTagsToDelete(Set<Tag> tagsToDelete) {
+            this.tagsToDelete = tagsToDelete != null ? new HashSet<>(tagsToDelete) : null;
         }
 
         @Override
@@ -256,7 +289,10 @@ public class CEditCommand extends Command {
                 && getPhone().equals(e.getPhone())
                 && getEmail().equals(e.getEmail())
                 && getAddress().equals(e.getAddress())
-                && getTags().equals(e.getTags());
+                && getTelegramHandle().equals(e.getTelegramHandle())
+                && getZoomLink().equals(e.getZoomLink())
+                && getTags().equals(e.getTags())
+                && getTagsToDelete().equals(e.getTagsToDelete());
         }
     }
 }

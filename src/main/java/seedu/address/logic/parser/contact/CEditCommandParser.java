@@ -3,6 +3,7 @@ package seedu.address.logic.parser.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -38,7 +39,7 @@ public class CEditCommandParser implements Parser<CEditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                    PREFIX_ZOOM, PREFIX_TELEGRAM, PREFIX_TAG);
+                    PREFIX_ZOOM, PREFIX_TELEGRAM, PREFIX_TAG, PREFIX_DELETE_TAG);
 
         Index index;
 
@@ -69,6 +70,7 @@ public class CEditCommandParser implements Parser<CEditCommand> {
                 ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editContactDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editContactDescriptor::setTagsToDelete);
 
         if (!editContactDescriptor.isAnyFieldEdited()) {
             throw new ParseException(CEditCommand.MESSAGE_NOT_EDITED);
