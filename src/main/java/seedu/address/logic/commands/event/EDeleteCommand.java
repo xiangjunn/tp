@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.contact;
+package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
@@ -11,43 +11,43 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
- * Deletes a contact identified using it's displayed index from the address book.
+ * Deletes an event identified using its displayed index from the SoConnect.
  */
-public class CDeleteCommand extends Command {
+public class EDeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "cdelete";
+    public static final String COMMAND_WORD = "edelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX[-INDEX] (must be a positive integer)\n"
-            + "Example 1: " + COMMAND_WORD + " 1\n"
+            + ": Deletes the event identified by the index number used in the displayed SoConnect.\n"
+            + "Parameters: INDEX1[-INDEX2] (both indexes must be a positive integer)\n"
+            + "Example 1: " + COMMAND_WORD + " 1"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 
-    public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
     private final Range targetRange;
 
-    public CDeleteCommand(Index targetIndex) {
+    public EDeleteCommand(Index targetIndex) {
         this.targetRange = new Range(targetIndex, targetIndex);
     }
 
-    public CDeleteCommand(Range targetRange) {
+    public EDeleteCommand(Range targetRange) {
         this.targetRange = targetRange;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Contact> lastShownList = model.getFilteredContactList();
+        List<Event> lastShownList = model.getFilteredEventList();
 
         Index startIndex = targetRange.getStart();
         Index endIndex = targetRange.getEnd();
         int end = endIndex.getZeroBased();
         if (end >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         if (startIndex.isMoreThan(endIndex)) {
             throw new CommandException(Messages.MESSAGE_START_MORE_THAN_END_INDEX);
@@ -55,13 +55,10 @@ public class CDeleteCommand extends Command {
 
         String commandResult = "";
         int indexToDelete = startIndex.getZeroBased();
-        // delete the same index starting from the start index, since after deleting a contact,
-        // the remaining contacts with larger indexes will have their index decreased by 1. Hence,
-        // the next bigger index will have the same index as the deleted contact.
         for (int i = indexToDelete; i <= end; i++) {
-            Contact contactToDelete = lastShownList.get(indexToDelete);
-            model.deleteContact(contactToDelete);
-            commandResult += String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
+            Event eventToDelete = lastShownList.get(indexToDelete);
+            model.deleteEvent(eventToDelete);
+            commandResult += String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
             if (i != end) {
                 commandResult += "\n";
             }
@@ -72,7 +69,8 @@ public class CDeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CDeleteCommand // instanceof handles nulls
-                && targetRange.equals(((CDeleteCommand) other).targetRange)); // state check
+                || (other instanceof EDeleteCommand // instanceof handles nulls
+                && targetRange.equals(((EDeleteCommand) other).targetRange)); // state check
     }
 }
+

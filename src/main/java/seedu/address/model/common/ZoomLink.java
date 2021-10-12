@@ -65,6 +65,11 @@ public class ZoomLink {
     }
 
     @Override
+    public String toString() {
+        return link;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ZoomLink // instanceof handles nulls

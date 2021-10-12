@@ -117,6 +117,11 @@ public class ModelManager implements Model {
         addressBook.setContact(target, editedContact);
     }
 
+    @Override
+    public void resetContacts() {
+        this.addressBook.resetContacts();
+    }
+
     //=========== Manage Events ======================
 
     @Override
@@ -141,6 +146,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEvent);
 
         addressBook.setEvent(target, editedEvent);
+    }
+
+    @Override
+    public void resetEvents() {
+        this.addressBook.resetEvents();
     }
 
     //=========== Filtered Contact List Accessors =====================

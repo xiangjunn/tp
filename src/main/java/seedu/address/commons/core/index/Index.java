@@ -45,6 +45,16 @@ public class Index {
         return new Index(oneBasedIndex - 1);
     }
 
+    /**
+     * Compares if this index is more than another index.
+     *
+     * @param index The index to compare to.
+     * @return true if this index is more than the index compared; false otherwise.
+     */
+    public boolean isMoreThan(Index index) {
+        return this.zeroBasedIndex > index.zeroBasedIndex;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
