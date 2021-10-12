@@ -13,8 +13,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.tag.Tag;
 

@@ -25,8 +25,12 @@ import seedu.address.logic.parser.contact.CAddCommandParser;
 import seedu.address.logic.parser.contact.CDeleteCommandParser;
 import seedu.address.logic.parser.contact.CEditCommandParser;
 import seedu.address.logic.parser.contact.CFindCommandParser;
-import seedu.address.logic.parser.event.EAddCommandParser;
 import seedu.address.logic.parser.contact.CListCommandParser;
+import seedu.address.logic.parser.event.EAddCommandParser;
+import seedu.address.logic.parser.event.EDeleteCommandParser;
+import seedu.address.logic.parser.event.EEditCommandParser;
+import seedu.address.logic.parser.event.EFindCommandParser;
+import seedu.address.logic.parser.event.EListCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
