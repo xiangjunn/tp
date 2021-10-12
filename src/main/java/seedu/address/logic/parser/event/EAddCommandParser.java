@@ -43,20 +43,36 @@ public class EAddCommandParser implements Parser<EAddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION,
                         PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION,
-                PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_START_TIME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EAddCommand.MESSAGE_USAGE));
         }
 
+        // Compulsory fields
         Name name = EventParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        StartDateTime start = (StartDateTime) EventParserUtil
-                .parseDateAndTime(argMultimap.getValue(PREFIX_START_TIME).get());
-        EndDateTime end = (EndDateTime) EventParserUtil
-                .parseDateAndTime(argMultimap.getValue(PREFIX_END_TIME).get());
-        Description description = EventParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Address address = EventParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        ZoomLink zoom = EventParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get());
+        StartDateTime start = EventParserUtil
+                .parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get());
+
+        // Optional fields
+        EndDateTime end = null;
+        Description description = null;
+        Address address = null;
+        ZoomLink zoom = null;
+
+        if (arePrefixesPresent(argMultimap, PREFIX_END_TIME)) {
+            end = EventParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_TIME).get());
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
+            description = EventParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
+            address = EventParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_ZOOM)) {
+            zoom = EventParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get());
+        }
+
         Set<Tag> tagList = EventParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
 
         Event event = new Event(name, start, end, description, address, zoom, tagList);
 

@@ -16,6 +16,14 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
+
+    private static boolean willDisplayStartDateTime = true;
+    private static boolean willDisplayEndDateTime = true;
+    private static boolean willDisplayDescription = true;
+    private static boolean willDisplayAddress = true;
+    private static boolean willDisplayZoomLink = true;
+    private static boolean willDisplayTags = true;
+
     //Compulsory fields
     private final Name name;
     private final DateAndTime startDateAndTime;
@@ -25,22 +33,24 @@ public class Event {
     private final Description description;
     private final Address address;
     private final ZoomLink zoomLink;
-
     private final Set<Tag> tags = new HashSet<>();
+
 
     /**
      * All fields must be present and not null (currently).
      */
     public Event(Name name, DateAndTime startDateAndTime, DateAndTime endDateAndTime,
                  Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
-        requireAllNonNull(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
+        requireAllNonNull(name, startDateAndTime);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
         this.endDateAndTime = endDateAndTime;
         this.description = description;
         this.address = address;
         this.zoomLink = zoomLink;
-        this.tags.addAll(tags);
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
     }
 
     public Name getName() {
@@ -73,6 +83,70 @@ public class Event {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public static boolean isWillDisplayStartDateTime() {
+        return willDisplayStartDateTime;
+    }
+
+    public static void setWillDisplayStartDateTime(boolean willDisplayStartDateTime) {
+        Event.willDisplayStartDateTime = willDisplayStartDateTime;
+    }
+
+    public static boolean isWillDisplayEndDateTime() {
+        return willDisplayEndDateTime;
+    }
+
+    public static void setWillDisplayEndDateTime(boolean willDisplayEndDateTime) {
+        Event.willDisplayEndDateTime = willDisplayEndDateTime;
+    }
+
+    public static boolean isWillDisplayDescription() {
+        return willDisplayDescription;
+    }
+
+    public static void setWillDisplayDescription(boolean willDisplayDescription) {
+        Event.willDisplayDescription = willDisplayDescription;
+    }
+
+    public static boolean isWillDisplayAddress() {
+        return willDisplayAddress;
+    }
+
+    public static void setWillDisplayAddress(boolean willDisplayAddress) {
+        Event.willDisplayAddress = willDisplayAddress;
+    }
+
+    public static boolean isWillDisplayZoomLink() {
+        return willDisplayZoomLink;
+    }
+
+    public static void setWillDisplayZoomLink(boolean willDisplayZoomLink) {
+        Event.willDisplayZoomLink = willDisplayZoomLink;
+    }
+
+    public static boolean isWillDisplayTags() {
+        return willDisplayTags;
+    }
+
+    public static void setWillDisplayTags(boolean willDisplayTags) {
+        Event.willDisplayTags = willDisplayTags;
+    }
+
+    public static void setAllFieldsToTrue() {
+        willDisplayEndDateTime = true;
+        willDisplayDescription = true;
+        willDisplayAddress = true;
+        willDisplayZoomLink = true;
+        willDisplayTags = true;
+    }
+
+    public static void setAllFieldsToFalse() {
+        willDisplayEndDateTime = false;
+        willDisplayDescription = false;
+        willDisplayAddress = false;
+        willDisplayZoomLink = false;
+        willDisplayTags = false;
     }
 
     /**

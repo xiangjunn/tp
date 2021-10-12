@@ -2,6 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -49,7 +50,8 @@ public class EEditCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_ZOOM + PREFIX_ZOOM + "ZOOM] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "[" + PREFIX_DELETE_TAG + "DELETE TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_START_TIME + "2020-12-01 "
             + PREFIX_ADDRESS + "12th Street";
@@ -109,10 +111,24 @@ public class EEditCommand extends Command {
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
         Address updatedAddress = editEventDescriptor.getAddress().orElse(eventToEdit.getAddress());
         ZoomLink updatedZoomLink = editEventDescriptor.getZoomLink().orElse(eventToEdit.getZoomLink());
-        Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
+        Set<Tag> updatedNewTags = editEventDescriptor.getTags().orElse(new HashSet<>());
+        Set<Tag> updatedDeletedTags = editEventDescriptor.getTagsToDelete().orElse(new HashSet<>());
+        Set<Tag> updatedTags = editEventDescriptor.getIsShouldDeleteAllTags()
+                ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
 
         return new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
                 updatedZoomLink, updatedTags);
+    }
+
+    /**
+     * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
+     * tags in {@code toRemove} will be excluded.
+     */
+    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+        Set<Tag> updatedTags = new HashSet<>(original);
+        toRemove.forEach(updatedTags::remove);
+        updatedTags.addAll(toAdd);
+        return updatedTags;
     }
 
     @Override
@@ -145,8 +161,12 @@ public class EEditCommand extends Command {
         private Address address;
         private ZoomLink zoom;
         private Set<Tag> tags;
+        private Set<Tag> tagsToDelete;
+        private boolean isShouldDeleteAllTags = false;
 
-        public EditEventDescriptor() {}
+        public EditEventDescriptor() {
+
+        }
 
         /**
          * Copy constructor.
@@ -160,13 +180,16 @@ public class EEditCommand extends Command {
             setAddress(toCopy.address);
             setZoomLink(toCopy.zoom);
             setTags(toCopy.tags);
+            setTagsToDelete(toCopy.tagsToDelete);
+            setIsShouldDeleteAllTags(toCopy.isShouldDeleteAllTags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, start, end, description, address, zoom, tags);
+            return CollectionUtil.isAnyNonNull(name, start, end, description, address, zoom, tags, tagsToDelete)
+                    || isShouldDeleteAllTags;
         }
 
         public void setName(Name name) {
@@ -225,13 +248,35 @@ public class EEditCommand extends Command {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
         public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+            return Optional.ofNullable(tags);
+        }
+        /**
+         * Returns an unmodifiable tag set to be removed, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToDelete} is null.
+         */
+        public Optional<Set<Tag>> getTagsToDelete() {
+            return tagsToDelete != null ? Optional.of(Collections.unmodifiableSet((tagsToDelete))) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tagsToDelete} to this object's {@code tagsToDelete}.
+         * A defensive copy of {@code tagsToDelete} is used internally.
+         */
+        public void setTagsToDelete(Set<Tag> tagsToDelete) {
+            this.tagsToDelete = tagsToDelete != null ? new HashSet<>(tagsToDelete) : null;
+        }
+
+        public boolean getIsShouldDeleteAllTags() {
+            return isShouldDeleteAllTags;
+        }
+
+        /**
+         * Sets the boolean condition of whether all tags should be cleared first.
+         */
+        public void setIsShouldDeleteAllTags(boolean shouldDeleteAllTags) {
+            this.isShouldDeleteAllTags = shouldDeleteAllTags;
         }
 
         @Override
@@ -255,7 +300,8 @@ public class EEditCommand extends Command {
                     && getDescription().equals(e.getDescription())
                     && getAddress().equals(e.getAddress())
                     && getZoomLink().equals(e.getZoomLink())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getTagsToDelete().equals(e.getTagsToDelete());
         }
     }
 }

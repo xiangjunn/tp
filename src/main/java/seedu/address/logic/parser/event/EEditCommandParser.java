@@ -3,6 +3,7 @@ package seedu.address.logic.parser.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -11,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,7 +23,6 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EndDateTime;
-import seedu.address.model.event.StartDateTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -55,12 +54,12 @@ public class EEditCommandParser implements Parser<EEditCommand> {
             editEventDescriptor.setName(EventParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_START_TIME).isPresent()) {
-            editEventDescriptor.setStartDateTime((StartDateTime) EventParserUtil
-                    .parseDateAndTime(argMultimap.getValue(PREFIX_START_TIME).get()));
+            editEventDescriptor.setStartDateTime(EventParserUtil
+                    .parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_END_TIME).isPresent()) {
             editEventDescriptor.setEndDateTime((EndDateTime) EventParserUtil
-                    .parseDateAndTime(argMultimap.getValue(PREFIX_END_TIME).get()));
+                    .parseEndDateTime(argMultimap.getValue(PREFIX_END_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editEventDescriptor.setDescription(EventParserUtil
@@ -74,7 +73,13 @@ public class EEditCommandParser implements Parser<EEditCommand> {
             editEventDescriptor.setZoomLink(EventParserUtil
                     .parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editEventDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editEventDescriptor::setTagsToDelete);
+
+        // Check for delete all
+        if (argMultimap.getAllValues(PREFIX_DELETE_TAG).stream().anyMatch(arg -> arg.equals("*"))) {
+            editEventDescriptor.setIsShouldDeleteAllTags(true);
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editEventDescriptor::setTagsToDelete);
 
         if (!editEventDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EEditCommand.MESSAGE_NOT_EDITED);
@@ -85,8 +90,7 @@ public class EEditCommandParser implements Parser<EEditCommand> {
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * If {@code tags} contain an asterisk, it will be ignored.
      */
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
@@ -94,8 +98,9 @@ public class EEditCommandParser implements Parser<EEditCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        // To handle case for dt/*
+        tags.remove("*");
+        return Optional.of(ParserUtil.parseTags(tags));
     }
 
 }

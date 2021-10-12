@@ -7,7 +7,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.event.DateAndTime;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.StartDateTime;
 
 public class EventParserUtil extends ParserUtil {
 
@@ -27,20 +29,35 @@ public class EventParserUtil extends ParserUtil {
     }
 
     /**
-     * Parses a {@code String  dateAndTime} into a {@code DateAndTime}.
+     * Parses a {@code String  startDateTime} into a {@code StartDateTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code dateAndTime} is invalid.
+     * @param startDateTime when the event starts
+     * @throws ParseException if the given {@code startDateTime} is invalid.
      */
-    public static DateAndTime parseDateAndTime(String dateAndTime) throws ParseException {
-        requireNonNull(dateAndTime);
-        String trimmedDateAndTime = dateAndTime.trim();
-        if (!DateAndTime.isValidDateTime(trimmedDateAndTime)) {
+    public static StartDateTime parseStartDateTime(String startDateTime) throws ParseException {
+        requireNonNull(startDateTime);
+        String trimmedStartDateTime = startDateTime.trim();
+        if (!StartDateTime.isValidDateTime(trimmedStartDateTime)) {
             throw new ParseException(DateAndTime.MESSAGE_CONSTRAINTS);
         }
+        return new StartDateTime(trimmedStartDateTime);
+    }
 
-        return new DateAndTime(trimmedDateAndTime);
-
+    /**
+     * Parses a {@code String  endDateTime} into a {@code EndDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param endDateTime when the event ends
+     * @throws ParseException if the given {@code endDateTime} is invalid.
+     */
+    public static EndDateTime parseEndDateTime(String endDateTime) throws ParseException {
+        requireNonNull(endDateTime);
+        String trimmedEndDateTime = endDateTime.trim();
+        if (!StartDateTime.isValidDateTime(trimmedEndDateTime)) {
+            throw new ParseException(DateAndTime.MESSAGE_CONSTRAINTS);
+        }
+        return new EndDateTime(trimmedEndDateTime);
     }
 
     /**

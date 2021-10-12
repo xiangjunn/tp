@@ -50,14 +50,32 @@ public class EventCard extends UiPart<Region> {
         this.event = event;
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().fullName);
-        from.setText("from: " + event.getStartDateAndTime());
-        to.setText("to: " + event.getEndDateAndTime());
-        address.setText("location: " + event.getAddress().value);
-        zoomLink.setText("link: " + event.getZoomLink().link);
-        description.setText("description: " + event.getDescription().value);
-        event.getTags().stream()
-            .sorted(Comparator.comparing(tag -> tag.tagName))
-            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (Event.isWillDisplayStartDateTime()) {
+            from.setText("from: " + event.getStartDateAndTime());
+            from.setManaged(true);
+        }
+        if (event.getEndDateAndTime() != null && Event.isWillDisplayEndDateTime()) {
+            to.setText("to: " + event.getEndDateAndTime());
+            to.setManaged(true);
+        }
+        if (event.getAddress() != null && Event.isWillDisplayAddress()) {
+            address.setText("location: " + event.getAddress().value);
+            address.setManaged(true);
+        }
+        if (event.getAddress() != null && Event.isWillDisplayZoomLink()) {
+            zoomLink.setText("link: " + event.getZoomLink().link);
+            zoomLink.setManaged(true);
+        }
+        if (event.getDescription() != null && Event.isWillDisplayDescription()) {
+            description.setText("description: " + event.getDescription().value);
+            description.setManaged(true);
+        }
+        if (event.getTags() != null && Event.isWillDisplayTags()) {
+            event.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            tags.setManaged(true);
+        }
     }
 
     @Override
@@ -77,4 +95,5 @@ public class EventCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
             && event.equals(card.event);
     }
+
 }
