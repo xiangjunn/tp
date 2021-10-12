@@ -15,17 +15,17 @@ public class DateAndTime {
     public static final String MESSAGE_CONSTRAINTS =
             "Time format should be in  dd-MM-yyyy HH:mm format and start time should not be blank";
 
-    public static final String YEAR_FORMAT = "([12][0-9][0-9][0-9])"; // year range from 1000 to 2999
+    public static final String DATE_FORMAT = "(0?[1-9]|[12][0-9]|3[01])"; // date range from 1 to 31
 
     public static final String MONTH_FORMAT = "(0?[0-9]|1[0-2])"; // month range from 1 to 12
 
-    public static final String DATE_FORMAT = "(0?[1-9]|[12][0-9]|3[01])"; // date range from 1 to 31
+    public static final String YEAR_FORMAT = "([12][0-9][0-9][0-9])"; // year range from 1000 to 2999
 
     public static final String HOUR_FORMAT = "(0?[0-9]|1[0-9]|2[0-3])"; // hour range from 00 to 23
 
     public static final String MINUTE_FORMAT = "(0?[0-9]|[1-5][0-9])"; // minute range from 00 to 59
 
-    public static final String VALIDATION_REGEX = YEAR_FORMAT + "-" + MONTH_FORMAT + "-" + DATE_FORMAT
+    public static final String VALIDATION_REGEX = DATE_FORMAT + "-" + MONTH_FORMAT + "-" + YEAR_FORMAT
             + " " + HOUR_FORMAT + ":" + MINUTE_FORMAT;
 
     public final LocalDateTime time;
