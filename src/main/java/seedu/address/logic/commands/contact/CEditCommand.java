@@ -47,9 +47,9 @@ public class CEditCommand extends Command {
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TELEGRAM + "TELEGRAM] "
         + "[" + PREFIX_ZOOM + "ZOOM] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TAG + "TAG]... "
         + "[" + PREFIX_DELETE_TAG + "DELETE_TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
@@ -175,8 +175,8 @@ public class CEditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            setZoomLink(toCopy.zoomLink);
             setTelegramHandle(toCopy.telegramHandle);
+            setZoomLink(toCopy.zoomLink);
             setTags(toCopy.tags);
             setTagsToDelete(toCopy.tagsToDelete);
             setShouldDeleteAllTags(toCopy.shouldDeleteAllTags);
