@@ -33,7 +33,7 @@ public class EAddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Summer Party "
             + PREFIX_START_TIME + "12-12-2021 15:12 "
-            + PREFIX_DESCRIPTION + "week 9 lecture"
+            + PREFIX_DESCRIPTION + "end of semester party "
             + PREFIX_ADDRESS + "123, Clementi Rd, S1234665 "
             + PREFIX_ZOOM + "http://zoomlink.com "
             + PREFIX_TAG + "fun ";
