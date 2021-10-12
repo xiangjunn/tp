@@ -57,12 +57,14 @@ class JsonAdaptedEvent {
      * Converts a given {@code Event} into this class for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
+        // compulsory fields
         name = source.getName().fullName;
         startDateTime = source.getStartDateAndTime().toString();
-        endDateTime = source.getEndDateAndTime().toString();
-        description = source.getDescription().value;
-        address = source.getAddress().value;
-        zoomLink = source.getZoomLink().link;
+        // optional fields
+        endDateTime = source.getEndDateAndTime() != null ? source.getEndDateAndTime().toString() : null;
+        description = source.getDescription() != null ? source.getDescription().value : null;
+        address = source.getAddress() != null ? source.getAddress().value : null;
+        zoomLink = source.getZoomLink() != null ? source.getZoomLink().link : null;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -96,39 +98,22 @@ class JsonAdaptedEvent {
         }
         final StartDateTime modelStartDateTime = new StartDateTime(startDateTime);
 
-        if (endDateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EndDateTime.class.getSimpleName()));
-        }
-        if (!EndDateTime.isValidDateTime(endDateTime)) {
+        if (endDateTime != null && !EndDateTime.isValidDateTime(endDateTime)) {
             throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);
         }
-        final EndDateTime modelEndDateTime = new EndDateTime(endDateTime);
+        final EndDateTime modelEndDateTime = endDateTime == null ? null : new EndDateTime(endDateTime);
 
-        if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
-        }
+        final Description modelDescription = description == null ? null : new Description(description);
 
-        final Description modelDescription = new Description(description);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
+        if (address != null && !Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Address modelAddress = address == null ? null : new Address(address);
 
-        if (zoomLink == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ZoomLink.class.getSimpleName()));
-        }
-        if (!ZoomLink.isValidZoomLink(zoomLink)) {
+        if (zoomLink != null && !ZoomLink.isValidZoomLink(zoomLink)) {
             throw new IllegalValueException(ZoomLink.MESSAGE_CONSTRAINTS);
         }
-        final ZoomLink modelZoomLink = new ZoomLink(zoomLink);
+        final ZoomLink modelZoomLink = zoomLink == null ? null : new ZoomLink(zoomLink);
 
         final Set<Tag> modelTags = new HashSet<>(eventTags);
         return new Event(modelName, modelStartDateTime, modelEndDateTime, modelDescription, modelAddress, modelZoomLink,

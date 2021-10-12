@@ -34,7 +34,7 @@ public class Contact {
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
         TelegramHandle telegramHandle, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;

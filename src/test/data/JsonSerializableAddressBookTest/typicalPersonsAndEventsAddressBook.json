@@ -47,7 +47,7 @@
     "name": "Summer vacation",
     "start": "2021-03-27 15:30",
     "end": "2021-03-27 15:30",
-    "description": "",
+    "description": null,
     "address": "123, Jurong West Ave 6, #08-111",
     "zoom": "http://zoomlink.com",
     "tagged": [ "holiday" ]
@@ -63,7 +63,7 @@
     "name": "Midterm",
     "start": "2021-03-27 15:30",
     "end": "2021-03-27 15:30",
-    "description": "",
+    "description": "Oh no, did not study...",
     "address": "online street",
     "zoom": "http://zoomlink.com",
     "tagged": [ "exams" ]
