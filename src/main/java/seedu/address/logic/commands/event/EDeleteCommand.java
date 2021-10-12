@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Deletes an event identified using it's displayed index from the SoConnect.
+ * Deletes an event identified using its displayed index from the SoConnect.
  */
 public class EDeleteCommand extends Command {
 
@@ -22,7 +22,8 @@ public class EDeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed SoConnect.\n"
             + "Parameters: INDEX1[-INDEX2] (both indexes must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example 1: " + COMMAND_WORD + " 1"
+            + "Example 2: " + COMMAND_WORD + " 2-5";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
