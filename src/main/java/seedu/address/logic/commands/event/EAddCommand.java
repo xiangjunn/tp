@@ -31,14 +31,12 @@ public class EAddCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "CS2103T lecture "
-            + PREFIX_START_TIME + "2021-10-08 16:00 "
-            + PREFIX_END_TIME + "2021-10-08 18:00 "
+            + PREFIX_NAME + "Summer Party "
+            + PREFIX_START_TIME + "12-12-2021 15:12 "
             + PREFIX_DESCRIPTION + "week 9 lecture"
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_ZOOM + "http://zoomlink.com"
-            + PREFIX_TAG + "$$ "
-            + PREFIX_TAG + "software engineering";
+            + PREFIX_ADDRESS + "123, Clementi Rd, S1234665 "
+            + PREFIX_ZOOM + "http://zoomlink.com "
+            + PREFIX_TAG + "fun ";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book";
