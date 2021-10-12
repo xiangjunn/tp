@@ -24,6 +24,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_PHONE_A
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -203,9 +204,10 @@ public class CEditCommandParserTest {
     @Test
     public void parse_resetTags_success() {
         Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_DELETE_TAG + "*";
 
-        CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withTags().build();
+        CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
+            .withDeleteAllTags(true).build();
         CEditCommand expectedCommand = new CEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
