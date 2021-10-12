@@ -26,4 +26,14 @@ public class Description {
                 || (other instanceof Description // instanceof handles nulls
                 && value.equals(((Description) other).value)); // state check
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

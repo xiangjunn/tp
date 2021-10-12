@@ -125,6 +125,11 @@ public interface Model {
     ObservableList<Event> getFilteredEventList();
 
     /**
+     * Removes all events from SoConnect.
+     */
+    void resetEvents();
+
+    /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
