@@ -1,14 +1,14 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.commands.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-class ParserUtilTest {
+public class EditEventDescriptorTest {
 
     @Test
     public void dummyTest() {
         assertEquals(2, 2);
     }
-
 }
+

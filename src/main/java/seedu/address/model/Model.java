@@ -14,7 +14,11 @@ import seedu.address.model.event.Event;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
+
+    Predicate<Event> PREDICATE_HIDE_ALL_EVENTS = unused -> false;
+
     Predicate<Contact> PREDICATE_HIDE_ALL_CONTACTS = unused -> false;
+
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /**
