@@ -98,6 +98,14 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
+     * Remove all the contents of this list.
+     *
+     */
+    public void resetContacts() {
+        internalList.clear();
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Contact> asUnmodifiableObservableList() {

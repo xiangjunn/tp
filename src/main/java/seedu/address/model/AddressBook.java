@@ -60,6 +60,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Resets the existing data of contacts of this {@code AddressBook}.
+     */
+    public void resetContacts() {
+        this.contacts.resetContacts();
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {

@@ -117,6 +117,11 @@ public class ModelManager implements Model {
         addressBook.setContact(target, editedContact);
     }
 
+    @Override
+    public void resetContacts() {
+        this.addressBook.resetContacts();
+    }
+
     //=========== Manage Events ======================
 
     @Override
