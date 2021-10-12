@@ -92,18 +92,18 @@ Examples:
 
 Shows a list of all persons in the contact list, with all of their details by default.
 
-Format: `clist [e] [p] [a] [th] [z] [t]`
+Format: `clist [e/] [p/] [a/] [th/] [z/] [t/]`
 
 * Returned list will always include names of all persons in the contact list.
 * When no optional fields are provided, e.g `clist`, the list will show all available details of all persons in the contact list.
 * When optional fields are provided, the list will only show the names of all persons in the contact list and the corresponding fields specified by the user.
 * More than one optional field can be provided.
-* The order of the optional fields does not matter. e.g both `clist e p` and `clist p e` will return a list of only the names, email addresses and phone numbers of all persons in the contact list.
+* The order of the optional fields does not matter. e.g both `clist e/ p/` and `clist p/ e/` will return a list of only the names, email addresses and phone numbers of all persons in the contact list.
 * If the specified field has no value for certain persons in the contact list, it will not show anything for that corresponding field for that particular person.
 
 Examples:
 * `clist` returns a list of all persons in the contact list with all the available details for each person.
-* `clist e p` returns a list of all persons in the contact list, showing only their names, email addresses and phone numbers (if available).
+* `clist e/ p/` returns a list of all persons in the contact list, showing only their names, email addresses and phone numbers (if available).
 
 
 ### Editing a person : `cedit`
@@ -195,7 +195,7 @@ Examples:
 
 Shows a list of all events in the event list, with all of their details by default.
 
-Format: `elist [at] [end] [d] [a] [z] [t]`
+Format: `elist [at/] [end/] [d/] [a/] [z/] [t/]`
 
 - Returned list will always include names of all events in the event list.
 - When no optional fields are provided, e.g `elist` , the list will show all available details of all events
@@ -203,7 +203,7 @@ Format: `elist [at] [end] [d] [a] [z] [t]`
 - When optional fields are provided, the list will only show the names of all events in the event list and
   the corresponding fields specified by the user.
 - More than one optional field can be provided.
-- The order of the optional fields does not matter. e.g both `elist d at` and `elist at d` will return a list
+- The order of the optional fields does not matter. e.g both `elist d/ at/` and `elist at/ d/` will return a list
   of only the names, descriptions and starting times in the event list.
 - If the specified field has no value for certain events in the event list, it will not show anything for
   that corresponding field for that particular event.
@@ -211,7 +211,7 @@ Format: `elist [at] [end] [d] [a] [z] [t]`
 Examples:
 
 - `elist` returns a list of all events in the event list with all the available details for each event.
-- `elist d at` returns a list of all events in the event list, showing only their names, starting times and descriptions (if available).
+- `elist d/ at/` returns a list of all events in the event list, showing only their names, starting times and descriptions (if available).
 
 ### Editing an event : `eedit`
 
@@ -327,7 +327,7 @@ Action | Format, Examples
 **Delete** | `cdelete INDEX1[-INDEX2]`<br> e.g., `cdelete 3` <br> e.g., `cdelete 1-5`
 **Edit** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.,`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g., `cedit 3 dt/*`
 **Find** | `cfind KEYWORD [MORE_KEYWORDS]`<br> e.g., `cfind James Jake`
-**List** | `clist [e] [p] [a] [th] [z] [t]` <br> e.g., `clist` <br> e.g., `clist e p`
+**List** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g., `clist` <br> e.g., `clist e/ p/`
 
 ### Managing Events
 
@@ -338,7 +338,7 @@ Action | Format, Examples
 **Delete** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
-**List** | `elist [at] [end] [d] [a] [z] [t]` <br> e.g., `elist` <br> e.g., `elist at d`
+**List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 
 ________________________________________________________________________________________________________________
 
