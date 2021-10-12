@@ -16,6 +16,7 @@ import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
@@ -48,8 +49,8 @@ public class CAddCommandParser implements Parser<CAddCommand> {
         }
 
         // Compulsory fields
-        Name name = ContactParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Email email = ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
 
         // Optional fields
         Address address = null;
@@ -57,19 +58,19 @@ public class CAddCommandParser implements Parser<CAddCommand> {
         TelegramHandle handle = null;
         ZoomLink zoomLink = null;
         if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
-            address = ContactParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_PHONE)) {
-            phone = ContactParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_TELEGRAM)) {
-            handle = ContactParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
+            handle = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_ZOOM)) {
-            zoomLink = ContactParserUtil.parseZoom(argMultimap.getValue(PREFIX_ZOOM).get());
+            zoomLink = ParserUtil.parseZoom(argMultimap.getValue(PREFIX_ZOOM).get());
         }
 
-        Set<Tag> tagList = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Contact contact = new Contact(name, phone, email, address, zoomLink, handle, tagList);
 
