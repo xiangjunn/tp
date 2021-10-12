@@ -49,7 +49,9 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.event = event;
         id.setText(displayedIndex + ". ");
+        // compulsory fields
         name.setText(event.getName().fullName);
+
         if (Event.isWillDisplayStartDateTime()) {
             from.setText("from: " + event.getStartDateAndTime());
             from.setManaged(true);

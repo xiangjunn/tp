@@ -15,11 +15,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Event> {
         this.keywords = keywords;
     }
 
-    // to change event.getName().field
     @Override
     public boolean test(Event event) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(event.getName().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(event.getName().fullName, keyword));
     }
 
     @Override

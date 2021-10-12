@@ -97,6 +97,10 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.setAll(events);
     }
 
+    public void resetEvents() {
+        internalList.clear();
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

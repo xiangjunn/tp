@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.contact;
+package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,18 +7,18 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Clears all entries of contacts from SoConnect.
+ * Clears all events in SoConnect.
  */
-public class CClearCommand extends Command {
+public class EClearCommand extends Command {
 
-    public static final String COMMAND_WORD = "cclear";
-    public static final String MESSAGE_SUCCESS = "All entries of contacts have been cleared!";
+    public static final String COMMAND_WORD = "eclear";
+    public static final String MESSAGE_SUCCESS = "All events have been cleared!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.resetContacts();
+        model.resetEvents();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
