@@ -55,6 +55,7 @@ public class EventCard extends UiPart<Region> {
         if (Event.isWillDisplayStartDateTime()) {
             from.setText("from: " + event.getStartDateAndTime());
             from.setManaged(true);
+
         }
         if (event.getEndDateAndTime() != null && Event.isWillDisplayEndDateTime()) {
             to.setText("to: " + event.getEndDateAndTime());
@@ -64,7 +65,7 @@ public class EventCard extends UiPart<Region> {
             address.setText("location: " + event.getAddress().value);
             address.setManaged(true);
         }
-        if (event.getAddress() != null && Event.isWillDisplayZoomLink()) {
+        if (event.getZoomLink() != null && Event.isWillDisplayZoomLink()) {
             zoomLink.setText("link: " + event.getZoomLink().link);
             zoomLink.setManaged(true);
         }
@@ -72,12 +73,9 @@ public class EventCard extends UiPart<Region> {
             description.setText("description: " + event.getDescription().value);
             description.setManaged(true);
         }
-        if (event.getTags() != null && Event.isWillDisplayTags()) {
-            event.getTags().stream()
-                    .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-            tags.setManaged(true);
-        }
+        event.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

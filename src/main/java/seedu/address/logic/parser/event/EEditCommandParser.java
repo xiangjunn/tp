@@ -39,7 +39,7 @@ public class EEditCommandParser implements Parser<EEditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION,
-                        PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG);
+                        PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG, PREFIX_DELETE_TAG);
 
         Index index;
 
@@ -73,7 +73,7 @@ public class EEditCommandParser implements Parser<EEditCommand> {
             editEventDescriptor.setZoomLink(EventParserUtil
                     .parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editEventDescriptor::setTagsToDelete);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editEventDescriptor::setTags);
 
         // Check for delete all
         if (argMultimap.getAllValues(PREFIX_DELETE_TAG).stream().anyMatch(arg -> arg.equals("*"))) {
