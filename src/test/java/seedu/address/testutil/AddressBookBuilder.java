@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -25,6 +26,11 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withPerson(Contact contact) {
         addressBook.addContact(contact);
+        return this;
+    }
+
+    public AddressBookBuilder withEvent(Event event) {
+        addressBook.addEvent(event);
         return this;
     }
 
