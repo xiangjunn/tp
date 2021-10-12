@@ -80,6 +80,11 @@ public interface Model {
      */
     void setContact(Contact target, Contact editedContact);
 
+    /**
+     * Remove all contacts from SoConnect.
+     */
+    void resetContacts();
+
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
 
@@ -117,6 +122,11 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered event list */
     ObservableList<Event> getFilteredEventList();
+
+    /**
+     * Removes all events from SoConnect.
+     */
+    void resetEvents();
 
     /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.

@@ -13,15 +13,17 @@ import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
-import seedu.address.logic.commands.event.EAddCommand;
-import seedu.address.logic.commands.event.EListCommand;
+import seedu.address.logic.commands.event.EClearCommand;
+import seedu.address.logic.commands.event.EDeleteCommand;
+import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.contact.CAddCommandParser;
 import seedu.address.logic.parser.contact.CDeleteCommandParser;
 import seedu.address.logic.parser.contact.CEditCommandParser;
 import seedu.address.logic.parser.contact.CFindCommandParser;
-import seedu.address.logic.parser.event.EAddCommandParser;
+import seedu.address.logic.parser.event.EDeleteCommandParser;
+import seedu.address.logic.parser.event.EFindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -74,6 +76,15 @@ public class AddressBookParser {
 
         case EListCommand.COMMAND_WORD:
             return new EListCommand();
+
+        case EDeleteCommand.COMMAND_WORD:
+            return new EDeleteCommandParser().parse(arguments);
+
+        case EClearCommand.COMMAND_WORD:
+            return new EClearCommand();
+
+        case EFindCommand.COMMAND_WORD:
+            return new EFindCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
