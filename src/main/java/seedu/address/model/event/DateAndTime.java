@@ -25,7 +25,7 @@ public class DateAndTime {
 
     public static final String MINUTE_FORMAT = "(0?[0-9]|[1-5][0-9])"; // minute range from 00 to 59
 
-    public static final String VALIDATION_REGEX = YEAR_FORMAT + "-" + MONTH_FORMAT + "-" + DATE_FORMAT
+    public static final String VALIDATION_REGEX = DATE_FORMAT + "-" + MONTH_FORMAT + "-" + YEAR_FORMAT
             + " " + HOUR_FORMAT + ":" + MINUTE_FORMAT;
 
     public final LocalDateTime time;
@@ -38,7 +38,7 @@ public class DateAndTime {
     public DateAndTime(String time) {
         requireNonNull(time);
         checkArgument(isValidDateTime(time), MESSAGE_CONSTRAINTS);
-        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     /**
