@@ -73,7 +73,6 @@ public class CEditCommandParser implements Parser<CEditCommand> {
         // Check for delete all
         if (argMultimap.getAllValues(PREFIX_DELETE_TAG).stream().anyMatch(arg -> arg.equals("*"))) {
             editContactDescriptor.setShouldDeleteAllTags(true);
-            System.out.println("Delete all");
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editContactDescriptor::setTagsToDelete);
 
