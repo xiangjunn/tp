@@ -142,6 +142,11 @@ public class CAddCommandTest {
         }
 
         @Override
+        public void resetContacts() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
