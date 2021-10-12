@@ -38,7 +38,7 @@ public class DateAndTime {
     public DateAndTime(String time) {
         requireNonNull(time);
         checkArgument(isValidDateTime(time), MESSAGE_CONSTRAINTS);
-        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     /**
