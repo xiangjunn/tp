@@ -22,8 +22,8 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    // public static final String DEFAULT_TELEGRAM_HANDLE = "amyBeeBee";
-    // public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
+    public static final String DEFAULT_TELEGRAM_HANDLE = "amyBeeBee";
+    public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
 
     private Name name;
     private Phone phone;
@@ -42,8 +42,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         // adding of telegram handle and zoom link not implemented yet
-        telegramHandle = null;
-        zoomLink = null;
+        telegramHandle = new TelegramHandle(DEFAULT_TELEGRAM_HANDLE);
+        zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
         tags = new HashSet<>();
     }
 

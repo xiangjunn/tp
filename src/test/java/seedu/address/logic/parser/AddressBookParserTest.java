@@ -55,7 +55,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Contact contact = new PersonBuilder().build();
-        CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
+        CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact,
+            null, false).build();
         CEditCommand command = (CEditCommand) parser.parseCommand(CEditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new CEditCommand(INDEX_FIRST_PERSON, descriptor), command);

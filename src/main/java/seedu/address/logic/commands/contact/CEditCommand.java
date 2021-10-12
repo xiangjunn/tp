@@ -187,7 +187,7 @@ public class CEditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, telegramHandle, zoomLink,
-                tags, tagsToDelete);
+                tags, tagsToDelete) || shouldDeleteAllTags;
         }
 
         public Optional<Name> getName() {
@@ -252,7 +252,7 @@ public class CEditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+            this.tags = (tags != null && !tags.isEmpty()) ? new HashSet<>(tags) : null;
         }
 
         /**
@@ -269,7 +269,7 @@ public class CEditCommand extends Command {
          * A defensive copy of {@code tagsToDelete} is used internally.
          */
         public void setTagsToDelete(Set<Tag> tagsToDelete) {
-            this.tagsToDelete = tagsToDelete != null ? new HashSet<>(tagsToDelete) : null;
+            this.tagsToDelete = (tagsToDelete != null && !tagsToDelete.isEmpty()) ? new HashSet<>(tagsToDelete) : null;
         }
 
         public boolean isShouldDeleteAllTags() {

@@ -1,103 +1,61 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() and the same Event Values as in TypicalEvents#getTypicalAddressBook()",
-  "persons" : [ {
+  "events" : [ ],
+  "contacts" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "telegramHandle" : null,
+    "zoomLink" : null,
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
+    "telegramHandle" : null,
+    "zoomLink" : null,
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
+    "telegramHandle" : null,
+    "zoomLink" : null,
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
+    "telegramHandle" : null,
+    "zoomLink" : null,
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
+    "telegramHandle" : null,
+    "zoomLink" : null,
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
+    "telegramHandle" : null,
+    "zoomLink" : null,
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
+    "telegramHandle" : null,
+    "zoomLink" : null,
     "tagged" : [ ]
-  } ],
-  "events": [ {
-    "name": "Summer vacation",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": null,
-    "address": "123, Jurong West Ave 6, #08-111",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ "holiday" ]
-  }, {
-    "name": "Lunch appointment",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": "",
-    "address": "311, Clementi Ave 2, #02-25",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ "date", "appointments" ]
-  }, {
-    "name": "Midterm",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": "Oh no, did not study...",
-    "address": "online street",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ "exams" ]
-  }, {
-    "name": "project meeting",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": "",
-    "address": "22 Beach rd",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ "project" ]
-  }, {
-    "name": "ABC company Interview",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": "",
-    "address": "michegan ave",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ ]
-  }, {
-    "name": "Visit museum",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": "",
-    "address": "Arts Science Museum",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ ]
-  }, {
-    "name": "Hackathon",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": "",
-    "address": "10 Baker st",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ ]
   } ]
 }
