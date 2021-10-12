@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.image.ImageView?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -28,13 +27,13 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="email" managed="false" styleClass="cell_small_label" text="\$email" />
       <!-- Optional fields-->
       <Label fx:id="phone" managed="false" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="telegramHandle" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
       <Label fx:id="zoom" managed="false" styleClass="cell_small_label" text="\$zoom" />
-      <FlowPane fx:id="tags" />
+      <FlowPane fx:id="tags" managed="false" />
     </VBox>
   </GridPane>
 </HBox>

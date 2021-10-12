@@ -22,6 +22,7 @@ import seedu.address.logic.parser.contact.CAddCommandParser;
 import seedu.address.logic.parser.contact.CDeleteCommandParser;
 import seedu.address.logic.parser.contact.CEditCommandParser;
 import seedu.address.logic.parser.contact.CFindCommandParser;
+import seedu.address.logic.parser.contact.CListCommandParser;
 import seedu.address.logic.parser.event.EDeleteCommandParser;
 import seedu.address.logic.parser.event.EFindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -69,7 +70,7 @@ public class AddressBookParser {
             return new CFindCommandParser().parse(arguments);
 
         case CListCommand.COMMAND_WORD:
-            return new CListCommand();
+            return new CListCommandParser().parse(arguments);
 
         case EDeleteCommand.COMMAND_WORD:
             return new EDeleteCommandParser().parse(arguments);

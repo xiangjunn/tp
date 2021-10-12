@@ -2,10 +2,13 @@ package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.Collections;
@@ -22,10 +25,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,20 +38,23 @@ import seedu.address.model.tag.Tag;
  */
 public class CEditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "cedit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the contact identified "
-            + "by the index number used in the displayed contact list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+        + "by the index number used in the displayed contact list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_TELEGRAM + "TELEGRAM] "
+        + "[" + PREFIX_ZOOM + "ZOOM] "
+        + "[" + PREFIX_TAG + "TAG]... "
+        + "[" + PREFIX_DELETE_TAG + "DELETE_TAG]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -56,7 +64,7 @@ public class CEditCommand extends Command {
     private final EditContactDescriptor editContactDescriptor;
 
     /**
-     * @param index of the contact in the filtered contact list to edit
+     * @param index                 of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      */
     public CEditCommand(Index index, EditContactDescriptor editContactDescriptor) {
@@ -65,6 +73,40 @@ public class CEditCommand extends Command {
 
         this.index = index;
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
+     * edited with {@code editContactDescriptor}.
+     */
+    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor) {
+        assert contactToEdit != null;
+
+        Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
+        Phone updatedPhone = editContactDescriptor.getPhone().orElse(contactToEdit.getPhone());
+        Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
+        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
+        TelegramHandle updatedTelegram = editContactDescriptor.getTelegramHandle()
+            .orElse(contactToEdit.getTelegramHandle());
+        ZoomLink updatedZoomLink = editContactDescriptor.getZoomLink().orElse(contactToEdit.getZoomLink());
+        Set<Tag> updatedNewTags = editContactDescriptor.getTags().orElse(new HashSet<>());
+        Set<Tag> updatedDeletedTags = editContactDescriptor.getTagsToDelete().orElse(new HashSet<>());
+        Set<Tag> updatedTags = editContactDescriptor.isShouldDeleteAllTags()
+            ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, contactToEdit.getTags());
+
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedZoomLink,
+            updatedTelegram, updatedTags);
+    }
+
+    /**
+     * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
+     * tags in {@code toRemove} will be excluded.
+     */
+    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+        Set<Tag> updatedTags = new HashSet<>(original);
+        toRemove.forEach(updatedTags::remove);
+        updatedTags.addAll(toAdd);
+        return updatedTags;
     }
 
     @Override
@@ -88,22 +130,6 @@ public class CEditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
     }
 
-    /**
-     * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
-     * edited with {@code editContactDescriptor}.
-     */
-    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor) {
-        assert contactToEdit != null;
-
-        Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
-        Phone updatedPhone = editContactDescriptor.getPhone().orElse(contactToEdit.getPhone());
-        Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
-        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
-        Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
-
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, null, null, updatedTags);
-    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -119,7 +145,7 @@ public class CEditCommand extends Command {
         // state check
         CEditCommand e = (CEditCommand) other;
         return index.equals(e.index)
-                && editContactDescriptor.equals(e.editContactDescriptor);
+            && editContactDescriptor.equals(e.editContactDescriptor);
     }
 
     /**
@@ -131,9 +157,14 @@ public class CEditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private TelegramHandle telegramHandle;
+        private ZoomLink zoomLink;
         private Set<Tag> tags;
+        private Set<Tag> tagsToDelete;
+        private boolean shouldDeleteAllTags = false;
 
-        public EditContactDescriptor() {}
+        public EditContactDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -144,46 +175,76 @@ public class CEditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setTelegramHandle(toCopy.telegramHandle);
+            setZoomLink(toCopy.zoomLink);
             setTags(toCopy.tags);
+            setTagsToDelete(toCopy.tagsToDelete);
+            setShouldDeleteAllTags(toCopy.shouldDeleteAllTags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, telegramHandle, zoomLink,
+                tags, tagsToDelete) || shouldDeleteAllTags;
         }
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setPhone(Phone phone) {
+            this.phone = phone;
         }
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setEmail(Email email) {
+            this.email = email;
         }
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
+        public Optional<TelegramHandle> getTelegramHandle() {
+            return Optional.ofNullable(telegramHandle);
+        }
+
+        public void setTelegramHandle(TelegramHandle telegramHandle) {
+            this.telegramHandle = telegramHandle;
+        }
+
+        public Optional<ZoomLink> getZoomLink() {
+            return Optional.ofNullable(zoomLink);
+        }
+
+        public void setZoomLink(ZoomLink zoomLink) {
+            this.zoomLink = zoomLink;
+        }
+
+        /**
+         * Returns an unmodifiable tag set to be added, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
+        public Optional<Set<Tag>> getTags() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
         /**
@@ -191,16 +252,35 @@ public class CEditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+            this.tags = (tags != null && !tags.isEmpty()) ? new HashSet<>(tags) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable tag set to be removed, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code tagsToDelete} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Tag>> getTagsToDelete() {
+            return tagsToDelete != null ? Optional.of(Collections.unmodifiableSet((tagsToDelete))) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tagsToDelete} to this object's {@code tagsToDelete}.
+         * A defensive copy of {@code tagsToDelete} is used internally.
+         */
+        public void setTagsToDelete(Set<Tag> tagsToDelete) {
+            this.tagsToDelete = (tagsToDelete != null && !tagsToDelete.isEmpty()) ? new HashSet<>(tagsToDelete) : null;
+        }
+
+        public boolean isShouldDeleteAllTags() {
+            return shouldDeleteAllTags;
+        }
+
+        /**
+         * Sets the boolean condition of whether all tags should be cleared first.
+         */
+        public void setShouldDeleteAllTags(boolean shouldDeleteAllTags) {
+            this.shouldDeleteAllTags = shouldDeleteAllTags;
         }
 
         @Override
@@ -219,10 +299,13 @@ public class CEditCommand extends Command {
             EditContactDescriptor e = (EditContactDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                && getPhone().equals(e.getPhone())
+                && getEmail().equals(e.getEmail())
+                && getAddress().equals(e.getAddress())
+                && getTelegramHandle().equals(e.getTelegramHandle())
+                && getZoomLink().equals(e.getZoomLink())
+                && getTags().equals(e.getTags())
+                && getTagsToDelete().equals(e.getTagsToDelete());
         }
     }
 }

@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -18,10 +20,12 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,20 +40,39 @@ public class CAddCommandParser implements Parser<CAddCommand> {
      */
     public CAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                    PREFIX_TELEGRAM, PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CAddCommand.MESSAGE_USAGE));
         }
 
+        // Compulsory fields
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+
+        // Optional fields
+        Address address = null;
+        Phone phone = null;
+        TelegramHandle handle = null;
+        ZoomLink zoomLink = null;
+        if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_PHONE)) {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_TELEGRAM)) {
+            handle = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_ZOOM)) {
+            zoomLink = ParserUtil.parseZoom(argMultimap.getValue(PREFIX_ZOOM).get());
+        }
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Contact contact = new Contact(name, phone, email, address, null, null, tagList);
+        Contact contact = new Contact(name, phone, email, address, zoomLink, handle, tagList);
 
         return new CAddCommand(contact);
     }
