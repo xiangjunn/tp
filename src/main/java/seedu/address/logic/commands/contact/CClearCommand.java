@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Clears all entries of contacts from the contact list.
+ * Clears all entries of contacts from SoConnect.
  */
 public class CClearCommand extends Command {
 

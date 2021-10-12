@@ -7,7 +7,7 @@ public class Range {
     private Index end;
 
     /**
-     * Constructs a range from start to end, inclusive.
+     * Constructs an inclusive range from start index to end index.
      *
      * @param start An index representing the start.
      * @param end An index representing the end.
