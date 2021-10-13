@@ -80,8 +80,8 @@ public class ContactCard extends UiPart<Region> {
         }
         if (Contact.isWillDisplayTags()) {
             contact.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
         }
     }

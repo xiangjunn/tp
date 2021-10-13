@@ -16,6 +16,7 @@ public interface Model {
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Contact> PREDICATE_HIDE_ALL_CONTACTS = unused -> false;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Event> PREDICATE_HIDE_ALL_EVENTS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
