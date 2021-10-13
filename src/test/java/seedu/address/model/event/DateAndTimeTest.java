@@ -33,19 +33,19 @@ class DateAndTimeTest {
         assertFalse(DateAndTime.isValidDateTime("11-10")); // missing year and time
 
         // invalid parts
-        assertFalse(DateAndTime.isValidDateTime("21/12/2021 12:10")); // invalid connector
-        assertFalse(DateAndTime.isValidDateTime("2020-12-21 12:10")); // wrong order
-        assertFalse(DateAndTime.isValidDateTime("01-13-2021")); // wrong order of date and month
-        assertFalse(DateAndTime.isValidDateTime(" 01-10-2021 12:05")); // leading space
-        assertFalse(DateAndTime.isValidDateTime("01-10-2021 12:05 ")); // trailing space
+        assertFalse(DateAndTime.isValidDateTime("2010/12/21 12:10")); // invalid connector
+        assertFalse(DateAndTime.isValidDateTime("2012-12-20 12:10")); // wrong order
+        assertFalse(DateAndTime.isValidDateTime("01-13-2012")); // wrong order of date and month
+        assertFalse(DateAndTime.isValidDateTime(" 01-13-2012 12:05")); // leading space
+        assertFalse(DateAndTime.isValidDateTime("01-13-2012 12:05 ")); // trailing space
         assertFalse(DateAndTime.isValidDateTime("2021 Oct 2 12:10")); // wrong date format
-        assertFalse(DateAndTime.isValidDateTime("%01-13-2021 10:15")); // include invalid symbol '%'
-        assertFalse(DateAndTime.isValidDateTime("01-10-2021 11:15pm")); // invalid time format
+        assertFalse(DateAndTime.isValidDateTime("%01-13-2012 10:15")); // include invalid symbol '%'
+        assertFalse(DateAndTime.isValidDateTime("01-13-2012 11:15pm")); // invalid time format
 
         // valid DateAndTime
-        assertTrue(DateAndTime.isValidDateTime("10-01-2021 11:00")); // valid year, month, date and time
-        assertTrue(DateAndTime.isValidDateTime("10-3-2021 10:05")); // valid month without leading 0
-        assertTrue(DateAndTime.isValidDateTime("10-11-2021 1:2")); // valid hour and minute without leading 0
+        assertTrue(DateAndTime.isValidDateTime("01-12-2012 11:00")); // valid year, month, date and time
+        assertTrue(DateAndTime.isValidDateTime("01-12-2012 10:05")); // valid day without leading 0
+        assertTrue(DateAndTime.isValidDateTime("01-12-2012 1:2")); // valid hour and minute without leading 0
     }
 
     @Test
