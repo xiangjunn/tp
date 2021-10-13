@@ -41,11 +41,12 @@ class DateAndTimeTest {
         assertFalse(DateAndTime.isValidDateTime("2021 Oct 2 12:10")); // wrong date format
         assertFalse(DateAndTime.isValidDateTime("%01-13-2012 10:15")); // include invalid symbol '%'
         assertFalse(DateAndTime.isValidDateTime("01-13-2012 11:15pm")); // invalid time format
+        assertFalse(DateAndTime.isValidDateTime("1-13-2012 11:15")); // missing leading 0
 
         // valid DateAndTime
-        assertTrue(DateAndTime.isValidDateTime("01-12-2012 11:00")); // valid year, month, date and time
-        assertTrue(DateAndTime.isValidDateTime("01-12-2012 10:05")); // valid day without leading 0
-        assertTrue(DateAndTime.isValidDateTime("01-12-2012 1:2")); // valid hour and minute without leading 0
+        assertTrue(DateAndTime.isValidDateTime("01-12-2012 11:00"));
+        assertTrue(DateAndTime.isValidDateTime("01-12-2012 10:05"));
+        assertTrue(DateAndTime.isValidDateTime("01-12-2012 11:22"));
     }
 
     @Test
