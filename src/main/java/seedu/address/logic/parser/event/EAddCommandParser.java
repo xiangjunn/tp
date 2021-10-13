@@ -71,7 +71,6 @@ public class EAddCommandParser implements Parser<EAddCommand> {
 
         Set<Tag> tagList = EventParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-
         Event event = new Event(name, start, end, description, address, zoom, tagList);
 
         return new EAddCommand(event);
