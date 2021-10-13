@@ -49,7 +49,7 @@ public class CAddCommandParser implements Parser<CAddCommand> {
         }
 
         // Compulsory fields
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Name name = ParserUtil.parseContactName(argMultimap.getValue(PREFIX_NAME).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
 
         // Optional fields
