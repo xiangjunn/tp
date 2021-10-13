@@ -26,5 +26,4 @@ public class CListCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-
 }

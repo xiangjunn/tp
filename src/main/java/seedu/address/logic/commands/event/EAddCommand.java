@@ -36,7 +36,7 @@ public class EAddCommand extends Command {
             + PREFIX_DESCRIPTION + "end of semester party "
             + PREFIX_ADDRESS + "123, Clementi Rd, S1234665 "
             + PREFIX_ZOOM + "http://zoomlink.com "
-            + PREFIX_TAG + "fun ";
+            + PREFIX_TAG + "fun";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book";

@@ -22,7 +22,6 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.EndDateTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -58,7 +57,7 @@ public class EEditCommandParser implements Parser<EEditCommand> {
                     .parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_END_TIME).isPresent()) {
-            editEventDescriptor.setEndDateTime((EndDateTime) EventParserUtil
+            editEventDescriptor.setEndDateTime(EventParserUtil
                     .parseEndDateTime(argMultimap.getValue(PREFIX_END_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
@@ -66,18 +65,16 @@ public class EEditCommandParser implements Parser<EEditCommand> {
                     .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editEventDescriptor.setAddress(EventParserUtil
-                    .parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editEventDescriptor.setAddress(EventParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_ZOOM).isPresent()) {
-            editEventDescriptor.setZoomLink(EventParserUtil
-                    .parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
+            editEventDescriptor.setZoomLink(EventParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editEventDescriptor::setTags);
 
         // Check for delete all
         if (argMultimap.getAllValues(PREFIX_DELETE_TAG).stream().anyMatch(arg -> arg.equals("*"))) {
-            editEventDescriptor.setIsShouldDeleteAllTags(true);
+            editEventDescriptor.setShouldDeleteAllTags(true);
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editEventDescriptor::setTagsToDelete);
 

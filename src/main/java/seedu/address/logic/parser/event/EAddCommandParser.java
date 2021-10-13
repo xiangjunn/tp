@@ -49,15 +49,13 @@ public class EAddCommandParser implements Parser<EAddCommand> {
 
         // Compulsory fields
         Name name = EventParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        StartDateTime start = EventParserUtil
-                .parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get());
+        StartDateTime start = EventParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get());
 
         // Optional fields
         EndDateTime end = null;
         Description description = null;
         Address address = null;
         ZoomLink zoom = null;
-
         if (arePrefixesPresent(argMultimap, PREFIX_END_TIME)) {
             end = EventParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_TIME).get());
         }

@@ -56,7 +56,7 @@ public class EEditCommand extends Command {
             + PREFIX_START_TIME + "2020-12-01 "
             + PREFIX_ADDRESS + "12th Street";
 
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited event: %1$s";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book.";
 
@@ -73,6 +73,41 @@ public class EEditCommand extends Command {
 
         this.index = index;
         this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Event} with the details of {@code eventToEdit}
+     * edited with {@code editEventDescriptor}.
+     */
+    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
+        assert eventToEdit != null;
+
+        Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
+        StartDateTime updatedStartDateTime = editEventDescriptor.getStartDateTime()
+                .orElse((StartDateTime) eventToEdit.getStartDateAndTime());
+        EndDateTime updatedEndDateTime = editEventDescriptor.getEndDateTime()
+                .orElse((EndDateTime) eventToEdit.getEndDateAndTime());
+        Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
+        Address updatedAddress = editEventDescriptor.getAddress().orElse(eventToEdit.getAddress());
+        ZoomLink updatedZoomLink = editEventDescriptor.getZoomLink().orElse(eventToEdit.getZoomLink());
+        Set<Tag> updatedNewTags = editEventDescriptor.getTags().orElse(new HashSet<>());
+        Set<Tag> updatedDeletedTags = editEventDescriptor.getTagsToDelete().orElse(new HashSet<>());
+        Set<Tag> updatedTags = editEventDescriptor.getShouldDeleteAllTags()
+                ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
+
+        return new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
+                updatedZoomLink, updatedTags);
+    }
+
+    /**
+     * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
+     * tags in {@code toRemove} will be excluded.
+     */
+    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+        Set<Tag> updatedTags = new HashSet<>(original);
+        toRemove.forEach(updatedTags::remove);
+        updatedTags.addAll(toAdd);
+        return updatedTags;
     }
 
     @Override
@@ -94,41 +129,6 @@ public class EEditCommand extends Command {
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
-    }
-
-    /**
-     * Creates and returns a {@code Event} with the details of {@code eventToEdit}
-     * edited with {@code editEventDescriptor}.
-     */
-    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
-        assert eventToEdit != null;
-
-        Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
-        StartDateTime updatedStartDateTime = editEventDescriptor.getStartDateTime()
-                .orElse((StartDateTime) eventToEdit.getStartDateAndTime());
-        EndDateTime updatedEndDateTime = editEventDescriptor.getEndDateTime()
-                .orElse((EndDateTime) eventToEdit.getEndDateAndTime());
-        Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
-        Address updatedAddress = editEventDescriptor.getAddress().orElse(eventToEdit.getAddress());
-        ZoomLink updatedZoomLink = editEventDescriptor.getZoomLink().orElse(eventToEdit.getZoomLink());
-        Set<Tag> updatedNewTags = editEventDescriptor.getTags().orElse(new HashSet<>());
-        Set<Tag> updatedDeletedTags = editEventDescriptor.getTagsToDelete().orElse(new HashSet<>());
-        Set<Tag> updatedTags = editEventDescriptor.getIsShouldDeleteAllTags()
-                ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
-
-        return new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
-                updatedZoomLink, updatedTags);
-    }
-
-    /**
-     * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
-     * tags in {@code toRemove} will be excluded.
-     */
-    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
-        Set<Tag> updatedTags = new HashSet<>(original);
-        toRemove.forEach(updatedTags::remove);
-        updatedTags.addAll(toAdd);
-        return updatedTags;
     }
 
     @Override
@@ -162,10 +162,9 @@ public class EEditCommand extends Command {
         private ZoomLink zoom;
         private Set<Tag> tags;
         private Set<Tag> tagsToDelete;
-        private boolean isShouldDeleteAllTags = false;
+        private boolean shouldDeleteAllTags = false;
 
         public EditEventDescriptor() {
-
         }
 
         /**
@@ -181,7 +180,7 @@ public class EEditCommand extends Command {
             setZoomLink(toCopy.zoom);
             setTags(toCopy.tags);
             setTagsToDelete(toCopy.tagsToDelete);
-            setIsShouldDeleteAllTags(toCopy.isShouldDeleteAllTags);
+            setShouldDeleteAllTags(toCopy.shouldDeleteAllTags);
         }
 
         /**
@@ -189,7 +188,7 @@ public class EEditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, start, end, description, address, zoom, tags, tagsToDelete)
-                    || isShouldDeleteAllTags;
+                    || shouldDeleteAllTags;
         }
 
         public void setName(Name name) {
@@ -268,15 +267,15 @@ public class EEditCommand extends Command {
             this.tagsToDelete = tagsToDelete != null ? new HashSet<>(tagsToDelete) : null;
         }
 
-        public boolean getIsShouldDeleteAllTags() {
-            return isShouldDeleteAllTags;
+        public boolean getShouldDeleteAllTags() {
+            return shouldDeleteAllTags;
         }
 
         /**
          * Sets the boolean condition of whether all tags should be cleared first.
          */
-        public void setIsShouldDeleteAllTags(boolean shouldDeleteAllTags) {
-            this.isShouldDeleteAllTags = shouldDeleteAllTags;
+        public void setShouldDeleteAllTags(boolean shouldDeleteAllTags) {
+            this.shouldDeleteAllTags = shouldDeleteAllTags;
         }
 
         @Override

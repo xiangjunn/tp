@@ -3,6 +3,7 @@ package seedu.address.logic.parser.event;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
@@ -27,36 +28,32 @@ public class EListCommandParser implements Parser<EListCommand> {
      */
     public EListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_END_TIME, PREFIX_DESCRIPTION,
+                ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION,
                         PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG);
         if (noPrefixesPresent(argMultimap)) {
             Event.setAllFieldsToTrue();
         } else {
             Event.setAllFieldsToFalse();
         }
-
+        if (argMultimap.getValue(PREFIX_START_TIME).isPresent()) {
+            Event.setWillDisplayStartDateTime(true);
+        }
         if (argMultimap.getValue(PREFIX_END_TIME).isPresent()) {
             Event.setWillDisplayEndDateTime(true);
         }
-
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             Event.setWillDisplayDescription(true);
         }
-
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             Event.setWillDisplayAddress(true);
         }
-
         if (argMultimap.getValue(PREFIX_ZOOM).isPresent()) {
             Event.setWillDisplayZoomLink(true);
         }
-
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             Event.setWillDisplayTags(true);
         }
-
         return new EListCommand();
-
     }
 
     /**
@@ -64,8 +61,8 @@ public class EListCommandParser implements Parser<EListCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean noPrefixesPresent(ArgumentMultimap argumentMultimap) {
-        return Stream.of(PREFIX_END_TIME, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG)
+        return Stream.of(PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION, PREFIX_ADDRESS,
+                PREFIX_ZOOM, PREFIX_TAG)
                     .allMatch(prefix -> argumentMultimap.getValue(prefix).isEmpty());
     }
-
 }
