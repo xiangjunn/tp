@@ -16,6 +16,10 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.TelegramHandle;
+import seedu.address.model.event.DateAndTime;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.EndDateTime;
+import seedu.address.model.event.StartDateTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -75,7 +79,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
+    public static Name parseContactName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
@@ -157,6 +161,82 @@ public class ParserUtil {
             throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
         }
         return new ZoomLink(zoomLink);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static seedu.address.model.event.Name parseEventName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!seedu.address.model.event.Name.isValidName(trimmedName)) {
+            throw new ParseException(seedu.address.model.event.Name.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.event.Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String  startDateTime} into a {@code StartDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param startDateTime when the event starts
+     * @throws ParseException if the given {@code startDateTime} is invalid.
+     */
+    public static StartDateTime parseStartDateTime(String startDateTime) throws ParseException {
+        requireNonNull(startDateTime);
+        String trimmedStartDateTime = startDateTime.trim();
+        if (!StartDateTime.isValidDateTime(trimmedStartDateTime)) {
+            throw new ParseException(DateAndTime.MESSAGE_CONSTRAINTS);
+        }
+        return new StartDateTime(trimmedStartDateTime);
+    }
+
+    /**
+     * Parses a {@code String  endDateTime} into a {@code EndDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param endDateTime when the event ends
+     * @throws ParseException if the given {@code endDateTime} is invalid.
+     */
+    public static EndDateTime parseEndDateTime(String endDateTime) throws ParseException {
+        requireNonNull(endDateTime);
+        String trimmedEndDateTime = endDateTime.trim();
+        if (!StartDateTime.isValidDateTime(trimmedEndDateTime)) {
+            throw new ParseException(DateAndTime.MESSAGE_CONSTRAINTS);
+        }
+        return new EndDateTime(trimmedEndDateTime);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+    public static Description parseDescription(String description) {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String  zoomLink} into a {@code ZoomLink}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code zoomLink} is invalid.
+     */
+    public static ZoomLink parseZoomLink(String zoomLink) throws ParseException {
+        requireNonNull(zoomLink);
+        String trimmedZoomLink = zoomLink.trim();
+        if (!ZoomLink.isValidZoomLink(trimmedZoomLink)) {
+            throw new ParseException(ZoomLink.MESSAGE_CONSTRAINTS);
+        }
+
+        return new ZoomLink(trimmedZoomLink);
+
     }
 
     /**

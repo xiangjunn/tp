@@ -50,25 +50,25 @@ public class EEditCommandParser implements Parser<EEditCommand> {
 
         EEditCommand.EditEventDescriptor editEventDescriptor = new EEditCommand.EditEventDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editEventDescriptor.setName(EventParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editEventDescriptor.setName(ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_START_TIME).isPresent()) {
-            editEventDescriptor.setStartDateTime(EventParserUtil
+            editEventDescriptor.setStartDateTime(ParserUtil
                     .parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_END_TIME).isPresent()) {
-            editEventDescriptor.setEndDateTime(EventParserUtil
+            editEventDescriptor.setEndDateTime(ParserUtil
                     .parseEndDateTime(argMultimap.getValue(PREFIX_END_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editEventDescriptor.setDescription(EventParserUtil
+            editEventDescriptor.setDescription(ParserUtil
                     .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editEventDescriptor.setAddress(EventParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editEventDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_ZOOM).isPresent()) {
-            editEventDescriptor.setZoomLink(EventParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
+            editEventDescriptor.setZoomLink(ParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editEventDescriptor::setTags);
 

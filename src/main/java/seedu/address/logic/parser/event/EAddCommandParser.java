@@ -17,6 +17,7 @@ import seedu.address.logic.commands.event.EAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
@@ -48,8 +49,8 @@ public class EAddCommandParser implements Parser<EAddCommand> {
         }
 
         // Compulsory fields
-        Name name = EventParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        StartDateTime start = EventParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get());
+        Name name = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get());
+        StartDateTime start = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_TIME).get());
 
         // Optional fields
         EndDateTime end = null;
@@ -57,19 +58,19 @@ public class EAddCommandParser implements Parser<EAddCommand> {
         Address address = null;
         ZoomLink zoom = null;
         if (arePrefixesPresent(argMultimap, PREFIX_END_TIME)) {
-            end = EventParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_TIME).get());
+            end = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_TIME).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
-            description = EventParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+            description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
-            address = EventParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_ZOOM)) {
-            zoom = EventParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get());
+            zoom = ParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get());
         }
 
-        Set<Tag> tagList = EventParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Event event = new Event(name, start, end, description, address, zoom, tagList);
 
