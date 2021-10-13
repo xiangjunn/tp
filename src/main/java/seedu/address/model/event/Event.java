@@ -25,6 +25,7 @@ public class Event {
     private static boolean willDisplayTags = true;
 
 
+    //Compulsory fields
     private final Name name;
     private final DateAndTime startDateAndTime;
 
@@ -32,8 +33,8 @@ public class Event {
     private final Description description;
     private final Address address;
     private final ZoomLink zoomLink;
-    private final Set<Tag> tags = new HashSet<>();
 
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * All fields must be present and not null (currently).
@@ -47,6 +48,7 @@ public class Event {
         this.description = description;
         this.address = address;
         this.zoomLink = zoomLink;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
