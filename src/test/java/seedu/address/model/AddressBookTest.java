@@ -103,7 +103,6 @@ public class AddressBookTest {
     public void hasEvent_eventInAddressBook_returnsTrue() {
         addressBook.addEvent(INTERVIEW);
         assertTrue(addressBook.hasEvent(INTERVIEW));
-        assertTrue(addressBook.hasEvent(TEAM_MEETING));
     }
 
     @Test
@@ -119,7 +118,7 @@ public class AddressBookTest {
         addressBook.addEvent(INTERVIEW);
         Event editedEvent = new EventBuilder(INTERVIEW).withAddress("Google Office")
                 .withStartDateAndTime("28-10-2021 11:00").build();
-        assertTrue(addressBook.hasEvent(INTERVIEW));
+        assertTrue(addressBook.hasEvent(editedEvent));
     }
 
     @Test

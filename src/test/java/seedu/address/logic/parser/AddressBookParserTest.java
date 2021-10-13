@@ -43,11 +43,11 @@ public class AddressBookParserTest {
         CAddCommand command = (CAddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
         assertEquals(new CAddCommand(contact), command);
     }
-    
+
     @Test
     public void parseCommand_eadd() throws Exception {
         Event event = new EventBuilder().build();
-        // TODO: 10/13/2021 implement test when eadd is ready 
+        // TODO: 10/13/2021 implement test when eadd is ready
     }
 
     @Test
@@ -55,11 +55,11 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(CClearCommand.COMMAND_WORD) instanceof CClearCommand);
         assertTrue(parser.parseCommand(CClearCommand.COMMAND_WORD + " 3") instanceof CClearCommand);
     }
-    
+
     @Test
     public void parseCommand_eclear() throws Exception {
         assertTrue(parser.parseCommand(EClearCommand.COMMAND_WORD) instanceof EClearCommand);
-        assertTrue(parser.parseCommand(CClearCommand.COMMAND_WORD + "2") instanceof EClearCommand);
+        assertTrue(parser.parseCommand(EClearCommand.COMMAND_WORD + " 2") instanceof EClearCommand);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class AddressBookParserTest {
                 CDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new CDeleteCommand(INDEX_FIRST_PERSON), command);
     }
-    
+
     @Test
     public void parseCommand_edelete() throws Exception {
         EDeleteCommand command = (EDeleteCommand) parser.parseCommand(
@@ -85,11 +85,10 @@ public class AddressBookParserTest {
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new CEditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
-    
     @Test
     public void parseCommand_eedit() throws Exception {
         Event event = new EventBuilder().build();
-        // TODO: 10/13/2021 implement this test when eedit is completed 
+        // TODO: 10/13/2021 implement this test when eedit is completed
     }
 
     @Test
@@ -99,7 +98,7 @@ public class AddressBookParserTest {
                 CFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new CFindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
-    
+
     @Test
     public void parseCommand_efind() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
@@ -113,12 +112,10 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD) instanceof CListCommand);
         assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD + " 3") instanceof CListCommand);
     }
-    
     @Test
     public void parseCommand_elist() throws Exception {
-        // TODO: 10/13/2021  implement when elist is ready 
+        // TODO: 10/13/2021  implement when elist is ready
     }
-    
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);

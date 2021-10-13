@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import seedu.address.model.common.Address;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.event.DateAndTime;
@@ -16,8 +17,8 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class EventBuilder {
     public static final String DEFAULT_NAME = "Midterms";
-    public static final String DEFAULT_START_DATE_AND_TIME = "2021-10-13 21:00";
-    public static final String DEFAULT_END_DATE_AND_TIME = "2021-10-13 23:00";
+    public static final String DEFAULT_START_DATE_AND_TIME = "13-10-2021 21:00";
+    public static final String DEFAULT_END_DATE_AND_TIME = "13-10-2021 23:00";
     public static final String DEFAULT_DESCRIPTION = "";
     public static final String DEFAULT_ADDRESS = "COM2, SR1, #02-11";
     public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
@@ -87,7 +88,7 @@ public class EventBuilder {
      * Sets the {@code endDateTime} of the {@code Event} that we are building.
      */
     public EventBuilder withEndDateAndTime(String endDateTime) {
-        this.endDateAndTime = new DateAndTime(endDateTime);
+        this.endDateAndTime = endDateTime != null ? new DateAndTime(endDateTime) : null;
         return this;
     }
 
@@ -95,7 +96,7 @@ public class EventBuilder {
      * Sets the {@code description} of the {@code Event} that we are building.
      */
     public EventBuilder withDescription(String description) {
-        this.description = new Description(description);
+        this.description = description != null ? new Description(description) : null;
         return this;
     }
 
@@ -103,7 +104,7 @@ public class EventBuilder {
      * Sets the {@code Address} of the {@code Event} that we are building.
      */
     public EventBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.address = address != null ? new Address(address) : null;
         return this;
     }
 
@@ -111,7 +112,7 @@ public class EventBuilder {
      * Sets the {@code ZoomLink} of the {@code Event} that we are building.
      */
     public EventBuilder withZoomLink(String zoomLink) {
-        this.zoomLink = new ZoomLink(zoomLink);
+        this.zoomLink = zoomLink != null ? new ZoomLink(zoomLink) : null;
         return this;
     }
 
