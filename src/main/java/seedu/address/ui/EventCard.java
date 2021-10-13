@@ -64,22 +64,21 @@ public class EventCard extends UiPart<Region> {
         if (Event.isWillDisplayStartDateTime()) {
             from.setText("from: " + event.getStartDateAndTime());
             from.setManaged(true);
-
         }
         // Optional fields
         if (event.getEndDateAndTime() != null && Event.isWillDisplayEndDateTime()) {
             to.setText("to: " + event.getEndDateAndTime());
             to.setManaged(true);
         }
-        if (event.getAddress() != null) {
+        if (event.getAddress() != null && Event.isWillDisplayAddress()) {
             address.setText("location: " + event.getAddress().value);
             address.setManaged(true);
         }
-        if (event.getZoomLink() != null) {
+        if (event.getZoomLink() != null && Event.isWillDisplayZoomLink()) {
             zoomLink.setText("link: " + event.getZoomLink().link);
             zoomLink.setManaged(true);
         }
-        if (event.getDescription() != null) {
+        if (event.getDescription() != null && Event.isWillDisplayDescription()) {
             description.setText("description: " + event.getDescription().value);
             description.setManaged(true);
         }
