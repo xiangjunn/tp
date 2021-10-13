@@ -31,9 +31,9 @@ public class EListCommandParser implements Parser<EListCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION,
                         PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG);
         if (noPrefixesPresent(argMultimap)) {
-            Event.setAllFieldsToTrue();
+            Event.setAllDisplayToTrue();
         } else {
-            Event.setAllFieldsToFalse();
+            Event.setAllDisplayToFalse();
         }
         if (argMultimap.getValue(PREFIX_START_TIME).isPresent()) {
             Event.setWillDisplayStartDateTime(true);

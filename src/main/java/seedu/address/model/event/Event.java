@@ -131,7 +131,7 @@ public class Event {
         Event.willDisplayTags = willDisplayTags;
     }
 
-    public static void setAllFieldsToTrue() {
+    public static void setAllDisplayToTrue() {
         willDisplayStartDateTime = true;
         willDisplayEndDateTime = true;
         willDisplayDescription = true;
@@ -140,7 +140,7 @@ public class Event {
         willDisplayTags = true;
     }
 
-    public static void setAllFieldsToFalse() {
+    public static void setAllDisplayToFalse() {
         willDisplayStartDateTime = false;
         willDisplayEndDateTime = false;
         willDisplayDescription = false;

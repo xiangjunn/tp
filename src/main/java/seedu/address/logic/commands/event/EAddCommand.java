@@ -29,6 +29,7 @@ public class EAddCommand extends Command {
             + PREFIX_END_TIME + "END "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_ZOOM + "ZOOM "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Summer Party "
