@@ -7,6 +7,8 @@ import static seedu.address.logic.commands.general.CommandTestUtil.ADDRESS_DESC_
 import static seedu.address.logic.commands.general.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.general.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.general.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.general.CommandTestUtil.TELEGRAM_DESC_AMY;
+import static seedu.address.logic.commands.general.CommandTestUtil.ZOOM_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -58,7 +60,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "cdelete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
@@ -80,7 +82,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = CAddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
+                + ADDRESS_DESC_AMY + TELEGRAM_DESC_AMY + ZOOM_DESC_AMY;
         Contact expectedContact = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addContact(expectedContact);

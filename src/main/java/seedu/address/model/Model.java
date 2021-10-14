@@ -14,7 +14,9 @@ import seedu.address.model.event.Event;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
+    Predicate<Contact> PREDICATE_HIDE_ALL_CONTACTS = unused -> false;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Event> PREDICATE_HIDE_ALL_EVENTS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -80,6 +82,11 @@ public interface Model {
      */
     void setContact(Contact target, Contact editedContact);
 
+    /**
+     * Remove all contacts from SoConnect.
+     */
+    void resetContacts();
+
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
 
@@ -117,6 +124,11 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered event list */
     ObservableList<Event> getFilteredEventList();
+
+    /**
+     * Removes all events from SoConnect.
+     */
+    void resetEvents();
 
     /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.

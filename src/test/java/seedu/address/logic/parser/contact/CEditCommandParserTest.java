@@ -10,9 +10,14 @@ import static seedu.address.logic.commands.general.CommandTestUtil.INVALID_EMAIL
 import static seedu.address.logic.commands.general.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.general.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.general.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.general.CommandTestUtil.INVALID_TELEGRAM_DESC;
+import static seedu.address.logic.commands.general.CommandTestUtil.INVALID_ZOOM_DESC;
 import static seedu.address.logic.commands.general.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.general.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.general.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_DELETEALL;
+import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_DELETEFRIEND;
+import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_DELETEHUSBAND;
 import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_AMY;
@@ -24,6 +29,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_PHONE_A
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -37,9 +43,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CEditCommand.EditContactDescriptor;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
@@ -85,6 +93,9 @@ public class CEditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_TELEGRAM_DESC,
+            TelegramHandle.MESSAGE_CONSTRAINTS); // invalid telegram handle
+        assertParseFailure(parser, "1" + INVALID_ZOOM_DESC, ZoomLink.MESSAGE_CONSTRAINTS); // invalid zoom link
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
@@ -94,11 +105,10 @@ public class CEditCommandParserTest {
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Contact} being edited,
-        // parsing it together with a valid tag results in error
+        // parsing {@code PREFIX_TAG} alone will result in error
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
@@ -203,11 +213,45 @@ public class CEditCommandParserTest {
     @Test
     public void parse_resetTags_success() {
         Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_DELETE_TAG + "*";
 
-        CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withTags().build();
+        CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
+            .withDeleteAllTags(true).build();
         CEditCommand expectedCommand = new CEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_resetTagsThenAddTags_success() {
+        Index targetIndex = INDEX_THIRD_PERSON;
+        String userInput = targetIndex.getOneBased() + TAG_DESC_DELETEALL + TAG_DESC_HUSBAND;
+        String altUserInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND + TAG_DESC_DELETEALL;
+
+        CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
+            .withDeleteAllTags(true).withTags(VALID_TAG_HUSBAND).build();
+        CEditCommand expectedCommand = new CEditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, altUserInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_deleteTags_success() {
+        Index targetIndex = INDEX_SECOND_PERSON;
+        String userInput = targetIndex.getOneBased() + TAG_DESC_DELETEFRIEND;
+        String altInput = targetIndex.getOneBased() + TAG_DESC_DELETEFRIEND + TAG_DESC_DELETEHUSBAND;
+
+        CEditCommand.EditContactDescriptor descriptor1 = new EditContactDescriptorBuilder()
+            .withTagsToDelete(VALID_TAG_FRIEND).build();
+        CEditCommand expectedCommand1 = new CEditCommand(targetIndex, descriptor1);
+
+        assertParseSuccess(parser, userInput, expectedCommand1);
+
+        CEditCommand.EditContactDescriptor descriptor2 = new EditContactDescriptorBuilder()
+            .withTagsToDelete(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+        CEditCommand expectedCommand2 = new CEditCommand(targetIndex, descriptor2);
+
+        assertParseSuccess(parser, altInput, expectedCommand2);
     }
 }

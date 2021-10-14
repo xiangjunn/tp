@@ -16,12 +16,20 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
+
+    private static boolean willDisplayStartDateTime = true;
+    private static boolean willDisplayEndDateTime = true;
+    private static boolean willDisplayDescription = true;
+    private static boolean willDisplayAddress = true;
+    private static boolean willDisplayZoomLink = true;
+    private static boolean willDisplayTags = true;
+
+
     //Compulsory fields
     private final Name name;
-    private final DateAndTime startDateAndTime;
+    private final StartDateTime startDateAndTime;
 
-    //Optional fields
-    private final DateAndTime endDateAndTime;
+    private final EndDateTime endDateAndTime;
     private final Description description;
     private final Address address;
     private final ZoomLink zoomLink;
@@ -31,9 +39,9 @@ public class Event {
     /**
      * All fields must be present and not null (currently).
      */
-    public Event(Name name, DateAndTime startDateAndTime, DateAndTime endDateAndTime,
+    public Event(Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime,
                  Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
-        requireAllNonNull(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
+        requireAllNonNull(name, startDateAndTime, tags);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
         this.endDateAndTime = endDateAndTime;
@@ -47,11 +55,11 @@ public class Event {
         return name;
     }
 
-    public DateAndTime getStartDateAndTime() {
+    public StartDateTime getStartDateAndTime() {
         return startDateAndTime;
     }
 
-    public DateAndTime getEndDateAndTime() {
+    public EndDateTime getEndDateAndTime() {
         return endDateAndTime;
     }
 
@@ -75,6 +83,72 @@ public class Event {
         return Collections.unmodifiableSet(tags);
     }
 
+    public static boolean isWillDisplayStartDateTime() {
+        return willDisplayStartDateTime;
+    }
+
+    public static void setWillDisplayStartDateTime(boolean willDisplayStartDateTime) {
+        Event.willDisplayStartDateTime = willDisplayStartDateTime;
+    }
+
+    public static boolean isWillDisplayEndDateTime() {
+        return willDisplayEndDateTime;
+    }
+
+    public static void setWillDisplayEndDateTime(boolean willDisplayEndDateTime) {
+        Event.willDisplayEndDateTime = willDisplayEndDateTime;
+    }
+
+    public static boolean isWillDisplayDescription() {
+        return willDisplayDescription;
+    }
+
+    public static void setWillDisplayDescription(boolean willDisplayDescription) {
+        Event.willDisplayDescription = willDisplayDescription;
+    }
+
+    public static boolean isWillDisplayZoomLink() {
+        return willDisplayZoomLink;
+    }
+
+    public static void setWillDisplayZoomLink(boolean willDisplayZoomLink) {
+        Event.willDisplayZoomLink = willDisplayZoomLink;
+    }
+
+    public static boolean isWillDisplayAddress() {
+        return willDisplayAddress;
+    }
+
+    public static void setWillDisplayAddress(boolean willDisplayAddress) {
+        Event.willDisplayAddress = willDisplayAddress;
+    }
+
+    public static boolean isWillDisplayTags() {
+        return willDisplayTags;
+    }
+
+    public static void setWillDisplayTags(boolean willDisplayTags) {
+        Event.willDisplayTags = willDisplayTags;
+    }
+
+    public static void setAllDisplayToTrue() {
+        willDisplayStartDateTime = true;
+        willDisplayEndDateTime = true;
+        willDisplayDescription = true;
+        willDisplayZoomLink = true;
+        willDisplayAddress = true;
+        willDisplayTags = true;
+    }
+
+    public static void setAllDisplayToFalse() {
+        willDisplayStartDateTime = false;
+        willDisplayEndDateTime = false;
+        willDisplayDescription = false;
+        willDisplayZoomLink = false;
+        willDisplayAddress = false;
+        willDisplayTags = false;
+    }
+
     /**
      * Returns true if both events have the same name.
      * This defines a weaker notion of equality between two events.
@@ -86,37 +160,6 @@ public class Event {
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName());
-    }
-
-    /**
-     * Returns true if both events have the same details.
-     * This defines a stronger notion of equality between two events.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Event)) {
-            return false;
-        }
-
-        Event otherEvent = (Event) other;
-        return otherEvent.getName().equals(getName())
-                && otherEvent.getStartDateAndTime().equals(getStartDateAndTime())
-                && otherEvent.getEndDateAndTime().equals(getEndDateAndTime())
-                && otherEvent.getDescription().equals(getDescription())
-                && otherEvent.getAddress().equals(getAddress())
-                && otherEvent.getZoomLink().equals(getZoomLink())
-                && otherEvent.getTags().equals(getTags());
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startDateAndTime, endDateAndTime, description,
-                address, zoomLink, tags);
     }
 
     @Override
@@ -140,6 +183,35 @@ public class Event {
             tags.forEach(builder::append);
         }
         return builder.toString();
+    }
+
+    /**
+     * Returns true if both events have the same details.
+     * This defines a stronger notion of equality between two events.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Event event = (Event) other;
+        return Objects.equals(getName(), event.getName())
+                && Objects.equals(getStartDateAndTime(), event.getStartDateAndTime())
+                && Objects.equals(getEndDateAndTime(), event.getEndDateAndTime())
+                && Objects.equals(getDescription(), event.getDescription())
+                && Objects.equals(getAddress(), event.getAddress())
+                && Objects.equals(getZoomLink(), event.getZoomLink())
+                && Objects.equals(getTags(), event.getTags());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, startDateAndTime, endDateAndTime, description,
+                address, zoomLink, tags);
     }
 }
 

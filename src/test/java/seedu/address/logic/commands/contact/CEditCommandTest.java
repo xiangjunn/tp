@@ -14,6 +14,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -37,10 +39,11 @@ public class CEditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Contact editedContact = new PersonBuilder().build();
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact,
+            null, true).build();
         CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(cEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
@@ -61,7 +64,7 @@ public class CEditCommandTest {
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         CEditCommand cEditCommand = new CEditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(cEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
@@ -74,7 +77,7 @@ public class CEditCommandTest {
         CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST_PERSON, new CEditCommand.EditContactDescriptor());
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(cEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
@@ -90,7 +93,7 @@ public class CEditCommandTest {
         CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(cEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
@@ -101,10 +104,10 @@ public class CEditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact, Set.of(), false).build();
         CEditCommand cEditCommand = new CEditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(cEditCommand, model, cEditCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(cEditCommand, model, CEditCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     @Test
@@ -114,9 +117,9 @@ public class CEditCommandTest {
         // edit contact in filtered list into a duplicate in address book
         Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
         CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST_PERSON,
-                new EditContactDescriptorBuilder(contactInList).build());
+                new EditContactDescriptorBuilder(contactInList, Set.of(), false).build());
 
-        assertCommandFailure(cEditCommand, model, cEditCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(cEditCommand, model, CEditCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     @Test

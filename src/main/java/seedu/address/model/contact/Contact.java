@@ -17,6 +17,13 @@ import seedu.address.model.tag.Tag;
  */
 public class Contact {
 
+    private static boolean willDisplayPhone = true;
+    private static boolean willDisplayEmail = true;
+    private static boolean willDisplayTelegramHandle = true;
+    private static boolean willDisplayZoomLink = true;
+    private static boolean willDisplayAddress = true;
+    private static boolean willDisplayTags = true;
+
     // Identity fields
     private final Name name;
     private final Phone phone;
@@ -34,7 +41,7 @@ public class Contact {
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
         TelegramHandle telegramHandle, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -74,6 +81,72 @@ public class Contact {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public static boolean isWillDisplayPhone() {
+        return willDisplayPhone;
+    }
+
+    public static void setWillDisplayPhone(boolean willDisplayPhone) {
+        Contact.willDisplayPhone = willDisplayPhone;
+    }
+
+    public static boolean isWillDisplayEmail() {
+        return willDisplayEmail;
+    }
+
+    public static void setWillDisplayEmail(boolean willDisplayEmail) {
+        Contact.willDisplayEmail = willDisplayEmail;
+    }
+
+    public static boolean isWillDisplayTelegramHandle() {
+        return willDisplayTelegramHandle;
+    }
+
+    public static void setWillDisplayTelegramHandle(boolean willDisplayTelegramHandle) {
+        Contact.willDisplayTelegramHandle = willDisplayTelegramHandle;
+    }
+
+    public static boolean isWillDisplayZoomLink() {
+        return willDisplayZoomLink;
+    }
+
+    public static void setWillDisplayZoomLink(boolean willDisplayZoomLink) {
+        Contact.willDisplayZoomLink = willDisplayZoomLink;
+    }
+
+    public static boolean isWillDisplayAddress() {
+        return willDisplayAddress;
+    }
+
+    public static void setWillDisplayAddress(boolean willDisplayAddress) {
+        Contact.willDisplayAddress = willDisplayAddress;
+    }
+
+    public static boolean isWillDisplayTags() {
+        return willDisplayTags;
+    }
+
+    public static void setWillDisplayTags(boolean willDisplayTags) {
+        Contact.willDisplayTags = willDisplayTags;
+    }
+
+    public static void setAllDisplayToTrue() {
+        willDisplayPhone = true;
+        willDisplayEmail = true;
+        willDisplayTelegramHandle = true;
+        willDisplayZoomLink = true;
+        willDisplayAddress = true;
+        willDisplayTags = true;
+    }
+
+    public static void setAllDisplayToFalse() {
+        willDisplayPhone = false;
+        willDisplayEmail = false;
+        willDisplayTelegramHandle = false;
+        willDisplayZoomLink = false;
+        willDisplayAddress = false;
+        willDisplayTags = false;
     }
 
     /**

@@ -3,13 +3,15 @@ package seedu.address.logic.parser.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,7 +37,8 @@ public class CEditCommandParser implements Parser<CEditCommand> {
     public CEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                    PREFIX_ZOOM, PREFIX_TELEGRAM, PREFIX_TAG, PREFIX_DELETE_TAG);
 
         Index index;
 
@@ -47,7 +50,7 @@ public class CEditCommandParser implements Parser<CEditCommand> {
 
         CEditCommand.EditContactDescriptor editContactDescriptor = new CEditCommand.EditContactDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editContactDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editContactDescriptor.setName(ParserUtil.parseContactName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editContactDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
@@ -58,7 +61,20 @@ public class CEditCommandParser implements Parser<CEditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editContactDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+        if (argMultimap.getValue(PREFIX_ZOOM).isPresent()) {
+            editContactDescriptor.setZoomLink(ParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TELEGRAM).isPresent()) {
+            editContactDescriptor.setTelegramHandle(
+                ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get()));
+        }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editContactDescriptor::setTags);
+
+        // Check for delete all
+        if (argMultimap.getAllValues(PREFIX_DELETE_TAG).stream().anyMatch(arg -> arg.equals("*"))) {
+            editContactDescriptor.setShouldDeleteAllTags(true);
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editContactDescriptor::setTagsToDelete);
 
         if (!editContactDescriptor.isAnyFieldEdited()) {
             throw new ParseException(CEditCommand.MESSAGE_NOT_EDITED);
@@ -69,8 +85,7 @@ public class CEditCommandParser implements Parser<CEditCommand> {
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * If {@code tags} contain an asterisk, it will be ignored.
      */
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
@@ -78,8 +93,9 @@ public class CEditCommandParser implements Parser<CEditCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        // To handle case for dt/*
+        tags.remove("*");
+        return Optional.of(ParserUtil.parseTags(tags));
     }
 
 }

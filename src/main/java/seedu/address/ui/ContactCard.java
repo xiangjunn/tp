@@ -57,22 +57,33 @@ public class ContactCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
         // Compulsory fields
-        phone.setText("phone: " + contact.getPhone().value);
-        email.setText("email: " + contact.getEmail().value);
+        if (Contact.isWillDisplayEmail()) {
+            email.setText("email: " + contact.getEmail().value);
+            email.setManaged(true);
+        }
         // Optional fields
-        // TODO: after optional fields are implemented, setManaged to true if the value exists to show the Label in UI
-        if (contact.getAddress() != null) {
+        if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
+            phone.setText("phone: " + contact.getPhone().value);
+            phone.setManaged(true);
+        }
+        if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
             address.setText("address: " + contact.getAddress().value);
+            address.setManaged(true);
         }
-        if (contact.getTelegramHandle() != null) {
+        if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
             telegramHandle.setText("telegram handle: " + contact.getTelegramHandle().handle);
+            telegramHandle.setManaged(true);
         }
-        if (contact.getZoomLink() != null) {
+        if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
             zoom.setText("zoom: " + contact.getZoomLink().link);
+            zoom.setManaged(true);
         }
-        contact.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (Contact.isWillDisplayTags()) {
+            contact.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            tags.setManaged(true);
+        }
     }
 
     @Override

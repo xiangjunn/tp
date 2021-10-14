@@ -43,4 +43,14 @@ public class Name {
                 || (other instanceof Name // instanceof handles nulls
                 && fullName.equals(((Name) other).fullName)); // state check
     }
+
+    @Override
+    public String toString() {
+        return fullName;
+    }
+
+    @Override
+    public int hashCode() {
+        return fullName.hashCode();
+    }
 }
