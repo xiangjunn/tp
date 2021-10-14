@@ -91,6 +91,7 @@ public class AddressBookParserTest {
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new CEditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
+
     @Test
     public void parseCommand_eedit() throws Exception {
         Event event = new EventBuilder().build();
@@ -134,6 +135,11 @@ public class AddressBookParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_list() throws Exception {
+        assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD) instanceof CListCommand);
     }
 
     @Test
