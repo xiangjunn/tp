@@ -24,7 +24,7 @@ public class PersonUtil {
     /**
      * Returns an add command string for adding the {@code contact}.
      */
-    public static String getAddCommand(Contact contact) {
+    public static String getCAddCommand(Contact contact) {
         return CAddCommand.COMMAND_WORD + " " + getPersonDetails(contact);
     }
 

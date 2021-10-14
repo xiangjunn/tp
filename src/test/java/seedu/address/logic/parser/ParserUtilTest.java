@@ -13,9 +13,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.EndDateTime;
+import seedu.address.model.event.StartDateTime;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -24,6 +29,10 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_START_DATE_TIME = "20/11/2021 11:00";
+    private static final String INVALID_END_DATE_TIME = "20/11/2021 15:00";
+    private static final String INVALID_TELEGRAM = "my%Telegram";
+    private static final String INVALID_ZOOM_LINK = "my_zoom_link/tutorial.nus.edu";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -31,6 +40,11 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_START_DATE_TIME = "20-11-2021 11:00";
+    private static final String VALID_END_DATE_TIME = "20-11-2021 15:00";
+    private static final String VALID_TELEGRAM = "my_Telegram";
+    private static final String VALID_ZOOM_LINK = "my-zoom-link/tutorial.nus.edu";
+    private static final String VALID_DESCRIPTION = "This is a description!";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -172,5 +186,114 @@ public class ParserUtilTest {
         assertEquals(expectedTagSet, actualTagSet);
     }
 
-    //TODO implement events test methods
+    @Test
+    public void parseZoomLink_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseZoomLink((String) null));
+    }
+
+    @Test
+    public void parseZoomLink_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseZoomLink(INVALID_ZOOM_LINK));
+    }
+
+    @Test
+    public void parseZoomLink_validValueWithoutWhitespace_returnsZoomLink() throws Exception {
+        ZoomLink expectedZoomLink = new ZoomLink(VALID_ZOOM_LINK);
+        assertEquals(expectedZoomLink, ParserUtil.parseZoomLink(VALID_ZOOM_LINK));
+    }
+
+    @Test
+    public void parseZoomLink_validValueWithWhitespace_returnsTrimmedZoomLink() throws Exception {
+        String ZoomLinkWithWhitespace = WHITESPACE + VALID_ZOOM_LINK + WHITESPACE;
+        ZoomLink expectedZoomLink = new ZoomLink(VALID_ZOOM_LINK);
+        assertEquals(expectedZoomLink, ParserUtil.parseZoomLink(ZoomLinkWithWhitespace));
+    }
+
+    @Test
+    public void parseTelegram_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTelegram((String) null));
+    }
+
+    @Test
+    public void parseTelegram_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTelegram(INVALID_TELEGRAM));
+    }
+
+    @Test
+    public void parseTelegram_validValueWithoutWhitespace_returnsTelegram() throws Exception {
+        TelegramHandle expectedTelegramHandle = new TelegramHandle(VALID_TELEGRAM);
+        assertEquals(expectedTelegramHandle, ParserUtil.parseTelegram(VALID_TELEGRAM));
+    }
+
+    @Test
+    public void parseTelegram_validValueWithWhitespace_returnsTrimmedTelegram() throws Exception {
+        String TelegramWithWhitespace = WHITESPACE + VALID_TELEGRAM + WHITESPACE;
+        TelegramHandle expectedTelegram = new TelegramHandle(VALID_TELEGRAM);
+        assertEquals(expectedTelegram, ParserUtil.parseTelegram(TelegramWithWhitespace));
+    }
+
+    @Test
+    public void parseStartDateTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStartDateTime((String) null));
+    }
+
+    @Test
+    public void parseStartDateTime_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseStartDateTime(INVALID_START_DATE_TIME));
+    }
+
+    @Test
+    public void parseStartDateTime_validValueWithoutWhitespace_returnsStartDateTime() throws Exception {
+        StartDateTime expectedStartDateTime = new StartDateTime(VALID_START_DATE_TIME);
+        assertEquals(expectedStartDateTime, ParserUtil.parseStartDateTime(VALID_START_DATE_TIME));
+    }
+
+    @Test
+    public void parseStartDateTime_validValueWithWhitespace_returnsTrimmedStartDateTime() throws Exception {
+        String StartDateTimeWithWhitespace = WHITESPACE + VALID_START_DATE_TIME + WHITESPACE;
+        StartDateTime expectedStartDateTime = new StartDateTime(VALID_START_DATE_TIME);
+        assertEquals(expectedStartDateTime, ParserUtil.parseStartDateTime(StartDateTimeWithWhitespace));
+    }
+
+
+    @Test
+    public void parseEndDateTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEndDateTime((String) null));
+    }
+
+    @Test
+    public void parseEndDateTime_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseEndDateTime(INVALID_END_DATE_TIME));
+    }
+
+    @Test
+    public void parseEndDateTime_validValueWithoutWhitespace_returnsEndDateTime() throws Exception {
+        EndDateTime expectedEndDateTime = new EndDateTime(VALID_END_DATE_TIME);
+        assertEquals(expectedEndDateTime, ParserUtil.parseEndDateTime(VALID_END_DATE_TIME));
+    }
+
+    @Test
+    public void parseEndDateTime_validValueWithWhitespace_returnsTrimmedEndDateTime() throws Exception {
+        String EndDateTimeWithWhitespace = WHITESPACE + VALID_END_DATE_TIME + WHITESPACE;
+        EndDateTime expectedEndDateTime = new EndDateTime(VALID_END_DATE_TIME);
+        assertEquals(expectedEndDateTime, ParserUtil.parseEndDateTime(EndDateTimeWithWhitespace));
+    }
+
+    @Test
+    public void parseDescription_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
+    }
+
+    @Test
+    public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
+        String DescriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(DescriptionWithWhitespace));
+    }
 }
