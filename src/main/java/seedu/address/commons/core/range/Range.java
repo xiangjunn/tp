@@ -25,6 +25,15 @@ public class Range {
         return end;
     }
 
+    /**
+     * Creates a Range object with start and end indexes representing the same index.
+     *
+     * @param index The index to be converted.
+     */
+    public static Range convertFromIndex(Index index) {
+        return new Range(index, index);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

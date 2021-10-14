@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.range.Range;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,7 +30,8 @@ public class CDeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        CDeleteCommand cDeleteCommand = new CDeleteCommand(INDEX_FIRST_PERSON);
+        Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST_PERSON);
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(rangeOfIndexes);
 
         String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
@@ -42,7 +44,8 @@ public class CDeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        CDeleteCommand cDeleteCommand = new CDeleteCommand(outOfBoundIndex);
+        Range rangeOfIndexes = Range.convertFromIndex(outOfBoundIndex);
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(rangeOfIndexes);
 
         assertCommandFailure(cDeleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
