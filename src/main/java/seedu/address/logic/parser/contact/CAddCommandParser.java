@@ -67,7 +67,7 @@ public class CAddCommandParser implements Parser<CAddCommand> {
             handle = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_ZOOM)) {
-            zoomLink = ParserUtil.parseZoom(argMultimap.getValue(PREFIX_ZOOM).get());
+            zoomLink = ParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get());
         }
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

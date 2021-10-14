@@ -62,7 +62,7 @@ public class CEditCommandParser implements Parser<CEditCommand> {
             editContactDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_ZOOM).isPresent()) {
-            editContactDescriptor.setZoomLink(ParserUtil.parseZoom(argMultimap.getValue(PREFIX_ZOOM).get()));
+            editContactDescriptor.setZoomLink(ParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get()));
         }
         if (argMultimap.getValue(PREFIX_TELEGRAM).isPresent()) {
             editContactDescriptor.setTelegramHandle(
