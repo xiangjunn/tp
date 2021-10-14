@@ -145,7 +145,7 @@ public class ParserUtil {
         if (!TelegramHandle.isValidHandle(trimmedTelegram)) {
             throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
         }
-        return new TelegramHandle(telegramHandle);
+        return new TelegramHandle(trimmedTelegram);
     }
 
     /**
