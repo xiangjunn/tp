@@ -25,6 +25,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.event.Event;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
@@ -32,6 +33,7 @@ import seedu.address.testutil.EditContactDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    //for contacts
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -85,6 +87,8 @@ public class CommandTestUtil {
 
     public static final EditContactDescriptor DESC_AMY;
     public static final EditContactDescriptor DESC_BOB;
+
+    // TODO: 10/13/2021 add new event samples
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -151,6 +155,21 @@ public class CommandTestUtil {
         model.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredContactList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showEventAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredEventList().size());
+
+        Event event = model.getFilteredEventList().get(targetIndex.getZeroBased());
+        final String[] splitName = event.getName().fullName.split("\\s+");
+        model.updateFilteredEventList(new seedu.address.model.event.NameContainsKeywordsPredicate(
+                Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredEventList().size());
     }
 
 }

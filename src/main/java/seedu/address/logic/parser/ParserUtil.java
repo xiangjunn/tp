@@ -145,22 +145,7 @@ public class ParserUtil {
         if (!TelegramHandle.isValidHandle(trimmedTelegram)) {
             throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
         }
-        return new TelegramHandle(telegramHandle);
-    }
-
-    /**
-     * Parses a {@code String zoomLink} into an {@code ZoomLink}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code zoomLink} is invalid.
-     */
-    public static ZoomLink parseZoom(String zoomLink) throws ParseException {
-        requireNonNull(zoomLink);
-        String trimmedZoomLink = zoomLink.trim();
-        if (!ZoomLink.isValidZoomLink(trimmedZoomLink)) {
-            throw new ParseException(ZoomLink.MESSAGE_CONSTRAINTS);
-        }
-        return new ZoomLink(zoomLink);
+        return new TelegramHandle(trimmedTelegram);
     }
 
     /**
