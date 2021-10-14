@@ -119,12 +119,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_clist() throws Exception {
         assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD) instanceof CListCommand);
-        assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD + " 3") instanceof CListCommand);
     }
     @Test
     public void parseCommand_elist() throws Exception {
         assertTrue(parser.parseCommand(EListCommand.COMMAND_WORD) instanceof EListCommand);
-        assertTrue(parser.parseCommand(EListCommand.COMMAND_WORD + " 2") instanceof EListCommand);
     }
     @Test
     public void parseCommand_exit() throws Exception {
