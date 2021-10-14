@@ -32,7 +32,8 @@ public class CListCommand extends Command {
         + "[" + PREFIX_ADDRESS + "] "
         + "[" + PREFIX_TELEGRAM + "] "
         + "[" + PREFIX_ZOOM + "] "
-        + "[" + PREFIX_TAG + "] ";
+        + "[" + PREFIX_TAG + "] \n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_EMAIL + " " + PREFIX_ZOOM;
 
     @Override
     public CommandResult execute(Model model) {
