@@ -85,7 +85,6 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD) instanceof CListCommand);
-        assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD + " 3") instanceof CListCommand);
     }
 
     @Test

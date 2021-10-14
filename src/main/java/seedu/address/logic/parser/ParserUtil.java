@@ -158,7 +158,7 @@ public class ParserUtil {
         requireNonNull(zoomLink);
         String trimmedZoomLink = zoomLink.trim();
         if (!ZoomLink.isValidZoomLink(trimmedZoomLink)) {
-            throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
+            throw new ParseException(ZoomLink.MESSAGE_CONSTRAINTS);
         }
         return new ZoomLink(zoomLink);
     }

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.general;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -60,13 +61,23 @@ public class CommandTestUtil {
     public static final String ZOOM_DESC_BOB = " " + PREFIX_ZOOM + VALID_ZOOM_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_DELETEALL = " " + PREFIX_DELETE_TAG + "*";
+    public static final String TAG_DESC_DELETEFRIEND = " " + PREFIX_DELETE_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_DELETEHUSBAND = " " + PREFIX_DELETE_TAG + VALID_TAG_HUSBAND;
+
+    public static final String EMPTY_PREFIX_PHONE = " " + PREFIX_PHONE;
+    public static final String EMPTY_PREFIX_EMAIL = " " + PREFIX_EMAIL;
+    public static final String EMPTY_PREFIX_ADDRESS = " " + PREFIX_ADDRESS;
+    public static final String EMPTY_PREFIX_TELEGRAM = " " + PREFIX_TELEGRAM;
+    public static final String EMPTY_PREFIX_ZOOM = " " + PREFIX_ZOOM;
+    public static final String EMPTY_PREFIX_TAG = " " + PREFIX_TAG;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TELEGRAM_DESC = " " + PREFIX_TELEGRAM + "2103"; // Minimal 5 characters allowed
-    public static final String INVALID_ZOOM_DESC = " " + PREFIX_ADDRESS + "zoom"; // Only valid url allowed
+    public static final String INVALID_ZOOM_DESC = " " + PREFIX_ZOOM + "zoom"; // Only valid url allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
