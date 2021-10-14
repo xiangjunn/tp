@@ -147,17 +147,18 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the contact at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showEventAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredContactList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredEventList().size());
 
         Event event = model.getFilteredEventList().get(targetIndex.getZeroBased());
         final String[] splitName = event.getName().fullName.split("\\s+");
-        model.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredEventList(new seedu.address.model.event.NameContainsKeywordsPredicate(
+                Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredContactList().size());
+        assertEquals(1, model.getFilteredEventList().size());
     }
 
 }

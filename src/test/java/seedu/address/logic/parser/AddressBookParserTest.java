@@ -19,9 +19,12 @@ import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.event.EAddCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
+import seedu.address.logic.commands.event.EEditCommand;
 import seedu.address.logic.commands.event.EFindCommand;
+import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,7 +32,9 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.event.Event;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.EventUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -40,14 +45,15 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_cadd() throws Exception {
         Contact contact = new PersonBuilder().build();
-        CAddCommand command = (CAddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
+        CAddCommand command = (CAddCommand) parser.parseCommand(PersonUtil.getCAddCommand(contact));
         assertEquals(new CAddCommand(contact), command);
     }
 
     @Test
     public void parseCommand_eadd() throws Exception {
         Event event = new EventBuilder().build();
-        // TODO: 10/13/2021 implement test when eadd is ready
+        EAddCommand command = (EAddCommand) parser.parseCommand(EventUtil.getEAddCommand(event));
+        assertEquals(new EAddCommand(event), command);
     }
 
     @Test
@@ -88,7 +94,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_eedit() throws Exception {
         Event event = new EventBuilder().build();
-        // TODO: 10/13/2021 implement this test when eedit is completed
+        EEditCommand.EditEventDescriptor descriptor = new EditEventDescriptorBuilder(event, null, false).build();
+        EEditCommand commmand = (EEditCommand) parser.parseCommand(EEditCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + EventUtil.getEditEventDescriptorDetails(descriptor));
+        assertEquals(new EEditCommand(INDEX_FIRST_PERSON, descriptor), commmand);
     }
 
     @Test
@@ -114,7 +123,8 @@ public class AddressBookParserTest {
     }
     @Test
     public void parseCommand_elist() throws Exception {
-        // TODO: 10/13/2021  implement when elist is ready
+        assertTrue(parser.parseCommand(EListCommand.COMMAND_WORD) instanceof EListCommand);
+        assertTrue(parser.parseCommand(EListCommand.COMMAND_WORD + " 2") instanceof EListCommand);
     }
     @Test
     public void parseCommand_exit() throws Exception {

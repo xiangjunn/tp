@@ -5,10 +5,11 @@ import java.util.Set;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.ZoomLink;
-import seedu.address.model.event.DateAndTime;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Name;
+import seedu.address.model.event.StartDateTime;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,10 +26,10 @@ public class EventBuilder {
 
     //Compulsory fields
     private Name name;
-    private DateAndTime startDateAndTime;
+    private StartDateTime startDateAndTime;
 
     //Optional fields
-    private DateAndTime endDateAndTime;
+    private EndDateTime endDateAndTime;
     private Description description;
     private Address address;
     private ZoomLink zoomLink;
@@ -39,8 +40,8 @@ public class EventBuilder {
      */
     public EventBuilder() {
         name = new Name(DEFAULT_NAME);
-        startDateAndTime = new DateAndTime(DEFAULT_START_DATE_AND_TIME);
-        endDateAndTime = new DateAndTime(DEFAULT_END_DATE_AND_TIME);
+        startDateAndTime = new StartDateTime(DEFAULT_START_DATE_AND_TIME);
+        endDateAndTime = new EndDateTime(DEFAULT_END_DATE_AND_TIME);
         description = new Description(DEFAULT_DESCRIPTION);
         address = new Address(DEFAULT_ADDRESS);
         zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
@@ -80,7 +81,7 @@ public class EventBuilder {
      * Sets the {@code description} of the {@code Event} that we are building.
      */
     public EventBuilder withStartDateAndTime(String startDateTime) {
-        this.startDateAndTime = new DateAndTime(startDateTime);
+        this.startDateAndTime = new StartDateTime(startDateTime);
         return this;
     }
 
@@ -88,7 +89,7 @@ public class EventBuilder {
      * Sets the {@code endDateTime} of the {@code Event} that we are building.
      */
     public EventBuilder withEndDateAndTime(String endDateTime) {
-        this.endDateAndTime = endDateTime != null ? new DateAndTime(endDateTime) : null;
+        this.endDateAndTime = endDateTime != null ? new EndDateTime(endDateTime) : null;
         return this;
     }
 

@@ -15,7 +15,7 @@ public class TypicalEvents {
             .withTags("exams").build();
 
     public static final Event CS2101_MEETING = new EventBuilder().withName("CS2101 Meeting")
-            .withAddress("Zoom").withZoomLink("nus-sg.edu/pwkffha%a").withDescription("Need to prepare for OP2")
+            .withAddress("Zoom").withZoomLink("nus-sg.edu/pwdffha%a").withDescription("Need to prepare for OP2")
             .withStartDateAndTime("15-10-2021 21:00").withEndDateAndTime("15-10-2021 22:00")
             .withTags("meeting").build();
 
