@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.event.Description;
@@ -204,9 +204,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseZoomLink_validValueWithWhitespace_returnsTrimmedZoomLink() throws Exception {
-        String ZoomLinkWithWhitespace = WHITESPACE + VALID_ZOOM_LINK + WHITESPACE;
+        String zoomLinkWithWhitespace = WHITESPACE + VALID_ZOOM_LINK + WHITESPACE;
         ZoomLink expectedZoomLink = new ZoomLink(VALID_ZOOM_LINK);
-        assertEquals(expectedZoomLink, ParserUtil.parseZoomLink(ZoomLinkWithWhitespace));
+        assertEquals(expectedZoomLink, ParserUtil.parseZoomLink(zoomLinkWithWhitespace));
     }
 
     @Test
@@ -227,9 +227,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseTelegram_validValueWithWhitespace_returnsTrimmedTelegram() throws Exception {
-        String TelegramWithWhitespace = WHITESPACE + VALID_TELEGRAM + WHITESPACE;
+        String telegramWithWhitespace = WHITESPACE + VALID_TELEGRAM + WHITESPACE;
         TelegramHandle expectedTelegram = new TelegramHandle(VALID_TELEGRAM);
-        assertEquals(expectedTelegram, ParserUtil.parseTelegram(TelegramWithWhitespace));
+        assertEquals(expectedTelegram, ParserUtil.parseTelegram(telegramWithWhitespace));
     }
 
     @Test
@@ -250,9 +250,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseStartDateTime_validValueWithWhitespace_returnsTrimmedStartDateTime() throws Exception {
-        String StartDateTimeWithWhitespace = WHITESPACE + VALID_START_DATE_TIME + WHITESPACE;
+        String startDateTimeWithWhitespace = WHITESPACE + VALID_START_DATE_TIME + WHITESPACE;
         StartDateTime expectedStartDateTime = new StartDateTime(VALID_START_DATE_TIME);
-        assertEquals(expectedStartDateTime, ParserUtil.parseStartDateTime(StartDateTimeWithWhitespace));
+        assertEquals(expectedStartDateTime, ParserUtil.parseStartDateTime(startDateTimeWithWhitespace));
     }
 
 
@@ -274,9 +274,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseEndDateTime_validValueWithWhitespace_returnsTrimmedEndDateTime() throws Exception {
-        String EndDateTimeWithWhitespace = WHITESPACE + VALID_END_DATE_TIME + WHITESPACE;
+        String endDateTimeWithWhitespace = WHITESPACE + VALID_END_DATE_TIME + WHITESPACE;
         EndDateTime expectedEndDateTime = new EndDateTime(VALID_END_DATE_TIME);
-        assertEquals(expectedEndDateTime, ParserUtil.parseEndDateTime(EndDateTimeWithWhitespace));
+        assertEquals(expectedEndDateTime, ParserUtil.parseEndDateTime(endDateTimeWithWhitespace));
     }
 
     @Test
@@ -292,8 +292,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
-        String DescriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
         Description expectedDescription = new Description(VALID_DESCRIPTION);
-        assertEquals(expectedDescription, ParserUtil.parseDescription(DescriptionWithWhitespace));
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 }

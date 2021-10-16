@@ -6,7 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.event.NameContainsKeywordsPredicate;
+import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all events in SoConnect which have names containing any of the argument keywords.
@@ -21,9 +21,9 @@ public class EFindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " exam hard CS2103T";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final EventNameContainsKeywordsPredicate predicate;
 
-    public EFindCommand(NameContainsKeywordsPredicate predicate) {
+    public EFindCommand(EventNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

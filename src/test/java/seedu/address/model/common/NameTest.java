@@ -1,4 +1,4 @@
-package seedu.address.model.event;
+package seedu.address.model.common;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-class NameTest {
+public class NameTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -16,13 +16,13 @@ class NameTest {
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
         String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new seedu.address.model.contact.Name(invalidName));
+        assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
     }
 
     @Test
     public void isValidName() {
         // null name
-        assertThrows(NullPointerException.class, () -> seedu.address.model.contact.Name.isValidName(null));
+        assertThrows(NullPointerException.class, () -> Name.isValidName(null));
 
         // invalid name
         assertFalse(Name.isValidName("")); // empty string

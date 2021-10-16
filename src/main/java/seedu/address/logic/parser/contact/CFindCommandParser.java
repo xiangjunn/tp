@@ -7,7 +7,7 @@ import java.util.Arrays;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new CFindCommand object
@@ -28,7 +28,7 @@ public class CFindCommandParser implements Parser<CFindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new CFindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new CFindCommand(new ContactNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }
