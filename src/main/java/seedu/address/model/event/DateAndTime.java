@@ -28,6 +28,7 @@ public class DateAndTime implements Comparable<DateAndTime> {
     public static final String VALIDATION_REGEX = DATE_FORMAT + "-" + MONTH_FORMAT + "-" + YEAR_FORMAT
             + " " + HOUR_FORMAT + ":" + MINUTE_FORMAT;
 
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     public final LocalDateTime time;
 
     /**
@@ -38,7 +39,7 @@ public class DateAndTime implements Comparable<DateAndTime> {
     public DateAndTime(String time) {
         requireNonNull(time);
         checkArgument(isValidDateTime(time), MESSAGE_CONSTRAINTS);
-        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        this.time = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
     }
 
     /**
@@ -59,8 +60,8 @@ public class DateAndTime implements Comparable<DateAndTime> {
         return this.time.isBefore(d.getDateTime());
     }
 
-    public boolean isAfterNow() {
-        return this.time.isAfter(LocalDateTime.now());
+    public boolean isNotBeforeNow() {
+        return !this.time.isBefore(LocalDateTime.now());
     }
 
     @Override
@@ -76,8 +77,7 @@ public class DateAndTime implements Comparable<DateAndTime> {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return this.time.format(formatter);
+        return this.time.format(DATE_TIME_FORMATTER);
     }
 
     @Override

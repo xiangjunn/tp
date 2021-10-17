@@ -192,9 +192,11 @@ public class ModelManager implements Model {
             .getPredicate();
         // Remove events that have passed
         addressBook.sortEvents();
+        // In addition to the current predicate, only include events with end time that is now or after now.
+        // If event has no end time then only include if the start time is now or after now.
         updateFilteredEventList(event -> (currentPredicate == null || currentPredicate.test(event))
-            && (event.getStartDateAndTime().isAfterNow())
-            && (event.getEndDateAndTime() == null || event.getEndDateAndTime().isAfterNow())
+            && ((event.getEndDateAndTime() == null && event.getStartDateAndTime().isNotBeforeNow())
+                || (event.getEndDateAndTime() != null && event.getEndDateAndTime().isNotBeforeNow()))
         );
     }
 
