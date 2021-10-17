@@ -13,6 +13,8 @@ public class Range {
      * @param end An index representing the end.
      */
     public Range(Index start, Index end) {
+        assert start.getZeroBased() >= 0;
+        assert end.getZeroBased() >= 0;
         if (start.isMoreThan(end)) {
             throw new IndexOutOfBoundsException();
         }
