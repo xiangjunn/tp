@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.common.Address;
+import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.tag.Tag;
 

@@ -29,8 +29,9 @@ import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
@@ -106,7 +107,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         CFindCommand command = (CFindCommand) parser.parseCommand(
                 CFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new CFindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new CFindCommand(new ContactNameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -114,7 +115,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         EFindCommand command = (EFindCommand) parser.parseCommand(
                 EFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new EFindCommand(new seedu.address.model.event.NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new EFindCommand(new EventNameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

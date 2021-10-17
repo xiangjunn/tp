@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EndDateTime;
@@ -47,19 +47,19 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-            new Event(new seedu.address.model.event.Name("CS2103T project meeting"),
+            new Event(new Name("CS2103T project meeting"),
                 new StartDateTime("10-02-2021 21:00"), new EndDateTime("10-02-2021 22:00"), null,
                 null, new ZoomLink("nus-sg.zoom.us/j/21342513543"),
                 Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
-            new Event(new seedu.address.model.event.Name("Basketball training"), new StartDateTime("10-02-2021 20:00"),
+            new Event(new Name("Basketball training"), new StartDateTime("10-02-2021 20:00"),
                 new EndDateTime("10-02-2021 21:00"), new Description("Meeting every week"),
                 new Address("NUS Sport Centre"), null,
                 Set.of(new Tag("Recurring"), new Tag("CCA"))),
-            new Event(new seedu.address.model.event.Name("Google Interview"), new StartDateTime("10-09-2021 15:30"),
+            new Event(new Name("Google Interview"), new StartDateTime("10-09-2021 15:30"),
                 new EndDateTime("10-09-2021 16:00"), null,
                 null, new ZoomLink("careers.google.com/summer"),
                 Set.of(new Tag("Internship"))),
-            new Event(new seedu.address.model.event.Name("Dance class"), new StartDateTime("13-10-2021 20:00"),
+            new Event(new Name("Dance class"), new StartDateTime("13-10-2021 20:00"),
                 new EndDateTime("13-10-2021 22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
                 + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
                 + "lobortis nisl, convallis placerat urna."),
