@@ -1,5 +1,6 @@
 package seedu.address.commons.core.range;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -8,6 +9,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.index.Index;
 
 public class RangeTest {
 
@@ -56,9 +59,15 @@ public class RangeTest {
 
     @Test
     void getStart() {
+        final Range range = new Range(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+        Index start = range.getStart();
+        assertEquals(start, INDEX_FIRST_PERSON);
     }
 
     @Test
     void getEnd() {
+        final Range range = new Range(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+        Index end = range.getEnd();
+        assertEquals(end, INDEX_SECOND_PERSON);
     }
 }
