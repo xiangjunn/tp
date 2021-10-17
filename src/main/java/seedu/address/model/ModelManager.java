@@ -181,9 +181,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public void updateFilteredEventList(Predicate<? super Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortUpcomingFilteredEventList() {
+        Predicate<? super Event> currentPredicate = filteredEvents
+            .getPredicate();
+        // Remove events that have passed
+        addressBook.sortEvents();
+        updateFilteredEventList(event -> (currentPredicate == null || currentPredicate.test(event))
+            && (event.getStartDateAndTime().isAfterNow())
+            && (event.getEndDateAndTime() == null || event.getEndDateAndTime().isAfterNow())
+        );
     }
 
     @Override

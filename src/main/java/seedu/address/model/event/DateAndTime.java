@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * Guarantees: immutable;
  */
 
-public class DateAndTime {
+public class DateAndTime implements Comparable<DateAndTime> {
     public static final String MESSAGE_CONSTRAINTS =
             "Time format should be in  dd-MM-yyyy HH:mm format and start time should not be blank";
 
@@ -59,6 +59,10 @@ public class DateAndTime {
         return this.time.isBefore(d.getDateTime());
     }
 
+    public boolean isAfterNow() {
+        return this.time.isAfter(LocalDateTime.now());
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -74,5 +78,10 @@ public class DateAndTime {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return this.time.format(formatter);
+    }
+
+    @Override
+    public int compareTo(DateAndTime other) {
+        return this.time.compareTo(other.time);
     }
 }
