@@ -21,11 +21,11 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Name;
 import seedu.address.model.event.StartDateTime;
 import seedu.address.model.tag.Tag;
 

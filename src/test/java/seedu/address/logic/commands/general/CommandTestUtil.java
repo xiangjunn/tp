@@ -3,6 +3,7 @@ package seedu.address.logic.commands.general;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -23,7 +24,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
@@ -31,6 +34,7 @@ import seedu.address.testutil.EditContactDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    //for contacts
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -60,13 +64,23 @@ public class CommandTestUtil {
     public static final String ZOOM_DESC_BOB = " " + PREFIX_ZOOM + VALID_ZOOM_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_DELETEALL = " " + PREFIX_DELETE_TAG + "*";
+    public static final String TAG_DESC_DELETEFRIEND = " " + PREFIX_DELETE_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_DELETEHUSBAND = " " + PREFIX_DELETE_TAG + VALID_TAG_HUSBAND;
+
+    public static final String EMPTY_PREFIX_PHONE = " " + PREFIX_PHONE;
+    public static final String EMPTY_PREFIX_EMAIL = " " + PREFIX_EMAIL;
+    public static final String EMPTY_PREFIX_ADDRESS = " " + PREFIX_ADDRESS;
+    public static final String EMPTY_PREFIX_TELEGRAM = " " + PREFIX_TELEGRAM;
+    public static final String EMPTY_PREFIX_ZOOM = " " + PREFIX_ZOOM;
+    public static final String EMPTY_PREFIX_TAG = " " + PREFIX_TAG;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TELEGRAM_DESC = " " + PREFIX_TELEGRAM + "2103"; // Minimal 5 characters allowed
-    public static final String INVALID_ZOOM_DESC = " " + PREFIX_ADDRESS + "zoom"; // Only valid url allowed
+    public static final String INVALID_ZOOM_DESC = " " + PREFIX_ZOOM + "zoom"; // Only valid url allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -74,6 +88,8 @@ public class CommandTestUtil {
 
     public static final EditContactDescriptor DESC_AMY;
     public static final EditContactDescriptor DESC_BOB;
+
+    // TODO: 10/13/2021 add new event samples
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -137,9 +153,24 @@ public class CommandTestUtil {
 
         Contact contact = model.getFilteredContactList().get(targetIndex.getZeroBased());
         final String[] splitName = contact.getName().fullName.split("\\s+");
-        model.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredContactList(new ContactNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredContactList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showEventAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredEventList().size());
+
+        Event event = model.getFilteredEventList().get(targetIndex.getZeroBased());
+        final String[] splitName = event.getName().fullName.split("\\s+");
+        model.updateFilteredEventList(new EventNameContainsKeywordsPredicate(
+                Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredEventList().size());
     }
 
 }

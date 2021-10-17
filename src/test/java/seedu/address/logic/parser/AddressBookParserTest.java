@@ -20,12 +20,23 @@ import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.event.EAddCommand;
+import seedu.address.logic.commands.event.EClearCommand;
+import seedu.address.logic.commands.event.EDeleteCommand;
+import seedu.address.logic.commands.event.EEditCommand;
+import seedu.address.logic.commands.event.EFindCommand;
+import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.EditEventDescriptorBuilder;
+import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.EventUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -34,20 +45,33 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_cadd() throws Exception {
         Contact contact = new PersonBuilder().build();
-        CAddCommand command = (CAddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
+        CAddCommand command = (CAddCommand) parser.parseCommand(PersonUtil.getCAddCommand(contact));
         assertEquals(new CAddCommand(contact), command);
     }
 
     @Test
-    public void parseCommand_clear() throws Exception {
+    public void parseCommand_eadd() throws Exception {
+        Event event = new EventBuilder().build();
+        EAddCommand command = (EAddCommand) parser.parseCommand(EventUtil.getEAddCommand(event));
+        assertEquals(new EAddCommand(event), command);
+    }
+
+    @Test
+    public void parseCommand_cclear() throws Exception {
         assertTrue(parser.parseCommand(CClearCommand.COMMAND_WORD) instanceof CClearCommand);
         assertTrue(parser.parseCommand(CClearCommand.COMMAND_WORD + " 3") instanceof CClearCommand);
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_eclear() throws Exception {
+        assertTrue(parser.parseCommand(EClearCommand.COMMAND_WORD) instanceof EClearCommand);
+        assertTrue(parser.parseCommand(EClearCommand.COMMAND_WORD + " 2") instanceof EClearCommand);
+    }
+
+    @Test
+    public void parseCommand_cdelete() throws Exception {
         CDeleteCommand command = (CDeleteCommand) parser.parseCommand(
                 CDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST_PERSON);
@@ -55,7 +79,14 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_edelete() throws Exception {
+        EDeleteCommand command = (EDeleteCommand) parser.parseCommand(
+                EDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new EDeleteCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_cedit() throws Exception {
         Contact contact = new PersonBuilder().build();
         CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact,
             null, false).build();
@@ -65,17 +96,42 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+    public void parseCommand_eedit() throws Exception {
+        Event event = new EventBuilder().build();
+        EEditCommand.EditEventDescriptor descriptor = new EditEventDescriptorBuilder(event, null, false).build();
+        EEditCommand commmand = (EEditCommand) parser.parseCommand(EEditCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + EventUtil.getEditEventDescriptorDetails(descriptor));
+        assertEquals(new EEditCommand(INDEX_FIRST_PERSON, descriptor), commmand);
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_cfind() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         CFindCommand command = (CFindCommand) parser.parseCommand(
                 CFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new CFindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new CFindCommand(new ContactNameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_efind() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        EFindCommand command = (EFindCommand) parser.parseCommand(
+                EFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new EFindCommand(new EventNameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_clist() throws Exception {
+        assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD) instanceof CListCommand);
+    }
+    @Test
+    public void parseCommand_elist() throws Exception {
+        assertTrue(parser.parseCommand(EListCommand.COMMAND_WORD) instanceof EListCommand);
+    }
+    @Test
+    public void parseCommand_exit() throws Exception {
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
@@ -87,7 +143,6 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD) instanceof CListCommand);
-        assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD + " 3") instanceof CListCommand);
     }
 
     @Test

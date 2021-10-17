@@ -25,12 +25,10 @@ public class RangeTest {
 
         // start index more than end index
         assertThrows(IndexOutOfBoundsException.class, () -> new Range(INDEX_THIRD_PERSON, INDEX_FIRST_PERSON));
-
-
     }
 
     @Test
-    public void equals() {
+    public void testEquals() {
         final Range range = new Range(INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
 
         // same values -> returns true
@@ -54,5 +52,13 @@ public class RangeTest {
         // same start index but different end index -> returns false
         final Range rangeEndIndexDifferent = new Range(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
         assertFalse(range.equals(rangeStartIndexDifferent));
+    }
+
+    @Test
+    void getStart() {
+    }
+
+    @Test
+    void getEnd() {
     }
 }

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.NameContainsKeywordsPredicate;
+import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new EFindCommand object
@@ -28,7 +28,7 @@ public class EFindCommandParser implements Parser<EFindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new EFindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new EFindCommand(new EventNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

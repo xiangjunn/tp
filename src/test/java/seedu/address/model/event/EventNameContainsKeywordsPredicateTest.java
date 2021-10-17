@@ -2,7 +2,7 @@ package seedu.address.model.event;
 
 import org.junit.jupiter.api.Test;
 
-public class NameContainsKeywordsPredicateTest {
+public class EventNameContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {

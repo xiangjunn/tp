@@ -20,10 +20,10 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
+import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.tag.Tag;
@@ -67,7 +67,7 @@ public class CAddCommandParser implements Parser<CAddCommand> {
             handle = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_ZOOM)) {
-            zoomLink = ParserUtil.parseZoom(argMultimap.getValue(PREFIX_ZOOM).get());
+            zoomLink = ParserUtil.parseZoomLink(argMultimap.getValue(PREFIX_ZOOM).get());
         }
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

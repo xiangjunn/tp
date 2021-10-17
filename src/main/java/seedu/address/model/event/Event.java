@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.common.Address;
+import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
 import seedu.address.model.tag.Tag;
 
@@ -27,9 +28,9 @@ public class Event {
 
     //Compulsory fields
     private final Name name;
-    private final DateAndTime startDateAndTime;
+    private final StartDateTime startDateAndTime;
 
-    private final DateAndTime endDateAndTime;
+    private final EndDateTime endDateAndTime;
     private final Description description;
     private final Address address;
     private final ZoomLink zoomLink;
@@ -39,7 +40,7 @@ public class Event {
     /**
      * All fields must be present and not null (currently).
      */
-    public Event(Name name, DateAndTime startDateAndTime, DateAndTime endDateAndTime,
+    public Event(Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime,
                  Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
         requireAllNonNull(name, startDateAndTime, tags);
         this.name = name;
@@ -55,11 +56,11 @@ public class Event {
         return name;
     }
 
-    public DateAndTime getStartDateAndTime() {
+    public StartDateTime getStartDateAndTime() {
         return startDateAndTime;
     }
 
-    public DateAndTime getEndDateAndTime() {
+    public EndDateTime getEndDateAndTime() {
         return endDateAndTime;
     }
 

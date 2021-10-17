@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code CFindCommand}.
@@ -29,10 +29,10 @@ public class CFindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        ContactNameContainsKeywordsPredicate firstPredicate =
+                new ContactNameContainsKeywordsPredicate(Collections.singletonList("first"));
+        ContactNameContainsKeywordsPredicate secondPredicate =
+                new ContactNameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         CFindCommand findFirstCommand = new CFindCommand(firstPredicate);
         CFindCommand findSecondCommand = new CFindCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class CFindCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        ContactNameContainsKeywordsPredicate predicate = preparePredicate(" ");
         CFindCommand command = new CFindCommand(predicate);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class CFindCommandTest {
     @Test
     public void execute_multipleCompleteKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        ContactNameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         CFindCommand command = new CFindCommand(predicate);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -85,9 +85,9 @@ public class CFindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code ContactNameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private ContactNameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new ContactNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

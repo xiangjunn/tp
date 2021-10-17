@@ -1,6 +1,54 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() and the same Event Values as in TypicalEvents#getTypicalAddressBook()",
-  "events" : [ ],
+  "events" : [  {
+    "name": "Birthday party",
+    "start": "23-10-2021 20:00",
+    "end": "24-10-2021 01:00",
+    "description": "Dress code: Pink!",
+    "address": "#10-07 Baker Street",
+    "zoom": "nus-sg.edu/123%a",
+    "tagged": ["friends"]
+  },{
+    "name": "CS2100 Consultation",
+    "start": "17-10-2021 15:00",
+    "end": "17-10-2021 16:00",
+    "description": "Topics: Assembly Language",
+    "address": "02-11 COM2",
+    "zoom": null,
+    "tagged": ["School"]
+  },{
+    "name": "CS2101 Meeting",
+    "start": "15-10-2021 21:00",
+    "end": "15-10-2021 22:00",
+    "description": "Need to prepare for OP2",
+    "address": "Zoom",
+    "zoom": "nus-sg.edu/pwdffha%a",
+    "tagged": ["meeting"]
+  }, {
+    "name": "CS2103 Midterms",
+    "start": "20-10-2021 09:00",
+    "end": "20-10-2021 11:00",
+    "description": "I'm very unprepared",
+    "address": "Zoom",
+    "zoom": "nus-sg.edu/123%a",
+    "tagged": ["exams"]
+  }, {
+    "name": "Football Practice",
+    "start": "20-10-2021 09:00",
+    "end": "20-10-2021 11:00",
+    "description": null,
+    "address": "USC",
+    "zoom": null,
+    "tagged": ["CCA"]
+  }, {
+    "name": "Team Meeting",
+    "start": "20-10-2021 19:00",
+    "end": "20-10-2021 20:00",
+    "description": null,
+    "address": "Zoom",
+    "zoom": "nus-edu.sg/123link",
+    "tagged": ["meeting"]
+  } ],
   "contacts" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
