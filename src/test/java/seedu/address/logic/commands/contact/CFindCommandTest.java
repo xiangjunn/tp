@@ -77,7 +77,7 @@ public class CFindCommandTest {
     @Test
     public void execute_multipleIncompleteKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Ku Ell");
+        ContactNameContainsKeywordsPredicate predicate = preparePredicate("Ku Ell");
         CFindCommand command = new CFindCommand(predicate);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
