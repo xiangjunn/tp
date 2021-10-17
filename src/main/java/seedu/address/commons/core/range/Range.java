@@ -13,6 +13,9 @@ public class Range {
      * @param end An index representing the end.
      */
     public Range(Index start, Index end) {
+        if (start.isMoreThan(end)) {
+            throw new IndexOutOfBoundsException();
+        }
         this.start = start;
         this.end = end;
     }

@@ -30,10 +30,6 @@ public class EDeleteCommand extends Command {
 
     private final Range targetRange;
 
-    public EDeleteCommand(Index targetIndex) {
-        this.targetRange = new Range(targetIndex, targetIndex);
-    }
-
     public EDeleteCommand(Range targetRange) {
         this.targetRange = targetRange;
     }

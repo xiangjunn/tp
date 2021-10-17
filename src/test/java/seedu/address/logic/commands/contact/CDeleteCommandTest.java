@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.assertCommand
 import static seedu.address.logic.commands.general.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,8 @@ public class CDeleteCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        CDeleteCommand cDeleteCommand = new CDeleteCommand(INDEX_FIRST_PERSON);
+        Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST_PERSON);
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(rangeOfIndexes);
 
         String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
@@ -73,22 +75,25 @@ public class CDeleteCommandTest {
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
+        Range rangeOfIndexes = Range.convertFromIndex(outOfBoundIndex);
 
-        CDeleteCommand cDeleteCommand = new CDeleteCommand(outOfBoundIndex);
+        CDeleteCommand cDeleteCommand = new CDeleteCommand(rangeOfIndexes);
 
         assertCommandFailure(cDeleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        CDeleteCommand deleteFirstCommand = new CDeleteCommand(INDEX_FIRST_PERSON);
-        CDeleteCommand deleteSecondCommand = new CDeleteCommand(INDEX_SECOND_PERSON);
+        Range fromIndexOneToTwo = new Range(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+        Range fromIndexOneToThree = new Range(INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
+        CDeleteCommand deleteFirstCommand = new CDeleteCommand(fromIndexOneToTwo);
+        CDeleteCommand deleteSecondCommand = new CDeleteCommand(fromIndexOneToThree);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        CDeleteCommand deleteFirstCommandCopy = new CDeleteCommand(INDEX_FIRST_PERSON);
+        CDeleteCommand deleteFirstCommandCopy = new CDeleteCommand(fromIndexOneToTwo);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
