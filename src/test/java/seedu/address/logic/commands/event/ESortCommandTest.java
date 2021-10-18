@@ -39,33 +39,28 @@ class ESortCommandTest {
         String after1 = timeNow.plusDays(7).plusHours(4).plusMinutes(30).format(DATE_TIME_FORMATTER);
         String after2 = timeNow.plusYears(1).format(DATE_TIME_FORMATTER);
         String after3 = timeNow.plusYears(1).format(DATE_TIME_FORMATTER);
-        Event e1 = new Event(new Name("Event 1"), new StartDateTime(after2), null, null,
-            null, null, Set.of());
-        Event e2 = new Event(new Name("Event 2"), new StartDateTime(beforeNow2), new EndDateTime(starting), null,
-            null, null, Set.of());
-        Event e3 = new Event(new Name("Event 3"), new StartDateTime(after3), null, null,
-            null, null, Set.of());
-        Event e4 = new Event(new Name("Event 4"), new StartDateTime(starting), null, null,
-            null, null, Set.of());
-        Event e5 = new Event(new Name("Event 5"), new StartDateTime(beforeNow1), new EndDateTime(after2), null,
-            null, null, Set.of());
-        Event e6 = new Event(new Name("Event 6"), new StartDateTime(beforeNow1), new EndDateTime(after1), null,
-            null, null, Set.of());
-        Event e7 = new Event(new Name("Event 7"), new StartDateTime(beforeNow1), new EndDateTime(beforeNow2), null,
-            null, null, Set.of());
-        Event e8 = new Event(new Name("Event 8"), new StartDateTime(beforeNow2), null, null,
-            null, null, Set.of());
+        Event[] events = new Event[]{new Event(new Name("Event 1"), new StartDateTime(after2), null, null,
+            null, null, Set.of()),
+            new Event(new Name("Event 2"), new StartDateTime(beforeNow2), new EndDateTime(starting), null,
+            null, null, Set.of()),
+            new Event(new Name("Event 3"), new StartDateTime(after3), null, null,
+            null, null, Set.of()),
+            new Event(new Name("Event 4"), new StartDateTime(starting), null, null,
+            null, null, Set.of()),
+            new Event(new Name("Event 5"), new StartDateTime(beforeNow1), new EndDateTime(after2), null,
+            null, null, Set.of()),
+            new Event(new Name("Event 6"), new StartDateTime(beforeNow1), new EndDateTime(after1), null,
+            null, null, Set.of()),
+            new Event(new Name("Event 7"), new StartDateTime(beforeNow1), new EndDateTime(beforeNow2), null,
+            null, null, Set.of()),
+            new Event(new Name("Event 8"), new StartDateTime(beforeNow2), null, null,
+            null, null, Set.of())};
         Model model = new ModelManager(addressBook, userPrefs);
-        model.addEvent(e1);
-        model.addEvent(e2);
-        model.addEvent(e3);
-        model.addEvent(e4);
-        model.addEvent(e5);
-        model.addEvent(e6);
-        model.addEvent(e7);
-        model.addEvent(e8);
+        for (Event e : events) {
+            model.addEvent(e);
+        }
         ESortCommand command = new ESortCommand();
-        List<Event> expectedList = List.of(e5, e6, e1, e3);
+        List<Event> expectedList = List.of(events[4], events[5], events[0], events[2]);
         command.execute(model);
         assertEquals(model.getFilteredEventList(), expectedList);
     }

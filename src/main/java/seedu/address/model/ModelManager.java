@@ -188,16 +188,19 @@ public class ModelManager implements Model {
 
     @Override
     public void sortUpcomingFilteredEventList() {
-        Predicate<? super Event> currentPredicate = filteredEvents
-            .getPredicate();
+        Predicate<? super Event> currentPredicate = filteredEvents.getPredicate();
         // Remove events that have passed
         addressBook.sortEvents();
-        // In addition to the current predicate, only include events with end time that is now or after now.
-        // If event has no end time then only include if the start time is now or after now.
-        updateFilteredEventList(event -> (currentPredicate == null || currentPredicate.test(event))
+        updateFilteredEventList(getNewPredicate(currentPredicate));
+    }
+
+    /**
+     * Returns the new predicate for displaying only upcoming and ongoing events
+     */
+    private static Predicate<? super Event> getNewPredicate(Predicate<? super Event> originalPredicate) {
+        return event -> (originalPredicate == null || originalPredicate.test(event))
             && ((event.getEndDateAndTime() == null && event.getStartDateAndTime().isNotBeforeNow())
-                || (event.getEndDateAndTime() != null && event.getEndDateAndTime().isNotBeforeNow()))
-        );
+            || (event.getEndDateAndTime() != null && event.getEndDateAndTime().isNotBeforeNow()));
     }
 
     @Override
