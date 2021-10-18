@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
@@ -20,6 +23,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.contact.CEditCommand.EditContactDescriptor;
+import seedu.address.logic.commands.event.EEditCommand.EditEventDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -28,11 +32,18 @@ import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.EditEventDescriptorBuilder;
+
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    //common
+    public static final String EMPTY_PREFIX_ADDRESS = " " + PREFIX_ADDRESS;
+    public static final String EMPTY_PREFIX_ZOOM = " " + PREFIX_ZOOM;
+    public static final String EMPTY_PREFIX_TAG = " " + PREFIX_TAG;
 
     //for contacts
     public static final String VALID_NAME_AMY = "Amy Bee";
@@ -70,10 +81,7 @@ public class CommandTestUtil {
 
     public static final String EMPTY_PREFIX_PHONE = " " + PREFIX_PHONE;
     public static final String EMPTY_PREFIX_EMAIL = " " + PREFIX_EMAIL;
-    public static final String EMPTY_PREFIX_ADDRESS = " " + PREFIX_ADDRESS;
     public static final String EMPTY_PREFIX_TELEGRAM = " " + PREFIX_TELEGRAM;
-    public static final String EMPTY_PREFIX_ZOOM = " " + PREFIX_ZOOM;
-    public static final String EMPTY_PREFIX_TAG = " " + PREFIX_TAG;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -89,8 +97,6 @@ public class CommandTestUtil {
     public static final EditContactDescriptor DESC_AMY;
     public static final EditContactDescriptor DESC_BOB;
 
-    // TODO: 10/13/2021 add new event samples
-
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -101,6 +107,65 @@ public class CommandTestUtil {
                 .withZoomLink(VALID_ZOOM_BOB).withTelegram(VALID_TELEGRAM_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withDeleteAllTags(true).build();
     }
+
+    //for events
+    public static final String VALID_NAME_TUTORIAL = "CS2103T tutorial";
+    public static final String VALID_NAME_EXAM = "CS2100 Midterms";
+    public static final String VALID_START_DATE_TIME_TUTORIAL = "17-10-2021 15:00";
+    public static final String VALID_END_DATE_TIME_TUTORIAL = "17-10-2021 16:00";
+    public static final String VALID_START_DATE_TIME_EXAM = "20-10-2021 09:00";
+    public static final String VALID_END_DATE_TIME_EXAM = "20-10-2021 11:00";
+    public static final String VALID_DESCRIPTION_TUTORIAL = "Topics: Drawing UML diagrams";
+    public static final String VALID_DESCRIPTION_EXAM = "I'm very unprepared";
+    public static final String VALID_ADDRESS_TUTORIAL = "2-11 COM2";
+    public static final String VALID_ADDRESS_EXAM = "Zoom";
+    public static final String VALID_ZOOM_TUTORIAL = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
+    public static final String VALID_ZOOM_EXAM = "nus-sg.edu/123%a";
+    public static final String VALID_TAG_COOL = "cool";
+    public static final String VALID_TAG_EXAMS = "exams";
+
+    public static final String NAME_DESC_TUTORIAL = " " + PREFIX_NAME + VALID_NAME_TUTORIAL;
+    public static final String NAME_DESC_EXAM = " " + PREFIX_NAME + VALID_NAME_EXAM;
+    public static final String START_DATE_TIME_DESC_TUTORIAL = " " + PREFIX_START_TIME + VALID_START_DATE_TIME_TUTORIAL;
+    public static final String START_DATE_TIME_DESC_EXAM = " " + PREFIX_START_TIME + VALID_START_DATE_TIME_EXAM;
+    public static final String END_DATE_TIME_DESC_TUTORIAL = " " + PREFIX_END_TIME + VALID_END_DATE_TIME_TUTORIAL;
+    public static final String END_DATE_TIME_DESC_EXAM = " " + PREFIX_END_TIME + VALID_END_DATE_TIME_EXAM;
+    public static final String DESCRIPTION_DESC_TUTORIAL = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TUTORIAL;
+    public static final String DESCRIPTION_DESC_EXAM = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_EXAM;
+    public static final String ADDRESS_DESC_TUTORIAL = " " + PREFIX_ADDRESS + VALID_ADDRESS_TUTORIAL;
+    public static final String ADDRESS_DESC_EXAM = " " + PREFIX_ADDRESS + VALID_ADDRESS_EXAM;
+    public static final String ZOOM_DESC_TUTORIAL = " " + PREFIX_ZOOM + VALID_ZOOM_TUTORIAL;
+    public static final String ZOOM_DESC_EXAM = " " + PREFIX_ZOOM + VALID_ZOOM_EXAM;
+    public static final String TAG_DESC_COOL = " " + PREFIX_TAG + VALID_TAG_COOL;
+    public static final String TAG_DESC_EXAMS = " " + PREFIX_TAG + VALID_TAG_EXAMS;
+    public static final String TAG_DESC_DELETEEXAMS = " " + PREFIX_DELETE_TAG + VALID_TAG_EXAMS;
+    public static final String TAG_DESC_DELETECOOL = " " + PREFIX_DELETE_TAG + VALID_TAG_COOL;
+
+    public static final String EMPTY_PREFIX_START_DATE_TIME = " " + PREFIX_START_TIME;
+    public static final String EMPTY_PREFIX_END_DATE_TIME = " " + PREFIX_END_TIME;
+    public static final String EMPTY_PREFIX_DESCRIPTION = " " + PREFIX_DESCRIPTION;
+
+    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Hackathon&"; // '&' not allowed in names
+    public static final String INVALID_START_DATE_TIME_DESC = " " + PREFIX_START_TIME + "911a";
+    // 'a' not allowed in phones
+    public static final String INVALID_END_DATE_TIME_DESC = " " + PREFIX_END_TIME + "bob!yahoo"; // missing '@' symbol
+
+    public static final EditEventDescriptor DESC_TUTORIAL;
+    public static final EditEventDescriptor DESC_EXAM;
+
+    static {
+        DESC_TUTORIAL = new EditEventDescriptorBuilder().withName(VALID_NAME_TUTORIAL)
+                .withStartDateTime(VALID_START_DATE_TIME_TUTORIAL).withEndDateTime(VALID_END_DATE_TIME_TUTORIAL)
+                .withDescription(VALID_DESCRIPTION_TUTORIAL).withAddress(VALID_ADDRESS_TUTORIAL)
+                .withZoomLink(VALID_ZOOM_TUTORIAL).withTags(VALID_TAG_COOL)
+                .withDeleteAllTags(true).build();
+        DESC_EXAM = new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM)
+                .withStartDateTime(VALID_START_DATE_TIME_EXAM).withEndDateTime(VALID_END_DATE_TIME_EXAM)
+                .withDescription(VALID_DESCRIPTION_EXAM).withAddress(VALID_ADDRESS_EXAM)
+                .withZoomLink(VALID_ZOOM_EXAM).withTags(VALID_TAG_EXAMS, VALID_TAG_COOL)
+                .withDeleteAllTags(true).build();
+    }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -172,5 +237,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredEventList().size());
     }
-
 }

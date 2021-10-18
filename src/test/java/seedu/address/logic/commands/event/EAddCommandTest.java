@@ -1,10 +1,21 @@
 package seedu.address.logic.commands.event;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.event.EAddCommand;
-import seedu.address.logic.commands.event.EAddCommandTest;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -12,21 +23,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Event;
 import seedu.address.testutil.EventBuilder;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
-
-import org.junit.jupiter.api.Test;
 
 class EAddCommandTest {
 
@@ -36,14 +33,14 @@ class EAddCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_eventAcceptedByModel_addSuccessful() throws Exception {
         EAddCommandTest.ModelStubAcceptingEventAdded modelStub = new EAddCommandTest.ModelStubAcceptingEventAdded();
         Event validEvent = new EventBuilder().build();
 
         CommandResult commandResult = new EAddCommand(validEvent).execute(modelStub);
 
         assertEquals(String.format(EAddCommand.MESSAGE_SUCCESS, validEvent), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validEvent), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
     }
 
     @Test
@@ -58,32 +55,35 @@ class EAddCommandTest {
 
     @Test
     public void equals() {
-        Event alice = new EventBuilder().withName("Alice").build();
-        Event bob = new EventBuilder().withName("Bob").build();
-        EAddCommand addAliceCommand = new EAddCommand(alice);
-        EAddCommand addBobCommand = new EAddCommand(bob);
+        Event lecture = new EventBuilder().withName("Lecture").build();
+        Event exam = new EventBuilder().withName("Exam").build();
+        EAddCommand addLectureCommand = new EAddCommand(lecture);
+        EAddCommand addExamCommand = new EAddCommand(exam);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addLectureCommand.equals(addLectureCommand));
 
         // same values -> returns true
-        EAddCommand addAliceCommandCopy = new EAddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        EAddCommand addLectureCommandCopy = new EAddCommand(lecture);
+        assertTrue(addLectureCommand.equals(addLectureCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addLectureCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addLectureCommand.equals(null));
 
         // different event -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addLectureCommand.equals(addExamCommand));
     }
 
     /**
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        //settings
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -113,6 +113,8 @@ class EAddCommandTest {
         public void setAddressBookFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+
+        //contacts
 
         @Override
         public void addContact(Contact contact) {
@@ -158,6 +160,8 @@ class EAddCommandTest {
         public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        // events
 
         @Override
         public void addEvent(Event event) {
@@ -219,18 +223,18 @@ class EAddCommandTest {
      * A Model stub that always accept the event being added.
      */
     private class ModelStubAcceptingEventAdded extends ModelStub {
-        final ArrayList<Event> personsAdded = new ArrayList<>();
+        final ArrayList<Event> eventsAdded = new ArrayList<>();
 
         @Override
         public boolean hasEvent(Event event) {
             requireNonNull(event);
-            return personsAdded.stream().anyMatch(event::isSameEvent);
+            return eventsAdded.stream().anyMatch(event::isSameEvent);
         }
 
         @Override
         public void addEvent(Event event) {
             requireNonNull(event);
-            personsAdded.add(event);
+            eventsAdded.add(event);
         }
 
         @Override

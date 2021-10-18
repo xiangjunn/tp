@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.event;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
@@ -13,6 +14,7 @@ import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 
@@ -30,6 +32,10 @@ public class EListCommandParser implements Parser<EListCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION,
                         PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG);
+        if (anyPrefixValueNotEmpty(argMultimap, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION,
+                PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EListCommand.MESSAGE_USAGE));
+        }
         if (noPrefixesPresent(argMultimap)) {
             Event.setAllDisplayToTrue();
         } else {
@@ -54,6 +60,14 @@ public class EListCommandParser implements Parser<EListCommand> {
             Event.setWillDisplayTags(true);
         }
         return new EListCommand();
+    }
+
+    /**
+     * Checks if a {code Prefix} prefix present in {@code ArgumentMultimap} has a non-empty value
+     */
+    private static boolean anyPrefixValueNotEmpty(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent())
+                .anyMatch(prefix -> !argumentMultimap.getValue(prefix).get().isEmpty());
     }
 
     /**
