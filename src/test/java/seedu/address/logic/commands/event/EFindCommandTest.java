@@ -22,7 +22,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code CFindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code EFindCommand}.
  */
 public class EFindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
