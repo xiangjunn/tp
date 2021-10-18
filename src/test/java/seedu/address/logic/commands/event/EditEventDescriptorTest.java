@@ -18,6 +18,12 @@ import seedu.address.testutil.EditEventDescriptorBuilder;
 public class EditEventDescriptorTest {
 
     @Test
+    public void isAnyFieldEdited_noFieldEdited() {
+        EditEventDescriptor emptyEditEventDescriptor = new EditEventDescriptor();
+        assertFalse(emptyEditEventDescriptor.isAnyFieldEdited());
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         EditEventDescriptor descriptorWithSameValues = new EditEventDescriptor(DESC_TUTORIAL);

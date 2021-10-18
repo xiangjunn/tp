@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.event;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
@@ -32,6 +34,15 @@ class EListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showEventAtIndex(model, INDEX_FIRST_EVENT);
         assertCommandSuccess(new EListCommand(), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equal() {
+        EListCommand standardCommand = new EListCommand();
+        assertTrue(standardCommand.equals(standardCommand));
+        assertTrue(standardCommand.equals(new EListCommand()));
+        assertFalse(standardCommand.equals(new EClearCommand()));
+
     }
 }
 
