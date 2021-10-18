@@ -74,7 +74,7 @@ public class StringUtil {
             String[] indexes = s.split("-");
             int start = Integer.parseInt(indexes[0]);
             int end = Integer.parseInt(indexes[1]);
-            return start >= 0 && start <= end;
+            return start > 0 && start <= end;
         }
         return false;
     }
