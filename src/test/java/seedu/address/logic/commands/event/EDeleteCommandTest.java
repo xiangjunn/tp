@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
+import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalRanges.RANGE_FIRST_TO_FIRST;
 import static seedu.address.testutil.TypicalRanges.RANGE_SECOND_TO_THIRD;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
