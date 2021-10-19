@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private final HelpWindow helpWindow;
+    private CalendarWindow calendarWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -172,6 +173,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows the calendar panel to the user.
+     */
+    @FXML
+    private void handleCalendar() {
+        if (calendarWindow != null && calendarWindow.isShowing()) {
+            calendarWindow.close();
+        }
+        calendarWindow = new CalendarWindow(logic.getFilteredEventList());
+        calendarWindow.show();
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -188,6 +201,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowCalendar()) {
+                handleCalendar();
             }
 
             return commandResult;
