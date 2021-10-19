@@ -296,6 +296,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | SoC student | search for an event based on event name | easily refer to the event details |
 | `* *` | SoC student | sort the events by time | prepare for upcoming events |
 | `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
+| `* *` | SoC student with busy schedule | see a weekly calendar | easily visualize my schedule for the week |
 | `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
 | `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | synchronize my events across my calendars |
 | `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |

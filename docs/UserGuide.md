@@ -281,6 +281,12 @@ ________________________________________________________________________________
 
 ## General
 
+### Viewing calendar : `calendar`
+
+Shows a calendar of all the events. Alternatively, access using the top menu or press `F2`.
+
+![calendar](images/Calendar.png)
+
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -346,8 +352,7 @@ ________________________________________________________________________________
 
 Action | Format, Examples
 --------|------------------
+**Calendar** | `calendar`
 **Help** | `help`
-
-
-
+**Exit** | `exit`
 
