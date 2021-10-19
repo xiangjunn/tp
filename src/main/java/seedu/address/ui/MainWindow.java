@@ -207,6 +207,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleCalendar();
             }
 
+            if (calendarWindow != null) {
+                calendarWindow.clearCalendar();
+                calendarWindow.createCalendar(logic.getFilteredEventList());
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

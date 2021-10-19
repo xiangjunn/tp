@@ -3,6 +3,8 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.calendarfx.model.Calendar;
@@ -29,6 +31,8 @@ public class CalendarWindow extends UiPart<Stage> {
 
     private CalendarView calendarView = new CalendarView();
     private final Calendar calendarOfEvents = new Calendar("Events");
+
+    private final Map<Event, Entry<Event>> mapOfCalendarEntries = new HashMap<>();
 
     @FXML
     private StackPane calendarui;
@@ -60,23 +64,38 @@ public class CalendarWindow extends UiPart<Stage> {
         calendarui.getChildren().add(calendarView);
     }
 
-    private void createCalendar(ObservableList<Event> events) {
-        events.forEach(event -> {
-            DateAndTime start = event.getStartDateAndTime();
-            DateAndTime end = event.getEndDateAndTime();
-            if (end == null) {
-                String newEndString = start.getDateTime().plusHours(1)
-                    .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-                end = new EndDateTime(newEndString);
-            }
-            Entry<Event> entry = new Entry<>();
-            entry.setTitle(event.getName().fullName);
-            entry.changeStartDate(start.time.toLocalDate());
-            entry.changeStartTime(start.time.toLocalTime());
-            entry.changeEndDate(end.time.toLocalDate());
-            entry.changeEndTime(end.time.toLocalTime());
-            entry.setCalendar(calendarOfEvents);
-        });
+    /** Creates a calendar with all entries from {@code events}. */
+    public void createCalendar(ObservableList<Event> events) {
+        events.forEach(this::createEntry);
+    }
+
+    /**
+     * Creates a new calendar entry and adds them to the calendar based on {@code event}.
+     */
+    private void createEntry(Event event) {
+        if (event == null) {
+            return;
+        }
+        DateAndTime start = event.getStartDateAndTime();
+        DateAndTime end = event.getEndDateAndTime();
+        if (end == null) {
+            String newEndString = start.getDateTime().plusHours(1)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            end = new EndDateTime(newEndString);
+        }
+        Entry<Event> entry = new Entry<>();
+        entry.setTitle(event.getName().fullName);
+        entry.changeStartDate(start.time.toLocalDate());
+        entry.changeStartTime(start.time.toLocalTime());
+        entry.changeEndDate(end.time.toLocalDate());
+        entry.changeEndTime(end.time.toLocalTime());
+        entry.setCalendar(calendarOfEvents);
+        mapOfCalendarEntries.put(event, entry);
+    }
+
+    /** Deletes all entries in the calendar. */
+    public void clearCalendar() {
+        calendarOfEvents.clear();
     }
 
     /**
