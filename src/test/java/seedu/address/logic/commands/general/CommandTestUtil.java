@@ -138,8 +138,8 @@ public class CommandTestUtil {
     public static final String ZOOM_DESC_EXAM = " " + PREFIX_ZOOM + VALID_ZOOM_EXAM;
     public static final String TAG_DESC_COOL = " " + PREFIX_TAG + VALID_TAG_COOL;
     public static final String TAG_DESC_EXAMS = " " + PREFIX_TAG + VALID_TAG_EXAMS;
-    public static final String TAG_DESC_DELETEEXAMS = " " + PREFIX_DELETE_TAG + VALID_TAG_EXAMS;
-    public static final String TAG_DESC_DELETECOOL = " " + PREFIX_DELETE_TAG + VALID_TAG_COOL;
+    public static final String DELETE_TAG_DESC_EXAMS = " " + PREFIX_DELETE_TAG + VALID_TAG_EXAMS;
+    public static final String DELETE_TAG_DESC_COOL = " " + PREFIX_DELETE_TAG + VALID_TAG_COOL;
 
     public static final String EMPTY_PREFIX_START_DATE_TIME = " " + PREFIX_START_TIME;
     public static final String EMPTY_PREFIX_END_DATE_TIME = " " + PREFIX_END_TIME;
@@ -147,24 +147,22 @@ public class CommandTestUtil {
 
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Hackathon&"; // '&' not allowed in names
     public static final String INVALID_START_DATE_TIME_DESC = " " + PREFIX_START_TIME + "911a";
-    // 'a' not allowed in phones
-    public static final String INVALID_END_DATE_TIME_DESC = " " + PREFIX_END_TIME + "bob!yahoo"; // missing '@' symbol
+    // only takes in dd-MM-yyy HH:mm format
+    public static final String INVALID_END_DATE_TIME_DESC = " " + PREFIX_END_TIME + "bob!yahoo";
+    // only takes in dd-MM-yyy HH:mm format
 
-    public static final EditEventDescriptor DESC_TUTORIAL;
-    public static final EditEventDescriptor DESC_EXAM;
 
-    static {
-        DESC_TUTORIAL = new EditEventDescriptorBuilder().withName(VALID_NAME_TUTORIAL)
-                .withStartDateTime(VALID_START_DATE_TIME_TUTORIAL).withEndDateTime(VALID_END_DATE_TIME_TUTORIAL)
-                .withDescription(VALID_DESCRIPTION_TUTORIAL).withAddress(VALID_ADDRESS_TUTORIAL)
-                .withZoomLink(VALID_ZOOM_TUTORIAL).withTags(VALID_TAG_COOL)
+    public static final EditEventDescriptor DESC_TUTORIAL = new EditEventDescriptorBuilder()
+                .withName(VALID_NAME_TUTORIAL).withStartDateTime(VALID_START_DATE_TIME_TUTORIAL)
+                .withEndDateTime(VALID_END_DATE_TIME_TUTORIAL).withDescription(VALID_DESCRIPTION_TUTORIAL)
+                .withAddress(VALID_ADDRESS_TUTORIAL).withZoomLink(VALID_ZOOM_TUTORIAL).withTags(VALID_TAG_COOL)
                 .withDeleteAllTags(true).build();
-        DESC_EXAM = new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM)
+    public static final EditEventDescriptor DESC_EXAM = new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM)
                 .withStartDateTime(VALID_START_DATE_TIME_EXAM).withEndDateTime(VALID_END_DATE_TIME_EXAM)
                 .withDescription(VALID_DESCRIPTION_EXAM).withAddress(VALID_ADDRESS_EXAM)
                 .withZoomLink(VALID_ZOOM_EXAM).withTags(VALID_TAG_EXAMS, VALID_TAG_COOL)
                 .withDeleteAllTags(true).build();
-    }
+
 
 
     /**

@@ -3,6 +3,8 @@ package seedu.address.logic.parser.event;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.general.CommandTestUtil.ADDRESS_DESC_EXAM;
 import static seedu.address.logic.commands.general.CommandTestUtil.ADDRESS_DESC_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.DELETE_TAG_DESC_COOL;
+import static seedu.address.logic.commands.general.CommandTestUtil.DELETE_TAG_DESC_EXAMS;
 import static seedu.address.logic.commands.general.CommandTestUtil.END_DATE_TIME_DESC_EXAM;
 import static seedu.address.logic.commands.general.CommandTestUtil.END_DATE_TIME_DESC_TUTORIAL;
 import static seedu.address.logic.commands.general.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -16,8 +18,6 @@ import static seedu.address.logic.commands.general.CommandTestUtil.START_DATE_TI
 import static seedu.address.logic.commands.general.CommandTestUtil.START_DATE_TIME_DESC_TUTORIAL;
 import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_COOL;
 import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_DELETEALL;
-import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_DELETECOOL;
-import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_DELETEEXAMS;
 import static seedu.address.logic.commands.general.CommandTestUtil.TAG_DESC_EXAMS;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_EXAM;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_TUTORIAL;
@@ -243,9 +243,9 @@ class EEditCommandParserTest {
     public void parse_deleteTags_success() {
         Index targetIndex = INDEX_SECOND_EVENT;
         // user deletes cool tag
-        String userDeleteOneTag = targetIndex.getOneBased() + TAG_DESC_DELETECOOL;
+        String userDeleteOneTag = targetIndex.getOneBased() + DELETE_TAG_DESC_COOL;
         // user deletes cool tag, then deletes exams tag
-        String userDeleteTwoTags = targetIndex.getOneBased() + TAG_DESC_DELETECOOL + TAG_DESC_DELETEEXAMS;
+        String userDeleteTwoTags = targetIndex.getOneBased() + DELETE_TAG_DESC_COOL + DELETE_TAG_DESC_EXAMS;
 
         EditEventDescriptor descriptorOneTagDeleted = new EditEventDescriptorBuilder()
                 .withTagsToDelete(VALID_TAG_COOL).build();

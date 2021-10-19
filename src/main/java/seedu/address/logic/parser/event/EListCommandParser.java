@@ -63,7 +63,7 @@ public class EListCommandParser implements Parser<EListCommand> {
     }
 
     /**
-     * Checks if a {code Prefix} prefix present in {@code ArgumentMultimap} has a non-empty value
+     * Checks if a {@code Prefix} prefix present in {@code ArgumentMultimap} has a non-empty value
      */
     private static boolean anyPrefixValueNotEmpty(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent())
