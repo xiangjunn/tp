@@ -5,7 +5,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -13,7 +12,7 @@ import seedu.address.model.UserPrefs;
 public class CClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyContactList_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,10 +20,10 @@ public class CClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyContactList_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+        expectedModel.resetContacts();
 
         assertCommandSuccess(new CClearCommand(), model, CClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
