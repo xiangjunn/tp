@@ -57,4 +57,13 @@ public class IndexTest {
         // different index -> returns false
         assertFalse(fifthPersonIndex.equals(Index.fromOneBased(1)));
     }
+
+    @Test
+    public void isMoreThan() {
+        Index indexWithValueOne = Index.fromOneBased(1);
+        Index indexWithValueMaxInteger = Index.fromOneBased(Integer.MAX_VALUE);
+        assertTrue(indexWithValueMaxInteger.isMoreThan(indexWithValueOne));
+        assertFalse(indexWithValueOne.isMoreThan(indexWithValueMaxInteger));
+        assertFalse(indexWithValueOne.isMoreThan(indexWithValueOne));
+    }
 }

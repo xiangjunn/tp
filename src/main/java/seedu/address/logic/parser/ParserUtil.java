@@ -67,7 +67,7 @@ public class ParserUtil {
     public static Range parseDeleteArgument(String args) throws ParseException {
         try {
             Index index = parseIndex(args);
-            return new Range(index, index);
+            return Range.convertFromIndex(index);
         } catch (ParseException pe) {
             return parseRange(args);
         }

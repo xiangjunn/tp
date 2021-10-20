@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.contact.CDeleteCommand;
 
 /**
@@ -22,7 +23,8 @@ public class CDeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new CDeleteCommand(INDEX_FIRST_PERSON));
+        Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST_PERSON);
+        assertParseSuccess(parser, "1", new CDeleteCommand(rangeOfIndexes));
     }
 
     @Test
