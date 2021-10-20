@@ -2,7 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import seedu.address.model.event.EventChanger;
 
 /**
  * Represents the result of a command execution.
@@ -20,6 +24,9 @@ public class CommandResult {
     /** The calendar should be shown to the user. */
     private final boolean showCalendar;
 
+    /** The list of all events to be changed. By default an empty list */
+    private final List<EventChanger> eventChangerList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -29,6 +36,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.showCalendar = showCalendar;
+        this.eventChangerList = new ArrayList<>();
     }
 
     /**
@@ -37,6 +45,18 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, List<EventChanger> eventChangerList) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.showCalendar = false;
+        this.eventChangerList = requireNonNull(eventChangerList);
     }
 
     public String getFeedbackToUser() {
@@ -55,6 +75,10 @@ public class CommandResult {
         return showCalendar;
     }
 
+    public List<EventChanger> getEventChangerList() {
+        return eventChangerList;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -70,7 +94,8 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && showCalendar == otherCommandResult.showCalendar;
+                && showCalendar == otherCommandResult.showCalendar
+                && eventChangerList.equals(otherCommandResult.eventChangerList);
     }
 
     @Override

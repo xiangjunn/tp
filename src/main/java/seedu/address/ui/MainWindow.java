@@ -29,12 +29,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Stage primaryStage;
     private final Logic logic;
-
+    private final HelpWindow helpWindow;
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
-    private final HelpWindow helpWindow;
     private CalendarWindow calendarWindow;
 
     @FXML
@@ -174,6 +173,9 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        if (calendarWindow != null) {
+            calendarWindow.close();
+        }
     }
 
     /**
@@ -212,8 +214,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (calendarWindow != null) {
-                calendarWindow.clearCalendar();
-                calendarWindow.createCalendar(logic.getFilteredEventList());
+                calendarWindow.updateCalendar(commandResult.getEventChangerList());
             }
             return commandResult;
         } catch (CommandException | ParseException e) {

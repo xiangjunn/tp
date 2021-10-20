@@ -1,9 +1,11 @@
 package seedu.address.ui;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -21,6 +23,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.DateAndTime;
 import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 
 /**
  * Panel showing the list of events as a calendar.
@@ -65,7 +68,7 @@ public class CalendarWindow extends UiPart<Stage> {
     }
 
     /** Creates a calendar with all entries from {@code events}. */
-    public void createCalendar(ObservableList<Event> events) {
+    public void createCalendar(List<Event> events) {
         events.forEach(this::createEntry);
     }
 
@@ -85,12 +88,22 @@ public class CalendarWindow extends UiPart<Stage> {
         }
         Entry<Event> entry = new Entry<>();
         entry.setTitle(event.getName().fullName);
-        entry.changeStartDate(start.time.toLocalDate());
-        entry.changeStartTime(start.time.toLocalTime());
+        entry.setMinimumDuration(Duration.ZERO);
         entry.changeEndDate(end.time.toLocalDate());
         entry.changeEndTime(end.time.toLocalTime());
+        entry.changeStartDate(start.time.toLocalDate());
+        entry.changeStartTime(start.time.toLocalTime());
         entry.setCalendar(calendarOfEvents);
         mapOfCalendarEntries.put(event, entry);
+    }
+
+    /**
+     * Deletes a calendar entry from the calendar the calendar based on {@code event}.
+     */
+    private void deleteEntry(Event event) {
+        Entry<Event> entryToDelete = mapOfCalendarEntries.remove(event);
+        assert entryToDelete != null : "Entry must exist before it can be deleted";
+        calendarOfEvents.removeEntry(entryToDelete);
     }
 
     /** Deletes all entries in the calendar. */
@@ -98,8 +111,30 @@ public class CalendarWindow extends UiPart<Stage> {
         calendarOfEvents.clear();
     }
 
+    /** Updates the calendar according the the events being changed. */
+    public void updateCalendar(List<EventChanger> eventChangerList) {
+        for (EventChanger eventChanger : eventChangerList) {
+            if (eventChanger.isClear()) {
+                clearCalendar();
+                return;
+            }
+            if (eventChanger.isAdding()) {
+                createEntry(eventChanger.getNewEvent());
+                continue;
+            }
+            if (eventChanger.isEditing()) {
+                deleteEntry(eventChanger.getOldEvent());
+                createEntry(eventChanger.getNewEvent());
+                continue;
+            }
+            if (eventChanger.isDeleting()) {
+                deleteEntry(eventChanger.getOldEvent());
+            }
+        }
+    }
+
     /**
-     * Shows the help window.
+     * Shows the calendar window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
