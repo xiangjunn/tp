@@ -18,6 +18,7 @@ import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
 import seedu.address.logic.commands.event.EEditCommand;
 import seedu.address.logic.commands.event.EFindCommand;
+import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -30,6 +31,7 @@ import seedu.address.logic.parser.event.EAddCommandParser;
 import seedu.address.logic.parser.event.EDeleteCommandParser;
 import seedu.address.logic.parser.event.EEditCommandParser;
 import seedu.address.logic.parser.event.EFindCommandParser;
+import seedu.address.logic.parser.event.ELinkCommandParser;
 import seedu.address.logic.parser.event.EListCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -95,6 +97,9 @@ public class AddressBookParser {
 
         case EListCommand.COMMAND_WORD:
             return new EListCommandParser().parse(arguments);
+
+        case ELinkCommand.COMMAND_WORD:
+            return new ELinkCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
