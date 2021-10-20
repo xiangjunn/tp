@@ -1,6 +1,10 @@
 package seedu.address.model.event;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Objects;
 
@@ -12,7 +16,8 @@ class EventChangerTest {
     private final EventChanger clearEventChanger = EventChanger.clearEventChanger();
     private final EventChanger deleteEventChanger = EventChanger.deleteEventChanger(TypicalEvents.CS2101_MEETING);
     private final EventChanger addEventChanger = EventChanger.addEventChanger(TypicalEvents.CS2101_MEETING);
-    private final EventChanger editEventChanger = EventChanger.editEventChanger(TypicalEvents.CS2101_MEETING,
+    private final EventChanger editEventChanger = EventChanger.editEventChanger(
+        TypicalEvents.CS2101_MEETING,
         TypicalEvents.TEAM_MEETING);
 
     @Test
@@ -35,7 +40,8 @@ class EventChangerTest {
 
     @Test
     public void editEventChanger() {
-        assertEquals(editEventChanger, EventChanger.editEventChanger(TypicalEvents.CS2101_MEETING,
+        assertEquals(editEventChanger, EventChanger.editEventChanger(
+            TypicalEvents.CS2101_MEETING,
             TypicalEvents.TEAM_MEETING));
         assertNotEquals(editEventChanger, addEventChanger);
         assertEquals(editEventChanger.getNewEvent(), TypicalEvents.TEAM_MEETING);
@@ -57,7 +63,8 @@ class EventChangerTest {
         assertEquals(Objects.hash(true, null, null), clearEventChanger.hashCode());
         assertEquals(Objects.hash(false, TypicalEvents.CS2101_MEETING, null), deleteEventChanger.hashCode());
         assertEquals(Objects.hash(false, null, TypicalEvents.CS2101_MEETING), addEventChanger.hashCode());
-        assertEquals(Objects.hash(false, TypicalEvents.CS2101_MEETING, TypicalEvents.TEAM_MEETING),
+        assertEquals(
+            Objects.hash(false, TypicalEvents.CS2101_MEETING, TypicalEvents.TEAM_MEETING),
             editEventChanger.hashCode());
     }
 }
