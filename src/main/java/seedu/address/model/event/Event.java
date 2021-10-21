@@ -205,6 +205,10 @@ public class Event {
         return map.get(uuid);
     }
 
+    public void unlink(Contact contact) {
+        this.linkedContacts.remove(contact.getUuid());
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

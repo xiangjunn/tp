@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
@@ -154,7 +156,20 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeContact(Contact key) {
+        // unlink all the events linked to contact before removing contact
+        unlinkEventsFromContact(key);
         contacts.remove(key);
+    }
+
+    public void unlinkEventsFromContact(Contact c) {
+        Set<UUID> eventsUuid = c.getLinkedEvents();
+        eventsUuid.iterator()
+                .forEachRemaining(eventUuid -> unlinkEventAndContact(c, Event.findByUuid(eventUuid)));
+    }
+
+    public void unlinkEventAndContact(Contact contact, Event event) {
+        contact.unlink(event);
+        event.unlink(contact);
     }
 
     //// util methods
