@@ -2,8 +2,23 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
-{:toc}
+* ##Table of Contents
+  * [**Acknowledgements**](#acknowledgements)
+  * [**Setting up, getting started**](#setting-up-getting-started)
+  * [**Design**](#design)
+    * [Architecture](#architecture)  
+    * [UI](#ui-component)
+    * [Logic](#logic-component)
+    * [Model](#model-component)
+    * [Storage](#storage-component)
+    * [Common classes](#common-classes)
+  * [**Implementation**](#implementation)
+    * [eDelete](#edelete)
+    * [eList](#elist)
+    * [eLink](#elink)
+    * [undo](#undo)
+    * [ui-calendar](#ui-calendar)
+  * [**Documentation, logging, testing, configuration, devops**]() 
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -30,7 +45,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
-The ***Architecture Diagram*** given above explains the high-level design of the App.
+The ***Architecture Diagram*** given above explains the high-level design of the SoConnect App.
 
 Given below is a quick overview of main components and how they interact with each other.
 
@@ -44,15 +59,15 @@ Given below is a quick overview of main components and how they interact with ea
 
 The rest of the App consists of four components.
 
-* [**`UI`**](#ui-component): The UI of the App.
+* [**`UI`**](#ui-component): The UI of the SoConnect app.
 * [**`Logic`**](#logic-component): The command executor.
-* [**`Model`**](#model-component): Holds the data of the App in memory.
+* [**`Model`**](#model-component): Holds the data of the zzpp in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `edelete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -71,7 +86,7 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+![Structure of the UI Component](diagrams/UiClassDiagram.puml)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
@@ -238,7 +253,71 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+## List Events feature (EList)
 
+The EList feature is facilitated by `EListCommand`, `EListCommandParser` and `model`.
+
+### EList Command
+
+`EList Command` class extends the `Command` interface. `EListCommand` class is tasked to list specific field(s) of 
+all events and creating a new CommandResult to be displayed to the user in the user interface. 
+
+`EListCommandParser`
+`EListCommandParser` class extends `Parser` interface. 
+`EListCommandParser` class is tasked with parsing the user inputs and generate a new `EListCommand`. 
+The main logic of the elist feature is encapsulated here.
+
+
+`EListCommandParser` receives the user input, and extracts the input prefix(es) representing the field(s) users want to be displayed in the list. 
+
+The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es) and set which field(s) to be displayed based on the prefix(es) provided.
+If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed, 
+sets the rest of the fields to be hidden.
+
+This parse method will then return an `EListCommand`. It throws a ParseException if a the values of prefixes given are not empty.
+
+Example Usage Scenario
+Given below is one example usage scenario and explains how the elist feature behaves at each step.
+
+Example 1: List start and end times of all events.
+
+Step 1. The user enters `elist at/ end/`.
+
+Step 2. The command word elist is extracted out in `AddressBookBookParser`, and matches the `COMMAND_WORD` for `EListCommand` class.
+
+Step 3. The remaining user input is the given to the `EListCommandParser` to determine if the user input contains the valid fields.
+
+Step 4. Inside `EListCommandParser#parse()` method, the remaining user input `at/ end/`, will be subjected to checks by `EListCommandParser#anyPrefixValueNotEmpty()` and `argMultimap#getPreamble()#isEmpty()` methods. In this case, all prefixes have empty values and there are no inputs before the first prefix.
+
+Step 5. The `EListCommandParser#parse()` method then proceeds to set `startDateTime` and `endDateTime` fields to be displayed as their prefix(es) `at/` and `end/` are provided. The other fields are set to be hidden.
+
+Step 6. The `EListCommand#execute()` first checks if the `model` provided is not null.
+
+Step 7. The `EListCommand#execute()` is then called by the `LogicManager`. In this method, it first hides all the
+`Events` before showing each `Events` with only the event `name`, `start` and `end` timings displayed.
+
+Step 8. A `CommandResult` with all events listed will be displayed to the user.
+
+### Sequence Diagram
+
+The following sequence diagram shows how the `eList` feature works for Example 1:
+
+![EListSequenceDiagram](images/EListSequenceDiagram.png)
+
+### Activity Diagram
+
+The following activity diagram summarizes what happens when the `elist` feature is triggered:
+
+![EListActivityDiagram](images/EListActivityDiagram.png)
+
+### Design Consideration
+
+### Aspect: Input format for add command.
+
+* **Alternative 1 (current implementation): Lists all fields.**
+  * Pros: No need to check for valid prefixes.
+  * Cons: User have to look through all fields, unable to compare the desired field.
+    
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -278,6 +357,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
 | `* * *` | SoC student | view the contact of my *TA*/*Profs* | |
 | `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
+| `* * *` | CS2103T student | i want to list all the telegram handles of my CS2103T project mates | add them to the project group |   
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
 | `* *` | organised SoC students | categorize the contacts of students/*TA*/*Profs* | view them separately |
@@ -294,6 +374,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | SoC student | edit details of event | update event details |
 | `* * *` | SoC student | view all CCA/events | have a rough overview of my schedule | 
 | `* * *` | SoC student | search for an event based on event name | easily refer to the event details |
+| `* * *` | year 1 SoC student | list addresses of all lectures, tutorials and labs |     
 | `* *` | SoC student | sort the events by time | prepare for upcoming events |
 | `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
 | `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
@@ -499,6 +580,47 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+
+**5. Use case: UC6 - List event fields**
+
+**Preconditions:** There is at least one contact in the contact list.
+
+**Guarantees:** The displayed list only contains the field(s) of interest, if the given field(s) is / are valid.
+
+***MSS***
+
+1. User decides on a field(s) to be listed.
+
+2. User inputs the specific field(s).
+
+3. SAS displays the sorted list of events with only the field(s) specified shown.
+
+   Use case ends
+
+**Extensions**
+
+* 2a. SAS detects that the input is an invalid field.
+
+    * 2a1. SAS requests for a correct input.
+
+    * 2a2. User enters a new input.
+
+  Steps 2a1-2a2 are repeated until user enters a valid field.
+
+  Use case resumes from step 3.
+
+
+* 2b. SAS detects that the user did not provide a field.
+
+    * 2b1. SAS displays the default list containing all the fields of the events.
+
+  Use case ends.
+
+
+* *a. User chooses not to sort the list.
+
+  Use case ends.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -590,5 +712,19 @@ testers are expected to do more *exploratory* testing.
 1. Dealing with missing/corrupted data files
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+
+### Listing all event field 
+
+1. Listing all event addresses when defualt list is shown
+
+    1. Prerequisites: At least one event in the list.
+
+    1. Test case: `elist at/`<br>
+       Expected: All events listed with only address displayed. All events listed shown in the status message.  
+    1. Test case: `elist`<br>
+       Expected: All events listed with all field displayed. All events listed shown in the status message.
+
+    1. Other incorrect delete commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
+       Expected: No change in display. Error message shown in status bar.
 
 1. _{ more test cases …​ }_

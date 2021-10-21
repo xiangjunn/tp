@@ -1,10 +1,5 @@
 package seedu.address.testutil;
 
-
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.core.range.Range;
-
-
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
