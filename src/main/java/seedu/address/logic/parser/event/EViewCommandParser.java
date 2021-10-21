@@ -7,6 +7,7 @@ import seedu.address.logic.commands.event.EViewCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Event;
 
 public class EViewCommandParser implements Parser<EViewCommand> {
     /**
@@ -18,6 +19,7 @@ public class EViewCommandParser implements Parser<EViewCommand> {
     public EViewCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
+            Event.setViewingMode(true);
             return new EViewCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

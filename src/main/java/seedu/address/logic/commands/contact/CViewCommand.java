@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.List;
 
@@ -42,6 +44,8 @@ public class CViewCommand extends Command {
         if (intIndex < 0 || intIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
+        model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the cards.
+        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         model.updateContactListByIndex(viewIndex);
         return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.get(0)));
     }

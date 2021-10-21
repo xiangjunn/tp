@@ -27,12 +27,12 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="email" managed="false" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="email" wrapText="false" managed="false" styleClass="cell_small_label" text="\$email" />
       <!-- Optional fields-->
-      <Label fx:id="phone" managed="false" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="telegramHandle" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
-      <Label fx:id="zoom" managed="false" styleClass="cell_small_label" text="\$zoom" />
+      <Label fx:id="phone" wrapText="false" managed="false" styleClass="cell_small_label" text="\$phone" />
+      <Label fx:id="address" wrapText="false" managed="false" styleClass="cell_small_label" text="\$address" />
+      <Label fx:id="telegramHandle" wrapText="false" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
+      <Label fx:id="zoom" wrapText="false" managed="false" styleClass="cell_small_label" text="\$zoom" />
       <FlowPane fx:id="tags" managed="false" />
     </VBox>
   </GridPane>
