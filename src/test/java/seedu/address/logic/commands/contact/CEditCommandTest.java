@@ -172,5 +172,4 @@ public class CEditCommandTest {
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new CEditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }
-
 }

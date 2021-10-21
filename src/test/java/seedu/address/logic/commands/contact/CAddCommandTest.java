@@ -189,7 +189,12 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void updateFilteredEventList(Predicate<Event> predicate) {
+        public void updateFilteredEventList(Predicate<? super Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortUpcomingFilteredEventList() {
             throw new AssertionError("This method should not be called.");
         }
 

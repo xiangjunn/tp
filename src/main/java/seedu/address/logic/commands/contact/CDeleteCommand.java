@@ -25,18 +25,16 @@ public class CDeleteCommand extends Command {
     public static final String COMMAND_WORD = "cdelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX[-INDEX] (must be a positive integer)\n"
+            + ": Deletes the contact identified by the index number used in the displayed contact list."
+            + " Parameters: INDEX[-INDEX]\n"
+            + "Note: index must be a positive integer and first index must be smaller than or equal to second"
+            + " index if the optional second index is included)\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 
     private final Range targetRange;
-
-    public CDeleteCommand(Index targetIndex) {
-        this.targetRange = new Range(targetIndex, targetIndex);
-    }
 
     public CDeleteCommand(Range targetRange) {
         this.targetRange = targetRange;
@@ -52,9 +50,6 @@ public class CDeleteCommand extends Command {
         int end = endIndex.getZeroBased();
         if (end >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
-        }
-        if (startIndex.isMoreThan(endIndex)) {
-            throw new CommandException(Messages.MESSAGE_START_MORE_THAN_END_INDEX);
         }
 
         String commandResult = "";

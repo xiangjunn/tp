@@ -91,6 +91,17 @@ public class CAddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TELEGRAM_DESC_AMY + ZOOM_DESC_AMY,
                 new CAddCommand(expectedContact));
+
+        // Missing phone
+        Contact expectedContact2 = new PersonBuilder(BOB).withPhone(null).build();
+        assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + TELEGRAM_DESC_BOB + ZOOM_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
+            new CAddCommand(expectedContact2));
+
+        // Missing all optional fields
+        Contact expectedContact3 = new PersonBuilder(AMY).withAddress(null).withTags().withPhone(null)
+                .withTelegramHandle(null).withZoomLink(null).build();
+        assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY, new CAddCommand(expectedContact3));
     }
 
     @Test

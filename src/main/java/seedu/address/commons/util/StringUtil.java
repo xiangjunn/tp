@@ -70,6 +70,12 @@ public class StringUtil {
      */
     public static boolean isValidRange(String s) {
         requireNonNull(s);
-        return s.matches("\\d+-\\d+");
+        if (s.matches("\\d+-\\d+")) {
+            String[] indexes = s.split("-");
+            int start = Integer.parseInt(indexes[0]);
+            int end = Integer.parseInt(indexes[1]);
+            return start > 0 && start <= end;
+        }
+        return false;
     }
 }

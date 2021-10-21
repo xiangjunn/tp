@@ -134,7 +134,7 @@ public interface Model {
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEventList(Predicate<Event> predicate);
+    void updateFilteredEventList(Predicate<? super Event> predicate);
 
     /**
      * Links an event to a contact. Both the event and contact will have reference to each other.
@@ -142,4 +142,10 @@ public interface Model {
      * @param contact The contact to link to event.
      */
     void linkEventAndContact(Event event, Contact contact);
+
+    /**
+     * Sorts the filtered event list to show all upcoming events. This will change the order of the filtered list
+     * and remove any events which have concluded.
+     */
+    void sortUpcomingFilteredEventList();
 }

@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.range.Range;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
@@ -33,6 +35,7 @@ public class ParserUtilTest {
     private static final String INVALID_END_DATE_TIME = "20/11/2021 15:00";
     private static final String INVALID_TELEGRAM = "my%Telegram";
     private static final String INVALID_ZOOM_LINK = "my_zoom_link/tutorial.nus.edu";
+    private static final String INVALID_DELETE_ARGUMENT = "abc";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -45,6 +48,8 @@ public class ParserUtilTest {
     private static final String VALID_TELEGRAM = "my_Telegram";
     private static final String VALID_ZOOM_LINK = "my-zoom-link/tutorial.nus.edu";
     private static final String VALID_DESCRIPTION = "This is a description!";
+    private static final String VALID_INDEX = "1";
+    private static final String VALID_RANGE = "1-2";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -295,5 +300,21 @@ public class ParserUtilTest {
         String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
         Description expectedDescription = new Description(VALID_DESCRIPTION);
         assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
+    }
+
+    @Test
+    public void parseDeleteArgument_validValueWithWhitespace_returnsRange() throws Exception {
+        String indexWithWhitespace = WHITESPACE + VALID_INDEX + WHITESPACE;
+        Range expectedRangeFromIndex = Range.convertFromIndex(Index.fromOneBased(1));
+        assertEquals(expectedRangeFromIndex, ParserUtil.parseDeleteArgument(indexWithWhitespace));
+
+        String rangeWithWhitespace = WHITESPACE + VALID_RANGE + WHITESPACE;
+        Range expectedRange = new Range(Index.fromOneBased(1), Index.fromOneBased(2));
+        assertEquals(expectedRange, ParserUtil.parseDeleteArgument(rangeWithWhitespace));
+    }
+
+    @Test
+    public void parseDeleteArgument_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDeleteArgument(INVALID_DELETE_ARGUMENT));
     }
 }

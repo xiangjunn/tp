@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.commands.contact.CClearCommand;
 import seedu.address.logic.commands.contact.CDeleteCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.event.EDeleteCommand;
 import seedu.address.logic.commands.event.EEditCommand;
 import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.EListCommand;
+import seedu.address.logic.commands.event.ESortCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -73,7 +75,8 @@ public class AddressBookParserTest {
     public void parseCommand_cdelete() throws Exception {
         CDeleteCommand command = (CDeleteCommand) parser.parseCommand(
                 CDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new CDeleteCommand(INDEX_FIRST_PERSON), command);
+        Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST_PERSON);
+        assertEquals(new CDeleteCommand(rangeOfIndexes), command);
     }
 
     @Test
@@ -126,6 +129,12 @@ public class AddressBookParserTest {
     public void parseCommand_elist() throws Exception {
         assertTrue(parser.parseCommand(EListCommand.COMMAND_WORD) instanceof EListCommand);
     }
+
+    @Test
+    public void parseCommand_esort() throws Exception {
+        assertTrue(parser.parseCommand(ESortCommand.COMMAND_WORD) instanceof ESortCommand);
+    }
+
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
@@ -136,11 +145,6 @@ public class AddressBookParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
-    }
-
-    @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(CListCommand.COMMAND_WORD) instanceof CListCommand);
     }
 
     @Test
