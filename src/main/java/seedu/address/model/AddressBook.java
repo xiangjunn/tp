@@ -113,7 +113,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeEvent(Event key) {
+        // unlink all the contacts linked to event before removing event
+        unlinkContactsFromEvent(key);
         events.remove(key);
+    }
+
+    public void unlinkContactsFromEvent(Event e) {
+        Set<UUID> contactsUuid = e.getLinkedContacts();
+        contactsUuid.iterator()
+            .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
     }
 
     public void resetEvents() {
@@ -164,7 +172,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void unlinkEventsFromContact(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
-                .forEachRemaining(eventUuid -> unlinkEventAndContact(c, Event.findByUuid(eventUuid)));
+                .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
     }
 
     public void unlinkEventAndContact(Contact contact, Event event) {
