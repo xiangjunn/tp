@@ -154,6 +154,25 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### ELink feature
+
+#### Implementation
+
+The elink mechanism is facilitated by ELinkCommandParser which implements Parser and ELinkCommand
+which extends Command.ELinkCommandParser is responsible for parsing user inputs and ensuring that
+the inputs are valid. ELinkCommand is responsible for the execution of elink  mechanism to link the event to the 
+target contact.
+
+The following operations are the main operations for elink mechanism.
+
+- `ELinkCommandParser#parse` - Parse the user inputs and create a `ELinkCommand` to return.
+
+- `ELinkCommand#execute` - Link the event to the target contact.
+
+The following sequence diagram shows how the elink operation works:
+
+![ELinkSequenceDiagram](images/UndoSequenceDiagram.png)
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
