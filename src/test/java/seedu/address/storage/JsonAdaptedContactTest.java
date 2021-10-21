@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,8 @@ public class JsonAdaptedContactTest {
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
+    private static final String VALID_UUID = UUID.randomUUID().toString();
+    private static final List<String> VALID_LINKED_EVENTS = new ArrayList<>();
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
@@ -46,7 +49,7 @@ public class JsonAdaptedContactTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedContact person =
                 new JsonAdaptedContact(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                    VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS);
+                    VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -54,7 +57,7 @@ public class JsonAdaptedContactTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedContact person = new JsonAdaptedContact(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-            VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS);
+            VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -63,7 +66,7 @@ public class JsonAdaptedContactTest {
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         JsonAdaptedContact person =
                 new JsonAdaptedContact(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TELEGRAM_HANDLE,
-                    VALID_ZOOM_LINK, VALID_TAGS);
+                    VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -79,7 +82,7 @@ public class JsonAdaptedContactTest {
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         JsonAdaptedContact person =
                 new JsonAdaptedContact(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TELEGRAM_HANDLE,
-                    VALID_ZOOM_LINK, VALID_TAGS);
+                    VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -87,7 +90,7 @@ public class JsonAdaptedContactTest {
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
         JsonAdaptedContact person = new JsonAdaptedContact(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS,
-            VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS);
+            VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -96,7 +99,7 @@ public class JsonAdaptedContactTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedContact person =
                 new JsonAdaptedContact(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TELEGRAM_HANDLE,
-                    VALID_ZOOM_LINK, VALID_TAGS);
+                    VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -114,7 +117,7 @@ public class JsonAdaptedContactTest {
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedContact person =
                 new JsonAdaptedContact(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TELEGRAM_HANDLE,
-                    VALID_ZOOM_LINK, invalidTags);
+                    VALID_ZOOM_LINK, invalidTags, VALID_UUID, VALID_LINKED_EVENTS);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 }
