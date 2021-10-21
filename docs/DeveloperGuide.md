@@ -464,6 +464,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+
+**6. Use case: UC6 - Delete events**
+
+**Preconditions:** There is at least one event in the event list.
+
+**Guarantees:** The event list will be updated according to which event(s) are deleted if and only if the user enters the correct inputs.
+
+***MSS***
+
+1.  User wants to view the list of events.
+
+2. User decides on the event(s) to delete.
+
+3. User deletes the event(s).
+
+4. SAS deletes the specified event(s), updates the event list accordingly, and notifies user that the event(s) has been successfully deleted.
+
+   Use case ends.
+
+
+**Extensions**
+
+* 3a. SAS detects an error in the inputs.
+
+    * 3a1. SAS requests for correct inputs.
+
+    * 3a2. User enters new inputs.
+
+  Steps 3a1 to 3a2 are repeated until inputs entered are correct.
+
+  Use case resumes from step 4.
+
+
+* *a. User chooses not to delete the event(s).
+
+  Use case ends.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -533,22 +570,31 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting an event
 
-1. Deleting a person while all persons are being shown
+1. Deleting an event while all events are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   Prerequisites: List all events using the `elist` command. Multiple events in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `edelete 1`<br>
+      Expected: First event is deleted from the list. Details of the deleted event shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   3. Test case: `edelete 0`<br>
+      Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `edelete`, `edelete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+   5. Test case: `edelete 1-2`<br>
+      Expected: First and second event are deleted from the list. Details of the deleted events shown in the status message. Timestamp in the status bar is updated.
+
+   6. Test case: `edelete 2-1` (invalid range)<br>
+      Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
+   
+   7. Test case: `edelete 1-x` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+
+2. _{ more test cases …​ }_
 
 ### Saving data
 
