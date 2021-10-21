@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * Guarantees: immutable;
  */
 
-public class DateAndTime {
+public class DateAndTime implements Comparable<DateAndTime> {
     public static final String MESSAGE_CONSTRAINTS =
             "Time format should be in  dd-MM-yyyy HH:mm format and start time should not be blank";
 
@@ -28,6 +28,7 @@ public class DateAndTime {
     public static final String VALIDATION_REGEX = DATE_FORMAT + "-" + MONTH_FORMAT + "-" + YEAR_FORMAT
             + " " + HOUR_FORMAT + ":" + MINUTE_FORMAT;
 
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     public final LocalDateTime time;
 
     /**
@@ -38,7 +39,7 @@ public class DateAndTime {
     public DateAndTime(String time) {
         requireNonNull(time);
         checkArgument(isValidDateTime(time), MESSAGE_CONSTRAINTS);
-        this.time = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        this.time = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
     }
 
     /**
@@ -59,6 +60,10 @@ public class DateAndTime {
         return this.time.isBefore(d.getDateTime());
     }
 
+    public boolean isNotBeforeNow() {
+        return !this.time.isBefore(LocalDateTime.now());
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -72,7 +77,11 @@ public class DateAndTime {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return this.time.format(formatter);
+        return this.time.format(DATE_TIME_FORMATTER);
+    }
+
+    @Override
+    public int compareTo(DateAndTime other) {
+        return this.time.compareTo(other.time);
     }
 }

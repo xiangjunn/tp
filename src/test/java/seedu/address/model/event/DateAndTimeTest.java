@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -58,6 +59,19 @@ class DateAndTimeTest {
         assertTrue(firstDateTime.isBefore(secondDateTime));
         assertTrue(firstDateTime.isBefore(thirdDateTime));
         assertFalse(thirdDateTime.isBefore(secondDateTime));
+    }
+
+    @Test
+    public void compareTo() {
+        DateAndTime firstDateTime = new DateAndTime("30-09-2021 22:50");
+        DateAndTime secondDateTime = new DateAndTime("30-09-2021 22:55");
+        DateAndTime secondDuplicate = new DateAndTime("30-09-2021 22:55");
+        DateAndTime thirdDateTime = new DateAndTime("30-10-2021 02:30");
+
+        assertTrue(firstDateTime.compareTo(secondDateTime) < 0);
+        assertTrue(firstDateTime.compareTo(thirdDateTime) < 0);
+        assertTrue(thirdDateTime.compareTo(firstDateTime) > 0);
+        assertEquals(0, secondDateTime.compareTo(secondDuplicate));
     }
 }
 
