@@ -7,12 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.contact.CAddCommand;
-import seedu.address.logic.commands.contact.CClearCommand;
-import seedu.address.logic.commands.contact.CDeleteCommand;
-import seedu.address.logic.commands.contact.CEditCommand;
-import seedu.address.logic.commands.contact.CFindCommand;
-import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.contact.*;
 import seedu.address.logic.commands.event.EAddCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
@@ -26,6 +21,7 @@ import seedu.address.logic.parser.contact.CDeleteCommandParser;
 import seedu.address.logic.parser.contact.CEditCommandParser;
 import seedu.address.logic.parser.contact.CFindCommandParser;
 import seedu.address.logic.parser.contact.CListCommandParser;
+import seedu.address.logic.parser.contact.CViewCommandParser;
 import seedu.address.logic.parser.event.EAddCommandParser;
 import seedu.address.logic.parser.event.EDeleteCommandParser;
 import seedu.address.logic.parser.event.EEditCommandParser;
@@ -77,6 +73,9 @@ public class AddressBookParser {
 
         case CListCommand.COMMAND_WORD:
             return new CListCommandParser().parse(arguments);
+
+        case CViewCommand.COMMAND_WORD:
+            return new CViewCommandParser().parse(arguments);
 
         case EAddCommand.COMMAND_WORD:
             return new EAddCommandParser().parse(arguments);

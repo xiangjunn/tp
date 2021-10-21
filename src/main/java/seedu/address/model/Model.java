@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -96,6 +97,12 @@ public interface Model {
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
 
+    /**
+     * Updates the filter of the filtered contact list to show the contact at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateContactListByIndex(Index index);
+
     //=========== Event Management =============================================================
 
     /**
@@ -135,4 +142,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    /**
+     * Updates the filter of the filtered event list to show the event at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateEventListByIndex(Index index);
 }
