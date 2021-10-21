@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of a {@code Contact}.
@@ -46,7 +47,7 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private ImageView emailIcon;
+    private FlowPane links;
 
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
@@ -84,6 +85,9 @@ public class ContactCard extends UiPart<Region> {
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
         }
+        contact.getLinkedEvents().stream()
+            .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
+            .forEach(eventUuid -> links.getChildren().add(new Label(Event.findByUuid(eventUuid).getName().toString())));
     }
 
     @Override

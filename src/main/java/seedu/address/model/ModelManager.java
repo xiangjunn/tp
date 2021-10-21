@@ -205,4 +205,10 @@ public class ModelManager implements Model {
                 && filteredContacts.equals(other.filteredContacts)
                 && filteredEvents.equals(other.filteredEvents);
     }
+
+    @Override
+    public void linkEventAndContact(Event event, Contact contact) {
+        event.linkTo(contact);
+        contact.linkTo(event);
+    }
 }

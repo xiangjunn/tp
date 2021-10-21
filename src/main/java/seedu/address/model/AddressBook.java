@@ -92,6 +92,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEvent(Event e) {
         events.add(e);
+        Event.addToMap(e);
     }
 
     /**
@@ -132,8 +133,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
-    public void addContact(Contact p) {
-        contacts.add(p);
+    public void addContact(Contact c) {
+        contacts.add(c);
+        Contact.addToMap(c);
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,9 @@ class JsonAdaptedContact {
     private final String address;
     private final String telegramHandle;
     private final String zoomLink;
+    private final String uuid;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<String> linkedEvents = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
@@ -41,15 +44,20 @@ class JsonAdaptedContact {
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("telegramHandle") String telegramHandle, @JsonProperty("zoomLink") String zoomLink,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("uuid") String uuid,
+            @JsonProperty("linkedEvents") List<String> linkedEvents) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
+        this.uuid = uuid;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (linkedEvents != null) {
+            this.linkedEvents.addAll(linkedEvents);
         }
     }
 
@@ -65,9 +73,13 @@ class JsonAdaptedContact {
         address = source.getAddress() != null ? source.getAddress().value : null;
         telegramHandle = source.getTelegramHandle() != null ? source.getTelegramHandle().handle : null;
         zoomLink = source.getZoomLink() != null ? source.getZoomLink().link : null;
+        uuid = source.getUuid() != null ? source.getUuid().toString() : null;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        linkedEvents.addAll(source.getLinkedEvents().stream()
+            .map(UUID::toString)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -118,9 +130,16 @@ class JsonAdaptedContact {
         }
         final ZoomLink modelZoomLink = zoomLink != null ? new ZoomLink(zoomLink) : null;
 
+        if (uuid == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        final UUID modelUuid = UUID.fromString(uuid);
+
         final Set<Tag> modelTags = new HashSet<>(contactTags);
+        final Set<UUID> modelLinkedEvents = new HashSet<>(
+                linkedEvents.stream().map(UUID::fromString).collect(Collectors.toList()));
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelZoomLink,
-                modelTelegramHandle, modelTags);
+                modelTelegramHandle, modelTags, modelUuid, modelLinkedEvents);
     }
 
 }

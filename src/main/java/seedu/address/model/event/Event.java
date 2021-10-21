@@ -3,13 +3,16 @@ package seedu.address.model.event;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -18,6 +21,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Event {
 
+    private static HashMap<UUID, Event> map = new HashMap<>();
     private static boolean willDisplayStartDateTime = true;
     private static boolean willDisplayEndDateTime = true;
     private static boolean willDisplayDescription = true;
@@ -34,8 +38,10 @@ public class Event {
     private final Description description;
     private final Address address;
     private final ZoomLink zoomLink;
+    private final UUID uuid;
 
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<UUID> linkedContacts = new HashSet<>();
 
     /**
      * All fields must be present and not null (currently).
@@ -50,6 +56,22 @@ public class Event {
         this.address = address;
         this.zoomLink = zoomLink;
         this.tags.addAll(tags);
+        this.uuid = UUID.randomUUID();
+    }
+
+    public Event(
+            Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
+            Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts) {
+        requireAllNonNull(name, startDateAndTime, tags);
+        this.name = name;
+        this.startDateAndTime = startDateAndTime;
+        this.endDateAndTime = endDateAndTime;
+        this.description = description;
+        this.address = address;
+        this.zoomLink = zoomLink;
+        this.tags.addAll(tags);
+        this.uuid = uuid;
+        this.linkedContacts.addAll(linkedContacts);
     }
 
     public Name getName() {
@@ -76,12 +98,20 @@ public class Event {
         return zoomLink;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Set<UUID> getLinkedContacts() {
+        return Collections.unmodifiableSet(linkedContacts);
     }
 
     public static boolean isWillDisplayStartDateTime() {
@@ -161,6 +191,18 @@ public class Event {
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName());
+    }
+
+    public void linkTo(Contact contact) { // haven't perform checks to determine if contact has already been linked
+        this.linkedContacts.add(contact.getUuid());
+    }
+
+    public static void addToMap(Event event) {
+        map.put(event.getUuid(), event);
+    }
+
+    public static Event findByUuid(UUID uuid) {
+        return map.get(uuid);
     }
 
     @Override

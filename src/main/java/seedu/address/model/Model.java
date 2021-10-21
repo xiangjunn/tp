@@ -135,4 +135,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    /**
+     * Links an event to a contact. Both the event and contact will have reference to each other.
+     * @param event The event to link to contact.
+     * @param contact The contact to link to event.
+     */
+    void linkEventAndContact(Event event, Contact contact);
 }

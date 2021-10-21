@@ -3,13 +3,16 @@ package seedu.address.model.contact;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
+import seedu.address.model.event.Event;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -18,6 +21,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Contact {
 
+    private static HashMap<UUID, Contact> map = new HashMap<>();
     private static boolean willDisplayPhone = true;
     private static boolean willDisplayEmail = true;
     private static boolean willDisplayTelegramHandle = true;
@@ -30,11 +34,13 @@ public class Contact {
     private final Phone phone;
     private final Email email;
     private final TelegramHandle telegramHandle;
+    private final UUID uuid;
 
     // Data fields
     private final ZoomLink zoomLink;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<UUID> linkedEvents = new HashSet<>();
 
     /**
      * Every field, except telegram handle and zoom link must be present and not null.
@@ -50,6 +56,22 @@ public class Contact {
         this.tags.addAll(tags);
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
+        this.uuid = UUID.randomUUID();
+    }
+
+    public Contact(
+        Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents) {
+        requireAllNonNull(name, email, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.telegramHandle = telegramHandle;
+        this.zoomLink = zoomLink;
+        this.uuid = uuid;
+        this.linkedEvents.addAll(linkedEvents);
     }
 
     public Name getName() {
@@ -76,12 +98,20 @@ public class Contact {
         return zoomLink;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Set<UUID> getLinkedEvents() {
+        return Collections.unmodifiableSet(linkedEvents);
     }
 
     public static boolean isWillDisplayPhone() {
@@ -161,6 +191,18 @@ public class Contact {
 
         return otherContact != null
                 && otherContact.getName().equals(getName());
+    }
+
+    public void linkTo(Event event) { // haven't perform checks to determine if event has already been linked
+        this.linkedEvents.add(event.getUuid());
+    }
+
+    public static void addToMap(Contact contact) {
+        map.put(contact.getUuid(), contact);
+    }
+
+    public static Contact findByUuid(UUID uuid) {
+        return map.get(uuid);
     }
 
     @Override
