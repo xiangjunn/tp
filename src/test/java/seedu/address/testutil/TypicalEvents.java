@@ -1,5 +1,20 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_EXAM;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_DESCRIPTION_EXAM;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_END_DATE_TIME_EXAM;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_END_DATE_TIME_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_NAME_EXAM;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_NAME_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_START_DATE_TIME_EXAM;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_START_DATE_TIME_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_COOL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_EXAMS;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ZOOM_EXAM;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ZOOM_TUTORIAL;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +58,15 @@ public class TypicalEvents {
             .withStartDateAndTime("28-10-2021 10:00").withEndDateAndTime("28-10-2021 11:00").withTags("interview")
             .build();
 
+    // Manually added - Event's details found in {@code CommandTestUtil}
+    public static final Event TUTORIAL = new EventBuilder().withName(VALID_NAME_TUTORIAL)
+            .withStartDateAndTime(VALID_START_DATE_TIME_TUTORIAL).withEndDateAndTime(VALID_END_DATE_TIME_TUTORIAL)
+            .withDescription(VALID_DESCRIPTION_TUTORIAL).withAddress(VALID_ADDRESS_TUTORIAL)
+            .withZoomLink(VALID_ZOOM_TUTORIAL).withTags(VALID_TAG_COOL).build();
+    public static final Event EXAM = new EventBuilder().withName(VALID_NAME_EXAM)
+            .withStartDateAndTime(VALID_START_DATE_TIME_EXAM).withEndDateAndTime(VALID_END_DATE_TIME_EXAM)
+            .withDescription(VALID_DESCRIPTION_EXAM).withAddress(VALID_ADDRESS_EXAM)
+            .withZoomLink(VALID_ZOOM_EXAM).withTags(VALID_TAG_EXAMS, VALID_TAG_COOL).build();
 
     private TypicalEvents() {}
 
