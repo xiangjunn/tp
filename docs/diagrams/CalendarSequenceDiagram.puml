@@ -1,11 +1,21 @@
 @startuml
 !include style.puml
 
-autonumber
+actor User
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+create ":CalendarWindow" as CalendarWindow UI_COLOR
+User --> CalendarWindow : CalendarWindow(filteredList)
+activate CalendarWindow
+deactivate CalendarWindow
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+create ":CalendarView" as CalendarView UI_COLOR
+CalendarWindow --> CalendarView : new
+activate CalendarView
+deactivate CalendarView
+
+CalendarWindow --> CalendarWindow : createTimeThread()
+note right: parallel thread to\nupdate calendar\nevery 10 seconds
+
+
+
 @enduml
