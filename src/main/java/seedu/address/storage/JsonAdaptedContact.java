@@ -131,7 +131,7 @@ class JsonAdaptedContact {
         final ZoomLink modelZoomLink = zoomLink != null ? new ZoomLink(zoomLink) : null;
 
         if (uuid == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UUID.class.getSimpleName()));
         }
         final UUID modelUuid = UUID.fromString(uuid);
 

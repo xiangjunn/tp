@@ -63,7 +63,6 @@ public class CDeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
-        showNoPerson(expectedModel);
 
         assertCommandSuccess(cDeleteCommand, model, expectedMessage, expectedModel);
     }
