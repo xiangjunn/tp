@@ -7,7 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.contact.*;
+import seedu.address.logic.commands.contact.CAddCommand;
+import seedu.address.logic.commands.contact.CClearCommand;
+import seedu.address.logic.commands.contact.CDeleteCommand;
+import seedu.address.logic.commands.contact.CEditCommand;
+import seedu.address.logic.commands.contact.CFindCommand;
+import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.contact.CViewCommand;
 import seedu.address.logic.commands.event.EAddCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
