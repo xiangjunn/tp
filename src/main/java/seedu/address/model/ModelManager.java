@@ -189,16 +189,32 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public void updateFilteredEventList(Predicate<? super Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }
 
     @Override
+    public void sortUpcomingFilteredEventList() {
+        Predicate<? super Event> currentPredicate = filteredEvents.getPredicate();
+        // Remove events that have passed
+        addressBook.sortEvents();
+        updateFilteredEventList(getNewPredicate(currentPredicate));
+    }
+
+    /**
+     * Returns the new predicate for displaying only upcoming and ongoing events
+     */
+    private static Predicate<? super Event> getNewPredicate(Predicate<? super Event> originalPredicate) {
+        return event -> (originalPredicate == null || originalPredicate.test(event))
+            && ((event.getEndDateAndTime() == null && event.getStartDateAndTime().isNotBeforeNow())
+            || (event.getEndDateAndTime() != null && event.getEndDateAndTime().isNotBeforeNow()));
+    }
+  
     public void updateEventListByIndex(Index index) {
         requireNonNull(index);
         Event targetEvent = filteredEvents.get(index.getZeroBased());
-        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));
+        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));  
     }
 
     @Override

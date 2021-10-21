@@ -272,6 +272,11 @@ Examples:
 `edelete 3-5` deletes events with index between 3 and 5 inclusively from the event list.
 
 
+### Sorting events: `esort`
+
+Sorts all events by start time and displays all upcoming or ongoing events.
+
+
 ### Clearing all events: `eclear`
 
 Clears all entries of all events from the event list.
@@ -339,6 +344,7 @@ Action | Format, Examples
 **Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
+**Sort** | `esort`
 
 ________________________________________________________________________________________________________________
 

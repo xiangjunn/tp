@@ -141,9 +141,15 @@ public interface Model {
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEventList(Predicate<Event> predicate);
+    void updateFilteredEventList(Predicate<? super Event> predicate);
 
     /**
+     * Sorts the filtered event list to show all upcoming events. This will change the order of the filtered list
+     * and remove any events which have concluded.
+     */
+    void sortUpcomingFilteredEventList();
+  
+      /**
      * Updates the filter of the filtered event list to show the event at {@code index}.
      * @throws NullPointerException if {@code index} is null.
      */
