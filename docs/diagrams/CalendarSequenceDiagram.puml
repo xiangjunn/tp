@@ -4,18 +4,51 @@
 actor User
 
 create ":CalendarWindow" as CalendarWindow UI_COLOR
-User --> CalendarWindow : CalendarWindow(filteredList)
+User -> CalendarWindow : CalendarWindow(events)
 activate CalendarWindow
 deactivate CalendarWindow
 
-create ":CalendarView" as CalendarView UI_COLOR
-CalendarWindow --> CalendarView : new
+create ":CalendarView" as CalendarView UI_COLOR_T4
+CalendarWindow -> CalendarView : new
 activate CalendarView
+CalendarView --> CalendarWindow
 deactivate CalendarView
 
-CalendarWindow --> CalendarWindow : createTimeThread()
-note right: parallel thread to\nupdate calendar\nevery 10 seconds
+create ":Calendar" as Calendar UI_COLOR_T4
+CalendarWindow -> Calendar : new Calendar("Events")
+activate Calendar
+Calendar --> CalendarWindow
+deactivate Calendar
 
+CalendarWindow -> CalendarWindow : createTimeThread()
+note left: parallel thread to\nupdate calendar\nevery 10 seconds
 
+CalendarWindow -> CalendarWindow : createCalendar(events)
+activate CalendarWindow
+loop all events
+CalendarWindow -> CalendarWindow : createEntry(event)
+activate CalendarWindow
+CalendarWindow -> Calendar : addEntry
+deactivate CalendarWindow
+end
+deactivate CalendarWindow
+CalendarWindow -> CalendarWindow : updateCalendarView()
+activate CalendarWindow
+create ":CalendarSource" as CalendarSource UI_COLOR_T4
+CalendarWindow -> CalendarSource : new
+activate CalendarSource
+return source
+deactivate CalendarSource
+
+CalendarWindow -> CalendarSource : add(calendar)
+
+participant "calendarui:StackPane" as CalendarUI UI_COLOR_T4
+CalendarWindow -> CalendarUI : add calendarView
+activate CalendarUI
+deactivate CalendarUI
+deactivate CalendarWindow
+
+CalendarWindow --> User : calendar window
+deactivate CalendarWindow
 
 @enduml
