@@ -15,14 +15,32 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-
-Class UniquePersonList
-Class Person
-Class Address
+Package Contact <<Rectangle>> {
+Class UniqueContactList
+Class Contact
 Class Email
-Class Name
 Class Phone
+Class TelegramHandle
+}
+
+Package Common <<Rectangle>> {
+Class Address
+Class Name
+Class ZoomLink
+}
+
+Package Event <<Rectangle>> {
+Class UniqueEventList
+Class Event
+Class EndDateTime
+Class DateAndTime
+Class Description
+Class StartDateTime
+}
+
+Package Tag <<Rectangle>> {
 Class Tag
+}
 
 }
 
@@ -38,17 +56,31 @@ ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+AddressBook *--> "1" UniqueContactList
+UniqueContactList --> "~* all" Contact
+Contact *--> Name
+Contact *--> Phone
+Contact *--> Email
+Contact *--> Address
+Contact *--> ZoomLink
+Contact *--> TelegramHandle
+Contact *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+StartDateTime .down.|> DateAndTime
+EndDateTime .down.|> DateAndTime
 
-ModelManager -->"~* filtered" Person
+AddressBook *--> "1" UniqueEventList
+UniqueEventList --> "~* all" Event
+Event *--> Name
+Event *--> Address
+Event *--> ZoomLink
+Event *--> Description
+Event *--> StartDateTime
+Event *--> EndDateTime
+Event *--> "*" Tag
+
+Tag -up[hidden]- Common
+
+ModelManager -->"~* filtered" Contact
+ModelManager -->"~* filtered" Event
 @enduml
