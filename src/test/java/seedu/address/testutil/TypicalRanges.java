@@ -6,7 +6,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import seedu.address.commons.core.range.Range;
 
-
 /**
  * A utility class containing a list of {@code Range} objects to be used in tests.
  */
