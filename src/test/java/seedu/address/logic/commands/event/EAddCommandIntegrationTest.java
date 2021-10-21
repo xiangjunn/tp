@@ -4,13 +4,17 @@ import static seedu.address.logic.commands.general.CommandTestUtil.assertCommand
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 import seedu.address.testutil.EventBuilder;
 
 /**
@@ -32,8 +36,11 @@ public class EAddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addEvent(validEvent);
 
+        EventChanger eventChanger = EventChanger.addEventChanger(validEvent);
+
         assertCommandSuccess(new EAddCommand(validEvent), model,
-                String.format(EAddCommand.MESSAGE_SUCCESS, validEvent), expectedModel);
+                new CommandResult(String.format(EAddCommand.MESSAGE_SUCCESS, validEvent), List.of(eventChanger)),
+            expectedModel);
     }
 
     @Test
