@@ -210,11 +210,12 @@ public class ModelManager implements Model {
             && ((event.getEndDateAndTime() == null && event.getStartDateAndTime().isNotBeforeNow())
             || (event.getEndDateAndTime() != null && event.getEndDateAndTime().isNotBeforeNow()));
     }
-  
+
+    @Override
     public void updateEventListByIndex(Index index) {
         requireNonNull(index);
         Event targetEvent = filteredEvents.get(index.getZeroBased());
-        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));  
+        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));
     }
 
     @Override

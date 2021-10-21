@@ -106,7 +106,7 @@ public class AddressBookParser {
 
         case ESortCommand.COMMAND_WORD:
             return new ESortCommand();
-            
+
         case EViewCommand.COMMAND_WORD:
             return new EViewCommandParser().parse(arguments);
 

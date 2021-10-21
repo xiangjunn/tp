@@ -148,8 +148,8 @@ public interface Model {
      * and remove any events which have concluded.
      */
     void sortUpcomingFilteredEventList();
-  
-      /**
+
+    /**
      * Updates the filter of the filtered event list to show the event at {@code index}.
      * @throws NullPointerException if {@code index} is null.
      */
