@@ -3,6 +3,10 @@ package seedu.address.logic.commands.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
+import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
+import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -48,6 +52,11 @@ public class ELinkCommand extends Command {
         Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
         Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
         model.linkEventAndContact(eventToLink, contactToLink);
+
+        model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
+        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
+        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
