@@ -34,7 +34,13 @@
       <Label fx:id="telegramHandle" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
       <Label fx:id="zoom" managed="false" styleClass="cell_small_label" text="\$zoom" />
       <FlowPane fx:id="tags" managed="false" />
-      <FlowPane fx:id="links" />
+      <HBox>
+        <padding>
+          <Insets top="5" />
+        </padding>
+        <Label styleClass="cell_small_label" text="Linked events: " />
+        <FlowPane fx:id="links" />
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>
