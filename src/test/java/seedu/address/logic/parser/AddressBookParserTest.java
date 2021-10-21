@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.commands.contact.CClearCommand;
 import seedu.address.logic.commands.contact.CDeleteCommand;
@@ -73,7 +74,8 @@ public class AddressBookParserTest {
     public void parseCommand_cdelete() throws Exception {
         CDeleteCommand command = (CDeleteCommand) parser.parseCommand(
                 CDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new CDeleteCommand(INDEX_FIRST_PERSON), command);
+        Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST_PERSON);
+        assertEquals(new CDeleteCommand(rangeOfIndexes), command);
     }
 
     @Test

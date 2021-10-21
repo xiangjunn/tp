@@ -65,9 +65,19 @@ public class CFindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleCompleteKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 3);
         ContactNameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        CFindCommand command = new CFindCommand(predicate);
+        expectedModel.updateFilteredContactList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredContactList());
+    }
+
+    @Test
+    public void execute_multipleIncompleteKeywords_multiplePersonsFound() {
+        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 3);
+        ContactNameContainsKeywordsPredicate predicate = preparePredicate("Ku Ell");
         CFindCommand command = new CFindCommand(predicate);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
