@@ -140,4 +140,34 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    @Test
+    public void isValidRange() {
+        // EP: empty strings
+        assertFalse(StringUtil.isValidRange("")); // Boundary value
+        assertFalse(StringUtil.isValidRange("  "));
+
+        // EP: not a range
+        assertFalse(StringUtil.isValidRange("a"));
+        assertFalse(StringUtil.isValidRange("aaa"));
+
+        // EP: start with zero
+        assertFalse(StringUtil.isValidRange("0-10"));
+
+        // EP: signed ranges
+        assertFalse(StringUtil.isValidRange("-2--10"));
+        assertFalse(StringUtil.isValidRange("-2-10"));
+
+        // EP: ranges with white space
+        assertFalse(StringUtil.isValidRange(" 2-5 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isValidRange("0 - 10")); // Spaces in the middle
+
+        // EP: first number more than second number
+        assertFalse(StringUtil.isValidRange("10-5"));
+        assertFalse(StringUtil.isValidRange("2-1"));
+
+        // EP: valid ranges, should return true
+        assertTrue(StringUtil.isValidRange("1-5")); // Boundary value
+        assertTrue(StringUtil.isValidRange("10-100"));
+
+    }
 }
