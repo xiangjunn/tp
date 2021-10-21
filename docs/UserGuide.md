@@ -253,8 +253,8 @@ Format: `efind KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`
 
 Examples:
-`efind ex` returns `exams` and `Examinations`
-`efind CS Exam` returns `CS2100 Exam`,  `CS2101` 
+* `efind ex` returns `exams` and `Examinations`
+* `efind CS Exam` returns `CS2100 Exam`,  `CS2101` 
 
 ### Deleting a person : `edelete`
 
@@ -267,9 +267,9 @@ Format: `edelete INDEX1[-INDEX2]`
 * `INDEX` **must be a positive integer**, eg 1, 2, 3, …​
 
 Examples:
-`elist` followed by `edelete 2` deletes the 2nd event from the event list.
-`efind Exam` followed by `edelete 1` deletes the 1st event from the results of the `efind` command.
-`edelete 3-5` deletes events with index between 3 and 5 inclusively from the event list.
+* `elist` followed by `edelete 2` deletes the 2nd event from the event list.
+* `efind Exam` followed by `edelete 1` deletes the 1st event from the results of the `efind` command.
+* `edelete 3-5` deletes events with index between 3 and 5 inclusively from the event list.
 
 
 ### Sorting events: `esort`
@@ -285,6 +285,25 @@ ________________________________________________________________________________
 
 
 ## General
+
+### Undo a command : `undo`
+
+Restore SoConnect to its previous state from its history.
+
+Format: `undo`
+
+Examples:
+* `edelete 1` followed by `undo` restores the deleted event in the event list.
+* `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
+
+### Redo a command: `undo`
+
+Restores SoConnect to a previously undone state from its history.
+
+Format: `redo`
+
+Examples:
+* `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
 
 ### Viewing help : `help`
 
