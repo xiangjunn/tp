@@ -614,8 +614,49 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.
 
 
+**6. Use case: UC6 - Undo a command**
 
-**5. Use case: UC6 - List event fields**
+**Guarantees:** SoConnect will be restored to its previous state in its history.
+
+***MSS***
+
+1.  User decides to undo a command.
+
+2.  SAS identifies the previous state of SoConnect and restore it. SAS notifies the user that the previous command is undone.
+    
+    Use case ends.
+
+**Extensions**
+
+* 1a. SAS detects that SoConnect does not have a previous state in its history.
+
+    * 1a1. SAS notifies the user that SoConnect is already at its orignal state.
+
+  Use case ends.
+
+
+**7. Use case: UC7 - Redo a command**
+
+**Guarantees:** SoConnect will be restored to its previously undone state in its history.
+
+***MSS***
+
+1. User decides to undo the previous undo command.
+
+2. SAS redo the command and restores the previously undone state of SoConnect from its history.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. SAS detects that SoConnect is already at its most recent state.
+
+    * 1a1. SAS notifies the user that there is no previous undo command to redo.
+
+  Use case ends.
+  
+
+**8. Use case: UC8 - List event fields**
 
 **Preconditions:** There is at least one event in the event list.
 
@@ -654,48 +695,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * *a. User chooses not to sort the list.
 
   Use case ends.
-
-
-**6. Use case: UC6 - Undo a command**
-
-**Guarantees:** SoConnect will be restored to its previous state in its history.
-
-***MSS***
-
-1.  User decides to undo a command.
-
-2.  SAS identifies the previous state of SoConnect and restore it. SAS notifies the user that the previous command is undone.
-    
-    Use case ends.
-
-**Extensions**
-
-* 1a. SAS detects that SoConnect does not have a previous state in its history.
-
-    * 1a1. SAS notifies the user that SoConnect is already at its orignal state.
-
-  Use case ends.
-
-**7. Use case: UC7 - Redo a command**
-
-**Guarantees:** SoConnect will be restored to its previously undone state in its history.
-
-***MSS***
-
-1. User decides to undo the previous undo command.
-
-2. SAS redo the command and restores the previously undone state of SoConnect from its history.
-
-    Use case ends.
-
-**Extensions**
-
-* 1a. SAS detects that SoConnect is already at its most recent state.
-
-    * 1a1. SAS notifies the user that there is no previous undo command to redo.
-
-  Use case ends.
-
 
 
 *{More to be added}*
