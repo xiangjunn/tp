@@ -69,13 +69,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ContactListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. Only the `CalendarWindow` component uses the [CalendarFX](https://github.com/dlsc-software-consulting-gmbh/CalendarFX) dependency. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -115,21 +115,17 @@ How the parsing works:
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
-
-<img src="images/ModelClassDiagram.png" width="450" />
-
+![SoConnect Model Component](images/ModelClassDiagram.png)
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the SoConnect data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object) and all `Event` objects (which are contained in a `UniqueEventList` object).
+* stores the currently 'selected' `Contact` and `Event` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the lists change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` and ` Event` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` or `Event` needing their own `Tag` objects.<br>
+<img src="images/BetterModelClassDiagram.png" width="350" />
 </div>
 
 
@@ -222,50 +218,63 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `cdelete`, just save the contact being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `celete`, just save the contact being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+### Event Delete Feature
+This section details how an `Event` is deleted using the `edelete` command.
+
+The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect.
+Users needs to specify either an `Index` or a `Range` of event(s) to be deleted.
+The deleted event(s) would be removed from the display of SoConnect GUI.
+
+#### Implementation
+
+We will use an example command: `edelete 1-3`.
+
+The sequence diagram below shows how the execution of the example command flows:
+
+![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/DeleteSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+How `edelete` works:
+
+Step 1: `LogicManager` executes user's input. `AddressBookParser` is used to realise it is a `edelete` command, creating a new `EDeleteCommandParser` object.
+
+Step 2: `EDeleteCommandParser` object parses the input arguments and creates a `Range` object.
+
+Step 3: `Range` object is used to construct a new `EDeleteCommand` object. `EDeleteCommand` object is then returned to `LogicManager`.
+
+Step 4: `LogicManager` calls `execute` method of `EDeleteCommand`, which repeatedly deletes event from the most updated event list with index `1` for `3` times.
+
+The event list will be updated to a new list after each delete. Deleting an inclusive range of events is done by repeatedly deleting the event from the start `Index` for `endIndex - startIndex + 1` times.
+
+If the user only specified one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
+
+#### Design considerations:
+
+**Aspect: Type of user inputs:**
+
+* **Alternative 1 (current choice):** Either a single Index or a Range can be specified.
+    * Pros: Easy to implement.
+    * Cons: Unable to delete multiple ranges of events or events that are not ordered consecutively in the event list.
+
+* **Alternative 2:** Allow a mixture of multiple single indexes and multiple ranges
+    * Pros: Able to delete events more efficiently.
+    * Cons: We must ensure that the order of delete of the events is correct. It is more complex to keep track of the events to be deleted.
+
 
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
 
-### Calendar
-
-The calendar UI is implemented using the [CalendarFX](https://github.com/dlsc-software-consulting-gmbh/CalendarFX) framework. It can be opened using either the shortcut key `F2`, the file dropdown menu, or the command `calendar`. This feature is mainly facilitated by the `CalendarWindow` class. The `CalendarCommand` class handles the `calendar` command that the user may type and the `MainWindow` class handles the shortcut key and the dropdown menu option for showing the calendar.
-
-#### Design of CalendarWindow
-
-The `CalendarWindow` class extends from `UiPart`, just like the other UI components including the help window. The `CalendarWindow` class instance contains a table of events and the respective entries in the `Calendar` object. There are also final instances of `Calendar` and `CalendarView` objects in a `CalendarWindow` object. See the [CalendarFX manual](https://dlsc.com/wp-content/html/calendarfx/manual.html) for more information on `Calendar` and `CalendarView` classes.
-
-![Sequence diagram of CalendarWindow](images/CalendarSequenceDiagram.png)
-
-The sequence of how a calendar window is generated is shown in the UML sequence diagram above. The following are the textual descriptions of the diagram:
-
-1. The user intends to open the calendar. The `MainWindow` object captures this intention and calls the constructor of `CalendarWindow` and passes the list of events into it.
-2. The `Calendar` and `CalendarView` objects are created and stored. A hashmap of `Event` objects to `Entry` objects is created. (Not shown)
-3. A time thread is created to constantly update the current time of the calendar every 10 seconds.
-4. The `Calendar` object is populated with the entries of events from Step 1. The hashmap is also concurrently being updated with the events and the associated entries. (Not shown)
-5. The `CalendarView` object is updated to include the `Calendar` object, and also to change some configurations to simplify the interface and prevent edits directly on the calendar.
-6. The `StackPane` (see `CalendarWindow.fxml`) is updated to include the new `CalendarView` interface. The `CalendarWindow` object is now created and returned to `MainWindow`.
-
-#### Updating the calendar
-
-The user may leave the calendar window open and type in a new command to add, delete, edit or clear the events. In that case, there is a need to constantly update the calendar to reflect the new changes the user has made. This section discusses the implementation of the update and how the updates are optimized.
-
-It is important to discuss the `EventChanger` class from `Model` since the implementation of the update feature depends heavily on this class.
-
-The `EventChanger` class contains references to up to 2 `Event` objects - an `oldEvent` and a `newEvent`. It also contains a boolean that is true if the user intends to clear all events. Creating the `EventChanger` object to be passed to the `CalendarWindow` to update the entries is simple, as it can be easily constructed using one of the factory methods: `addEventChanger`, `clearEventChanger`, `deleteEventChanger` and `editEventChanger`.
-
-Upon the execution of any command, the list of event changers is returned in the `CommandResult`. The list is usually empty, except for the 4 types of commands listed above. The `updateCalendar` method of `CalendarWindow` is then called, which will update the `Calendar` object to remove the `oldEvent` and add the `newEvent` entries. The `Calendar` is cleared if the `EventChanger` is the `clearEventChanger`. This is when the hashmap becomes useful, since the `Entry` objects in the calendar are unique and having the same `Event` associated to the `Entry` does not make the `Entry` objects equal. This will allow deletion of the `Entry` from the calendar.
-
-This implementation of updating the calendar is more optimized than an alternative implementation, whereby after each command is executed, the `CalendarWindow` will always retrieve the latest list of events from the `AddressBook`. This alternative implementation can be slow if there are many events being stored.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -527,46 +536,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**6. Use case: UC6 - Undo a command**
 
-**Guarantees:** SoConnect will be restored to its previous state in its history.
+**6. Use case: UC6 - Delete events**
 
-***MSS***
+**Preconditions:** There is at least one event in the event list.
 
-1.  User decides to undo a command.
-
-2.  SAS identifies the previous state of SoConnect and restore it. SAS notifies the user that the previous command is undone.
-    
-    Use case ends.
-
-**Extensions**
-
-* 1a. SAS detects that SoConnect does not have a previous state in its history.
-
-    * 1a1. SAS notifies the user that SoConnect is already at its orignal state.
-
-  Use case ends.
-
-**7. Use case: UC7 - Redo a command**
-
-**Guarantees:** SoConnect will be restored to its previously undone state in its history.
+**Guarantees:** The event list will be updated according to which event(s) are deleted if and only if the user enters the correct inputs.
 
 ***MSS***
 
-1. User decides to undo the previous undo command.
+1.  User wants to view the list of events.
 
-2. SAS redo the command and restores the previously undone state of SoConnect from its history.
+2. User decides on the event(s) to delete.
 
-    Use case ends.
+3. User deletes the event(s).
+
+4. SAS deletes the specified event(s), updates the event list accordingly, and notifies user that the event(s) has been successfully deleted.
+
+   Use case ends.
+
 
 **Extensions**
 
-* 1a. SAS detects that SoConnect is already at its most recent state.
+* 3a. SAS detects an error in the inputs.
 
-    * 1a1. SAS notifies the user that there is no previous undo command to redo.
+    * 3a1. SAS requests for correct inputs.
+
+    * 3a2. User enters new inputs.
+
+  Steps 3a1 to 3a2 are repeated until inputs entered are correct.
+
+  Use case resumes from step 4.
+
+
+* *a. User chooses not to delete the event(s).
 
   Use case ends.
-
 
 *{More to be added}*
 
@@ -637,22 +642,31 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting an event
 
-1. Deleting a person while all persons are being shown
+1. Deleting an event while all events are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   Prerequisites: List all events using the `elist` command. Multiple events in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `edelete 1`<br>
+      Expected: First event is deleted from the list. Details of the deleted event shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   3. Test case: `edelete 0`<br>
+      Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `edelete`, `edelete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+   5. Test case: `edelete 1-2`<br>
+      Expected: First and second event are deleted from the list. Details of the deleted events shown in the status message. Timestamp in the status bar is updated.
+
+   6. Test case: `edelete 2-1` (invalid range)<br>
+      Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
+   
+   7. Test case: `edelete 1-x` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
+
+2. _{ more test cases …​ }_
 
 ### Saving data
 
