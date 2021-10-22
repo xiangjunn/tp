@@ -158,20 +158,20 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-The elink mechanism is facilitated by ELinkCommandParser which implements Parser and ELinkCommand
-which extends Command.ELinkCommandParser is responsible for parsing user inputs and ensuring that
-the inputs are valid. ELinkCommand is responsible for the execution of elink  mechanism to link the event to the 
+The elink mechanism is facilitated by `ELinkCommandParser` which implements `Parser`, as well as `ELinkCommand`
+which extends `Command`. `ELinkCommandParser` is responsible for parsing user inputs and ensuring that
+the inputs are valid. `ELinkCommand` is responsible for the execution of elink  mechanism to link the event to the 
 target contact.
 
 The following operations are the main operations for elink mechanism.
 
 - `ELinkCommandParser#parse` - Parse the user inputs and create a `ELinkCommand` to return.
 
-- `ELinkCommand#execute` - Link the event to the target contact.
+- `ELinkCommand#execute` - Links the event to the target contact.
 
 The following sequence diagram shows how the elink operation works:
 
-![ELinkSequenceDiagram](images/UndoSequenceDiagram.png)
+![ELinkSequenceDiagram](images/ELinkSequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -517,6 +517,39 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * *a. User chooses not to sort the list.
 
     Use case ends.
+
+
+**6. Use case: UC6 - Link a specific event to a specific contact**
+
+**Preconditions:** There is at least one event and one contact.
+
+**Guarantees:** The chosen event is linked to the chosen contact.
+
+***MSS***
+
+1. User decides on which event and contact to link.
+   
+2. User inputs the event and contact to link.
+
+3. SAS links the chosen event to the chosen contact and notifies user that the event is successfully linked to the contact.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. SAS detects an error in the inputs.
+
+    * 2a1. SAS requests for correct inputs.
+
+    * 2a2. User enters new inputs.
+
+  Steps 2a1 to 2a2 are repeated until the inputs entered are correct.
+
+  Use case resumes from step 3.
+
+* *a. User chooses not to link event to contact.
+
+  Use case ends.
 
 *{More to be added}*
 
