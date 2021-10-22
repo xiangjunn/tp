@@ -150,50 +150,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Event Delete Feature
-This section details how an `Event` is deleted using the `edelete` command.
-
-The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect. 
-Users needs to specify either an `Index` or a `Range` of event(s) to be deleted.
-The deleted event(s) would be removed from the display of SoConnect GUI.
-
-#### Implementation
-
-We will use an example command: `edelete 1-3`.
-
-The sequence diagram below shows how the execution of the example command flows:
-
-![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/DeleteSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
-
-How `edelete` works:
-
-Step 1: `LogicManager` executes user's input. `AddressBookParser` is used to realise it is a `edelete` command, creating a new `EDeleteCommandParser` object.
-
-Step 2: `EDeleteCommandParser` object parses the input arguments and creates a `Range` object.
-
-Step 3: `Range` object is used to construct a new `EDeleteCommand` object. `EDeleteCommand` object is then returned to `LogicManager`.
-
-Step 4: `LogicManager` calls `execute` method of `EDeleteCommand`, which repeatedly deletes event from the most updated event list with index `1` for `3` times.
-
-The event list will be updated to a new list after each delete. Deleting an inclusive range of events is done by repeatedly deleting the event from the start `Index` for `endIndex - startIndex + 1` times.
-
-If the user only specified one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
-
-#### Design considerations:
-
-**Aspect: Type of user inputs:**
-
-* **Alternative 1 (current choice):** Either a single Index or a Range can be specified.
-  * Pros: Easy to implement.
-  * Cons: Unable to delete multiple ranges of events or events that are not ordered consecutively in the event list.
-
-* **Alternative 2:** Allow a mixture of multiple single indexes and multiple ranges
-  * Pros: Able to delete events more efficiently.
-  * Cons: We must ensure that the order of delete of the events is correct. It is more complex to keep track of the events to be deleted.
-
 
 ### \[Proposed\] Data archiving
 
