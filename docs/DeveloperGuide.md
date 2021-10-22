@@ -2,8 +2,23 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
-{:toc}
+ ##Table of Contents
+  * [**Acknowledgements**](#acknowledgements)
+  * [**Setting up, getting started**](#setting-up-getting-started)
+  * [**Design**](#design)
+    * [Architecture](#architecture)  
+    * [UI](#ui-component)
+    * [Logic](#logic-component)
+    * [Model](#model-component)
+    * [Storage](#storage-component)
+    * [Common classes](#common-classes)
+  * [**Implementation**](#implementation)
+    * [eDelete](#edelete)
+    * [eList](#elist)
+    * [eLink](#elink)
+    * [undo](#undo)
+    * [ui-calendar](#ui-calendar)
+  * [**Documentation, logging, testing, configuration, devops**]() 
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -30,7 +45,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
-The ***Architecture Diagram*** given above explains the high-level design of the App.
+The ***Architecture Diagram*** given above explains the high-level design of the SoConnect App.
 
 Given below is a quick overview of main components and how they interact with each other.
 
@@ -44,15 +59,15 @@ Given below is a quick overview of main components and how they interact with ea
 
 The rest of the App consists of four components.
 
-* [**`UI`**](#ui-component): The UI of the App.
+* [**`UI`**](#ui-component): The UI of the SoConnect app.
 * [**`Logic`**](#logic-component): The command executor.
-* [**`Model`**](#model-component): Holds the data of the App in memory.
+* [**`Model`**](#model-component): Holds the data of the app in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `edelete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -295,6 +310,76 @@ If the user only specified one `Index` for `edelete`, a `Range` object is create
 _{Explain here how the data archiving feature will be implemented}_
 
 
+
+### List Events feature (EList)
+
+The EList feature is facilitated by `EListCommand`, `EListCommandParser` and `model`.
+
+#### EList Command
+
+`EList Command` class extends the `Command` abstract class. `EListCommand` class is tasked to list specific field(s) of 
+all events and creating a new `CommandResult` to be displayed to the user in the user interface. 
+
+`EListCommandParser`
+`EListCommandParser` class extends `Parser` interface. 
+`EListCommandParser` class is tasked with parsing the user inputs and generate a new `EListCommand`. 
+The main logic of the elist feature is encapsulated here.
+
+The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es) and set which field(s) to be displayed based on the prefix(es) provided.
+* If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. 
+* If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed, 
+sets the rest of the fields to be hidden.
+
+`EListCommandParser#parse` method will then return an `EListCommand`
+
+* If values of prefixes given are not empty, `EListCommandParser#parse` throws a ParseException.
+
+-------------------------------------------------------
+Given below is one example usage scenario and explains how the elist feature behaves at each step.
+
+Example 1: List start and end times of all events.
+
+Step 1. The user enters `elist at/ end/`.
+
+Step 2. The command word `elist` is extracted out in `AddressBookBookParser`, and matches the `COMMAND_WORD` for `EListCommand` class.
+
+Step 3. The remaining user input is the given to the `EListCommandParser` to determine if the user input contains the valid fields.
+
+Step 4. Inside `EListCommandParser#parse()` method, the remaining user input `at/ end/`, will be subjected to checks by `EListCommandParser#anyPrefixValueNotEmpty()` and `argMultimap#getPreamble()#isEmpty()` methods.
+* `EListCommandParser#anyPrefixValueNotEmpty()` returns true if the values of any prefix is not empty, returns false otherwise.
+* `argMultimap#getPreamble()#isEmpty()` returns true if there is any input between the command word and the first prefix, returns false otherwise. 
+
+
+Step 5. The `EListCommandParser#parse()` method then proceeds to set `startDateTime` and `endDateTime` fields to be displayed as their prefix(es) `at/` and `end/` are provided. The other fields are set to be hidden.
+`EListCommandParser` then creates and calls an `EListCommand` object.
+
+Step 6. The `EListCommand#execute()` first checks if the `model` provided is not null.
+
+Step 7. The `EListCommand#execute()` is then called by the `LogicManager`. In this method, it first hides all the
+`Events` before showing each `Events` with only the event `name`, `start` and `end` timings displayed.
+
+Step 8. A `CommandResult` with all events listed will be displayed to the user.
+
+#### Sequence Diagram
+
+The following sequence diagram shows how the `eList` feature works for Example 1:
+
+![EListSequenceDiagram](images/EListSequenceDiagram.png)
+
+#### Activity Diagram
+
+The following activity diagram summarizes what happens when the `elist` feature is triggered:
+
+![EListActivityDiagram](images/EListActivityDiagram.png)
+
+#### Design Consideration
+
+#### Aspect: Allowing inputs for EListCommand.
+
+* **Alternative (current implementation): EListCommand displays all fields.**
+  * Pros: No need to check for valid prefixes.
+  * Cons: User maybe interested in one field, but has to look through all the fields.
+    
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -334,6 +419,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
 | `* * *` | SoC student | view the contact of my *TA*/*Profs* | |
 | `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
+| `* * *` | CS2103T student | i want to list all the telegram handles of my CS2103T project mates | add them to the project group |   
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
 | `* *` | organised SoC students | categorize the contacts of students/*TA*/*Profs* | view them separately |
@@ -350,6 +436,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | SoC student | edit details of event | update event details |
 | `* * *` | SoC student | view all CCA/events | have a rough overview of my schedule | 
 | `* * *` | SoC student | search for an event based on event name | easily refer to the event details |
+| `* * *` | year 1 SoC student | list addresses of all lectures, tutorials and labs |     
 | `* *` | SoC student | sort the events by time | prepare for upcoming events |
 | `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
 | `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
@@ -554,7 +641,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * *a. User chooses not to sort the list.
 
     Use case ends.
-
+    
 
 **6. Use case: UC6 - Delete events**
 
@@ -573,7 +660,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. SAS deletes the specified event(s), updates the event list accordingly, and notifies user that the event(s) has been successfully deleted.
 
    Use case ends.
-
+   
 
 **Extensions**
 
@@ -587,13 +674,49 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case resumes from step 4.
 
+  
+**8. Use case: UC8 - List event fields**
 
-* *a. User chooses not to delete the event(s).
+**Preconditions:** There is at least one event in the event list.
+
+**Guarantees:** The displayed list only contains the field(s) of interest, if the given field(s) is / are valid.
+
+***MSS***
+
+1. User decides on a field(s) to be listed.
+
+2. User inputs the specific field(s).
+
+3. SAS displays the list of events with only the field(s) specified shown.
+
+   Use case ends
+
+**Extensions**
+
+* 2a. SAS detects that the input is an invalid field.
+
+    * 2a1. SAS requests for a correct input.
+
+    * 2a2. User enters a new input.
+
+  Steps 2a1-2a2 are repeated until user enters a valid field.
+
+  Use case resumes from step 3.
+
+
+* 2b. SAS detects that the user did not provide a field.
+
+    * 2b1. SAS displays the default list containing all the fields of the events.
 
   Use case ends.
 
 
-**7. Use case: UC7 - Link a specific event to a specific contact**
+* *a. User chooses not to sort the list.
+
+  Use case ends.
+
+
+**9. Use case: UC9 - Link a specific event to a specific contact**
 
 **Preconditions:** There is at least one event and one contact.
 
@@ -622,6 +745,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case resumes from step 3.
 
 * *a. User chooses not to link event to contact.
+
 
 *{More to be added}*
 
@@ -723,5 +847,19 @@ testers are expected to do more *exploratory* testing.
 1. Dealing with missing/corrupted data files
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+
+### Listing all events
+
+1. Listing all event with certain fields shown.
+
+    1. Prerequisites: At least one event in the list.
+
+    1. Test case: `elist at/`<br>
+       Expected: All events listed with only address displayed. All events listed shown in the status message.  
+    1. Test case: `elist`<br>
+       Expected: All events listed with all fields displayed. All events listed shown in the status message.
+
+    1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
+       Expected: No change in display. Error message shown in status bar.
 
 1. _{ more test cases …​ }_
