@@ -296,7 +296,7 @@ Examples:
 * `edelete 1` followed by `undo` restores the deleted event in the event list.
 * `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
 
-### Redo a command: `undo`
+### Redo a command: `redo`
 
 Restores SoConnect to a previously undone state from its history.
 
