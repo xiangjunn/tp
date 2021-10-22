@@ -4,7 +4,6 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -90,7 +89,10 @@ public class ContactCard extends UiPart<Region> {
         if (!contact.getLinkedEvents().isEmpty()) {
             contact.getLinkedEvents().stream()
                 .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
-                .forEach(eventUuid -> links.getChildren().add(new Label(Event.findByUuid(eventUuid).getName().toString())));
+                .forEach(eventUuid -> {
+                    String eventName = Event.findByUuid(eventUuid).getName().toString();
+                    links.getChildren().add(new Label(eventName));
+                });
             linksLabel.setManaged(true);
             links.setManaged(true);
         }

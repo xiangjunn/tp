@@ -59,6 +59,12 @@ public class Event {
         this.uuid = UUID.randomUUID();
     }
 
+    /**
+     * This constructor is for creating event stored in storage. The event stored in storage contains information
+     * of uuid and contacts linked to it, in addition to information about other fields.
+     * This constructor ensures that everytime the application loads the data from storage, the uuid of the event
+     * stays the same and contains uuid of contacts that are linked to it.
+     */
     public Event(
             Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
             Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts) {

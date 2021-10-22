@@ -2,9 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.List;
 

@@ -56,9 +56,15 @@ public class Contact {
         this.tags.addAll(tags);
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
-        this.uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID(); // to generate a uuid to uniquely identify contact
     }
 
+    /**
+     * This constructor is for creating contact stored in storage. The contact stored in storage contains information
+     * of uuid and events linked to it, in addition to information about other fields.
+     * This constructor ensures that everytime the application loads the data from storage, the uuid of the contact
+     * stays the same and contains uuid of events that are linked.
+     */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
         TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents) {

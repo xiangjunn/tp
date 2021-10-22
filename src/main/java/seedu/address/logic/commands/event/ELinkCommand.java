@@ -7,7 +7,9 @@ import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
+
 import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -28,10 +30,14 @@ public class ELinkCommand extends Command {
     private final Index eventIndex;
     private final Index contactIndex;
 
+    /**
+     * Creates an ELinkCommand to link the specified {@code Event} to a {@code Contact}
+     */
     public ELinkCommand(Index eventIndex, Index contactIndex) {
         this.eventIndex = eventIndex;
         this.contactIndex = contactIndex;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

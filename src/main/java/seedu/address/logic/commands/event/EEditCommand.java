@@ -96,8 +96,8 @@ public class EEditCommand extends Command {
         Set<Tag> updatedDeletedTags = editEventDescriptor.getTagsToDelete().orElse(new HashSet<>());
         Set<Tag> updatedTags = editEventDescriptor.getShouldDeleteAllTags()
                 ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
-        Event updatedEvent = new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
-            updatedZoomLink, updatedTags, eventToEdit.getUuid(), eventToEdit.getLinkedContacts());
+        Event updatedEvent = new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
+            updatedAddress, updatedZoomLink, updatedTags, eventToEdit.getUuid(), eventToEdit.getLinkedContacts());
         Event.addToMap(updatedEvent);
         return updatedEvent;
     }
