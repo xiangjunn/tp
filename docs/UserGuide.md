@@ -276,6 +276,21 @@ Examples:
 
 Sorts all events by start time and displays all upcoming or ongoing events.
 
+### Linking event to a contact: `elink`
+
+Links the specified event to a specified contact.
+
+Format: `elink l/EVENT_INDEX c/CONTACT_INDEX`
+
+* Links the event at the specified `EVENT_INDEX` to the contact at the specified `CONTACT_INDEX`.
+* `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
+* `EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**, eg 1, 2, 3, …​
+
+Examples:
+`elink l/1 c/1` links the first event from the event list to the first contact from the contact list.
+`elink l/2 c/3` links the second event from the event list to the third contact from the contact list.
+`elink c/2 l/3` links the third event from the event list to the second contact from the contact list.
 
 ### Clearing all events: `eclear`
 
@@ -345,6 +360,7 @@ Action | Format, Examples
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **Sort** | `esort`
+**Link** | `elink`
 
 ________________________________________________________________________________________________________________
 
