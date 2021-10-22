@@ -34,7 +34,7 @@ activate eListCommand
 eListCommandParser --> AddressBookParser
 deactivate eListCommandParser
 
-AddressBookParser --> LogicManager : elist
+AddressBookParser --> LogicManager : eListCommand
 deactivate AddressBookParser
 
 LogicManager -> eListCommand : execute()

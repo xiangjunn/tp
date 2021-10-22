@@ -2,7 +2,7 @@
 layout: page
 title: Developer Guide
 ---
-* ##Table of Contents
+ ##Table of Contents
   * [**Acknowledgements**](#acknowledgements)
   * [**Setting up, getting started**](#setting-up-getting-started)
   * [**Design**](#design)
@@ -61,7 +61,7 @@ The rest of the App consists of four components.
 
 * [**`UI`**](#ui-component): The UI of the SoConnect app.
 * [**`Logic`**](#logic-component): The command executor.
-* [**`Model`**](#model-component): Holds the data of the zzpp in memory.
+* [**`Model`**](#model-component): Holds the data of the app in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 
@@ -86,7 +86,7 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-![Structure of the UI Component](diagrams/UiClassDiagram.puml)
+![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
@@ -253,43 +253,47 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-## List Events feature (EList)
+### List Events feature (EList)
 
 The EList feature is facilitated by `EListCommand`, `EListCommandParser` and `model`.
 
-### EList Command
+#### EList Command
 
-`EList Command` class extends the `Command` interface. `EListCommand` class is tasked to list specific field(s) of 
-all events and creating a new CommandResult to be displayed to the user in the user interface. 
+`EList Command` class extends the `Command` abstract class. `EListCommand` class is tasked to list specific field(s) of 
+all events and creating a new `CommandResult` to be displayed to the user in the user interface. 
 
 `EListCommandParser`
 `EListCommandParser` class extends `Parser` interface. 
 `EListCommandParser` class is tasked with parsing the user inputs and generate a new `EListCommand`. 
 The main logic of the elist feature is encapsulated here.
 
-
-`EListCommandParser` receives the user input, and extracts the input prefix(es) representing the field(s) users want to be displayed in the list. 
-
 The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es) and set which field(s) to be displayed based on the prefix(es) provided.
-If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed, 
+* If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. 
+* If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed, 
 sets the rest of the fields to be hidden.
 
-This parse method will then return an `EListCommand`. It throws a ParseException if a the values of prefixes given are not empty.
+`EListCommandParser#parse` method will then return an `EListCommand`
 
-Example Usage Scenario
+* If values of prefixes given are not empty, `EListCommandParser#parse` throws a ParseException.
+
+-------------------------------------------------------
 Given below is one example usage scenario and explains how the elist feature behaves at each step.
 
 Example 1: List start and end times of all events.
 
 Step 1. The user enters `elist at/ end/`.
 
-Step 2. The command word elist is extracted out in `AddressBookBookParser`, and matches the `COMMAND_WORD` for `EListCommand` class.
+Step 2. The command word `elist` is extracted out in `AddressBookBookParser`, and matches the `COMMAND_WORD` for `EListCommand` class.
 
 Step 3. The remaining user input is the given to the `EListCommandParser` to determine if the user input contains the valid fields.
 
-Step 4. Inside `EListCommandParser#parse()` method, the remaining user input `at/ end/`, will be subjected to checks by `EListCommandParser#anyPrefixValueNotEmpty()` and `argMultimap#getPreamble()#isEmpty()` methods. In this case, all prefixes have empty values and there are no inputs before the first prefix.
+Step 4. Inside `EListCommandParser#parse()` method, the remaining user input `at/ end/`, will be subjected to checks by `EListCommandParser#anyPrefixValueNotEmpty()` and `argMultimap#getPreamble()#isEmpty()` methods.
+* `EListCommandParser#anyPrefixValueNotEmpty()` returns true if the values of any prefix is not empty, returns false otherwise.
+* `argMultimap#getPreamble()#isEmpty()` returns true if there is any input between the command word and the first prefix, returns false otherwise. 
+
 
 Step 5. The `EListCommandParser#parse()` method then proceeds to set `startDateTime` and `endDateTime` fields to be displayed as their prefix(es) `at/` and `end/` are provided. The other fields are set to be hidden.
+`EListCommandParser` then creates and calls an `EListCommand` object.
 
 Step 6. The `EListCommand#execute()` first checks if the `model` provided is not null.
 
@@ -298,25 +302,25 @@ Step 7. The `EListCommand#execute()` is then called by the `LogicManager`. In th
 
 Step 8. A `CommandResult` with all events listed will be displayed to the user.
 
-### Sequence Diagram
+#### Sequence Diagram
 
 The following sequence diagram shows how the `eList` feature works for Example 1:
 
 ![EListSequenceDiagram](images/EListSequenceDiagram.png)
 
-### Activity Diagram
+#### Activity Diagram
 
 The following activity diagram summarizes what happens when the `elist` feature is triggered:
 
 ![EListActivityDiagram](images/EListActivityDiagram.png)
 
-### Design Consideration
+#### Design Consideration
 
-### Aspect: Input format for add command.
+#### Aspect: Allowing inputs for EListCommand.
 
-* **Alternative 1 (current implementation): Lists all fields.**
+* **Alternative (current implementation): EListCommand displays all fields.**
   * Pros: No need to check for valid prefixes.
-  * Cons: User have to look through all fields, unable to compare the desired field.
+  * Cons: User maybe interesting in one field, but has to look through all the fields.
     
 --------------------------------------------------------------------------------------------------------------------
 
@@ -583,7 +587,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **5. Use case: UC6 - List event fields**
 
-**Preconditions:** There is at least one contact in the contact list.
+**Preconditions:** There is at least one event in the event list.
 
 **Guarantees:** The displayed list only contains the field(s) of interest, if the given field(s) is / are valid.
 
@@ -593,7 +597,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 2. User inputs the specific field(s).
 
-3. SAS displays the sorted list of events with only the field(s) specified shown.
+3. SAS displays the list of events with only the field(s) specified shown.
 
    Use case ends
 
@@ -713,18 +717,18 @@ testers are expected to do more *exploratory* testing.
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-### Listing all event field 
+### Listing all events
 
-1. Listing all event addresses when defualt list is shown
+1. Listing all event with certain fields shown.
 
     1. Prerequisites: At least one event in the list.
 
     1. Test case: `elist at/`<br>
        Expected: All events listed with only address displayed. All events listed shown in the status message.  
     1. Test case: `elist`<br>
-       Expected: All events listed with all field displayed. All events listed shown in the status message.
+       Expected: All events listed with all fields displayed. All events listed shown in the status message.
 
-    1. Other incorrect delete commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
+    1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
        Expected: No change in display. Error message shown in status bar.
 
 1. _{ more test cases …​ }_
