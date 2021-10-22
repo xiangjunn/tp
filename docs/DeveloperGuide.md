@@ -2,23 +2,9 @@
 layout: page
 title: Developer Guide
 ---
- ##Table of Contents
-  * [**Acknowledgements**](#acknowledgements)
-  * [**Setting up, getting started**](#setting-up-getting-started)
-  * [**Design**](#design)
-    * [Architecture](#architecture)  
-    * [UI](#ui-component)
-    * [Logic](#logic-component)
-    * [Model](#model-component)
-    * [Storage](#storage-component)
-    * [Common classes](#common-classes)
-  * [**Implementation**](#implementation)
-    * [eDelete](#edelete)
-    * [eList](#elist)
-    * [eLink](#elink)
-    * [undo](#undo)
-    * [ui-calendar](#ui-calendar)
-  * [**Documentation, logging, testing, configuration, devops**]() 
+## Table of Contents
+
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -165,6 +151,119 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Event Delete Feature
+This section details how an `Event` is deleted using the `edelete` command.
+
+The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect.
+Users needs to specify either an `Index` or a `Range` of event(s) to be deleted.
+The deleted event(s) would be removed from the display of SoConnect GUI.
+
+#### Implementation
+
+We will use an example command: `edelete 1-3`.
+
+The sequence diagram below shows how the execution of the example command flows:
+
+![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/DeleteSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+How `edelete` works:
+
+Step 1: `LogicManager` executes user's input. `AddressBookParser` is used to realise it is a `edelete` command, creating a new `EDeleteCommandParser` object.
+
+Step 2: `EDeleteCommandParser` object parses the input arguments and creates a `Range` object.
+
+Step 3: `Range` object is used to construct a new `EDeleteCommand` object. `EDeleteCommand` object is then returned to `LogicManager`.
+
+Step 4: `LogicManager` calls `execute` method of `EDeleteCommand`, which repeatedly deletes event from the most updated event list with index `1` for `3` times.
+
+The event list will be updated to a new list after each delete. Deleting an inclusive range of events is done by repeatedly deleting the event from the start `Index` for `endIndex - startIndex + 1` times.
+
+If the user only specified one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
+
+#### Design considerations:
+
+**Aspect: Type of user inputs:**
+
+* **Alternative 1 (current choice):** Either a single Index or a Range can be specified.
+    * Pros: Easy to implement.
+    * Cons: Unable to delete multiple ranges of events or events that are not ordered consecutively in the event list.
+
+* **Alternative 2:** Allow a mixture of multiple single indexes and multiple ranges
+    * Pros: Able to delete events more efficiently.
+    * Cons: We must ensure that the order of delete of the events is correct. It is more complex to keep track of the events to be deleted.
+
+### List Events feature
+
+The EList feature is facilitated by `EListCommand`, `EListCommandParser` and `model`.
+
+#### EList Command
+
+`EList Command` class extends the `Command` abstract class. `EListCommand` class is tasked to list specific field(s) of
+all events and creating a new `CommandResult` to be displayed to the user in the user interface.
+
+`EListCommandParser`
+`EListCommandParser` class extends `Parser` interface.
+`EListCommandParser` class is tasked with parsing the user inputs and generate a new `EListCommand`.
+The main logic of the elist feature is encapsulated here.
+
+The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es) and set which field(s) to be displayed based on the prefix(es) provided.
+* If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed.
+* If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed,
+  sets the rest of the fields to be hidden.
+
+`EListCommandParser#parse` method will then return an `EListCommand`
+
+* If values of prefixes given are not empty, `EListCommandParser#parse` throws a ParseException.
+
+-------------------------------------------------------
+Given below is one example usage scenario and explains how the elist feature behaves at each step.
+
+Example 1: List start and end times of all events.
+
+Step 1. The user enters `elist at/ end/`.
+
+Step 2. The command word `elist` is extracted out in `AddressBookBookParser`, and matches the `COMMAND_WORD` for `EListCommand` class.
+
+Step 3. The remaining user input is the given to the `EListCommandParser` to determine if the user input contains the valid fields.
+
+Step 4. Inside `EListCommandParser#parse()` method, the remaining user input `at/ end/`, will be subjected to checks by `EListCommandParser#anyPrefixValueNotEmpty()` and `argMultimap#getPreamble()#isEmpty()` methods.
+* `EListCommandParser#anyPrefixValueNotEmpty()` returns true if the values of any prefix is not empty, returns false otherwise.
+* `argMultimap#getPreamble()#isEmpty()` returns true if there is any input between the command word and the first prefix, returns false otherwise.
+
+
+Step 5. The `EListCommandParser#parse()` method then proceeds to set `startDateTime` and `endDateTime` fields to be displayed as their prefix(es) `at/` and `end/` are provided. The other fields are set to be hidden.
+`EListCommandParser` then creates and calls an `EListCommand` object.
+
+Step 6. The `EListCommand#execute()` first checks if the `model` provided is not null.
+
+Step 7. The `EListCommand#execute()` is then called by the `LogicManager`. In this method, it first hides all the
+`Events` before showing each `Events` with only the event `name`, `start` and `end` timings displayed.
+
+Step 8. A `CommandResult` with all events listed will be displayed to the user.
+
+#### Sequence Diagram
+
+The following sequence diagram shows how the `eList` feature works for Example 1:
+
+![EListSequenceDiagram](images/EListSequenceDiagram.png)
+
+#### Activity Diagram
+
+The following activity diagram summarizes what happens when the `elist` feature is triggered:
+
+![EListActivityDiagram](images/EListActivityDiagram.png)
+
+#### Design Consideration
+
+#### Aspect: Allowing inputs for EListCommand.
+
+* **Alternative (current implementation): EListCommand displays all fields.**
+    * Pros: No need to check for valid prefixes.
+    * Cons: User maybe interested in one field, but has to look through all the fields.
+
 ### ELink feature
 
 #### Implementation
@@ -260,126 +359,38 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `celete`, just save the contact being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-### Event Delete Feature
-This section details how an `Event` is deleted using the `edelete` command.
+### Calendar UI feature
 
-The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect.
-Users needs to specify either an `Index` or a `Range` of event(s) to be deleted.
-The deleted event(s) would be removed from the display of SoConnect GUI.
+The calendar UI is implemented using the [CalendarFX](https://github.com/dlsc-software-consulting-gmbh/CalendarFX) framework. It can be opened using either the shortcut key `F2`, the file dropdown menu, or the command `calendar`. This feature is mainly facilitated by the `CalendarWindow` class. The `CalendarCommand` class handles the `calendar` command that the user may type and the `MainWindow` class handles the shortcut key and the dropdown menu option for showing the calendar.
 
-#### Implementation
+#### Design of CalendarWindow
 
-We will use an example command: `edelete 1-3`.
+The `CalendarWindow` class extends from `UiPart`, just like the other UI components including the help window. The `CalendarWindow` class instance contains a table of events and the respective entries in the `Calendar` object. There are also final instances of `Calendar` and `CalendarView` objects in a `CalendarWindow` object. See the [CalendarFX manual](https://dlsc.com/wp-content/html/calendarfx/manual.html) for more information on `Calendar` and `CalendarView` classes.
 
-The sequence diagram below shows how the execution of the example command flows:
+![Sequence diagram of CalendarWindow](images/CalendarSequenceDiagram.png)
 
-![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/DeleteSequenceDiagram.png)
+The sequence of how a calendar window is generated is shown in the UML sequence diagram above. The following are the textual descriptions of the diagram:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
+1. The user intends to open the calendar. The `MainWindow` object captures this intention and calls the constructor of `CalendarWindow` and passes the list of events into it.
+2. The `Calendar` and `CalendarView` objects are created and stored. A hashmap of `Event` objects to `Entry` objects is created. (Not shown)
+3. A time thread is created to constantly update the current time of the calendar every 10 seconds.
+4. The `Calendar` object is populated with the entries of events from Step 1. The hashmap is also concurrently being updated with the events and the associated entries. (Not shown)
+5. The `CalendarView` object is updated to include the `Calendar` object, and also to change some configurations to simplify the interface and prevent edits directly on the calendar.
+6. The `StackPane` (see `CalendarWindow.fxml`) is updated to include the new `CalendarView` interface. The `CalendarWindow` object is now created and returned to `MainWindow`.
 
-How `edelete` works:
+#### Updating the calendar
 
-Step 1: `LogicManager` executes user's input. `AddressBookParser` is used to realise it is a `edelete` command, creating a new `EDeleteCommandParser` object.
+The user may leave the calendar window open and type in a new command to add, delete, edit or clear the events. In that case, there is a need to constantly update the calendar to reflect the new changes the user has made. This section discusses the implementation of the update and how the updates are optimized.
 
-Step 2: `EDeleteCommandParser` object parses the input arguments and creates a `Range` object.
+It is important to discuss the `EventChanger` class from `Model` since the implementation of the update feature depends heavily on this class.
 
-Step 3: `Range` object is used to construct a new `EDeleteCommand` object. `EDeleteCommand` object is then returned to `LogicManager`.
+The `EventChanger` class contains references to up to 2 `Event` objects - an `oldEvent` and a `newEvent`. It also contains a boolean that is true if the user intends to clear all events. Creating the `EventChanger` object to be passed to the `CalendarWindow` to update the entries is simple, as it can be easily constructed using one of the factory methods: `addEventChanger`, `clearEventChanger`, `deleteEventChanger` and `editEventChanger`.
 
-Step 4: `LogicManager` calls `execute` method of `EDeleteCommand`, which repeatedly deletes event from the most updated event list with index `1` for `3` times.
+Upon the execution of any command, the list of event changers is returned in the `CommandResult`. The list is usually empty, except for the 4 types of commands listed above. The `updateCalendar` method of `CalendarWindow` is then called, which will update the `Calendar` object to remove the `oldEvent` and add the `newEvent` entries. The `Calendar` is cleared if the `EventChanger` is the `clearEventChanger`. This is when the hashmap becomes useful, since the `Entry` objects in the calendar are unique and having the same `Event` associated to the `Entry` does not make the `Entry` objects equal. This will allow deletion of the `Entry` from the calendar.
 
-The event list will be updated to a new list after each delete. Deleting an inclusive range of events is done by repeatedly deleting the event from the start `Index` for `endIndex - startIndex + 1` times.
-
-If the user only specified one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
-
-#### Design considerations:
-
-**Aspect: Type of user inputs:**
-
-* **Alternative 1 (current choice):** Either a single Index or a Range can be specified.
-    * Pros: Easy to implement.
-    * Cons: Unable to delete multiple ranges of events or events that are not ordered consecutively in the event list.
-
-* **Alternative 2:** Allow a mixture of multiple single indexes and multiple ranges
-    * Pros: Able to delete events more efficiently.
-    * Cons: We must ensure that the order of delete of the events is correct. It is more complex to keep track of the events to be deleted.
+This implementation of updating the calendar is more optimized than an alternative implementation, whereby after each command is executed, the `CalendarWindow` will always retrieve the latest list of events from the `AddressBook`. This alternative implementation can be slow if there are many events being stored.
 
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
-
-### List Events feature (EList)
-
-The EList feature is facilitated by `EListCommand`, `EListCommandParser` and `model`.
-
-#### EList Command
-
-`EList Command` class extends the `Command` abstract class. `EListCommand` class is tasked to list specific field(s) of 
-all events and creating a new `CommandResult` to be displayed to the user in the user interface. 
-
-`EListCommandParser`
-`EListCommandParser` class extends `Parser` interface. 
-`EListCommandParser` class is tasked with parsing the user inputs and generate a new `EListCommand`. 
-The main logic of the elist feature is encapsulated here.
-
-The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es) and set which field(s) to be displayed based on the prefix(es) provided.
-* If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. 
-* If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed, 
-sets the rest of the fields to be hidden.
-
-`EListCommandParser#parse` method will then return an `EListCommand`
-
-* If values of prefixes given are not empty, `EListCommandParser#parse` throws a ParseException.
-
--------------------------------------------------------
-Given below is one example usage scenario and explains how the elist feature behaves at each step.
-
-Example 1: List start and end times of all events.
-
-Step 1. The user enters `elist at/ end/`.
-
-Step 2. The command word `elist` is extracted out in `AddressBookBookParser`, and matches the `COMMAND_WORD` for `EListCommand` class.
-
-Step 3. The remaining user input is the given to the `EListCommandParser` to determine if the user input contains the valid fields.
-
-Step 4. Inside `EListCommandParser#parse()` method, the remaining user input `at/ end/`, will be subjected to checks by `EListCommandParser#anyPrefixValueNotEmpty()` and `argMultimap#getPreamble()#isEmpty()` methods.
-* `EListCommandParser#anyPrefixValueNotEmpty()` returns true if the values of any prefix is not empty, returns false otherwise.
-* `argMultimap#getPreamble()#isEmpty()` returns true if there is any input between the command word and the first prefix, returns false otherwise. 
-
-
-Step 5. The `EListCommandParser#parse()` method then proceeds to set `startDateTime` and `endDateTime` fields to be displayed as their prefix(es) `at/` and `end/` are provided. The other fields are set to be hidden.
-`EListCommandParser` then creates and calls an `EListCommand` object.
-
-Step 6. The `EListCommand#execute()` first checks if the `model` provided is not null.
-
-Step 7. The `EListCommand#execute()` is then called by the `LogicManager`. In this method, it first hides all the
-`Events` before showing each `Events` with only the event `name`, `start` and `end` timings displayed.
-
-Step 8. A `CommandResult` with all events listed will be displayed to the user.
-
-#### Sequence Diagram
-
-The following sequence diagram shows how the `eList` feature works for Example 1:
-
-![EListSequenceDiagram](images/EListSequenceDiagram.png)
-
-#### Activity Diagram
-
-The following activity diagram summarizes what happens when the `elist` feature is triggered:
-
-![EListActivityDiagram](images/EListActivityDiagram.png)
-
-#### Design Consideration
-
-#### Aspect: Allowing inputs for EListCommand.
-
-* **Alternative (current implementation): EListCommand displays all fields.**
-  * Pros: No need to check for valid prefixes.
-  * Cons: User maybe interested in one field, but has to look through all the fields.
-    
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -419,7 +430,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
 | `* * *` | SoC student | view the contact of my *TA*/*Profs* | |
 | `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
-| `* * *` | CS2103T student | i want to list all the telegram handles of my CS2103T project mates | add them to the project group |   
+| `* * *` | CS2103T student | list all the telegram handles of my CS2103T project mates | add them to the project group |   
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
 | `* *` | organised SoC students | categorize the contacts of students/*TA*/*Profs* | view them separately |
