@@ -2,8 +2,8 @@
 layout: page
 title: Developer Guide
 ---
-## Table of Contents
 
+* Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -453,7 +453,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
 | `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | synchronize my events across my calendars |
 | `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |
-| `*` | Soc student with many commitments | have a reminder of upcoming events | |
+| `*` | SoC student with many commitments | have a reminder of upcoming events | |
 
 #### Personalisation and Others
 
@@ -686,7 +686,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case resumes from step 4.
 
   
-**8. Use case: UC8 - List event fields**
+**7. Use case: UC7 - List event fields**
 
 **Preconditions:** There is at least one event in the event list.
 
@@ -727,7 +727,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 
-**9. Use case: UC9 - Link a specific event to a specific contact**
+**8. Use case: UC8 - Link a specific event to a specific contact**
 
 **Preconditions:** There is at least one event and one contact.
 
@@ -758,7 +758,47 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * *a. User chooses not to link event to contact.
 
 
-*{More to be added}*
+**9. Use case: UC9 - Undo a command**
+
+**Guarantees:** SoConnect will be restored to its previous state in its history.
+
+***MSS***
+
+1.  User decides to undo a command.
+
+2.  SAS identifies the previous state of SoConnect and restore it. SAS notifies the user that the previous command is undone.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. SAS detects that SoConnect does not have a previous state in its history.
+
+    * 1a1. SAS notifies the user that SoConnect is already at its orignal state.
+
+  Use case ends.
+
+**10. Use case: UC10 - Redo a command**
+
+**Guarantees:** SoConnect will be restored to its previously undone state in its history.
+
+***MSS***
+
+1. User decides to undo the previous undo command.
+
+2. SAS redo the command and restores the previously undone state of SoConnect from its history.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. SAS detects that SoConnect is already at its most recent state.
+
+    * 1a1. SAS notifies the user that there is no previous undo command to redo.
+
+  Use case ends.
+
+
 
 ### Non-Functional Requirements
 
@@ -776,28 +816,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
 
 
-* [Main Success Scenario](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html#requirements-specifying-requirements-use-cases-details) (MSS): Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
+* [**Main Success Scenario**](https://nus-cs2103-ay2122s1.github.io/website/schedule/week7/topics.html#requirements-specifying-requirements-use-cases-details) (MSS): Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong. 
 
 
-* Command Line Interface (CLI): Text-based user interface.
+* **Command Line Interface** (CLI): Text-based user interface.
 
 
-* Graphical User Interface (GUI): Graphic-based user interface.
+* **Graphical User Interface** (GUI): Graphic-based user interface.
 
 
-* Interface: The place at which independent and often unrelated systems meet and act on or communicate with each other/ a way for the user to interact with the system.
+* **Interface**: The place at which independent and often unrelated systems meet and act on or communicate with each other/ a way for the user to interact with the system.
 
 
-* Telegram handle: Username of a [Telegram](https://telegram.org/) user.
+* **Telegram handle**: Username of a [Telegram](https://telegram.org/) user.
 
 
-* Professor (Prof): A lecturer who teaches a module in NUS.
+* **Professor** (Prof): A lecturer who teaches a module in NUS.
 
 
-* Teaching Assistant (TA): A student tutor employed to teach small group lessons in NUS.
+* **Teaching Assistant** (TA): A student tutor employed to teach small group lessons in NUS.
 
 
-* Contact information: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
+* **Contact information**: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
 
 --------------------------------------------------------------------------------------------------------------------
 
