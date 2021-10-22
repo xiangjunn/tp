@@ -320,7 +320,7 @@ The following activity diagram summarizes what happens when the `elist` feature 
 
 * **Alternative (current implementation): EListCommand displays all fields.**
   * Pros: No need to check for valid prefixes.
-  * Cons: User maybe interesting in one field, but has to look through all the fields.
+  * Cons: User maybe interested in one field, but has to look through all the fields.
     
 --------------------------------------------------------------------------------------------------------------------
 
