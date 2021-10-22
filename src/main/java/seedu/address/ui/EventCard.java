@@ -51,6 +51,9 @@ public class EventCard extends UiPart<Region> {
     private FlowPane tags;
 
     @FXML
+    private Label linksLabel;
+
+    @FXML
     private FlowPane links;
 
     /**
@@ -93,10 +96,14 @@ public class EventCard extends UiPart<Region> {
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
         }
-        event.getLinkedContacts().stream()
-            .sorted(Comparator.comparing(contactUuid -> contactUuid.toString()))
-            .forEach(contactUuid -> links.getChildren()
+        if (!event.getLinkedContacts().isEmpty()) {
+            event.getLinkedContacts().stream()
+                .sorted(Comparator.comparing(contactUuid -> contactUuid.toString()))
+                .forEach(contactUuid -> links.getChildren()
                     .add(new Label(Contact.findByUuid(contactUuid).getName().toString())));
+            linksLabel.setManaged(true);
+            links.setManaged(true);
+        }
     }
 
     @Override

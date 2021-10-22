@@ -47,6 +47,8 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private Label linksLabel;
+    @FXML
     private FlowPane links;
 
     /**
@@ -85,9 +87,13 @@ public class ContactCard extends UiPart<Region> {
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
         }
-        contact.getLinkedEvents().stream()
-            .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
-            .forEach(eventUuid -> links.getChildren().add(new Label(Event.findByUuid(eventUuid).getName().toString())));
+        if (!contact.getLinkedEvents().isEmpty()) {
+            contact.getLinkedEvents().stream()
+                .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
+                .forEach(eventUuid -> links.getChildren().add(new Label(Event.findByUuid(eventUuid).getName().toString())));
+            linksLabel.setManaged(true);
+            links.setManaged(true);
+        }
     }
 
     @Override
