@@ -128,12 +128,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.remove(key);
     }
 
+    /**
+     * Unlink all the contacts linked to the given event.
+     *
+     * @param e The event from which to unlink all linked contacts.
+     */
     public void unlinkContactsFromEvent(Event e) {
         Set<UUID> contactsUuid = e.getLinkedContacts();
         contactsUuid.iterator()
             .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
     }
 
+    /**
+     * Resets the existing data of events of this {@code AddressBook}.
+     */
     public void resetEvents() {
         this.contacts.iterator()
             .forEachRemaining(Contact::clearAllLinks);
@@ -181,15 +189,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         contacts.remove(key);
     }
 
+    /**
+     * Unlink all the events linked to the given contact.
+     *
+     * @param c The contact from which to unlink all linked events.
+     */
     public void unlinkEventsFromContact(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
                 .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
-    }
-
-    public void unlinkEventAndContact(Contact contact, Event event) {
-        contact.unlink(event);
-        event.unlink(contact);
     }
 
     //// util methods
