@@ -44,8 +44,6 @@ CalendarWindow -> CalendarSource : add(calendar)
 
 participant "calendarui:StackPane" as CalendarUI UI_COLOR_T4
 CalendarWindow -> CalendarUI : add calendarView
-activate CalendarUI
-deactivate CalendarUI
 deactivate CalendarWindow
 
 CalendarWindow --> User : calendar window
