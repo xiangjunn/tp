@@ -288,7 +288,7 @@ ________________________________________________________________________________
 
 ### Viewing calendar : `calendar`
 
-Shows a calendar of all the events. Alternatively, access using the top menu or press `F2`.
+Shows a calendar of all the events. Alternatively, access using the top menu via `File -> Calendar` or press `F2`.
 
 ![calendar](images/Calendar.png)
 
@@ -298,13 +298,9 @@ Shows a message explaning how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
-
 ### Exiting the program : `exit`
 
-
-**Exit** | `exit`
-
+Closes the program.
 
 ### Saving the data
 
