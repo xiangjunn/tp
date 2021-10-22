@@ -65,8 +65,6 @@ public class CDeleteCommand extends Command {
                 commandResult += "\n";
             }
         }
-        model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(commandResult);

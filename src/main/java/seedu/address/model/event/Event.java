@@ -209,6 +209,10 @@ public class Event {
         this.linkedContacts.remove(contact.getUuid());
     }
 
+    public void clearAllLinks() {
+        this.linkedContacts.clear();
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

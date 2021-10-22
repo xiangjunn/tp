@@ -9,6 +9,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
+import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Collections;
@@ -94,9 +96,10 @@ public class EEditCommand extends Command {
         Set<Tag> updatedDeletedTags = editEventDescriptor.getTagsToDelete().orElse(new HashSet<>());
         Set<Tag> updatedTags = editEventDescriptor.getShouldDeleteAllTags()
                 ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
-
-        return new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
-                updatedZoomLink, updatedTags);
+        Event updatedEvent = new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
+            updatedZoomLink, updatedTags, eventToEdit.getUuid(), eventToEdit.getLinkedContacts());
+        Event.addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     /**
@@ -128,6 +131,8 @@ public class EEditCommand extends Command {
 
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
+        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 

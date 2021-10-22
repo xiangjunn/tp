@@ -65,6 +65,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets the existing data of contacts of this {@code AddressBook}.
      */
     public void resetContacts() {
+        this.events.iterator()
+            .forEachRemaining(Event::clearAllLinks);
         this.contacts.resetContacts();
     }
 
@@ -133,6 +135,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void resetEvents() {
+        this.contacts.iterator()
+            .forEachRemaining(Contact::clearAllLinks);
         this.events.resetEvents();
     }
 
