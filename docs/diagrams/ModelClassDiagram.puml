@@ -58,12 +58,12 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniqueContactList
 UniqueContactList --> "~* all" Contact
-Contact *--> Name
-Contact *--> Phone
-Contact *--> Email
-Contact *--> Address
-Contact *--> ZoomLink
-Contact *--> TelegramHandle
+Contact *--> "1" Name
+Contact *--> "0..1" Phone
+Contact *--> "1" Email
+Contact *--> "0..1" Address
+Contact *--> "0..1" ZoomLink
+Contact *--> "0..1" TelegramHandle
 Contact *--> "*" Tag
 
 StartDateTime .down.|> DateAndTime
@@ -71,12 +71,12 @@ EndDateTime .down.|> DateAndTime
 
 AddressBook *--> "1" UniqueEventList
 UniqueEventList --> "~* all" Event
-Event *--> Name
-Event *--> Address
-Event *--> ZoomLink
-Event *--> Description
-Event *--> StartDateTime
-Event *--> EndDateTime
+Event *--> "1" Name
+Event *--> "0..1" Address
+Event *--> "0..1" ZoomLink
+Event *--> "0..1" Description
+Event *--> "1" StartDateTime
+Event *--> "0..1" EndDateTime
 Event *--> "*" Tag
 
 Tag -up[hidden]- Common
