@@ -106,6 +106,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Sorts the filtered event list to show all upcoming events. This will change the order of the filtered list
+     * and remove any events which have concluded.
+     */
+    public void sortEvents() {
+        events.sortEvents();
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
