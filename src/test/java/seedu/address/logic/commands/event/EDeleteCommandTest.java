@@ -61,6 +61,7 @@ public class EDeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteEvent(eventToDelete);
+        showNoEvent(expectedModel);
 
         assertCommandSuccess(eDeleteCommand, model, expectedMessage, expectedModel);
     }
