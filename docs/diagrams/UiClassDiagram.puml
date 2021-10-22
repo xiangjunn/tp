@@ -10,15 +10,19 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class CalendarWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class ContactListPanel
+Class EventListPanel
+Class ContactCard
+Class EventCard
 Class StatusBarFooter
 Class CommandBox
 }
 
 package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+Class Event
+Class Contact
 }
 
 package Logic <<Rectangle>> {
@@ -30,28 +34,34 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
-MainWindow *-down->  "1" CommandBox
+MainWindow *-left->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
-MainWindow *-down-> "1" PersonListPanel
-MainWindow *-down-> "1" StatusBarFooter
+MainWindow *-right-> "1" ContactListPanel
+MainWindow *-right-> "1" EventListPanel
+MainWindow *-left-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
+MainWindow --> "0..1" CalendarWindow
 
-PersonListPanel -down-> "*" PersonCard
+ContactListPanel -down-> "*" ContactCard
+EventListPanel -down-> "*" EventCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+ContactListPanel --|> UiPart
+ContactCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
+CalendarWindow --|> UiPart
 
-PersonCard ..> Model
+ContactCard ..> Contact
+EventCard ..> Event
+CalendarWindow --> "*" Event : calendar of >
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+ContactListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
