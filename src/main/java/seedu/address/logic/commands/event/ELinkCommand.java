@@ -25,7 +25,7 @@ public class ELinkCommand extends Command {
         + "Parameters: "
         + PREFIX_LINK + "EVENT_INDEX "
         + PREFIX_CONTACT + "CONTACT_INDEX ";
-    public static final String MESSAGE_SUCCESS = "Successfully linked the event to a contact.";
+    public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact %s.";
 
     private final Index eventIndex;
     private final Index contactIndex;
@@ -64,6 +64,6 @@ public class ELinkCommand extends Command {
         model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToLink.getName(), contactToLink.getName()));
     }
 }
