@@ -50,6 +50,7 @@ MainWindow -left-|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 ContactListPanel --|> UiPart
+EventListPanel --|> UiPart
 ContactCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
