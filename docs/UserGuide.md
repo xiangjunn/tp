@@ -15,9 +15,9 @@ done faster than traditional GUI apps.
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have [Java `11`](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
 
-2. Download the latest `soconnect.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `soconnect.jar` from [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect app.
 
