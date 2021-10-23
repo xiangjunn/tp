@@ -186,7 +186,7 @@ public class MainWindow extends UiPart<Stage> {
         if (calendarWindow != null && calendarWindow.isShowing()) {
             calendarWindow.close();
         }
-        calendarWindow = new CalendarWindow(logic.getFilteredEventList());
+        calendarWindow = new CalendarWindow(logic.getAddressBook().getEventList());
         calendarWindow.show();
     }
 

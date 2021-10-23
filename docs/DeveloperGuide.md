@@ -382,14 +382,27 @@ The sequence of how a calendar window is generated is shown in the UML sequence 
 
 The user may leave the calendar window open and type in a new command to add, delete, edit or clear the events. In that case, there is a need to constantly update the calendar to reflect the new changes the user has made. This section discusses the implementation of the update and how the updates are optimized.
 
-It is important to discuss the `EventChanger` class from `Model` since the implementation of the update feature depends heavily on this class.
+**Aspect: How the calendar is updated constantly:**
 
-The `EventChanger` class contains references to up to 2 `Event` objects - an `oldEvent` and a `newEvent`. It also contains a boolean that is true if the user intends to clear all events. Creating the `EventChanger` object to be passed to the `CalendarWindow` to update the entries is simple, as it can be easily constructed using one of the factory methods: `addEventChanger`, `clearEventChanger`, `deleteEventChanger` and `editEventChanger`.
+* **Alternative 1 (current choice):** Only updates the event(s) changed by the event commands.
+    * Pros: More optimized and faster update for large number of events.
+    * Cons: Harder to implement and prone to errors.
+
+<div markdown="span" class="alert alert-info">
+:information_source: **Note:** It is important to discuss the `EventChanger` class from `Model` since the implementation of the update feature depends heavily on this class.
+</div>
+
+The `EventChanger` class contains references to up to 2 `Event` objects - an `oldEvent` and a `newEvent`. It also contains a boolean that is true if the user intends to clear all events. Creating the `EventChanger` object to be passed to the `CalendarWindow` to update the entries is simple, as it can be easily constructed using one of the factory methods: `addEventChanger`, `clearEventChanger`, `deleteEventChanger` and `editEventChanger`. See the class diagram below for a summary of the `EventChanger` class.
+
+![Class Diagram of EventChanger](images/EventChangerClassDiagram.png)
 
 Upon the execution of any command, the list of event changers is returned in the `CommandResult`. The list is usually empty, except for the 4 types of commands listed above. The `updateCalendar` method of `CalendarWindow` is then called, which will update the `Calendar` object to remove the `oldEvent` and add the `newEvent` entries. The `Calendar` is cleared if the `EventChanger` is the `clearEventChanger`. This is when the hashmap becomes useful, since the `Entry` objects in the calendar are unique and having the same `Event` associated to the `Entry` does not make the `Entry` objects equal. This will allow deletion of the `Entry` from the calendar.
 
-This implementation of updating the calendar is more optimized than an alternative implementation, whereby after each command is executed, the `CalendarWindow` will always retrieve the latest list of events from the `AddressBook`. This alternative implementation can be slow if there are many events being stored.
+* **Alternative 2:** Create a new Calendar with all the events for each command executed.
+    * Pros: Easy to implement, less code is needed.
+    * Cons: Performance can be slowed down if there are many events, even if the user does not make any large change to the events.
 
+This alternative implementation will cause the `MainWindow` class to constantly query the event list in the `AddressBook` through the `Logic` manager every time a command is executed. The queried list is then used to create a new `Calendar` which will be used by the `CalendarWindow` object to display the calendar to the user. However, the performance cost is not feasible if there are many events stored in the `AddressBook`.
 
 --------------------------------------------------------------------------------------------------------------------
 
