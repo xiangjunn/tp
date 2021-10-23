@@ -3,6 +3,8 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.HashMap;
+
 /**
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
@@ -12,7 +14,11 @@ public class Tag {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
+    private static HashMap<String, String> addedTagList = new HashMap<>();
+
     public final String tagName;
+
+    public final String tagColor;
 
     /**
      * Constructs a {@code Tag}.
@@ -23,6 +29,12 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        if (addedTagList.containsKey(tagName)) {
+            this.tagColor = addedTagList.get(tagName);
+        } else {
+            this.tagColor = TagColors.getTagColour();
+            addedTagList.put(tagName, tagColor);
+        }
     }
 
     /**
