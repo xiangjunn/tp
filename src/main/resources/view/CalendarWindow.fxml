@@ -16,7 +16,6 @@
         <Scene>
             <stylesheets>
                 <URL value="@Fonts.css" />
-<!--                <URL value="@HelpWindow.css" />-->
             </stylesheets>
 
             <HBox alignment="CENTER">
@@ -26,7 +25,7 @@
                 <padding>
                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0"/>
                 </padding>
-                <StackPane fx:id="calendarui"/>
+                <StackPane fx:id="calendarUi"/>
             </HBox>
         </Scene>
     </scene>

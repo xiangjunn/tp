@@ -38,7 +38,7 @@ public class CalendarWindow extends UiPart<Stage> {
     private final Map<Event, Entry<Event>> mapOfCalendarEntries = new HashMap<>();
 
     @FXML
-    private StackPane calendarui;
+    private StackPane calendarUi;
 
     /**
      * Creates a {@code CalendarWindow} with the given {@code ObservableList}.
@@ -64,7 +64,7 @@ public class CalendarWindow extends UiPart<Stage> {
         calendarView.setShowSourceTrayButton(false);
         calendarView.setEntryEditPolicy(param -> false);
         calendarView.setEntryContextMenuCallback(param -> null);
-        calendarui.getChildren().add(calendarView);
+        calendarUi.getChildren().add(calendarView);
     }
 
     /** Creates a calendar with all entries from {@code events}. */
