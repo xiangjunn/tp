@@ -111,8 +111,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `CAddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `CAddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `CAddCommandParser`, `EDeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -151,8 +151,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Event Delete Feature
-This section details how an `Event` is deleted using the `edelete` command.
+### Delete Events feature
+This section details how an `Event` or multiple `Event` objects are deleted using the `edelete` command.
 
 The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect.
 Users needs to specify either an `Index` or a `Range` of event(s) to be deleted.
@@ -264,7 +264,7 @@ The following activity diagram summarizes what happens when the `elist` feature 
     * Pros: No need to check for valid prefixes.
     * Cons: User maybe interested in one field, but has to look through all the fields.
 
-### ELink feature
+### Link Event feature
 
 #### Implementation
 
