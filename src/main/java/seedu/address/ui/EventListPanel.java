@@ -23,16 +23,22 @@ public class EventListPanel extends UiPart<Region> {
     /**
      * Creates a {@code EventListPanel} with the given {@code ObservableList}.
      */
-    public EventListPanel(ObservableList<Event> eventList) {
+    public EventListPanel(ObservableList<Event> eventList, MainWindow mainWindow) {
         super(FXML);
         eventListView.setItems(eventList);
-        eventListView.setCellFactory(listView -> new EventListViewCell());
+        eventListView.setCellFactory(listView -> new EventListViewCell(mainWindow));
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
      */
     class EventListViewCell extends ListCell<Event> {
+        private MainWindow mainWindow;
+
+        EventListViewCell (MainWindow mainWindow) {
+            this.mainWindow = mainWindow;
+        }
+
         @Override
         protected void updateItem(Event event, boolean empty) {
             super.updateItem(event, empty);
@@ -41,7 +47,7 @@ public class EventListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCard(event, getIndex() + 1).getRoot());
+                setGraphic(new EventCard(event, getIndex() + 1, mainWindow).getRoot());
             }
         }
     }

@@ -23,16 +23,22 @@ public class ContactListPanel extends UiPart<Region> {
     /**
      * Creates a {@code ContactListPanel} with the given {@code ObservableList}.
      */
-    public ContactListPanel(ObservableList<Contact> contactList) {
+    public ContactListPanel(ObservableList<Contact> contactList, MainWindow mainWindow) {
         super(FXML);
         contactListView.setItems(contactList);
-        contactListView.setCellFactory(listView -> new ContactListViewCell());
+        contactListView.setCellFactory(listView -> new ContactListViewCell(mainWindow));
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code ContactCard}.
      */
     class ContactListViewCell extends ListCell<Contact> {
+        private MainWindow mainWindow;
+
+        public ContactListViewCell (MainWindow mainWindow) {
+            this.mainWindow = mainWindow;
+        }
+
         @Override
         protected void updateItem(Contact contact, boolean empty) {
             super.updateItem(contact, empty);
@@ -41,7 +47,7 @@ public class ContactListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ContactCard(contact, getIndex() + 1).getRoot());
+                setGraphic(new ContactCard(contact, getIndex() + 1, mainWindow).getRoot());
             }
         }
     }

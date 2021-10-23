@@ -12,5 +12,8 @@ public class Messages {
     public static final String MESSAGE_START_MORE_THAN_END_INDEX = "The start index should not be more than end index";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
     public static final String MESSAGE_EVENTS_LISTED_OVERVIEW = "%1$d events listed!";
+    public static final String MESSAGE_LINK_OPENED = "Link opened in browser";
+    public static final String MESSAGE_LINK_NOT_FOUND = "Link not found!";
+    public static final String MESSAGE_FIELD_COPIED = "Field copied to clipboard!";
 
 }

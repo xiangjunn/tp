@@ -1,11 +1,18 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.Messages;
 import seedu.address.model.event.Event;
 
 /**
@@ -14,6 +21,8 @@ import seedu.address.model.event.Event;
 public class EventCard extends UiPart<Region> {
 
     private static final String FXML = "EventListCard.fxml";
+
+    private static Logger logger = Logger.getLogger("Event Card");
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,6 +33,8 @@ public class EventCard extends UiPart<Region> {
      */
 
     private final Event event;
+
+    private MainWindow mainWindow;
 
     @FXML
     private Label id;
@@ -52,10 +63,10 @@ public class EventCard extends UiPart<Region> {
     /**
      * Creates an {@code EventCard} with the given {@code Event} and index to display.
      */
-    public EventCard(
-        Event event, int displayedIndex) {
+    public EventCard(Event event, int displayedIndex, MainWindow mainWindow) {
         super(FXML);
         this.event = event;
+        this.mainWindow = mainWindow;
         id.setText(displayedIndex + ". ");
         // compulsory fields
         name.setText(event.getName().fullName);
@@ -107,5 +118,19 @@ public class EventCard extends UiPart<Region> {
         EventCard card = (EventCard) other;
         return id.getText().equals(card.id.getText())
             && event.equals(card.event);
+    }
+
+    /**
+     * Open zoom link in browser.
+     */
+    @FXML
+    private void openZoomLink() {
+        try {
+            Desktop.getDesktop().browse(new URI(event.getZoomLink().link));
+            mainWindow.handleClick(Messages.MESSAGE_LINK_OPENED);
+        } catch (URISyntaxException | IOException e) {
+            logger.log(Level.WARNING, Messages.MESSAGE_LINK_NOT_FOUND);
+            mainWindow.handleClick(Messages.MESSAGE_LINK_NOT_FOUND);
+        }
     }
 }

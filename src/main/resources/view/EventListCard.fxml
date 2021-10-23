@@ -26,7 +26,7 @@
             <!-- Optional fields-->
             <Label fx:id="to" managed="false" styleClass="cell_small_label" text="\$to" />
             <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="zoomLink" managed="false" styleClass="cell_small_label" text="\$meeting-link" />
+            <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label" text="\$meeting-link" />
             <Label fx:id="description" managed="false" styleClass="cell_small_label" text="\$description" />
             <FlowPane fx:id="tags" managed="false" />
         </VBox>
