@@ -2,7 +2,6 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
@@ -24,8 +23,11 @@ public class ELinkCommand extends Command {
     public static final String COMMAND_WORD = "elink";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Links an event to a contact. "
         + "Parameters: "
-        + PREFIX_LINK + "EVENT_INDEX "
-        + PREFIX_CONTACT + "CONTACT_INDEX ";
+        + "EVENT_INDEX "
+        + PREFIX_CONTACT + "CONTACT_INDEX [CONTACT_INDEX]...\n"
+        + "Examples:\n"
+        + "elink 1 c/1\n"
+        + "elink 3 c/1 2 3 4 5";
     public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact%s %s";
 
     private final Index eventIndex;
