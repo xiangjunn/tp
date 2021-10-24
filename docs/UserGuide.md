@@ -1,21 +1,63 @@
 ---
 layout: page
-title: User Guide
+title: SoConnect User Guide
 ---
 
-SoConnect is a **desktop app for SoC students to managing contacts of professors and teaching assistants, 
-as well as to keep track of noteworthy events, optimized for use via a Command Line Interface** (CLI) while still having 
-the benefits of a Graphical User Interface (GUI). If you can type fast, SoConnect can get your contact management tasks
-done faster than traditional GUI apps.
+SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, 
+as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having 
+the benefits of a _Graphical User Interface (GUI)_. If you can type fast, SoConnect can get your contact management tasks
+done faster than traditional GUI apps. 
+
+This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the 
+full range of features it offers.
+
 
 * Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+##How to use SoConnect User Guide
+
+<div markdown="block" class="alert alert-info">
+
+* (screenshot to show toc) You can click on the titles in the Table of Contents to jump the section that you are interested in.
+* (icon pictures) (lightbulb) provides additional information that might be useful to you. (warning) cautions you with the undesirable effect that you will encounter under specific situations.
+* You can find explanations of _italicised_ words in the [Glossary](#glossary).
+* You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
+
+**:information_source: Notes about the command format:**<br>
+
+* Words in `UPPER_CASE` are the _parameters_ that you will provide.<br>
+  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+
+* _Fields_ in square brackets are optional.<br>
+  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+
+* Fields with `…`​ after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
+
+* Parameters can be in any order.<br>
+  e.g. if the command specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
+
+* If a parameter is expected only once in the command, but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
+
+* Extraneous parameters for commands that do not take in parameters (such as `help` and `exit`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+* Date and time must follow dd-MM-yyyy HH:mm format.
+  e.g. if the date and time is 1 May 2021 6.30pm, you should specify it as `01-05-2021 18:30`
+
+</div>
+
 
 ## Quick start
 
-1. Ensure you have [Java `11`](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
+1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
+   <div markdown="block" class="alert alert-info">
+
+   [Here](https://www.java.com/en/download/help/version_manual.html) is how you can check the Java Version installed in your Computer.
+   </div>
 
 2. Download the latest `soconnect.jar` from [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/releases).
 
@@ -23,19 +65,21 @@ done faster than traditional GUI apps.
 
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
+   If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-command-prompt) to start it too.
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. 
+   e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`elist`** : Lists all events.
+   * `elist`: Lists all events.
 
-   * **`cadd`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the contact list.
+   * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to SoConnect.
 
-   * **`cdelete`**`3` : Deletes the 3rd contact shown in the contact list.
+   * `cdelete 3` : Deletes the third contact shown in SoConnect.
 
-   * **`eclear`** : Deletes all events.
+   * `eclear` : Deletes all entries of events from SoConnect.
 
-   * **`exit`** : Exits the app.
+   * `exit` : Exits SoConnect.
 
 6. Refer to the [Features](#features) below for details of each command.
 
@@ -43,327 +87,405 @@ done faster than traditional GUI apps.
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+There are three main sections to SoConnect Features: 
+[Contact Management](#contact-management), 
+[Event Management](#event-management) and 
+[General](#general).
 
-**:information_source: Notes about the command format:**<br>
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
-
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* Date and time must follow dd-MM-yyyy HH:mm format.
-
-</div>
-
-## Managing Contacts
+For each feature, you are provided with:
+* Function and Description of the feature
+* Format of _Command Syntax_ of the feature
+* Examples of some usages of the feature
 
 
-### Adding a person: `cadd`
+## Contact Management
 
-Adds a person to the contact list.
+This section details all the features and commands available in SoConnect that can help you with managing your contacts:
+* [Adding a contact](#adding-a-contact-cadd)
+* [Listing all contacts](#listing-all-contacts-clist)
+* [Finding contacts](#finding-contacts-cfind)
+* [Viewing a contact](#viewing-a-contact-cview)
+* [Editing a contact](#editing-a-contact-cedit)
+* [Deleting a contact](#deleting-a-contact-cdelete)
+* [Clearing all contacts](#clearing-all-contacts-cclear)
 
-Format: `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…`
+
+### Adding a contact: `cadd`
+
+Adds a contact to SoConnect.
+
+**Format:** `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A contact can have any number of tags (including 0)
 </div>
 
-
-Examples:
+**Examples:**
 * `cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor`
 * `cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH`
 
 
-### Listing all persons : `clist`
+### Listing all contacts: `clist`
 
-Shows a list of all persons in the contact list, with all of their details by default.
+Shows all contacts in the SoConnect, with all details by default.
 
-Format: `clist [e/] [p/] [a/] [th/] [z/] [t/]`
+**Format:** `clist [e/] [p/] [a/] [th/] [z/] [t/]`
 
-* Returned list will always include names of all persons in the contact list.
-* When no optional fields are provided, e.g `clist`, the list will show all available details of all persons in the contact list.
-* When optional fields are provided, the list will only show the names of all persons in the contact list and the corresponding fields specified by the user.
-* More than one optional field can be provided.
-* The order of the optional fields does not matter. e.g both `clist e/ p/` and `clist p/ e/` will return a list of only the names, email addresses and phone numbers of all persons in the contact list.
-* If the specified field has no value for certain persons in the contact list, it will not show anything for that corresponding field for that particular person.
+* Names of contacts are always shown.
+* When no optional fields are provided, e.g `clist`, all available details of each contact will be shown.
+* When optional fields are provided, it will only show the names and the corresponding specified fields for each contact.
+* You can provide more than one optional field.
+* The order of the optional fields does not matter. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
+* Fields of a contact that have no value will not appear.
 
-Examples:
-* `clist` returns a list of all persons in the contact list with all the available details for each person.
-* `clist e/ p/` returns a list of all persons in the contact list, showing only their names, email addresses and phone numbers (if available).
-
-
-### Editing a person : `cedit`
-
-Edits an existing person in the contact list.
-
-Format: `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]… `
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* You can use `t/` to add a tag.
-* You can remove a specific tag by typing `dt/` with the tag.
-* You can remove all the person’s tags by typing `dt/*` without specifying any tags after it.
-* When editing tags, the tags to be deleted will be removed first, before new tags are added.
+**Examples:**
+* `clist` shows all contacts in SoConnect with all available details for each contact.
+* `clist e/ p/` shows all contacts in SoConnect with only their names, email addresses and phone numbers (if available).
 
 
-Examples:
-* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the 2nd person of the contact list to be `91234567` and `agentX@thehightable.com` respectively.
-* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the 2nd person from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
-* `cedit 3 dt/TA`  deletes the `TA` tag from the 3rd person.
-* `cedit 4 dt/*` deletes all tags from the 4th person.
-* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag from the 5th person.
+### Finding contacts: `cfind`
 
+Finds all contacts with names that contain any of the given keywords.
 
-### Locating persons by name: `cfind`
+**Format:** `cfind KEYWORD [MORE_KEYWORDS]`
 
-Finds persons whose names contain any of the given keywords.
-
-Format: `cfind KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
 * Partial words can be matched e.g. `Han` will match `Hans`.
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Contact matching at least one keyword will be returned (i.e. _`OR` search_).
   e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
 
-Examples:
-
+**Examples:**
 * `cfind John` returns `john` and `Johnathon Doe`.
 * `cfind alex david` returns `Alex Yeoh` and `David Li`.
-  
-### Deleting a person : `cdelete`
 
-Deletes the specified person from the contact list.
 
-Format: `cdelete INDEX1[-INDEX2]`
+### Viewing a contact: `cview`
 
-- Deletes the person at the specified `INDEX1` or between the specified
+Views a contact with all details fully shown.
+
+**Format:** `cview INDEX`
+
+* Views the contact at the specified `INDEX`.
+* `INDEX` refers to the index number shown in the displayed contact list. `INDEX` **must be a positive integer** 1, 2, 3, …
+* All truncations of the details of the contact you view will be expanded fully.
+
+**Examples:**
+* `cview 2` shows all details of the second contact in SoConnect fully.
+* `cfind alex david` followed by `cview 1` shows all details of the first contact from the result of the `cfind`.
+
+
+### Editing a contact: `cedit`
+
+Edits an existing contact in SoConnect.
+
+**Format:** `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]… `
+
+* Edits the contact at the specified `INDEX`. 
+* `INDEX` refers to the index number shown in the displayed contact list. `INDEX` **must be a positive integer** 1, 2, 3, …
+* You must provide at least one of the optional fields.
+* Existing values will be updated to the input values.
+* You can use `t/` to add a tag.
+* You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
+* You can remove all existing tags of a contact by typing `dt/*`.
+* When editing tags, the tags to be deleted will be removed first, before new tags are added.
+
+**Examples:**
+* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the second contact of SoConnect to be `91234567` and `agentX@thehightable.com` respectively.
+* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the second contact from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
+* `cedit 3 dt/TA`  deletes the `TA` tag from the third contact.
+* `cedit 4 dt/*` deletes all tags from the fourth contact.
+* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag to the fifth contact.
+
+
+### Deleting a contact: `cdelete`
+
+Deletes the specified contact from SoConnect.
+
+**Format:** `cdelete INDEX1[-INDEX2]`
+
+* Deletes the contact at the specified `INDEX1` or between the specified
   range from `INDEX1` to `INDEX2` inclusively.
-- The index refers to the index number shown in the displayed person list.
-- The index **must be a positive integer** 1, 2, 3, …​
+* `INDEX` refers to the index number shown in the displayed contact list. `INDEX` **must be a positive integer** 1, 2, 3, …​
 
-Examples:
-- `clist` followed by `cdelete 2` deletes the 2nd person from the contact list.
-- `cfind Betsy` followed by `cdelete 1` deletes the 1st person from the results of the `cfind` command.
-- `cdelete 3-5` deletes people with index between 3 and 5 inclusively from the contact list.
-
-### Clearing all persons : `cclear`
-
-Clears all entries of contacts from the contact list.
-
-Format: `cclear`
+**Examples:**
+* `clist` followed by `cdelete 2` deletes the second contact from SoConnect.
+* `cfind Betsy` followed by `cdelete 1` deletes the first contact from the results of the `cfind` command.
+* `cdelete 3-5` deletes contacts from index 3 to 5 from SoConnect.
 
 
+### Clearing all contacts: `cclear`
 
-## Managing Events
+Clears all entries of contacts from SoConnect.
+
+**Format:** `cclear`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+This will not change the events saved in SoConnect. 
+</div>
+
+
+## Event Management
+
+This section details all the features and commands available in SoConnect that can help you with managing your events:
+* [Adding an event](#adding-an-event-eadd)
+* [Listing all events](#listing-all-events-elist)
+* [Sorting events](#sorting-events-esort)
+* [Finding events](#finding-events-efind)
+* [Viewing an event]
+* [Editing an event](#editing-an-event-eedit)
+* [Deleting an event](#deleting-an-event-edelete)
+* [Clearing all event](#clearing-all-events-eclear)
+
 
 ### Adding an event: `eadd`
 
-Adds an event to the event list.
+Adds an event to SoConnect.
 
-Format: `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​`
+**Format:** `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​`
 
-💡 **Tip:** An event can have any number of tags (including 0)
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+An event can have any number of tags (including 0)
+</div>
 
-Take note of the following time format:
+<div markdown="span" class="alert alert-info">
+:information_source: **Note:** Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+</div>
 
-- Start time should be of format “dd-MM-yyyy HH:mm” (date-month-year Hour:minutes in 24 hr format).
-
-Examples:
-
-- `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-- `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/18:00
+**Examples:**
+* `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
+* `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/18:00
   z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDHk t/lecture`
+
 
 ### Listing all events: `elist`
 
-Shows a list of all events in the event list, with all of their details by default.
+Shows all events in SoConnect, with all details by default.
 
-Format: `elist [at/] [end/] [d/] [a/] [z/] [t/]`
+**Format:** `elist [at/] [end/] [d/] [a/] [z/] [t/]`
 
-- Returned list will always include names of all events in the event list.
-- When no optional fields are provided, e.g `elist` , the list will show all available details of all events
-  in the event list.
-- When optional fields are provided, the list will only show the names of all events in the event list and
-  the corresponding fields specified by the user.
-- More than one optional field can be provided.
-- The order of the optional fields does not matter. e.g both `elist d/ at/` and `elist at/ d/` will return a list
-  of only the names, descriptions and starting times in the event list.
-- If the specified field has no value for certain events in the event list, it will not show anything for
-  that corresponding field for that particular event.
+* Names of events are always shown.
+* When no optional fields are provided, e.g. `elist` , all available details of each event will be shown.
+* When optional fields are provided, it will only show the names and the corresponding specified fields for each event.
+* You can provide more than one optional field.
+* The order of the optional fields does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
+* Fields of an event that have no value will no appear.
 
-Examples:
+**Examples:**
+* `elist` shows all events in SoConnect with all available details for each event.
+* `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
 
-- `elist` returns a list of all events in the event list with all the available details for each event.
-- `elist d/ at/` returns a list of all events in the event list, showing only their names, starting times and descriptions (if available).
 
-### Editing an event : `eedit`
+### Editing an event: `eedit`
 
-Edits an existing event in the event list.
+Edits an existing event in SoConnect.
 
-Format: `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`
-
+**Format:** `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`
 
 <div markdown="span" class="alert alert-info">
-   
-:information_source: **Note:** Start time should be of format “dd-MM-yyyy HH:mm” (date-month-year Hour:minutes in 24 hr format).
-   
+:information_source: **Note:** Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
 </div>
 
-* `elist` followed by `eedit` 2 edits the 2nd event from the event list.
-* Edits the event at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed event list. `INDEX` **must be a positive integer** eg 1, 2, 3, …​
-* **At least one** of the optional fields must be provided.
+* Edits the event at the specified `INDEX`. 
+* `INDEX` refers to the index number shown in the displayed event list. `INDEX` **must be a positive integer** 1, 2, 3, …​
+* You must provide at least one of the optional fields.
 * Existing values will be updated to the input values.
-* use `t/` to add a tag.
-* use `dt/` to remove a tag.
-* use `dt/*` to remove **all** tags
-* When editing tags, the tags to be deleted will be removed first, before new tags are added
+* You can use `t/` to add a tag.
+* You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
+* You can remove all existing tags of a contact by typing `dt/*`.
+* When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
-Examples:
-* `elist` followed by `eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` changes the name and tag of the 2nd event on the event list to `CS2103T Exam` and `Hard_exams` respectively.
-* `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the 2nd event from the results of the `efind` command to be `Betsy’s Wedding`
-* `eedit 4 dt/*` deletes all tags from the 4th event.
+**Examples:**
+* `elist` followed by `eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` 
+   first changes the name of the second event to `CS2103T Exam`, deletes the tag `Easy_exams` and
+   adds the tag `Hard_exams`.
+* `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the second event from the results of the `efind` command to be `Betsy’s Wedding`.
+* `eedit 4 dt/*` deletes all existing tags from the fourth event.
 
-### Locating persons by name : `efind`
 
-Finds events which contain any of the given keywords.
+### Finding Events: `efind`
 
-Format: `efind KEYWORD [MORE_KEYWORDS]`
+Finds all events with names that contain any of the given keywords.
 
-* **Case-insensitive**. e.g `exams` will match `Exams`
-* Order of the keywords does not matter. e.g. `Exam Hard` will match `Hard Exam`
-* Only the **name** is searched.
+**Format:** `efind KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g. `exams` will match `Exams`
+* The order of the keywords does not matter. e.g. `Exam Hard` will match `Hard Exam`
+* Only the name is searched.
 * Partial words can be matched e.g. `Exa` will match `CS2103T Exam` 
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`
+* Events matching at least one keyword will be returned (i.e. _`OR` search_). 
+  e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
 
-Examples:
+**Examples:**
 * `efind ex` returns `exams` and `Examinations`
 * `efind CS Exam` returns `CS2100 Exam`,  `CS2101` 
 
-### Deleting a person : `edelete`
 
-Deletes the specified event from the event list.
+### Viewing an event: `eview`
 
-Format: `edelete INDEX1[-INDEX2]`
+Views an event with all details fully shown.
 
-* Deletes the event at the specified `INDEX1` or between the specified range from `INDEX1` to `INDEX2` inclusive.
-* `INDEX` refers to the index number shown in the displayed event list.
-* `INDEX` **must be a positive integer**, eg 1, 2, 3, …​
+**Format:** `eview INDEX`
 
-Examples:
-* `elist` followed by `edelete 2` deletes the 2nd event from the event list.
-* `efind Exam` followed by `edelete 1` deletes the 1st event from the results of the `efind` command.
-* `edelete 3-5` deletes events with index between 3 and 5 inclusively from the event list.
+* Views the event at the specified `INDEX`.
+* `INDEX` refers to the index number shown in the displayed event list. `INDEX` **must be a positive integer** 1, 2, 3, …
+* All truncations of the details of the event you view will be expanded fully.
+
+**Examples:**
+* `eview 1` shows all details of the first event in SoConnect fully.
+* `efind exam` followed by `eview 4` shows all details of the fourth event from the result of the `cfind`.
+
+
+### Deleting an event: `edelete`
+
+Deletes the specified event from SoConnect.
+
+**Format:** `edelete INDEX1[-INDEX2]`
+
+* Deletes the event at the specified `INDEX1` or between the specified range from `INDEX1` to `INDEX2` inclusively.
+* `INDEX` refers to the index number shown in the displayed event list. `INDEX` **must be a positive integer** 1, 2, 3, …​
+
+**Examples:**
+* `elist` followed by `edelete 2` deletes the second event from SoConnect.
+* `efind Exam` followed by `edelete 1` deletes the first event from the results of the `efind` command.
+* `edelete 3-5` deletes events from index 3 to 5 from SoConnect.
 
 
 ### Sorting events: `esort`
 
 Sorts all events by start time and displays all upcoming or ongoing events.
 
+**Format:** `esort`
+
 
 ### Clearing all events: `eclear`
 
-Clears all entries of all events from the event list.
+Clears all entries of events from SoConnect.
 
-________________________________________________________________________________________________________________
+**Format:** `eclear`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+This will not change the contacts saved in SoConnect. 
+</div>
+
 
 
 ## General
 
-### Viewing calendar : `calendar`
+This section details all other the features and commands available in SoConnect that can enhance your SoConnect experience:
+* [Viewing calendar](#viewing-calendar-calendar)
+* [Undo a command](#undo-a-command-undo)
+* [Redo a command](#redo-a-command-redo)
+* [Viewing help](#viewing-help--help)
+* [Exiting SoConnect](#exiting-soconnect-exit)
 
-Shows a calendar of all the events. Alternatively, access using the top menu via `File -> Calendar` or press `F2`.
+### Viewing calendar: `calendar`
+
+Shows a calendar of all the events. 
+
+**Format:** `calendar`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Alternatively, you can view the calendar using the top menu via `File -> Calendar` or press `F2`.
+</div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-Any changes made in the calendar window will not be saved. Do not attempt to add new events using the calendar window. Doing so might result in a crash and your data may be lost.
+Any changes made in the calendar window will not be saved. 
+Do not attempt to add new events using the calendar window. 
+Doing so might result in a crash and your data may be lost.
 </div>
 
 ![calendar](images/Calendar.png)
 
-### Undo a command : `undo`
+
+### Undo a command: `undo`
 
 Restore SoConnect to its previous state from its history.
 
-Format: `undo`
+**Format:** `undo`
 
-Examples:
+**Examples:**
 * `edelete 1` followed by `undo` restores the deleted event in the event list.
 * `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
+
 
 ### Redo a command: `redo`
 
 Restores SoConnect to a previously undone state from its history.
 
-Format: `redo`
+**Format:** `redo`
 
-Examples:
+**Examples:**
 * `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
+
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
+
+**Format:** `help`
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
 
-### Exiting the program : `exit`
 
-Closes the program.
+### Exiting SoConnect: `exit`
 
-Format: `exit`
+Exits and Closes SoConnect.
+
+**Format:** `exit`
+
+--------------------------------------------------------------------------------------------------------------------
+
+## SoConnect Saved Data
 
 ### Saving the data
 
-SoConnect data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+SoConnect data is saved in the hard disk automatically after any command that changes the data. 
+There is no need to save manually.
 
 ### Editing the data file
 
-SoConnect data are saved as a JSON file `[JAR file location]/data/soconnect.json`. Advanced users are welcome to update data directly by editing that data file.
+SoConnect data are saved as a _JSON file_ `[JAR file location]/data/soconnect.json`. 
+Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, SoConnect will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, 
+SoConnect will discard all data and start with an empty data file at the next run.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## Others
+
+### FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SoConnect home folder.
 
+### How to start SoConnect using Command Prompt
+
+{to be added soon}
+
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command Summary
 
-### Managing Contacts
+**Contact Management**
 
 Action | Format, Examples
 --------|------------------
 **Add** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/James Ho p/22224444 e/hohohojames@u.nus.edu a/123, Clementi Rd, 1234665 t/Professor`
 **Clear** | `cclear`
-**Delete** | `cdelete INDEX1[-INDEX2]`<br> e.g., `cdelete 3` <br> e.g., `cdelete 1-5`
-**Edit** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.,`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g., `cedit 3 dt/*`
-**Find** | `cfind KEYWORD [MORE_KEYWORDS]`<br> e.g., `cfind James Jake`
-**List** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g., `clist` <br> e.g., `clist e/ p/`
+**Delete** | `cdelete INDEX1[-INDEX2]`<br> e.g. `cdelete 3` <br> e.g. `cdelete 1-5`
+**Edit** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g. `cedit 3 dt/*`
+**Find** | `cfind KEYWORD [MORE_KEYWORDS]`<br> e.g. `cfind James Jake`
+**List** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g. `clist` <br> e.g. `clist e/ p/`
+**View** | `cview INDEX`<br> e.g. `cview 3`
 
-### Managing Events
+**Event Management**
 
 Action | Format, Examples
 --------|------------------
@@ -374,18 +496,19 @@ Action | Format, Examples
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **Sort** | `esort`
+**View** | `eview INDEX`<br> e.g. `eview 1`
 
-________________________________________________________________________________________________________________
-
-### General
+**General**
 
 Action | Format, Examples
 --------|------------------
+**Calendar** | `calendar`
+**Exit** | `exit`
 **Undo** | `undo`
 **Redo** | `redo`
-**Calendar** | `calendar`
 **Help** | `help`
-**Exit** | `exit`
 
+________________________________________________________________________________________________________________
 
+##Glossary
 
