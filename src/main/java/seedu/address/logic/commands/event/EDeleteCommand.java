@@ -2,6 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -12,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 
 /**
  * Deletes an event identified using its displayed index from the SoConnect.
@@ -55,15 +57,17 @@ public class EDeleteCommand extends Command {
 
         String commandResult = "";
         int indexToDelete = startIndex.getZeroBased();
+        List<EventChanger> eventChangerList = new ArrayList<>();
         for (int i = indexToDelete; i <= end; i++) {
             Event eventToDelete = lastShownList.get(indexToDelete);
             model.deleteEvent(eventToDelete);
+            eventChangerList.add(EventChanger.deleteEventChanger(eventToDelete));
             commandResult += String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
             if (i != end) {
                 commandResult += "\n";
             }
         }
-        return new CommandResult(commandResult);
+        return new CommandResult(commandResult, eventChangerList);
     }
 
     @Override

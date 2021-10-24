@@ -22,6 +22,7 @@ import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.event.ESortCommand;
 import seedu.address.logic.commands.event.EViewCommand;
+import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.contact.CAddCommandParser;
@@ -115,6 +116,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case CalendarCommand.COMMAND_WORD:
+            return new CalendarCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

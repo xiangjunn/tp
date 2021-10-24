@@ -29,18 +29,21 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Stage primaryStage;
     private final Logic logic;
-
+    private final HelpWindow helpWindow;
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
-    private final HelpWindow helpWindow;
+    private CalendarWindow calendarWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem calendarItem;
 
     @FXML
     private StackPane contactListPanelPlaceholder;
@@ -78,6 +81,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(calendarItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -169,6 +173,21 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        if (calendarWindow != null) {
+            calendarWindow.close();
+        }
+    }
+
+    /**
+     * Shows the calendar panel to the user.
+     */
+    @FXML
+    private void handleCalendar() {
+        if (calendarWindow != null && calendarWindow.isShowing()) {
+            calendarWindow.close();
+        }
+        calendarWindow = new CalendarWindow(logic.getAddressBook().getEventList());
+        calendarWindow.show();
     }
 
     /**
@@ -190,6 +209,13 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isShowCalendar()) {
+                handleCalendar();
+            }
+
+            if (calendarWindow != null) {
+                calendarWindow.updateCalendar(commandResult.getEventChangerList());
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
