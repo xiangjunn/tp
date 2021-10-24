@@ -47,11 +47,11 @@ public class JsonAdaptedContactTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedContact person =
+        JsonAdaptedContact contact =
                 new JsonAdaptedContact(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                     VALID_TELEGRAM_HANDLE, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, contact::toModelType);
     }
 
     @Test

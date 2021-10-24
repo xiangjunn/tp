@@ -74,7 +74,7 @@ class JsonAdaptedEvent {
         description = source.getDescription() != null ? source.getDescription().value : null;
         address = source.getAddress() != null ? source.getAddress().value : null;
         zoomLink = source.getZoomLink() != null ? source.getZoomLink().link : null;
-        uuid = source.getUuid() != null ? source.getUuid().toString() : null;
+        uuid = source.getUuid().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

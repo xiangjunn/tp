@@ -73,7 +73,7 @@ class JsonAdaptedContact {
         address = source.getAddress() != null ? source.getAddress().value : null;
         telegramHandle = source.getTelegramHandle() != null ? source.getTelegramHandle().handle : null;
         zoomLink = source.getZoomLink() != null ? source.getZoomLink().link : null;
-        uuid = source.getUuid() != null ? source.getUuid().toString() : null;
+        uuid = source.getUuid().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
