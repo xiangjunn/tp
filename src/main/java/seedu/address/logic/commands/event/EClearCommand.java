@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
+import java.util.List;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.event.EventChanger;
 
 /**
  * Clears all events in SoConnect.
@@ -23,6 +26,6 @@ public class EClearCommand extends Command {
         model.resetEvents();
         model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, List.of(EventChanger.clearEventChanger()));
     }
 }

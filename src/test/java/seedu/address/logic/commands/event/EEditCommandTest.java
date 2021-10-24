@@ -15,18 +15,21 @@ import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.event.EEditCommand.EditEventDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
 
@@ -47,9 +50,11 @@ class EEditCommandTest {
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        EventChanger eventChanger = EventChanger.editEventChanger(model.getFilteredEventList().get(0), editedEvent);
         expectedModel.setEvent(model.getFilteredEventList().get(0), editedEvent);
 
-        assertCommandSuccess(eEditCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(eEditCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
+            expectedModel);
     }
 
     @Test
@@ -71,7 +76,10 @@ class EEditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEvent(lastEvent, editedEvent);
 
-        assertCommandSuccess(eEditCommand, model, expectedMessage, expectedModel);
+        EventChanger eventChanger = EventChanger.editEventChanger(lastEvent, editedEvent);
+
+        assertCommandSuccess(eEditCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
+            expectedModel);
     }
 
     @Test
@@ -83,7 +91,10 @@ class EEditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        assertCommandSuccess(eEditCommand, model, expectedMessage, expectedModel);
+        EventChanger eventChanger = EventChanger.editEventChanger(editedEvent, editedEvent);
+
+        assertCommandSuccess(eEditCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
+            expectedModel);
     }
 
     @Test
@@ -100,7 +111,10 @@ class EEditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEvent(model.getFilteredEventList().get(0), editedEvent);
 
-        assertCommandSuccess(eEditCommand, model, expectedMessage, expectedModel);
+        EventChanger eventChanger = EventChanger.editEventChanger(eventInFilteredList, editedEvent);
+
+        assertCommandSuccess(eEditCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
+            expectedModel);
     }
 
     @Test

@@ -27,6 +27,7 @@ import seedu.address.logic.commands.event.EEditCommand;
 import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.event.ESortCommand;
+import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -145,6 +146,12 @@ public class AddressBookParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_calendar() throws Exception {
+        assertTrue(parser.parseCommand(CalendarCommand.COMMAND_WORD) instanceof CalendarCommand);
+        assertTrue(parser.parseCommand(CalendarCommand.COMMAND_WORD + " 4") instanceof CalendarCommand);
     }
 
     @Test
