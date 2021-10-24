@@ -18,7 +18,7 @@ public class Tag {
 
     public final String tagName;
 
-    public final String tagColor;
+    public final String tagColour;
 
     /**
      * Constructs a {@code Tag}.
@@ -30,10 +30,10 @@ public class Tag {
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
         if (addedTagList.containsKey(tagName)) {
-            this.tagColor = addedTagList.get(tagName);
+            this.tagColour = addedTagList.get(tagName);
         } else {
-            this.tagColor = TagColors.getTagColour();
-            addedTagList.put(tagName, tagColor);
+            this.tagColour = Colours.getTagColour();
+            addedTagList.put(tagName, tagColour);
         }
     }
 

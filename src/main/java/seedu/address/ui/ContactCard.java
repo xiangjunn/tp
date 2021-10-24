@@ -83,7 +83,7 @@ public class ContactCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
                         Label label = new Label(tag.tagName);
-                        label.setStyle("-fx-background-color: " + tag.tagColor + ";");
+                        label.setStyle("-fx-background-color: " + tag.tagColour + ";");
                         tags.getChildren().add(label);
                     });
             tags.setManaged(true);
