@@ -33,7 +33,6 @@
       <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="telegramHandle" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
       <Label fx:id="zoom" managed="false" styleClass="cell_small_label" text="\$zoom" />
-      <FlowPane fx:id="tags" managed="false" />
       <HBox>
         <padding>
           <Insets top="5" />
@@ -46,6 +45,7 @@
         </Label>
         <FlowPane fx:id="links" managed="false" />
       </HBox>
+      <FlowPane fx:id="tags" managed="false" />
     </VBox>
   </GridPane>
 </HBox>
