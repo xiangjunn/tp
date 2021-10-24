@@ -286,6 +286,16 @@ ________________________________________________________________________________
 
 ## General
 
+### Viewing calendar : `calendar`
+
+Shows a calendar of all the events. Alternatively, access using the top menu via `File -> Calendar` or press `F2`.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Any changes made in the calendar window will not be saved. Do not attempt to add new events using the calendar window. Doing so might result in a crash and your data may be lost.
+</div>
+
+![calendar](images/Calendar.png)
+
 ### Undo a command : `undo`
 
 Restore SoConnect to its previous state from its history.
@@ -315,9 +325,9 @@ Format: `help`
 
 ### Exiting the program : `exit`
 
+Closes the program.
 
-**Exit** | `exit`
-
+Format: `exit`
 
 ### Saving the data
 
@@ -373,6 +383,7 @@ Action | Format, Examples
 --------|------------------
 **Undo** | `undo`
 **Redo** | `redo`
+**Calendar** | `calendar`
 **Help** | `help`
 **Exit** | `exit`
 
