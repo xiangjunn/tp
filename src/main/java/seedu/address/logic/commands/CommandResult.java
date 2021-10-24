@@ -2,7 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import seedu.address.model.event.EventChanger;
 
 /**
  * Represents the result of a command execution.
@@ -17,13 +21,22 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The calendar should be shown to the user. */
+    private final boolean showCalendar;
+
+    /** The list of all events to be changed. By default an empty list */
+    private final List<EventChanger> eventChangerList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showCalendar) {
+        assert numberOfTrueAtMost1(showHelp, exit, showCalendar) : "Invalid combination of boolean values.";
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showCalendar = showCalendar;
+        this.eventChangerList = new ArrayList<>();
     }
 
     /**
@@ -31,7 +44,19 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, List<EventChanger> eventChangerList) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.showCalendar = false;
+        this.eventChangerList = requireNonNull(eventChangerList);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +69,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowCalendar() {
+        return showCalendar;
+    }
+
+    public List<EventChanger> getEventChangerList() {
+        return eventChangerList;
     }
 
     @Override
@@ -60,7 +93,9 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showCalendar == otherCommandResult.showCalendar
+                && eventChangerList.equals(otherCommandResult.eventChangerList);
     }
 
     @Override
@@ -68,4 +103,9 @@ public class CommandResult {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
+    /** For assertion checking. */
+    private boolean numberOfTrueAtMost1(boolean first, boolean second, boolean third) {
+        // Calculated using k-map to obtain disjunctive normal form.
+        return (!first && !second) || (!first && !third) || (!second && !third);
+    }
 }
