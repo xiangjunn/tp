@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,9 +51,12 @@ public class CalendarWindow extends UiPart<Stage> {
     }
 
     private void updateCalendarView() {
+        // Adding calendar to the UI
         CalendarSource calendarSource = new CalendarSource();
         calendarSource.getCalendars().add(calendarOfEvents);
         calendarView.getCalendarSources().add(calendarSource);
+
+        // Setting calendar view options
         calendarView.setRequestedTime(LocalTime.now());
         calendarView.showWeekPage();
         calendarView.setShowAddCalendarButton(false);
@@ -62,13 +64,14 @@ public class CalendarWindow extends UiPart<Stage> {
         calendarView.setShowPrintButton(false);
         calendarView.setShowSearchField(false);
         calendarView.setShowSourceTrayButton(false);
-        calendarView.setEntryEditPolicy(param -> false);
         calendarView.setEntryContextMenuCallback(param -> null);
+        calendarView.setContextMenuCallback(param -> null);
         calendarUi.getChildren().add(calendarView);
     }
 
     /** Creates a calendar with all entries from {@code events}. */
     public void createCalendar(List<Event> events) {
+        calendarOfEvents.setReadOnly(true);
         events.forEach(this::createEntry);
     }
 
@@ -83,7 +86,7 @@ public class CalendarWindow extends UiPart<Stage> {
         DateAndTime end = event.getEndDateAndTime();
         if (end == null) {
             String newEndString = start.getDateTime().plusHours(1)
-                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                .format(DateAndTime.DATE_TIME_FORMATTER);
             end = new EndDateTime(newEndString);
         }
         Entry<Event> entry = new Entry<>();
@@ -185,7 +188,7 @@ public class CalendarWindow extends UiPart<Stage> {
                         calendarView.setTime(LocalTime.now());
                     });
                     try {
-                        // update every 10 seconds
+                        // update every 10 seconds (equivalent to 10000 milliseconds)
                         sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
