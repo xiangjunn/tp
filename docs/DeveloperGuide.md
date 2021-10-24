@@ -741,19 +741,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 
-**8. Use case: UC8 - Link a specific event to a specific contact**
+**8. Use case: UC8 - Link a specific event to multiple contacts**
 
 **Preconditions:** There is at least one event and one contact.
 
-**Guarantees:** The chosen event is linked to the chosen contact.
+**Guarantees:** The chosen event is linked to those chosen contacts.
 
 ***MSS***
 
-1. User decides on which event and contact to link.
+1. User decides on which event and contacts to link.
 
-2. User inputs the event and contact to link.
+2. User inputs the event and contacts to link.
 
-3. SAS links the chosen event to the chosen contact and notifies user that the event is successfully linked to the contact.
+3. SAS links the chosen event to every chosen contacts and notifies user that the event is successfully linked to those contacts.
 
    Use case ends.
 
@@ -769,8 +769,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case resumes from step 3.
 
-* *a. User chooses not to link event to contact.
+* *a. User chooses not to link event to contacts.
 
+  Use case ends.
 
 **9. Use case: UC9 - Undo a command**
 
