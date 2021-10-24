@@ -46,7 +46,7 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private ImageView emailIcon;
+    private ImageView phoneIcon;
 
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
@@ -63,8 +63,10 @@ public class ContactCard extends UiPart<Region> {
         }
         // Optional fields
         if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
-            phone.setText("phone: " + contact.getPhone().value);
+            phone.setText(contact.getPhone().value);
             phone.setManaged(true);
+            phoneIcon.setManaged(true);
+            phoneIcon.setVisible(true);
         }
         if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
             address.setText("address: " + contact.getAddress().value);

@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
 
+<?import javafx.scene.image.Image?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -29,7 +31,21 @@
       </HBox>
       <Label fx:id="email" managed="false" styleClass="cell_small_label" text="\$email" />
       <!-- Optional fields-->
-      <Label fx:id="phone" managed="false" styleClass="cell_small_label" text="\$phone" />
+      <HBox>
+        <ImageView fx:id="phoneIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                preserveRatio="true" managed="false" visible="false">
+
+           <Image url="@../images/phone.png" />
+        </ImageView>
+        <HBox>
+          <padding>
+            <Insets left="5" />
+          </padding>
+          <Label fx:id="phone" managed="false" styleClass="cell_small_label" text="\$phone" />
+        </HBox>
+
+      </HBox>
+
       <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="telegramHandle" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
       <Label fx:id="zoom" managed="false" styleClass="cell_small_label" text="\$zoom" />
