@@ -199,7 +199,7 @@ public class Event {
                 && otherEvent.getName().equals(getName());
     }
 
-    public void linkTo(Contact contact) { // haven't perform checks to determine if contact has already been linked
+    public void linkTo(Contact contact) {
         this.linkedContacts.add(contact.getUuid());
     }
 

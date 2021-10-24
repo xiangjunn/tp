@@ -3,6 +3,8 @@ package seedu.address.logic.parser.event;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -45,11 +47,11 @@ public class ELinkCommandParser implements Parser<ELinkCommand> {
         try {
             Index eventIndex = ParserUtil.parseIndex(index);
             String[] splitValue = argMultimap.getValue(PREFIX_CONTACT).get().split("\\s+");
-            Index[] arrayOfContactIndexes = new Index[splitValue.length];
-            for (int i = 0; i < arrayOfContactIndexes.length; i++) {
-                arrayOfContactIndexes[i] = ParserUtil.parseIndex(splitValue[i]);
+            Set<Index> contactIndexes = new HashSet<>();
+            for (int i = 0; i < splitValue.length; i++) {
+                contactIndexes.add(ParserUtil.parseIndex(splitValue[i]));
             }
-            return new ELinkCommand(eventIndex, arrayOfContactIndexes);
+            return new ELinkCommand(eventIndex, contactIndexes);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ELinkCommand.MESSAGE_USAGE), pe);

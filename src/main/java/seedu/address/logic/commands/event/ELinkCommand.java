@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -25,17 +26,18 @@ public class ELinkCommand extends Command {
         + "Parameters: "
         + PREFIX_LINK + "EVENT_INDEX "
         + PREFIX_CONTACT + "CONTACT_INDEX ";
-    public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact %s.";
+    public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact%s %s";
 
     private final Index eventIndex;
-    private final Index[] arrayOfContactIndexes;
+    private final Set<Index> contactIndexes;
 
     /**
      * Creates an ELinkCommand to link the specified {@code Event} to a {@code Contact}
      */
-    public ELinkCommand(Index eventIndex, Index[] arrayOfContactIndexes) {
+    public ELinkCommand(Index eventIndex, Set<Index> contactIndexes) {
+        assert !contactIndexes.isEmpty();
         this.eventIndex = eventIndex;
-        this.arrayOfContactIndexes = arrayOfContactIndexes;
+        this.contactIndexes = contactIndexes;
     }
 
     @Override
@@ -43,29 +45,27 @@ public class ELinkCommand extends Command {
         requireNonNull(model);
 
         List<Event> lastShownEventList = model.getFilteredEventList();
-
-        if (eventIndex.getZeroBased() >= lastShownEventList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        }
-
         List<Contact> lastShownContactList = model.getFilteredContactList();
-
-        for (Index contactIndex : arrayOfContactIndexes) {
-            if (contactIndex.getZeroBased() >= lastShownContactList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
-            }
-        }
+        checkCommandValidity(lastShownEventList, lastShownContactList);
 
         String commandResult = "";
         Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
-        for (int i = 0; i < arrayOfContactIndexes.length; i++) {
-            Index contactIndex = arrayOfContactIndexes[i];
+        int count = 0;
+        for (Index contactIndex : contactIndexes) {
             Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
             model.linkEventAndContact(eventToLink, contactToLink);
-            commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(), contactToLink.getName());
-            if (i != arrayOfContactIndexes.length - 1) {
-                commandResult += "\n";
+            if (count == 0) {
+                commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(),
+                        contactIndexes.size() > 1 ? "s" : "", contactToLink.getName());
+            } else {
+                commandResult += contactToLink.getName();
             }
+            if (count != contactIndexes.size() - 1) {
+                commandResult += ", ";
+            } else {
+                commandResult += ".";
+            }
+            count++;
         }
 
         model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
@@ -74,5 +74,17 @@ public class ELinkCommand extends Command {
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
         return new CommandResult(commandResult);
+    }
+
+    private void checkCommandValidity(List<Event> eventList, List<Contact> contactList) throws CommandException {
+        if (eventIndex.getZeroBased() >= eventList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        for (Index contactIndex : contactIndexes) {
+            if (contactIndex.getZeroBased() >= contactList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            }
+        }
     }
 }
