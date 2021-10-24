@@ -28,14 +28,14 @@ public class ELinkCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact %s.";
 
     private final Index eventIndex;
-    private final Index contactIndex;
+    private final Index[] arrayOfContactIndexes;
 
     /**
      * Creates an ELinkCommand to link the specified {@code Event} to a {@code Contact}
      */
-    public ELinkCommand(Index eventIndex, Index contactIndex) {
+    public ELinkCommand(Index eventIndex, Index[] arrayOfContactIndexes) {
         this.eventIndex = eventIndex;
-        this.contactIndex = contactIndex;
+        this.arrayOfContactIndexes = arrayOfContactIndexes;
     }
 
     @Override
@@ -50,20 +50,29 @@ public class ELinkCommand extends Command {
 
         List<Contact> lastShownContactList = model.getFilteredContactList();
 
-        if (contactIndex.getZeroBased() >= lastShownContactList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        for (Index contactIndex : arrayOfContactIndexes) {
+            if (contactIndex.getZeroBased() >= lastShownContactList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            }
         }
 
-
+        String commandResult = "";
         Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
-        Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
-        model.linkEventAndContact(eventToLink, contactToLink);
+        for (int i = 0; i < arrayOfContactIndexes.length; i++) {
+            Index contactIndex = arrayOfContactIndexes[i];
+            Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
+            model.linkEventAndContact(eventToLink, contactToLink);
+            commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(), contactToLink.getName());
+            if (i != arrayOfContactIndexes.length - 1) {
+                commandResult += "\n";
+            }
+        }
 
         model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToLink.getName(), contactToLink.getName()));
+        return new CommandResult(commandResult);
     }
 }

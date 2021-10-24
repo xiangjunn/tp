@@ -2,8 +2,9 @@ package seedu.address.logic.parser.event;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -20,23 +21,35 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ELinkCommandParser implements Parser<ELinkCommand> {
 
+    private static final Pattern ELINK_COMMAND_FORMAT = Pattern.compile("(?<index>\\S+)(?<remainingArgs>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the ELinkCommand
      * and returns an ELinkCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ELinkCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LINK, PREFIX_CONTACT);
+        final Matcher matcher = ELINK_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ELinkCommand.MESSAGE_USAGE));
+        }
+        final String index = matcher.group("index");
+        final String remainingArgs = matcher.group("remainingArgs");
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_LINK, PREFIX_CONTACT) || !argMultimap.getPreamble().isEmpty()) {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(remainingArgs, PREFIX_CONTACT);
+        if (!matcher.matches() || !arePrefixesPresent(argMultimap, PREFIX_CONTACT)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ELinkCommand.MESSAGE_USAGE));
         }
 
         try {
-            Index eventIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_LINK).get());
-            Index contactIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CONTACT).get());
-            return new ELinkCommand(eventIndex, contactIndex);
+            Index eventIndex = ParserUtil.parseIndex(index);
+            String[] splitValue = argMultimap.getValue(PREFIX_CONTACT).get().split("\\s+");
+            Index[] arrayOfContactIndexes = new Index[splitValue.length];
+            for (int i = 0; i < arrayOfContactIndexes.length; i++) {
+                arrayOfContactIndexes[i] = ParserUtil.parseIndex(splitValue[i]);
+            }
+            return new ELinkCommand(eventIndex, arrayOfContactIndexes);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ELinkCommand.MESSAGE_USAGE), pe);
