@@ -30,6 +30,7 @@ import seedu.address.model.common.ZoomLink;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 import seedu.address.model.event.StartDateTime;
 import seedu.address.model.tag.Tag;
 
@@ -84,9 +85,9 @@ public class EEditCommand extends Command {
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
         StartDateTime updatedStartDateTime = editEventDescriptor.getStartDateTime()
-                .orElse((StartDateTime) eventToEdit.getStartDateAndTime());
+                .orElse(eventToEdit.getStartDateAndTime());
         EndDateTime updatedEndDateTime = editEventDescriptor.getEndDateTime()
-                .orElse((EndDateTime) eventToEdit.getEndDateAndTime());
+                .orElse(eventToEdit.getEndDateAndTime());
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
         Address updatedAddress = editEventDescriptor.getAddress().orElse(eventToEdit.getAddress());
         ZoomLink updatedZoomLink = editEventDescriptor.getZoomLink().orElse(eventToEdit.getZoomLink());
@@ -128,7 +129,8 @@ public class EEditCommand extends Command {
 
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
+        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent),
+            List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
     }
 
     @Override

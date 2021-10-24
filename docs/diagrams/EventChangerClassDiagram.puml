@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+show members
+hide empty members
+
+class EventChanger {
+    {field} - isClear:boolean
+    {static} + addEventChanger(Event)
+    {static} + deleteEventChanger(Event)
+    {static} + editEventChanger(Event, Event)
+    {static} + clearEventChanger()
+}
+
+EventChanger -> "0..2" Event
+
+class CalendarWindow UI_COLOR
+CalendarWindow -right[dashed]-> EventChanger
+
+abstract class "{abstract}\nCommand" as Command LOGIC_COLOR
+class EDeleteCommand LOGIC_COLOR
+class EAddCommand LOGIC_COLOR
+class EEditCommand LOGIC_COLOR
+class EClearCommand LOGIC_COLOR
+
+EDeleteCommand --down[LOGIC_COLOR]|> Command
+EAddCommand --down[LOGIC_COLOR]|> Command
+EEditCommand --down[LOGIC_COLOR]|> Command
+EClearCommand --down[LOGIC_COLOR]|> Command
+EventChanger <-[LOGIC_COLOR,dashed]- EDeleteCommand
+EventChanger <-[LOGIC_COLOR,dashed]- EClearCommand
+EventChanger <-[LOGIC_COLOR,dashed]- EEditCommand
+EventChanger <-[LOGIC_COLOR,dashed]- EAddCommand
+
+
+@enduml

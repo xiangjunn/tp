@@ -9,11 +9,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
+import java.util.List;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 
 /**
  * Adds a event to the address book.
@@ -62,7 +65,7 @@ public class EAddCommand extends Command {
         }
 
         model.addEvent(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), List.of(EventChanger.addEventChanger(toAdd)));
     }
 
     @Override

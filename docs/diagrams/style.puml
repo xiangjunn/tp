@@ -41,6 +41,8 @@ skinparam Class {
     FontColor #FFFFFF
     BorderThickness 1
     BorderColor #FFFFFF
+    AttributeFontColor #FFFFFF
+    AttributeIconSize 0
     StereotypeFontColor #FFFFFF
     FontName Arial
 }

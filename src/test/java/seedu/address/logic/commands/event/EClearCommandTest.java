@@ -3,21 +3,27 @@ package seedu.address.logic.commands.event;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.EventChanger;
 
 public class EClearCommandTest {
+    private final CommandResult commandResult = new CommandResult(EClearCommand.MESSAGE_SUCCESS,
+        List.of(EventChanger.clearEventChanger()));
 
     @Test
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new EClearCommand(), model, EClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new EClearCommand(), model, commandResult, expectedModel);
     }
 
     @Test
@@ -26,7 +32,7 @@ public class EClearCommandTest {
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
-        assertCommandSuccess(new EClearCommand(), model, EClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new EClearCommand(), model, commandResult, expectedModel);
     }
 
 }
