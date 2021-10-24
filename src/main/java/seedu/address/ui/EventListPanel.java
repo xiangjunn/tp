@@ -35,7 +35,7 @@ public class EventListPanel extends UiPart<Region> {
     class EventListViewCell extends ListCell<Event> {
         private MainWindow mainWindow;
 
-        EventListViewCell (MainWindow mainWindow) {
+        public EventListViewCell (MainWindow mainWindow) {
             this.mainWindow = mainWindow;
         }
 

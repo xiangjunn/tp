@@ -198,7 +198,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleClick(String message) {
         resultDisplay.setFeedbackToUser(message);
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
     }
 
     /**

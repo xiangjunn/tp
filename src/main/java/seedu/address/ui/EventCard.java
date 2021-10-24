@@ -5,13 +5,15 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Comparator;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.event.Event;
 
@@ -22,7 +24,7 @@ public class EventCard extends UiPart<Region> {
 
     private static final String FXML = "EventListCard.fxml";
 
-    private static Logger logger = Logger.getLogger("Event Card");
+    private static Logger logger = LogsCenter.getLogger(EventCard.class);
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -50,6 +52,9 @@ public class EventCard extends UiPart<Region> {
 
     @FXML
     private Label address;
+
+    @FXML
+    private Label zoomLinkTitle;
 
     @FXML
     private Label zoomLink;
@@ -86,7 +91,9 @@ public class EventCard extends UiPart<Region> {
             address.setManaged(true);
         }
         if (event.getZoomLink() != null && Event.isWillDisplayZoomLink()) {
-            zoomLink.setText("link: " + event.getZoomLink().link);
+            zoomLinkTitle.setText("link: ");
+            zoomLinkTitle.setManaged(true);
+            zoomLink.setText(event.getZoomLink().link);
             zoomLink.setManaged(true);
         }
         if (event.getDescription() != null && Event.isWillDisplayDescription()) {
@@ -121,16 +128,76 @@ public class EventCard extends UiPart<Region> {
     }
 
     /**
-     * Open zoom link in browser.
+     * Copies event fields to the clipboard.
+     */
+    private void copy(String fieldContent, String fieldName) {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(fieldContent);
+        clipboard.setContent(content);
+        mainWindow.handleClick(String.format(Messages.MESSAGE_EVENT_FIELD_COPIED, fieldName));
+        logger.info(String.format(Messages.MESSAGE_EVENT_FIELD_COPIED, fieldName));
+    }
+
+    /**
+     * Copies event name to the clipboard.
+     */
+    @FXML
+    private void copyName() {
+        copy(event.getName().fullName, "name");
+    }
+
+    /**
+     * Copies event start date time to the clipboard.
+     */
+    @FXML
+    private void copyStartDateTime() {
+        copy(event.getStartDateAndTime().toString(), "start date time");
+    }
+
+    /**
+     * Copies contact end date time to the clipboard.
+     */
+    @FXML
+    private void copyEndDateTime() {
+        copy(event.getEndDateAndTime().toString(), "end date time");
+    }
+
+    /**
+     * Copies event description to the clipboard.
+     */
+    @FXML
+    private void copyDescription() {
+        copy(event.getDescription().value, "description");
+    }
+
+    /**
+     * Copies event address to the clipboard.
+     */
+    @FXML
+    private void copyAddress() {
+        copy(event.getAddress().value, "address");
+    }
+
+    /**
+     * Open event links in browser.
+     */
+    private void openLink(String link, String fieldName) {
+        try {
+            Desktop.getDesktop().browse(new URI(link));
+            logger.info(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+            mainWindow.handleClick(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+        } catch (URISyntaxException | IOException e) {
+            logger.info(String.format(Messages.MESSAGE_EVENT_LINK_NOT_FOUND, fieldName));
+            mainWindow.handleClick(String.format(Messages.MESSAGE_EVENT_LINK_NOT_FOUND, fieldName));
+        }
+    }
+
+    /**
+     * Open event zoom link in browser.
      */
     @FXML
     private void openZoomLink() {
-        try {
-            Desktop.getDesktop().browse(new URI(event.getZoomLink().link));
-            mainWindow.handleClick(Messages.MESSAGE_LINK_OPENED);
-        } catch (URISyntaxException | IOException e) {
-            logger.log(Level.WARNING, Messages.MESSAGE_LINK_NOT_FOUND);
-            mainWindow.handleClick(Messages.MESSAGE_LINK_NOT_FOUND);
-        }
+        openLink(event.getZoomLink().link, "zoom");
     }
 }

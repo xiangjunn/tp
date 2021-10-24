@@ -1,11 +1,12 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Comparator;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.contact.Contact;
 
@@ -26,7 +28,7 @@ public class ContactCard extends UiPart<Region> {
 
     private static final String FXML = "ContactListCard.fxml";
 
-    private static Logger logger = Logger.getLogger("ContactCard");
+    private static Logger logger = LogsCenter.getLogger(ContactCard.class);
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -42,22 +44,35 @@ public class ContactCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+
     @FXML
     private Label name;
+
     @FXML
     private Label id;
+
     @FXML
     private Label phone;
+
     @FXML
     private Label address;
+
     @FXML
     private Label email;
+
+    @FXML
+    private Label telegramHandleTitle;
     @FXML
     private Label telegramHandle;
+
     @FXML
-    private Label zoom;
+    private Label zoomLinkTitle;
+    @FXML
+    private Label zoomLink;
+
     @FXML
     private FlowPane tags;
+
     @FXML
     private ImageView emailIcon;
 
@@ -66,6 +81,7 @@ public class ContactCard extends UiPart<Region> {
      */
     public ContactCard(Contact contact, int displayedIndex, MainWindow mainWindow) {
         super(FXML);
+        requireAllNonNull(contact, displayedIndex, mainWindow);
         this.mainWindow = mainWindow;
         this.contact = contact;
         id.setText(displayedIndex + ". ");
@@ -85,12 +101,16 @@ public class ContactCard extends UiPart<Region> {
             address.setManaged(true);
         }
         if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
-            telegramHandle.setText("telegram handle: " + contact.getTelegramHandle().handle);
+            telegramHandleTitle.setText("telegram handle: ");
+            telegramHandleTitle.setManaged(true);
+            telegramHandle.setText(contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
         }
         if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
-            zoom.setText("zoom: " + contact.getZoomLink().link);
-            zoom.setManaged(true);
+            zoomLinkTitle.setText("zoom: ");
+            zoomLinkTitle.setManaged(true);
+            zoomLink.setText(contact.getZoomLink().link);
+            zoomLink.setManaged(true);
         }
         if (Contact.isWillDisplayTags()) {
             contact.getTags().stream()
@@ -119,30 +139,69 @@ public class ContactCard extends UiPart<Region> {
     }
 
     /**
-     * Copies the email to the clipboard.
+     * Copies contact fields to the clipboard.
      */
-    @FXML
-    private void copyEmail() {
-        logger.log(Level.INFO, Messages.MESSAGE_FIELD_COPIED);
+    private void copy(String fieldContent, String fieldName) {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(contact.getEmail().value);
-        clipboard.setContent(url);
-        mainWindow.handleClick(Messages.MESSAGE_FIELD_COPIED);
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(fieldContent);
+        clipboard.setContent(content);
+        mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_FIELD_COPIED, fieldName));
+        logger.info(String.format(Messages.MESSAGE_CONTACT_FIELD_COPIED, fieldName));
     }
 
     /**
-     * Open zoom link in browser.
+     * Copies contact name to the clipboard.
+     */
+    @FXML
+    private void copyName() {
+        copy(contact.getName().fullName, "name");
+    }
+
+    /**
+     * Copies contact email to the clipboard.
+     */
+    @FXML
+    private void copyEmail() {
+        copy(contact.getEmail().value, "email");
+    }
+
+    /**
+     * Copies contact phone number to the clipboard.
+     */
+    @FXML
+    private void copyPhone() {
+        copy(contact.getPhone().value, "phone");
+    }
+
+    /**
+     * Copies contact address to the clipboard.
+     */
+    @FXML
+    private void copyAddress() {
+        copy(contact.getAddress().value, "address");
+    }
+
+    /**
+     * Open contact links in browser
+     */
+    private void openLink(String link, String fieldName) {
+        try {
+            Desktop.getDesktop().browse(new URI(link));
+            logger.info(String.format(Messages.MESSAGE_CONTACT_LINK_OPENED, fieldName));
+            mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_LINK_OPENED, fieldName));
+        } catch (URISyntaxException | IOException e) {
+            logger.info(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
+            mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
+        }
+    }
+
+    /**
+     * Open contact zoom link in browser.
      */
     @FXML
     private void openZoomLink() {
-        try {
-            Desktop.getDesktop().browse(new URI(contact.getZoomLink().link));
-            mainWindow.handleClick(Messages.MESSAGE_LINK_OPENED);
-        } catch (URISyntaxException | IOException e) {
-            logger.log(Level.WARNING, Messages.MESSAGE_LINK_NOT_FOUND);
-            mainWindow.handleClick(Messages.MESSAGE_LINK_NOT_FOUND);
-        }
+        openLink(contact.getZoomLink().link, "zoom");
     }
 
     /**
@@ -150,12 +209,6 @@ public class ContactCard extends UiPart<Region> {
      */
     @FXML
     private void openTelegramHandle() {
-        try {
-            Desktop.getDesktop().browse(new URI(contact.getTelegramHandle().link));
-            mainWindow.handleClick(Messages.MESSAGE_LINK_OPENED);
-        } catch (URISyntaxException | IOException e) {
-            logger.log(Level.WARNING, Messages.MESSAGE_LINK_NOT_FOUND);
-            mainWindow.handleClick(Messages.MESSAGE_LINK_NOT_FOUND);
-        }
+        openLink(contact.getTelegramHandle().link, "telegram");
     }
 }

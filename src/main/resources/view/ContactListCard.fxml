@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -25,14 +25,20 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label" text="\$first" />
       </HBox>
       <Label fx:id="email" managed="false" onMouseClicked="#copyEmail" styleClass="cell_small_label" text="\$email" />
       <!-- Optional fields-->
-      <Label fx:id="phone" managed="false" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" styleClass="cell_small_label" text="\$telegramHandle" />
-      <Label fx:id="zoom" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label" text="\$zoom" />
+      <Label fx:id="phone" managed="false" onMouseClicked="#copyPhone" styleClass="cell_small_label" text="\$phone" />
+      <Label fx:id="address" managed="false" onMouseClicked="#copyAddress" styleClass="cell_small_label" text="\$address" />
+      <HBox>
+        <Label fx:id="telegramHandleTitle" managed="false" styleClass="cell_small_label" text="\$telegramTitle" />
+        <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" style="-fx-text-fill: #1fc2de;" styleClass="cell_small_label" text="\$telegramHandle" underline="true" />
+      </HBox>
+      <HBox>
+        <Label fx:id="zoomLinkTitle" managed="false" styleClass="cell_small_label" text="\$zoomLinkTitle" />
+        <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" style="-fx-text-fill: #1fc2de;" styleClass="cell_small_label" text="\$zoom" underline="true" />
+      </HBox>
       <FlowPane fx:id="tags" managed="false" />
     </VBox>
   </GridPane>
