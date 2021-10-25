@@ -333,7 +333,9 @@ Edits an existing event in SoConnect.
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
+
 * Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+
 </div>
 
 **Examples:**
