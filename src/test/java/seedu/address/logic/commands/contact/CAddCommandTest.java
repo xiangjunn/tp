@@ -201,7 +201,12 @@ public class CAddCommandTest {
         @Override
         public void linkEventAndContact(Event event, Contact contact) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
+
+        @Override
+        public void unlinkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void rerenderContactCards() {

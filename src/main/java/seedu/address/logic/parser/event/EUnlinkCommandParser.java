@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.event.ELinkCommand;
+import seedu.address.logic.commands.event.EUnlinkCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -20,21 +20,21 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new ELinkCommand object
+ * Parses input arguments and creates a new EUnlinkCommand object
  */
-public class ELinkCommandParser implements Parser<ELinkCommand> {
+public class EUnlinkCommandParser implements Parser<EUnlinkCommand> {
 
-    private static final Pattern ELINK_COMMAND_FORMAT = Pattern.compile("(?<index>\\S+)(?<remainingArgs>.*)");
+    private static final Pattern EUNLINK_COMMAND_FORMAT = Pattern.compile("(?<index>\\S+)(?<remainingArgs>.*)");
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ELinkCommand
-     * and returns an ELinkCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EUnlinkCommand
+     * and returns an EUnlinkCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ELinkCommand parse(String args) throws ParseException {
-        final Matcher matcher = ELINK_COMMAND_FORMAT.matcher(args.trim());
+    public EUnlinkCommand parse(String args) throws ParseException {
+        final Matcher matcher = EUNLINK_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ELinkCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EUnlinkCommand.MESSAGE_USAGE));
         }
         final String index = matcher.group("index");
         final String remainingArgs = matcher.group("remainingArgs");
@@ -42,7 +42,7 @@ public class ELinkCommandParser implements Parser<ELinkCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(remainingArgs, PREFIX_CONTACT);
         if (!matcher.matches() || !arePrefixesPresent(argMultimap, PREFIX_CONTACT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ELinkCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EUnlinkCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -52,10 +52,10 @@ public class ELinkCommandParser implements Parser<ELinkCommand> {
             for (String value : listOfValues) {
                 contactIndexes.add(ParserUtil.parseIndex(value));
             }
-            return new ELinkCommand(eventIndex, contactIndexes);
+            return new EUnlinkCommand(eventIndex, contactIndexes);
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ELinkCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EUnlinkCommand.MESSAGE_USAGE), pe);
         }
     }
 

@@ -230,6 +230,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void unlinkEventAndContact(Event event, Contact contact) {
+        event.unlink(contact);
+        contact.unlink(event);
+    }
+
+    @Override
     public void rerenderContactCards() {
         updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
         updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);

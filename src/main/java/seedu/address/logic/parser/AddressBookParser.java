@@ -21,6 +21,7 @@ import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.event.ESortCommand;
+import seedu.address.logic.commands.event.EUnlinkCommand;
 import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -35,6 +36,7 @@ import seedu.address.logic.parser.event.EEditCommandParser;
 import seedu.address.logic.parser.event.EFindCommandParser;
 import seedu.address.logic.parser.event.ELinkCommandParser;
 import seedu.address.logic.parser.event.EListCommandParser;
+import seedu.address.logic.parser.event.EUnlinkCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -102,6 +104,9 @@ public class AddressBookParser {
 
         case ELinkCommand.COMMAND_WORD:
             return new ELinkCommandParser().parse(arguments);
+
+        case EUnlinkCommand.COMMAND_WORD:
+            return new EUnlinkCommandParser().parse(arguments);
 
         case ESortCommand.COMMAND_WORD:
             return new ESortCommand();

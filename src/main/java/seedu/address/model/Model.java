@@ -144,6 +144,13 @@ public interface Model {
     void linkEventAndContact(Event event, Contact contact);
 
     /**
+     * Unlinks an event to a contact. Both references between the contact and the event will be removed.
+     * @param event The event to unlink from contact.
+     * @param contact The contact to unlink from event.
+     */
+    void unlinkEventAndContact(Event event, Contact contact);
+
+    /**
      * Sorts the filtered event list to show all upcoming events. This will change the order of the filtered list
      * and remove any events which have concluded.
      */
