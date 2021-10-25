@@ -279,7 +279,7 @@ Sorts all events by start time and displays all upcoming or ongoing events.
 
 ### Linking event to multiple contacts: `elink`
 
-Links the specified event to multiple contact.
+Links the specified event to multiple contacts.
 
 Format: `elink EVENT_INDEX c/CONTACT_INDEX [CONTACT_INDEX]...`
 
@@ -289,8 +289,8 @@ Format: `elink EVENT_INDEX c/CONTACT_INDEX [CONTACT_INDEX]...`
 * `EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**, eg 1, 2, 3, …​
 
 Examples:
-`elink 1 c/1` links the first event from the displayed event list to the first contact from the displayed contact list.
-`elink 2 c/1 2 3` links the second event from the displayed event list to the first, second and third contacts from the displayed contact list.
+* `elink 1 c/1` links the first event from the displayed event list to the first contact from the displayed contact list.
+* `elink 2 c/1 2 3` links the second event from the displayed event list to the first, second and third contacts from the displayed contact list.
 
 
 ### Clearing all events: `eclear`
@@ -388,9 +388,9 @@ Action | Format, Examples
 **Delete** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
+**Link** | `elink EVENT_INDEX c/CONTACT_INDEX [CONTACT_INDEX]...`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **Sort** | `esort`
-**Link** | `elink EVENT_INDEX c/CONTACT_INDEX [CONTACT_INDEX]...`
 
 ________________________________________________________________________________________________________________
 
