@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
-
+    // stores references to all events, accessible by their unique UUIDs
     private static HashMap<UUID, Event> map = new HashMap<>();
     private static boolean willDisplayStartDateTime = true;
     private static boolean willDisplayEndDateTime = true;
@@ -116,6 +116,10 @@ public class Event {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Returns a unmodifiable set of UUIDs, each uniquely represents an contact, that are linked to the event object
+     * that calls this method.
+     */
     public Set<UUID> getLinkedContacts() {
         return Collections.unmodifiableSet(linkedContacts);
     }
@@ -199,22 +203,45 @@ public class Event {
                 && otherEvent.getName().equals(getName());
     }
 
+    /**
+     * Links the contact to the event object that calls this method.
+     * @param contact The event to be linked with.
+     */
     public void linkTo(Contact contact) {
         this.linkedContacts.add(contact.getUuid());
     }
 
+    /**
+     * Adds the event to the hashmap that stores references to all events.
+     * If the hashmap already contains the UUID of the event as key, the value associated to the
+     * key will be replaced to the event passed as parameter to this method.
+     * @param event The event to be added.
+     */
     public static void addToMap(Event event) {
         map.put(event.getUuid(), event);
     }
 
+    /**
+     * Returns an event with the unique UUID that is passed in to the method.
+     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
+     * @param uuid The unique identifier for an event in the hashmap.
+     */
     public static Event findByUuid(UUID uuid) {
+        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
         return map.get(uuid);
     }
 
+    /**
+     * Removes the link between the contact and the event object that calls this method.
+     * @param contact The contact to be unlinked.
+     */
     public void unlink(Contact contact) {
         this.linkedContacts.remove(contact.getUuid());
     }
 
+    /**
+     * Removes all links to the contact object that calls this method.
+     */
     public void clearAllLinks() {
         this.linkedContacts.clear();
     }

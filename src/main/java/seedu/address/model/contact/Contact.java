@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Contact {
-
+    // stores references to all contacts, accessible by their unique UUIDs
     private static HashMap<UUID, Contact> map = new HashMap<>();
     private static boolean willDisplayPhone = true;
     private static boolean willDisplayEmail = true;
@@ -116,6 +116,10 @@ public class Contact {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Returns a unmodifiable set of UUIDs, each uniquely represents an event, that are linked to the contact object
+     * that calls this method.
+     */
     public Set<UUID> getLinkedEvents() {
         return Collections.unmodifiableSet(linkedEvents);
     }
@@ -199,22 +203,45 @@ public class Contact {
                 && otherContact.getName().equals(getName());
     }
 
-    public void linkTo(Event event) { // haven't perform checks to determine if event has already been linked
+    /**
+     * Links the event to the contact object that calls this method.
+     * @param event The event to be linked with.
+     */
+    public void linkTo(Event event) {
         this.linkedEvents.add(event.getUuid());
     }
 
+    /**
+     * Adds the contact to the hashmap that stores references to all contacts.
+     * If the hashmap already contains the UUID of the contact as key, the value associated to the
+     * key will be replaced to the contact passed as parameter to this method.
+     * @param contact The contact to be added.
+     */
     public static void addToMap(Contact contact) {
         map.put(contact.getUuid(), contact);
     }
 
+    /**
+     * Returns a contact with the unique UUID that is passed in to the method.
+     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
+     * @param uuid The unique identifier for a contact in the hashmap.
+     */
     public static Contact findByUuid(UUID uuid) {
+        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
         return map.get(uuid);
     }
 
+    /**
+     * Removes the link between the event and the contact object that calls this method.
+     * @param event The event to be unlinked.
+     */
     public void unlink(Event event) {
         this.linkedEvents.remove(event.getUuid());
     }
 
+    /**
+     * Removes all links to the contact object that calls this method.
+     */
     public void clearAllLinks() {
         this.linkedEvents.clear();
     }
