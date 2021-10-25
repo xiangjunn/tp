@@ -13,10 +13,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("elink 1 c/1 2 3")
+[-> LogicManager : execute("elink 1 c/1 c/2 c/3")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("elink 1 c/1 2 3")
+LogicManager -> AddressBookParser : parseCommand("elink 1 c/1 c/2 c/3")
 activate AddressBookParser
 
 create ELinkCommandParser
@@ -26,7 +26,7 @@ activate ELinkCommandParser
 ELinkCommandParser --> AddressBookParser
 deactivate ELinkCommandParser
 
-AddressBookParser -> ELinkCommandParser : parse("elink 1 c/1 2 3")
+AddressBookParser -> ELinkCommandParser : parse("elink 1 c/1 c/2 c/3")
 activate ELinkCommandParser
 
 create ELinkCommand
