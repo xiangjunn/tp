@@ -29,10 +29,23 @@
       </HBox>
       <Label fx:id="email" wrapText="false" managed="false" styleClass="cell_small_label" text="\$email" />
       <!-- Optional fields-->
+
       <Label fx:id="phone" wrapText="false" managed="false" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" wrapText="false" managed="false" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="telegramHandle" wrapText="false" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
-      <Label fx:id="zoom" wrapText="false" managed="false" styleClass="cell_small_label" text="\$zoom" />
+      <Label fx:id="zoom" wrapText="false"managed="false" styleClass="cell_small_label" text="\$zoom" />
+      <HBox>
+        <padding>
+          <Insets top="5" />
+        </padding>
+        <Label fx:id="linksLabel" styleClass="cell_small_label" text="Linked events: " managed="false" >
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
+        </Label>
+        <FlowPane fx:id="links" managed="false" />
+      </HBox>
       <FlowPane fx:id="tags" managed="false" />
     </VBox>
   </GridPane>
