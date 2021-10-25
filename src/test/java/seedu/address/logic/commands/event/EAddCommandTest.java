@@ -204,6 +204,26 @@ class EAddCommandTest {
         public void sortUpcomingFilteredEventList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void linkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderContactCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderEventCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderAllCards() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
