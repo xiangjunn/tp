@@ -330,12 +330,10 @@ Edits an existing event in SoConnect.
 * You can remove all existing tags of a contact by typing `dt/*`.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+<div markdown="block" class="alert alert-info">:information_source: **Note:** 
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
-
 * Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
-
 </div>
 
 **Examples:**
