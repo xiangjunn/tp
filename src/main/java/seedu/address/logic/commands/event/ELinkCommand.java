@@ -90,4 +90,12 @@ public class ELinkCommand extends Command {
         }
         return new CommandResult(commandResult);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ELinkCommand // instanceof handles nulls
+            && eventIndex.equals(((ELinkCommand) other).eventIndex)
+            && contactIndexes.equals(((ELinkCommand) other).contactIndexes)); // state check
+    }
 }
