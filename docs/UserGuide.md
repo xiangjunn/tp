@@ -12,7 +12,8 @@ This User Guide will help you to familiarise yourself with your SoConnect quickl
 full range of features it offers.
 
 
-* Table of Contents{:toc}
+* Table of Contents
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
