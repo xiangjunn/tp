@@ -393,6 +393,11 @@ Sorts all events by start time and displays all upcoming or ongoing events.
 
 **Format:** `esort`
 
+<div markdown="span" class="alert alert-info">:information_source:**Note:**
+
+Events that have ended will not be shown after you execute `esort`
+</div>
+
 
 ### Viewing an event: `eview`
 
@@ -420,8 +425,8 @@ This section details all other the features and commands available in SoConnect 
 * [Calendar Window](#calendar-window-calendar)
 * [Exiting SoConnect](#exiting-soconnect-exit)
 * [Help Window](#help-window-help)
-* [Redo a command](#redo-a-command-redo)
-* [Undo a command](#undo-a-command-undo)
+* [Redo a command](#redo-a-command-redo) {Coming Soon}
+* [Undo a command](#undo-a-command-undo) {Coming Soon}
 
 ### Calendar Window: `calendar`
 
@@ -461,6 +466,8 @@ Shows a message explaining how to access the help page.
 
 ### Redo a command: `redo`
 
+{Coming Soon}
+
 Restores SoConnect to a previously undone state from its history.
 
 **Format:** `redo`
@@ -470,6 +477,8 @@ Restores SoConnect to a previously undone state from its history.
 
 
 ### Undo a command: `undo`
+
+{Coming Soon}
 
 Restore SoConnect to its previous state from its history.
 
@@ -512,6 +521,13 @@ SoConnect will discard all data and start with an empty data file at the next ru
 
 {to be added soon}
 
+### Upcoming Features
+
+Here are some of the features that are currently under progress. You will soon be able to:
+* Find contacts and events by specific fields
+* Link events and contacts together
+* 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
@@ -548,8 +564,8 @@ Action | Format, Examples
 **[Calendar](#calendar-window-calendar)** | `calendar`
 **[Exit](#exiting-soconnect-exit)** | `exit`
 **[Help](#help-window-help)** | `help`
-**[Redo](#redo-a-command-redo)** | `redo`
-**[Undo](#undo-a-command-undo)** | `undo`
+**[Redo](#redo-a-command-redo)** {Coming Soon} | `redo`
+**[Undo](#undo-a-command-undo)** {Coming Soon} | `undo`
 
 ________________________________________________________________________________________________________________
 
