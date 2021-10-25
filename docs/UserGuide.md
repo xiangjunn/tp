@@ -23,7 +23,7 @@ full range of features it offers.
 * You will find these icons in this user guide:
     * **:bulb: Tip** provides additional information that might be useful to you.
     * **:information_source: Note** provides supplementary information that helps you to understand this User Guide.
-    * **:exclamation: Caution** cautions you with the undesirable effect that you will encounter under specific situations.
+    * **:exclamation: Caution** cautions you against doing certain actions that will lead to undesirable consequences.
 * You can find explanations of _italicised_ words in the [Glossary](#glossary).
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
 
@@ -59,7 +59,7 @@ full range of features it offers.
 
 1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
 
-   <div markdown="span" class="alert alert-primary">:bulb:**Tip:**
+   <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
    [Here](https://www.java.com/en/download/help/version_manual.html) is how you can check the Java Version installed in your Computer.
    </div>
@@ -151,7 +151,7 @@ Deletes the specified contact from SoConnect.
   range from `INDEX1` to `INDEX2` inclusively.
 * `INDEX` refers to the index number shown in the displayed contact list.
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 </div>
@@ -177,7 +177,7 @@ Edits an existing contact in SoConnect.
 * You can remove all existing tags of a contact by typing `dt/*`.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 </div>
@@ -202,7 +202,7 @@ Finds all contacts with names that contain any of the given keywords.
 * Contact matching at least one keyword will be returned (i.e. _`OR` search_).
   e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 The search by `cfind` is case-insensitive. e.g. `hans` will match `Hans`.
 </div>
@@ -240,7 +240,7 @@ Views a contact with all details fully shown.
 * `INDEX` refers to the index number shown in the displayed contact list.
 * All truncations of the details of the contact you view will be expanded fully.
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 </div>
@@ -290,7 +290,7 @@ Clears all entries of events from SoConnect.
 
 **Format:** `eclear`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+<div markdown="span" class="alert alert-primary">:information_source: **Note:**
 This will not change the contacts saved in SoConnect. 
 </div>
 
@@ -304,7 +304,7 @@ Deletes the specified event from SoConnect.
 * Deletes the event at the specified `INDEX1` or between the specified range from `INDEX1` to `INDEX2` inclusively.
 * `INDEX` refers to the index number shown in the displayed event list.
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 </div>
@@ -331,12 +331,9 @@ Edits an existing event in SoConnect.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
-Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
-</div>
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
-
-`INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
+* `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
+* Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
 </div>
 
 **Examples:**
@@ -359,7 +356,7 @@ Finds all events with names that contain any of the given keywords.
 * Events matching at least one keyword will be returned (i.e. _`OR` search_).
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 </div>
@@ -393,7 +390,7 @@ Sorts all events by start time and displays all upcoming or ongoing events.
 
 **Format:** `esort`
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 Events that have ended will not be shown after you execute `esort`
 </div>
@@ -409,7 +406,7 @@ Views an event with all details fully shown.
 * `INDEX` refers to the index number shown in the displayed event list.
 * All truncations of the details of the event you view will be expanded fully.
 
-<div markdown="span" class="alert alert-info">:information_source:**Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 
 `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 </div>
@@ -526,7 +523,6 @@ SoConnect will discard all data and start with an empty data file at the next ru
 Here are some of the features that are currently under progress. You will soon be able to:
 * Find contacts and events by specific fields
 * Link events and contacts together
-*
 
 --------------------------------------------------------------------------------------------------------------------
 
