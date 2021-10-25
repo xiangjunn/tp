@@ -554,7 +554,6 @@ empty data file SoConnect creates on the other Computer.
 
 Here are some of the features that are currently under progress. You will soon be able to:
 * Find contacts and events by specific fields
-* Link events and contacts together
 
 --------------------------------------------------------------------------------------------------------------------
 
