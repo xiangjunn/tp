@@ -1,6 +1,12 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
@@ -17,6 +23,17 @@ public class EListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all events";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all the events on the screen with all"
+            + " details by default.\n"
+            + "Include optional parameters to filter details.\n"
+            + "Parameters: "
+            + "[" + PREFIX_START_TIME + "] "
+            + "[" + PREFIX_END_TIME + "] "
+            + "[" + PREFIX_ADDRESS + "] "
+            + "[" + PREFIX_DESCRIPTION + "] "
+            + "[" + PREFIX_ZOOM + "] "
+            + "[" + PREFIX_TAG + "] \n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_START_TIME + " " + PREFIX_ZOOM;
 
     @Override
     public CommandResult execute(Model model) {

@@ -83,4 +83,16 @@ public class TypicalPersons {
     public static List<Contact> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+    public static List<String> getAliceContactDetails() {
+        List<String> contactDetails = new ArrayList<>();
+        contactDetails.add("Alice Pauline");
+        contactDetails.add("alice@example.com");
+        contactDetails.add("94351253");
+        contactDetails.add("123, Jurong West Ave 6, #08-111");
+        contactDetails.add("[friends]");
+
+
+        return contactDetails;
+    }
 }

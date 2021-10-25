@@ -3,6 +3,10 @@ package seedu.address.model.common;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents the name of a contact or an event in SoConnect.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -49,6 +53,15 @@ public class Name {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
                 && fullName.equals(((Name) other).fullName)); // state check
+    }
+
+    /**
+     * Checks if this {@code fullName} contains any of keywords in {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(fullName, string));
     }
 
     @Override

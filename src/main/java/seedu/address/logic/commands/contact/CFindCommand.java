@@ -1,17 +1,18 @@
 package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.contact.ContactAddressContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
-import seedu.address.model.contact.ContactEmailContainsKeywordsPredicate;
-import seedu.address.model.contact.ContactPhoneContainsKeywordsPredicate;
-import seedu.address.model.contact.ContactTelegramHandleContainsKeywordsPredicate;
-import seedu.address.model.contact.ContactZoomLinkContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -21,37 +22,30 @@ public class CFindCommand extends Command {
 
     public static final String COMMAND_WORD = "cfind";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all contacts whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all contacts whose fields contains any of the "
+            + "given keywords.\n"
+            + "At least one field must be present, name keywords must follow directly after the command word\n"
+            + "Parameters: [NAME_KEYWORD] "
+            + "[" + PREFIX_PHONE + "PHONE_KEYWORDS ] "
+            + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS ] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS ] "
+            + "[" + PREFIX_TELEGRAM + "TELEGRAM_KEYWORDS ] "
+            + "[" + PREFIX_ZOOM + "ZOOM_KEYWORDS ] "
+            + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
+            + "Example: " + COMMAND_WORD + " alice bob charlie "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com";
 
-    private final ContactNameContainsKeywordsPredicate namePredicate;
-    private final ContactEmailContainsKeywordsPredicate emailPredicate;
-    private final ContactPhoneContainsKeywordsPredicate phonePredicate;
-    private final ContactTelegramHandleContainsKeywordsPredicate telegramHandlePredicate;
-    private final ContactAddressContainsKeywordsPredicate addressPredicate;
-    private final ContactZoomLinkContainsKeywordsPredicate zoomPredicate;
+    private final ContactNameContainsKeywordsPredicate predicate;
 
-    public CFindCommand(ContactNameContainsKeywordsPredicate namePredicate,
-                        ContactEmailContainsKeywordsPredicate emailPredicate,
-                        ContactPhoneContainsKeywordsPredicate phonePredicate,
-                        ContactTelegramHandleContainsKeywordsPredicate telegramHandlePredicate,
-                        ContactAddressContainsKeywordsPredicate addressPredicate,
-                        ContactZoomLinkContainsKeywordsPredicate zoomPredicate) {
-        this.namePredicate = namePredicate;
-        this.emailPredicate = emailPredicate;
-        this.phonePredicate = phonePredicate;
-        this.telegramHandlePredicate = telegramHandlePredicate;
-        this.addressPredicate = addressPredicate;
-        this.zoomPredicate = zoomPredicate;
-
+    public CFindCommand(ContactNameContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredContactList(namePredicate, emailPredicate, phonePredicate, );
+        model.updateFilteredContactList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getFilteredContactList().size()));
     }
@@ -60,11 +54,6 @@ public class CFindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CFindCommand // instanceof handles nulls
-                && namePredicate.equals(((CFindCommand) other).namePredicate) // state check
-                && phonePredicate.equals(((CFindCommand) other).phonePredicate)
-                && emailPredicate.equals(((CFindCommand) other).emailPredicate)
-                && telegramHandlePredicate.equals(((CFindCommand) other).telegramHandlePredicate)
-                && addressPredicate.equals(((CFindCommand) other).addressPredicate)
-                && zoomPredicate.equals(((CFindCommand) other).zoomPredicate));
+                && predicate.equals(((CFindCommand) other).predicate)); // state check;
     }
 }

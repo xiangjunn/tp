@@ -5,6 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Represents time of an event in the event list.
@@ -75,4 +78,16 @@ public class DateAndTime {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return this.time.format(formatter);
     }
+
+
+    /**
+     * Checks if this {@code time string} contains any keywords in {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        assert time != null : "time must not be null";
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(toString(), string));
+    }
+
 }
