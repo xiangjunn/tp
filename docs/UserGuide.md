@@ -3,31 +3,31 @@ layout: page
 title: SoConnect User Guide
 ---
 
-SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, 
-as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having 
+SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants,
+as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having
 the benefits of a _Graphical User Interface (GUI)_. If you can type fast, SoConnect can get your contact management tasks
-done faster than traditional GUI apps. 
+done faster than traditional GUI apps.
 
-This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the 
+This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the
 full range of features it offers.
 
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## How to use SoConnect User Guide
 
-<div markdown="block" class="alert alert-info">
-
-* (screenshot to show toc) You can click on the titles in the Table of Contents to jump the section that you are interested in.
+* You can click on the titles in the Table of Contents to jump the section that you are interested in.
 * You will find these icons in this user guide:
-  * **:bulb: Tip** provides additional information that might be useful to you. 
-  * **:information_source: Notes** provides supplementary information that helps you to understand this User Guide.
-  * **:exclamation: Warning** cautions you with the undesirable effect that you will encounter under specific situations.
+    * **:bulb: Tip** provides additional information that might be useful to you.
+    * **:information_source: Note** provides supplementary information that helps you to understand this User Guide.
+    * **:exclamation: Caution** cautions you with the undesirable effect that you will encounter under specific situations.
 * You can find explanations of _italicised_ words in the [Glossary](#glossary).
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
+
+<div markdown="block" class="alert alert-info">
 
 **:information_source: About the _Command Syntax_ format:**<br>
 
@@ -58,9 +58,9 @@ full range of features it offers.
 ## Quick start
 
 1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
-   
-   <div markdown="span" class="alert alert-info">:bulb:**Tip:**
-   
+
+   <div markdown="span" class="alert alert-primary">:bulb:**Tip:**
+
    [Here](https://www.java.com/en/download/help/version_manual.html) is how you can check the Java Version installed in your Computer.
    </div>
 
@@ -72,19 +72,19 @@ full range of features it offers.
    ![Ui](images/Ui.png)
    If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-command-prompt) to start it too.
 
-5. Type the command in the command box and press Enter to execute it. 
+5. Type the command in the command box and press Enter to execute it.
    e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `elist`: Lists all events.
+    * `elist`: Lists all events.
 
-   * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to SoConnect.
+    * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to SoConnect.
 
-   * `cdelete 3` : Deletes the third contact shown in SoConnect.
+    * `cdelete 3` : Deletes the third contact shown in SoConnect.
 
-   * `eclear` : Deletes all entries of events from SoConnect.
+    * `eclear` : Deletes all entries of events from SoConnect.
 
-   * `exit` : Exits SoConnect.
+    * `exit` : Exits SoConnect.
 
 6. Refer to the [Features](#features) below for details of each command.
 
@@ -92,9 +92,9 @@ full range of features it offers.
 
 ## Features
 
-There are three main sections to SoConnect Features: 
-[Contact Management](#contact-management), 
-[Event Management](#event-management) and 
+There are three main sections to SoConnect Features:
+[Contact Management](#contact-management),
+[Event Management](#event-management) and
 [General](#general).
 
 For each feature, you are provided with:
@@ -136,7 +136,7 @@ Clears all entries of contacts from SoConnect.
 
 **Format:** `cclear`
 
-<div markdown="span" class="alert alert-primary">:information_source: **Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 This will not change the events saved in SoConnect. 
 </div>
 
@@ -237,7 +237,7 @@ Views a contact with all details fully shown.
 **Format:** `cview INDEX`
 
 * Views the contact at the specified `INDEX`.
-* `INDEX` refers to the index number shown in the displayed contact list. 
+* `INDEX` refers to the index number shown in the displayed contact list.
 * All truncations of the details of the contact you view will be expanded fully.
 
 <div markdown="span" class="alert alert-info">:information_source:**Note:**
@@ -406,7 +406,7 @@ Views an event with all details fully shown.
 **Format:** `eview INDEX`
 
 * Views the event at the specified `INDEX`.
-* `INDEX` refers to the index number shown in the displayed event list. 
+* `INDEX` refers to the index number shown in the displayed event list.
 * All truncations of the details of the event you view will be expanded fully.
 
 <div markdown="span" class="alert alert-info">:information_source:**Note:**
@@ -430,7 +430,7 @@ This section details all other the features and commands available in SoConnect 
 
 ### Calendar Window: `calendar`
 
-Shows a calendar of all the events. 
+Shows a calendar of all the events.
 
 **Format:** `calendar`
 
@@ -495,12 +495,12 @@ Restore SoConnect to its previous state from its history.
 
 ### Saving the data
 
-SoConnect data is saved in the hard disk automatically after any command that changes the data. 
+SoConnect data is saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
 ### Editing the data file
 
-SoConnect data are saved as a _JSON file_ `[JAR file location]/data/soconnect.json`. 
+SoConnect data are saved as a _JSON file_ `[JAR file location]/data/soconnect.json`.
 Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -526,7 +526,7 @@ SoConnect will discard all data and start with an empty data file at the next ru
 Here are some of the features that are currently under progress. You will soon be able to:
 * Find contacts and events by specific fields
 * Link events and contacts together
-* 
+*
 
 --------------------------------------------------------------------------------------------------------------------
 
