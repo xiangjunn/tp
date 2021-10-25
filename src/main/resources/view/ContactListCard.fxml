@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import java.net.URL?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -18,6 +19,9 @@
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
+      <stylesheets>
+        <URL value = "@Clickable.css"/>
+      </stylesheets>
       <HBox alignment="CENTER_LEFT" spacing="5">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
@@ -33,11 +37,11 @@
       <Label fx:id="address" managed="false" onMouseClicked="#copyAddress" styleClass="cell_small_label" text="\$address" />
       <HBox>
         <Label fx:id="telegramHandleTitle" managed="false" styleClass="cell_small_label" text="\$telegramTitle" />
-        <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" style="-fx-text-fill: #1fc2de;" styleClass="cell_small_label" text="\$telegramHandle" underline="true" />
+        <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" styleClass="cell_small_label" text="\$telegramHandle"/>
       </HBox>
       <HBox>
         <Label fx:id="zoomLinkTitle" managed="false" styleClass="cell_small_label" text="\$zoomLinkTitle" />
-        <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" style="-fx-text-fill: #1fc2de;" styleClass="cell_small_label" text="\$zoom" underline="true" />
+        <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label" text="\$zoom"/>
       </HBox>
       <FlowPane fx:id="tags" managed="false" />
     </VBox>
