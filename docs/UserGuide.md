@@ -290,7 +290,7 @@ Clears all entries of events from SoConnect.
 
 **Format:** `eclear`
 
-<div markdown="span" class="alert alert-primary">:information_source: **Note:**
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 This will not change the contacts saved in SoConnect. 
 </div>
 
