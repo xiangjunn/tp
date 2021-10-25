@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class TelegramHandleTest {
@@ -18,6 +21,19 @@ class TelegramHandleTest {
     @Test
     public void constructor_invalidHandle_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new TelegramHandle(""));
+    }
+
+    @Test
+    public void containsString() {
+        TelegramHandle telegramHandle = new TelegramHandle("Beasty");
+
+        // keywords contained in telegram handle
+        List<String> listOfKeywordsContained = Arrays.asList("beast", "TY");
+        assertTrue(telegramHandle.containsString(listOfKeywordsContained));
+
+        //keywords not contained in telegram handle
+        List<String> noKeywordsContained = Arrays.asList("retep", "@BEASTY", "yahoo");
+        assertFalse(telegramHandle.containsString(noKeywordsContained));
     }
 
     @Test

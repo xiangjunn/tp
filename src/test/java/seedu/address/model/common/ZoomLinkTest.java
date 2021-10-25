@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class ZoomLinkTest {
@@ -17,6 +20,20 @@ class ZoomLinkTest {
     public void constructor_invalidZoomLink_throwsIllegalArgumentException() {
         String invalidZoomLink = "";
         assertThrows(IllegalArgumentException.class, () -> new ZoomLink(invalidZoomLink));
+    }
+
+    @Test
+    public void containsString() {
+        ZoomLink zoomLink =
+                new ZoomLink("https://nus-sg.zoom.us/j/83851237332?pwd=c1B0V2FtTXh1MWwyYVJ6TFAzczE4Zz09#success");
+
+        // keywords contained in zoomLink
+        List<String> listOfKeywordsContained = Arrays.asList("nus", "ZOOM");
+        assertTrue(zoomLink.containsString(listOfKeywordsContained));
+
+        //keywords not contained in zoomLink
+        List<String> noKeywordsContained = Arrays.asList("BoB", "Pan", "Peter");
+        assertFalse(zoomLink.containsString(noKeywordsContained));
     }
 
     @Test
