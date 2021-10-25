@@ -23,7 +23,7 @@ full range of features it offers.
 * You will find these icons in this user guide:
     * **:bulb: Tip** provides additional information that might be useful to you.
     * **:information_source: Note** provides supplementary information that helps you to understand this User Guide.
-    * **:exclamation: Caution** cautions you against doing certain actions that will lead to undesirable consequences.
+    * **:exclamation: Caution** cautions you against certain actions that will lead to undesirable consequences.
 * You can find explanations of _italicised_ words in the [Glossary](#glossary).
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
 
@@ -143,12 +143,13 @@ This will not change the events saved in SoConnect.
 
 ### Deleting a contact: `cdelete`
 
-Deletes the specified contact from SoConnect.
+Deletes the specified contact(s) from SoConnect.
 
 **Format:** `cdelete INDEX1[-INDEX2]`
 
-* Deletes the contact at the specified `INDEX1` or between the specified
-  range from `INDEX1` to `INDEX2` inclusively.
+* Deletes the contact at:
+    * the specified `INDEX1` or
+    * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
 * `INDEX` refers to the index number shown in the displayed contact list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -159,7 +160,7 @@ Deletes the specified contact from SoConnect.
 **Examples:**
 * `clist` followed by `cdelete 2` deletes the second contact from SoConnect.
 * `cfind Betsy` followed by `cdelete 1` deletes the first contact from the results of the `cfind` command.
-* `cdelete 3-5` deletes contacts from index 3 to 5 from SoConnect.
+* `cdelete 3-5` deletes contacts from index 3 to 5 from the currently displayed contacts.
 
 
 ### Editing a contact: `cedit`
@@ -170,7 +171,7 @@ Edits an existing contact in SoConnect.
 
 * Edits the contact at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed contact list.
-* You must provide at least one of the optional fields.
+* You must provide **at least one** of the optional fields.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
 * You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
@@ -225,6 +226,11 @@ Shows all contacts in the SoConnect, with all details by default.
 * The order of the optional fields does not matter. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
 * Fields of a contact that have no value will not appear.
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+Do not add extraneous values after each specified optional fields.
+</div>
+
 **Examples:**
 * `clist` shows all contacts in SoConnect with all available details for each contact.
 * `clist e/ p/` shows all contacts in SoConnect with only their names, email addresses and phone numbers (if available).
@@ -238,7 +244,7 @@ Views a contact with all details fully shown.
 
 * Views the contact at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed contact list.
-* All truncations of the details of the contact you view will be expanded fully.
+* All truncated details of the contact you want to view will be expanded fully.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
@@ -274,8 +280,10 @@ Adds an event to SoConnect.
 An event can have any number of tags (including 0)
 </div>
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
-Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+<div markdown="block" class="alert alert-info">:information_source: **Note:**
+
+* Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+* Ensure the End Time you enter is **chronologically after** the Start Time.
 </div>
 
 **Examples:**
@@ -301,7 +309,9 @@ Deletes the specified event from SoConnect.
 
 **Format:** `edelete INDEX1[-INDEX2]`
 
-* Deletes the event at the specified `INDEX1` or between the specified range from `INDEX1` to `INDEX2` inclusively.
+* Deletes the contact at:
+    * the specified `INDEX1` or
+    * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
 * `INDEX` refers to the index number shown in the displayed event list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -323,7 +333,7 @@ Edits an existing event in SoConnect.
 
 * Edits the event at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed event list.
-* You must provide at least one of the optional fields.
+* You must provide **at least one** of the optional fields.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
 * You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
@@ -404,7 +414,7 @@ Views an event with all details fully shown.
 
 * Views the event at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed event list.
-* All truncations of the details of the event you view will be expanded fully.
+* All truncated details of the event you want to view will be expanded fully.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
@@ -454,7 +464,7 @@ Exits and Closes SoConnect.
 
 ### Help Window: `help`
 
-Shows a message explaining how to access the help page.
+Shows a link which refers you to SoConnect User Guide.
 
 **Format:** `help`
 
@@ -492,7 +502,7 @@ Restore SoConnect to its previous state from its history.
 
 ### Saving the data
 
-SoConnect data is saved in the hard disk automatically after any command that changes the data.
+SoConnect data is saved in the _hard disk_ automatically after any command that changes the data.
 There is no need to save manually.
 
 ### Editing the data file
@@ -512,7 +522,8 @@ SoConnect will discard all data and start with an empty data file at the next ru
 ### FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SoConnect home folder.
+**A**: Install SoConnect in the other computer and copy over the contents from your previous SoConnect JSON file to the
+empty data file SoConnect creates on the other Computer.
 
 ### How to start SoConnect using Command Prompt
 
