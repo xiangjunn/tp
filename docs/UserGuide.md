@@ -12,8 +12,7 @@ This User Guide will help you to familiarise yourself with your SoConnect quickl
 full range of features it offers.
 
 
-* Table of Contents
-{:toc}
+* Table of Contents {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -526,7 +525,6 @@ SoConnect will discard all data and start with an empty data file at the next ru
 Here are some of the features that are currently under progress. You will soon be able to:
 * Find contacts and events by specific fields
 * Link events and contacts together
-* 
 
 --------------------------------------------------------------------------------------------------------------------
 
