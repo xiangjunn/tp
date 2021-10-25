@@ -20,10 +20,10 @@ public class ELinkCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Links an event to a contact. "
         + "Parameters: "
         + "EVENT_INDEX "
-        + PREFIX_CONTACT + "CONTACT_INDEX [CONTACT_INDEX]...\n"
+        + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n"
         + "Examples:\n"
         + "elink 1 c/1\n"
-        + "elink 3 c/1 2 3 4 5";
+        + "elink 3 c/1 c/2 c/3 c/4 c/5";
     public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact%s %s";
 
     private final Index eventIndex;
