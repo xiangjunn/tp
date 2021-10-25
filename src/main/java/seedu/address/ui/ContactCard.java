@@ -93,7 +93,11 @@ public class ContactCard extends UiPart<Region> {
         if (Contact.isWillDisplayTags()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .forEach(tag -> {
+                        Label label = new Label(tag.tagName);
+                        label.setStyle("-fx-background-color: " + tag.tagColour + ";");
+                        tags.getChildren().add(label);
+                    });
             tags.setManaged(true);
         }
         if (!contact.getLinkedEvents().isEmpty()) {

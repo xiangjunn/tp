@@ -33,7 +33,7 @@
       <Label fx:id="phone" wrapText="false" managed="false" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" wrapText="false" managed="false" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="telegramHandle" wrapText="false" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
-      <Label fx:id="zoom" wrapText="false"managed="false" styleClass="cell_small_label" text="\$zoom" />
+      <Label fx:id="zoom" wrapText="false" managed="false" styleClass="cell_small_label" text="\$zoom" />
       <HBox>
         <padding>
           <Insets top="5" />
