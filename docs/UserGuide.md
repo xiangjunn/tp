@@ -16,12 +16,16 @@ full range of features it offers.
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
-##How to use SoConnect User Guide
+
+## How to use SoConnect User Guide
 
 <div markdown="block" class="alert alert-info">
 
 * (screenshot to show toc) You can click on the titles in the Table of Contents to jump the section that you are interested in.
-* (icon pictures) (lightbulb) provides additional information that might be useful to you. (warning) cautions you with the undesirable effect that you will encounter under specific situations.
+* You will find these icons in this user guide:
+  * **:bulb: Tip** provides additional information that might be useful to you. 
+  * **:information_source: Notes** provides supplementary information that helps you to understand this User Guide.
+  * **:exclamation_mark: Warning** cautions you with the undesirable effect that you will encounter under specific situations.
 * You can find explanations of _italicised_ words in the [Glossary](#glossary).
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
 
@@ -54,8 +58,9 @@ full range of features it offers.
 ## Quick start
 
 1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
-   <div markdown="block" class="alert alert-info">
-
+   
+   <div markdown="span" class="alert alert-info">:bulb:**Tip:**
+   
    [Here](https://www.java.com/en/download/help/version_manual.html) is how you can check the Java Version installed in your Computer.
    </div>
 
@@ -233,7 +238,7 @@ This section details all the features and commands available in SoConnect that c
 * [Listing all events](#listing-all-events-elist)
 * [Sorting events](#sorting-events-esort)
 * [Finding events](#finding-events-efind)
-* [Viewing an event]
+* [Viewing an event](#viewing-an-event-eview)
 * [Editing an event](#editing-an-event-eedit)
 * [Deleting an event](#deleting-an-event-edelete)
 * [Clearing all event](#clearing-all-events-eclear)
@@ -510,5 +515,5 @@ Action | Format, Examples
 
 ________________________________________________________________________________________________________________
 
-##Glossary
+## Glossary
 
