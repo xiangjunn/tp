@@ -1,8 +1,6 @@
 package seedu.address.model.tag;
 
 public class Colours {
-    public static final int NUMBER_OF_COLOURS = 15;
-
     private static final String COLOUR1 = "#CD5C5C"; // red
     private static final String COLOUR2 = "#808F85"; //dark green
     private static final String COLOUR3 = "#DDA0DD"; // light purple
@@ -24,6 +22,8 @@ public class Colours {
     private static final String[] COLOURS =
             new String[]{COLOUR1, COLOUR2, COLOUR3, COLOUR4, COLOUR5, COLOUR6, COLOUR7, COLOUR8, COLOUR9, COLOUR10,
                          COLOUR11, COLOUR12, COLOUR13, COLOUR14, COLOUR15};
+
+    public static final int NUMBER_OF_COLOURS = COLOURS.length;
 
     /**
      * Get a color for tag
