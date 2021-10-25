@@ -264,6 +264,7 @@ This section details all the features and commands available in SoConnect that c
 * [Deleting an event](#deleting-an-event-edelete)
 * [Editing an event](#editing-an-event-eedit)
 * [Finding events](#finding-events-efind)
+* [Linking an event to contacts](#linking-an-event-to-contacts-elink)
 * [Listing all events](#listing-all-events-elist)
 * [Sorting events](#sorting-events-esort)
 * [Viewing an event](#viewing-an-event-eview)
@@ -374,6 +375,26 @@ The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 **Examples:**
 * `efind ex` returns `exams` and `Examinations`
 * `efind CS Exam` returns `CS2100 Exam`,  `CS2101`
+
+
+### Linking an event to contacts: `elink`
+
+Links the specified event to one or more contacts.
+
+**Format:** `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+
+* Links the event at `EVENT_INDEX` to the contact(s) at `CONTACT_INDEX`.
+* `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**, eg 1, 2, 3, …
+</div>
+
+**Examples:**
+* `elink 1 c/1` links the first event in the displayed event list to the first contact in the displayed contact list.
+* `elink 2 c/1 c/2 c/3` links the second event in the displayed event list to the first, second and third contact in the displayed contact list.
 
 
 ### Listing all events: `elist`
@@ -533,7 +554,6 @@ empty data file SoConnect creates on the other Computer.
 
 Here are some of the features that are currently under progress. You will soon be able to:
 * Find contacts and events by specific fields
-* Link events and contacts together
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -560,6 +580,7 @@ Action | Format, Examples
 **[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **[Find](#finding-events-efind)** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
+**[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
 **[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **[Sort](#sorting-events-esort)** | `esort`
 **[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
