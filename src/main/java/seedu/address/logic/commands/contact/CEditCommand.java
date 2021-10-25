@@ -9,9 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -130,8 +128,8 @@ public class CEditCommand extends Command {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        // rerender UI to show latest change for events with links to edited contact
+        model.rerenderEventCards();
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
     }
 

@@ -228,4 +228,22 @@ public class ModelManager implements Model {
         event.linkTo(contact);
         contact.linkTo(event);
     }
+
+    @Override
+    public void rerenderContactCards() {
+        updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+    }
+
+    @Override
+    public void rerenderEventCards() {
+        updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+    }
+
+    @Override
+    public void rerenderAllCards() {
+        rerenderContactCards();
+        rerenderEventCards();
+    }
 }

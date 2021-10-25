@@ -2,10 +2,6 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.List;
 import java.util.Set;
@@ -37,7 +33,7 @@ public class ELinkCommand extends Command {
      * Creates an ELinkCommand to link the specified {@code Event} to a {@code Contact}
      */
     public ELinkCommand(Index eventIndex, Set<Index> contactIndexes) {
-        assert !contactIndexes.isEmpty();
+        assert !contactIndexes.isEmpty() : "Set of contact indices cannot be empty.";
         this.eventIndex = eventIndex;
         this.contactIndexes = contactIndexes;
     }
@@ -46,36 +42,19 @@ public class ELinkCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // check validity of command
         List<Event> lastShownEventList = model.getFilteredEventList();
         List<Contact> lastShownContactList = model.getFilteredContactList();
         checkCommandValidity(lastShownEventList, lastShownContactList);
 
-        String commandResult = "";
+        // execution of command
         Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
-        int count = 0;
-        for (Index contactIndex : contactIndexes) {
-            Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
-            model.linkEventAndContact(eventToLink, contactToLink);
-            if (count == 0) {
-                commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(),
-                        contactIndexes.size() > 1 ? "s" : "", contactToLink.getName());
-            } else {
-                commandResult += contactToLink.getName();
-            }
-            if (count != contactIndexes.size() - 1) {
-                commandResult += ", ";
-            } else {
-                commandResult += ".";
-            }
-            count++;
-        }
+        CommandResult commandResult = linkEventAndContacts(model, eventToLink, lastShownContactList);
 
-        model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        // rerender UI to show the links between event and each of the contacts
+        model.rerenderAllCards();
 
-        return new CommandResult(commandResult);
+        return commandResult;
     }
 
     private void checkCommandValidity(List<Event> eventList, List<Contact> contactList) throws CommandException {
@@ -88,5 +67,27 @@ public class ELinkCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
             }
         }
+    }
+
+    private CommandResult linkEventAndContacts(Model model, Event eventToLink, List<Contact> lastShownContactList) {
+        String commandResult = "";
+        int count = 0;
+        for (Index contactIndex : contactIndexes) {
+            Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
+            model.linkEventAndContact(eventToLink, contactToLink);
+            if (count == 0) {
+                commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(),
+                    contactIndexes.size() > 1 ? "s" : "", contactToLink.getName());
+            } else {
+                commandResult += contactToLink.getName();
+            }
+            if (count != contactIndexes.size() - 1) {
+                commandResult += ", ";
+            } else {
+                commandResult += ".";
+            }
+            count++;
+        }
+        return new CommandResult(commandResult);
     }
 }

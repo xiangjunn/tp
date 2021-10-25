@@ -1,8 +1,6 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.List;
 
@@ -24,8 +22,8 @@ public class EClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.resetEvents();
-        model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        // rerender UI to remove all links
+        model.rerenderContactCards();
         return new CommandResult(MESSAGE_SUCCESS, List.of(EventChanger.clearEventChanger()));
     }
 }

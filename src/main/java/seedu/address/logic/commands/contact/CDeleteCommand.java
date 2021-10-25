@@ -1,8 +1,6 @@
 package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.List;
 
@@ -63,8 +61,8 @@ public class CDeleteCommand extends Command {
                 commandResult += "\n";
             }
         }
-        model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        // rerender UI to update the links for events with links to deleted contact
+        model.rerenderEventCards();
         return new CommandResult(commandResult);
     }
 

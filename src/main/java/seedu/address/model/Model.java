@@ -148,4 +148,19 @@ public interface Model {
      * and remove any events which have concluded.
      */
     void sortUpcomingFilteredEventList();
+
+    /**
+     * Re-render contact cards in UI to show the most updated version.
+     */
+    void rerenderContactCards();
+
+    /**
+     * Re-render event cards in UI to show the most updated version.
+     */
+    void rerenderEventCards();
+
+    /**
+     * Re-render both contact and event cards in UI to show the most updated version.
+     */
+    void rerenderAllCards();
 }
