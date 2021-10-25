@@ -28,6 +28,7 @@ public class Event {
     private static boolean willDisplayAddress = true;
     private static boolean willDisplayZoomLink = true;
     private static boolean willDisplayTags = true;
+    private static boolean viewingMode = false;
 
 
     //Compulsory fields
@@ -190,6 +191,13 @@ public class Event {
         willDisplayTags = false;
     }
 
+    public static boolean isViewingMode() {
+        return viewingMode;
+    }
+
+    public static void setViewingMode(boolean viewingMode) {
+        Event.viewingMode = viewingMode;
+    }
     /**
      * Returns true if both events have the same name.
      * This defines a weaker notion of equality between two events.

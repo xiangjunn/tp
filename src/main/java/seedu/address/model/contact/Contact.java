@@ -28,6 +28,7 @@ public class Contact {
     private static boolean willDisplayZoomLink = true;
     private static boolean willDisplayAddress = true;
     private static boolean willDisplayTags = true;
+    private static boolean viewingMode = false;
 
     // Identity fields
     private final Name name;
@@ -188,6 +189,14 @@ public class Contact {
         willDisplayZoomLink = false;
         willDisplayAddress = false;
         willDisplayTags = false;
+    }
+
+    public static boolean isViewingMode() {
+        return viewingMode;
+    }
+
+    public static void setViewingMode(boolean viewingMode) {
+        Contact.viewingMode = viewingMode;
     }
 
     /**
