@@ -292,6 +292,20 @@ Examples:
 * `elink 1 c/1` links the first event from the displayed event list to the first contact from the displayed contact list.
 * `elink 2 c/1 c/2 c/3` links the second event from the displayed event list to the first, second and third contacts from the displayed contact list.
 
+### Unlinking event from multiple contacts: `eunlink`
+
+Removes the links between the specified event and the multiple contacts.
+
+Format: `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+
+* Unlinks the event at the specified `EVENT_INDEX` from the contacts at their respective specified `CONTACT_INDEX`.
+* `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
+* `EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**, eg 1, 2, 3, …​
+
+Examples:
+* `eunlink 1 c/1` unlinks the first event in the displayed event list from the first contact in the displayed contact list.
+* `elink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
 
 ### Clearing all events: `eclear`
 
@@ -391,6 +405,7 @@ Action | Format, Examples
 **Link** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **Sort** | `esort`
+**Unlink** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
 
 ________________________________________________________________________________________________________________
 
