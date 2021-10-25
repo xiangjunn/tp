@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
@@ -15,5 +14,4 @@ public class TypicalRanges {
     public static final Range RANGE_SECOND_TO_THIRD = new Range(INDEX_SECOND_PERSON, INDEX_THIRD_PERSON);
     public static final Range RANGE_FIRST_TO_THIRD = new Range(INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
     public static final Range RANGE_FIRST_TO_FIRST = Range.convertFromIndex(INDEX_FIRST_PERSON);
-
 }

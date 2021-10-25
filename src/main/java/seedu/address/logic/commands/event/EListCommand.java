@@ -26,14 +26,15 @@ public class EListCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all the events on the screen with all"
             + " details by default.\n"
             + "Include optional parameters to filter details.\n"
+            + "Parameters should not be followed by any values.\n" //added this to warn users not to add any values.
             + "Parameters: "
             + "[" + PREFIX_START_TIME + "] "
             + "[" + PREFIX_END_TIME + "] "
-            + "[" + PREFIX_ADDRESS + "] "
             + "[" + PREFIX_DESCRIPTION + "] "
+            + "[" + PREFIX_ADDRESS + "] "
             + "[" + PREFIX_ZOOM + "] "
             + "[" + PREFIX_TAG + "] \n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_START_TIME + " " + PREFIX_ZOOM;
+            + "Example: " + COMMAND_WORD + " " + PREFIX_END_TIME + " " + PREFIX_ZOOM;
 
     @Override
     public CommandResult execute(Model model) {
@@ -43,4 +44,14 @@ public class EListCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        return other instanceof EListCommand;
+    }
 }

@@ -11,14 +11,18 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalRanges.RANGE_FIRST_TO_FIRST;
 import static seedu.address.testutil.TypicalRanges.RANGE_SECOND_TO_THIRD;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -26,7 +30,7 @@ import seedu.address.model.event.Event;
  */
 public class EDeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     //Todo : change INDEX_FIRST_PERSON to a general index for both contacts and events
     @Test
@@ -34,12 +38,13 @@ public class EDeleteCommandTest {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_PERSON.getZeroBased());
         EDeleteCommand eDeleteCommand = new EDeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(eDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
-
+        String expectedMessage = String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
+        EventChanger eventChanger = EventChanger.deleteEventChanger(eventToDelete);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteEvent(eventToDelete);
 
-        assertCommandSuccess(eDeleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(eDeleteCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
+            expectedModel);
     }
 
     @Test
@@ -57,13 +62,14 @@ public class EDeleteCommandTest {
         Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_PERSON.getZeroBased());
         EDeleteCommand eDeleteCommand = new EDeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(eDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
-
+        String expectedMessage = String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
+        EventChanger eventChanger = EventChanger.deleteEventChanger(eventToDelete);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteEvent(eventToDelete);
         showNoEvent(expectedModel);
 
-        assertCommandSuccess(eDeleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(eDeleteCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
+            expectedModel);
     }
 
     @Test

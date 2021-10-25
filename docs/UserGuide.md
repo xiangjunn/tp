@@ -15,9 +15,9 @@ done faster than traditional GUI apps.
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have [Java `11`](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
 
-2. Download the latest `soconnect.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `soconnect.jar` from [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect app.
 
@@ -253,8 +253,8 @@ Format: `efind KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`
 
 Examples:
-`efind ex` returns `exams` and `Examinations`
-`efind CS Exam` returns `CS2100 Exam`,  `CS2101` 
+* `efind ex` returns `exams` and `Examinations`
+* `efind CS Exam` returns `CS2100 Exam`,  `CS2101` 
 
 ### Deleting a person : `edelete`
 
@@ -267,9 +267,14 @@ Format: `edelete INDEX1[-INDEX2]`
 * `INDEX` **must be a positive integer**, eg 1, 2, 3, …​
 
 Examples:
-`elist` followed by `edelete 2` deletes the 2nd event from the event list.
-`efind Exam` followed by `edelete 1` deletes the 1st event from the results of the `efind` command.
-`edelete 3-5` deletes events with index between 3 and 5 inclusively from the event list.
+* `elist` followed by `edelete 2` deletes the 2nd event from the event list.
+* `efind Exam` followed by `edelete 1` deletes the 1st event from the results of the `efind` command.
+* `edelete 3-5` deletes events with index between 3 and 5 inclusively from the event list.
+
+
+### Sorting events: `esort`
+
+Sorts all events by start time and displays all upcoming or ongoing events.
 
 
 ### Clearing all events: `eclear`
@@ -281,6 +286,35 @@ ________________________________________________________________________________
 
 ## General
 
+### Viewing calendar : `calendar`
+
+Shows a calendar of all the events. Alternatively, access using the top menu via `File -> Calendar` or press `F2`.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Any changes made in the calendar window will not be saved. Do not attempt to add new events using the calendar window. Doing so might result in a crash and your data may be lost.
+</div>
+
+![calendar](images/Calendar.png)
+
+### Undo a command : `undo`
+
+Restore SoConnect to its previous state from its history.
+
+Format: `undo`
+
+Examples:
+* `edelete 1` followed by `undo` restores the deleted event in the event list.
+* `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
+
+### Redo a command: `redo`
+
+Restores SoConnect to a previously undone state from its history.
+
+Format: `redo`
+
+Examples:
+* `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
+
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -291,9 +325,9 @@ Format: `help`
 
 ### Exiting the program : `exit`
 
+Closes the program.
 
-**Exit** | `exit`
-
+Format: `exit`
 
 ### Saving the data
 
@@ -339,6 +373,7 @@ Action | Format, Examples
 **Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
+**Sort** | `esort`
 
 ________________________________________________________________________________________________________________
 
@@ -346,8 +381,11 @@ ________________________________________________________________________________
 
 Action | Format, Examples
 --------|------------------
+**Undo** | `undo`
+**Redo** | `redo`
+**Calendar** | `calendar`
 **Help** | `help`
-
+**Exit** | `exit`
 
 
 
