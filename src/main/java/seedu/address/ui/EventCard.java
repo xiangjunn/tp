@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
 /**
@@ -49,6 +50,12 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    private Label linksLabel;
+
+    @FXML
+    private FlowPane links;
+
     /**
      * Creates an {@code EventCard} with the given {@code Event} and index to display.
      */
@@ -88,6 +95,14 @@ public class EventCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
+        }
+        if (!event.getLinkedContacts().isEmpty()) {
+            event.getLinkedContacts().stream()
+                .sorted(Comparator.comparing(contactUuid -> contactUuid.toString()))
+                .forEach(contactUuid -> links.getChildren()
+                    .add(new Label(Contact.findByUuid(contactUuid).getName().toString())));
+            linksLabel.setManaged(true);
+            links.setManaged(true);
         }
     }
 

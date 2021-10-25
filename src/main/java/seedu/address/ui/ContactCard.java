@@ -4,11 +4,11 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of a {@code Contact}.
@@ -46,7 +46,9 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private ImageView emailIcon;
+    private Label linksLabel;
+    @FXML
+    private FlowPane links;
 
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
@@ -83,6 +85,16 @@ public class ContactCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
+        }
+        if (!contact.getLinkedEvents().isEmpty()) {
+            contact.getLinkedEvents().stream()
+                .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
+                .forEach(eventUuid -> {
+                    String eventName = Event.findByUuid(eventUuid).getName().toString();
+                    links.getChildren().add(new Label(eventName));
+                });
+            linksLabel.setManaged(true);
+            links.setManaged(true);
         }
     }
 
