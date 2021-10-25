@@ -56,29 +56,39 @@ public class ContactCard extends UiPart<Region> {
     public ContactCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
+
+        boolean isViewMode = Contact.isViewingMode();
+
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
+        name.setWrapText(isViewMode);
+
         // Compulsory fields
         if (Contact.isWillDisplayEmail()) {
             email.setText("email: " + contact.getEmail().value);
             email.setManaged(true);
+            email.setWrapText(isViewMode);
         }
         // Optional fields
         if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
             phone.setText("phone: " + contact.getPhone().value);
             phone.setManaged(true);
+            phone.setWrapText(isViewMode);
         }
         if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
             address.setText("address: " + contact.getAddress().value);
             address.setManaged(true);
+            address.setWrapText(isViewMode);
         }
         if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
             telegramHandle.setText("telegram handle: " + contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
+            telegramHandle.setWrapText(isViewMode);
         }
         if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
             zoom.setText("zoom: " + contact.getZoomLink().link);
             zoom.setManaged(true);
+            zoom.setWrapText(isViewMode);
         }
         if (Contact.isWillDisplayTags()) {
             contact.getTags().stream()
