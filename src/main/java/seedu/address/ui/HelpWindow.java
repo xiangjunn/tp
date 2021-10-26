@@ -3,13 +3,11 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -48,23 +46,23 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String UNDO = "Undo";
 
     //commands
-    public static final String CADD_COMMAND = "cadd n/NAME e/EMAIL " +
-            "[p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…";
+    public static final String CADD_COMMAND = "cadd n/NAME e/EMAIL "
+            + "[p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…";
     public static final String CCLEAR_COMMAND = "cclear";
     public static final String CDELETE_COMMAND = "cdelete INDEX1[-INDEX2]";
-    public static final String CEDIT_COMMAND = "cedit INDEX " +
-            "[n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]…";
+    public static final String CEDIT_COMMAND = "cedit INDEX [n/NAME] [e/EMAIL] "
+            + "[p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]…";
     public static final String CFIND_COMMAND = "cfind KEYWORD [MORE_KEYWORDS]";
     public static final String CLIST_COMMAND = "clist [e/] [p/] [a/] [th/] [z/] [t/]";
     public static final String CVIEW_COMMAND = "cview INDEX";
 
 
-    public static final String EADD_COMMAND = "eadd n/NAME at/START_TIME " +
-            "[end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…";
+    public static final String EADD_COMMAND = "eadd n/NAME at/START_TIME "
+            + "[end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…";
     public static final String ECLEAR_COMMAND = "eclear";
     public static final String EDELETE_COMMAND = "edelete INDEX1[-INDEX2]";
-    public static final String EEDIT_COMMAND = "eedit INDEX " +
-            "[n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…\u200B [t/TAG_ADDED]…\u200B";
+    public static final String EEDIT_COMMAND = "eedit INDEX [n/NAME] [at/START_TIME] "
+            + "[end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]… [t/TAG_ADDED]…";
     public static final String EFIND_COMMAND = "efind KEYWORD [MORE_KEYWORDS]";
     public static final String ELINK_COMMAND = "elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]…";
     public static final String ELIST_COMMAND = "elist [at/] [end/] [d/] [a/] [z/] [t/]";
@@ -117,96 +115,96 @@ public class HelpWindow extends UiPart<Stage> {
 
     //actions
     @FXML
-    private Label CAdd;
+    private Label cAdd;
     @FXML
-    private Label CClear;
+    private Label cClear;
     @FXML
-    private Label CDelete;
+    private Label cDelete;
     @FXML
-    private Label CEdit;
+    private Label cEdit;
     @FXML
-    private Label CFind;
+    private Label cFind;
     @FXML
-    private Label CList;
+    private Label cList;
     @FXML
-    private Label CView;
+    private Label cView;
 
     @FXML
-    private Label EAdd;
+    private Label eAdd;
     @FXML
-    private Label EClear;
+    private Label eClear;
     @FXML
-    private Label EDelete;
+    private Label eDelete;
     @FXML
-    private Label EEdit;
+    private Label eEdit;
     @FXML
-    private Label EFind;
+    private Label eFind;
     @FXML
-    private Label ELink;
+    private Label eLink;
     @FXML
-    private Label EList;
+    private Label eList;
     @FXML
-    private Label ESort;
+    private Label eSort;
     @FXML
-    private Label EView;
+    private Label eView;
 
     @FXML
-    private Label Calendar;
+    private Label calendar;
     @FXML
-    private Label Exit;
+    private Label exit;
     @FXML
-    private Label Help;
+    private Label help;
     @FXML
-    private Label Redo;
+    private Label redo;
     @FXML
-    private Label Undo;
+    private Label undo;
 
 
     //commands
     @FXML
-    private Label CAddCommand;
+    private Label cAddCommand;
     @FXML
-    private Label CClearCommand;
+    private Label cClearCommand;
     @FXML
-    private Label CDeleteCommand;
+    private Label cDeleteCommand;
     @FXML
-    private Label CEditCommand;
+    private Label cEditCommand;
     @FXML
-    private Label CFindCommand;
+    private Label cFindCommand;
     @FXML
-    private Label CListCommand;
+    private Label cListCommand;
     @FXML
-    private Label CViewCommand;
+    private Label cViewCommand;
 
     @FXML
-    private Label EAddCommand;
+    private Label eAddCommand;
     @FXML
-    private Label EClearCommand;
+    private Label eClearCommand;
     @FXML
-    private Label EDeleteCommand;
+    private Label eDeleteCommand;
     @FXML
-    private Label EEditCommand;
+    private Label eEditCommand;
     @FXML
-    private Label EFindCommand;
+    private Label eFindCommand;
     @FXML
-    private Label ELinkCommand;
+    private Label eLinkCommand;
     @FXML
-    private Label EListCommand;
+    private Label eListCommand;
     @FXML
-    private Label ESortCommand;
+    private Label eSortCommand;
     @FXML
-    private Label EViewCommand;
+    private Label eViewCommand;
 
     @FXML
-    private Label CalendarCommand;
+    private Label calendarCommand;
     @FXML
-    private Label ExitCommand;
+    private Label exitCommand;
     @FXML
-    private Label HelpCommand;
+    private Label helpCommand;
     @FXML
-    private Label RedoCommand;
+    private Label redoCommand;
     @FXML
-    private Label UndoCommand;
+    private Label undoCommand;
 
 
     //footer
@@ -225,13 +223,13 @@ public class HelpWindow extends UiPart<Stage> {
         introduction.setText(INTRODUCTION);
 
         contactTable.setGridLinesVisible(true);
-//        contactTable.setHgap(1.00);
         eventTable.setGridLinesVisible(true);
         generalTable.setGridLinesVisible(true);
 
         contactTitle.setText(CONTACT_TITLE);
         eventTitle.setText(EVENT_TITLE);
         generalTitle.setText(GENERAL_TTILE);
+
         actionHeaderContact.setText(ACTION_HEADER);
         formatContact.setText(FORMAT);
         actionHeaderEvent.setText(ACTION_HEADER);
@@ -239,53 +237,53 @@ public class HelpWindow extends UiPart<Stage> {
         actionHeaderGeneral.setText(ACTION_HEADER);
         formatGeneral.setText(FORMAT);
 
-        CAdd.setText(ADD);
-        CClear.setText(CLEAR);
-        CDelete.setText(DELETE);
-        CEdit.setText(EDIT);
-        CFind.setText(FIND);
-        CList.setText(LIST);
-        CView.setText(VIEW);
+        cAdd.setText(ADD);
+        cClear.setText(CLEAR);
+        cDelete.setText(DELETE);
+        cEdit.setText(EDIT);
+        cFind.setText(FIND);
+        cList.setText(LIST);
+        cView.setText(VIEW);
 
-        EAdd.setText(ADD);
-        EClear.setText(CLEAR);
-        EDelete.setText(DELETE);
-        EEdit.setText(EDIT);
-        EFind.setText(FIND);
-        ELink.setText(LINK);
-        EList.setText(LIST);
-        ESort.setText(SORT);
-        EView.setText(VIEW);
+        eAdd.setText(ADD);
+        eClear.setText(CLEAR);
+        eDelete.setText(DELETE);
+        eEdit.setText(EDIT);
+        eFind.setText(FIND);
+        eLink.setText(LINK);
+        eList.setText(LIST);
+        eSort.setText(SORT);
+        eView.setText(VIEW);
 
-        Calendar.setText(CALENDAR);
-        Exit.setText(EXIT);
-        Help.setText(HELP);
-        Redo.setText(REDO);
-        Undo.setText(UNDO);
+        calendar.setText(CALENDAR);
+        exit.setText(EXIT);
+        help.setText(HELP);
+        redo.setText(REDO);
+        undo.setText(UNDO);
 
-        CAddCommand.setText(CADD_COMMAND);
-        CClearCommand.setText(CCLEAR_COMMAND);
-        CDeleteCommand.setText(CDELETE_COMMAND);
-        CEditCommand.setText(CEDIT_COMMAND);
-        CFindCommand.setText(CFIND_COMMAND);
-        CListCommand.setText(CLIST_COMMAND);
-        CViewCommand.setText(CVIEW_COMMAND);
+        cAddCommand.setText(CADD_COMMAND);
+        cClearCommand.setText(CCLEAR_COMMAND);
+        cDeleteCommand.setText(CDELETE_COMMAND);
+        cEditCommand.setText(CEDIT_COMMAND);
+        cFindCommand.setText(CFIND_COMMAND);
+        cListCommand.setText(CLIST_COMMAND);
+        cViewCommand.setText(CVIEW_COMMAND);
 
-        EAddCommand.setText(EADD_COMMAND);
-        EClearCommand.setText(ECLEAR_COMMAND);
-        EDeleteCommand.setText(EDELETE_COMMAND);
-        EEditCommand.setText(EEDIT_COMMAND);
-        EFindCommand.setText(EFIND_COMMAND);
-        ELinkCommand.setText(ELINK_COMMAND);
-        EListCommand.setText(ELIST_COMMAND);
-        ESortCommand.setText(ESORT_COMMAND);
-        EViewCommand.setText(EVIEW_COMMAND);
+        eAddCommand.setText(EADD_COMMAND);
+        eClearCommand.setText(ECLEAR_COMMAND);
+        eDeleteCommand.setText(EDELETE_COMMAND);
+        eEditCommand.setText(EEDIT_COMMAND);
+        eFindCommand.setText(EFIND_COMMAND);
+        eLinkCommand.setText(ELINK_COMMAND);
+        eListCommand.setText(ELIST_COMMAND);
+        eSortCommand.setText(ESORT_COMMAND);
+        eViewCommand.setText(EVIEW_COMMAND);
 
-        CalendarCommand.setText(CALENDAR_COMMAND);
-        ExitCommand.setText(EXIT_COMMAND);
-        HelpCommand.setText(HELP_COMMAND);
-        RedoCommand.setText(REDO_COMMAND);
-        UndoCommand.setText(UNDO_COMMAND);
+        calendarCommand.setText(CALENDAR_COMMAND);
+        exitCommand.setText(EXIT_COMMAND);
+        helpCommand.setText(HELP_COMMAND);
+        redoCommand.setText(REDO_COMMAND);
+        undoCommand.setText(UNDO_COMMAND);
 
         helpMessage.setText(HELP_MESSAGE);
 
