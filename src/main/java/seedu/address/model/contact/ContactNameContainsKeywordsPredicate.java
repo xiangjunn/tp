@@ -63,7 +63,6 @@ public class ContactNameContainsKeywordsPredicate implements Predicate<Contact> 
     @Override
     public boolean test(Contact contact) { // applied Law of Demeter, dont access contact fields' strings
         requireNonNull(contact);
-
         return contact.nameAnyMatch(nameKeywords) || contact.phoneAnyMatch(phoneKeywords)
                 || contact.emailAnyMatch(emailKeywords) || contact.addressAnyMatch(addressKeywords)
                 || contact.zoomLinkAnyMatch(zoomLinkKeywords) || contact.telegramHandleAnyMatch(telegramHandleKeywords)
