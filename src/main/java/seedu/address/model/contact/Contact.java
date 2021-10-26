@@ -208,19 +208,18 @@ public class Contact {
     }
 
     /**
-     * Checks if this {@code phone} contains any keywords in {code strings}
-     */
-    public boolean phoneAnyMatch(List<String> strings) {
-        return phone.containsString(strings);
-    }
-
-    /**
      * Checks if this {@code email} contains any keywords in {code strings}
      */
     public boolean emailAnyMatch(List<String> strings) {
-        return (email != null) && email.containsString(strings);
+        return email.containsString(strings);
     }
 
+    /**
+     * Checks if this {@code phone} contains any keywords in {code strings}
+     */
+    public boolean phoneAnyMatch(List<String> strings) {
+        return (phone != null) && phone.containsString(strings);
+    }
     /**
      * Checks if this {@code address} contains any keywords in {code strings}
      */
