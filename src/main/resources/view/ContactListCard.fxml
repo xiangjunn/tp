@@ -29,21 +29,21 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label, clickable" text="\$first" />
       </HBox>
-      <Label fx:id="email" managed="false" onMouseClicked="#copyEmail" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="email" managed="false" onMouseClicked="#copyEmail" styleClass="cell_small_label, clickable" text="\$email" />
       <!-- Optional fields-->
-      <Label fx:id="phone" managed="false" onMouseClicked="#copyPhone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" managed="false" onMouseClicked="#copyAddress" styleClass="cell_small_label" text="\$address" />
+      <Label fx:id="phone" managed="false" onMouseClicked="#copyPhone" styleClass="cell_small_label, clickable" text="\$phone" />
+      <Label fx:id="address" managed="false" onMouseClicked="#copyAddress" styleClass="cell_small_label, clickable" text="\$address" />
       <HBox>
         <Label fx:id="telegramHandleTitle" managed="false" styleClass="cell_small_label" text="\$telegramTitle" />
-        <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" styleClass="cell_small_label" text="\$telegramHandle"/>
+        <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" styleClass="cell_small_label, clickable, linkable" text="\$telegramHandle"/>
       </HBox>
       <HBox>
         <Label fx:id="zoomLinkTitle" managed="false" styleClass="cell_small_label" text="\$zoomLinkTitle" />
-        <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label" text="\$zoom"/>
+        <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label, clickable, linkable" text="\$zoom"/>
       </HBox>
-      <HBox>
+      <HBox fx:id="linksHBox" styleClass="clickable">
         <padding>
           <Insets top="5" />
         </padding>

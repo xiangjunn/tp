@@ -39,8 +39,8 @@ import seedu.address.logic.parser.event.EEditCommandParser;
 import seedu.address.logic.parser.event.EFindCommandParser;
 import seedu.address.logic.parser.event.ELinkCommandParser;
 import seedu.address.logic.parser.event.EListCommandParser;
-import seedu.address.logic.parser.event.EViewCommandParser;
 import seedu.address.logic.parser.event.EUnlinkCommandParser;
+import seedu.address.logic.parser.event.EViewCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

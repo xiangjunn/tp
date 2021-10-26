@@ -1,4 +1,8 @@
-#zoomLink, #telegramHandle {
+.linkable, #telegramHandle, #zoomLink {
     -fx-text-fill: #1fc2de;
     -fx-underline: true;
+}
+
+.clickable:hover {
+    -fx-cursor: hand;
 }

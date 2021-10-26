@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Comparator;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -41,6 +43,8 @@ public class ContactCard extends UiPart<Region> {
     public final Contact contact;
 
     private MainWindow mainWindow;
+
+    private boolean isShowLinks = false;
 
     @FXML
     private HBox cardPane;
@@ -78,6 +82,8 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private FlowPane links;
 
+    @FXML
+    private HBox linksHBox;
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
      */
@@ -137,14 +143,27 @@ public class ContactCard extends UiPart<Region> {
         }
         if (!contact.getLinkedEvents().isEmpty()) {
             contact.getLinkedEvents().stream()
-                .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
+                .sorted(Comparator.comparing(UUID::toString))
                 .forEach(eventUuid -> {
                     String eventName = Event.findByUuid(eventUuid).getName().toString();
                     links.getChildren().add(new Label(eventName));
                 });
             linksLabel.setManaged(true);
             links.setManaged(true);
+            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+                if (isShowLinks) { // Toggle back to default predicate
+                    mainWindow.showAllEvents();
+                    setIsShowLinks(false);
+                } else {
+                    mainWindow.showLinksOfContact(contact);
+                    setIsShowLinks(true);
+                }
+            });
         }
+    }
+
+    private void setIsShowLinks(boolean isShowLinks) {
+        this.isShowLinks = isShowLinks;
     }
 
     @Override
@@ -214,7 +233,7 @@ public class ContactCard extends UiPart<Region> {
      */
     private void openLink(String link, String fieldName) {
         try {
-            if (!link.matches("^(http(s)?://)")) {
+            if (!link.matches("^http(s)?://.*$")) {
                 link = "http://" + link;
             }
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
