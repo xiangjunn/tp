@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -170,6 +171,13 @@ public class ModelManager implements Model {
         filteredContacts.setPredicate(predicate);
     }
 
+    @Override
+    public void updateContactListByIndex(Index index) {
+        requireNonNull(index);
+        Contact targetContact = filteredContacts.get(index.getZeroBased());
+        filteredContacts.setPredicate(curr -> curr.isSameContact(targetContact));
+    }
+
     //=========== Filtered Event List Accessors =======================
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
@@ -201,6 +209,13 @@ public class ModelManager implements Model {
         return event -> (originalPredicate == null || originalPredicate.test(event))
             && ((event.getEndDateAndTime() == null && event.getStartDateAndTime().isNotBeforeNow())
             || (event.getEndDateAndTime() != null && event.getEndDateAndTime().isNotBeforeNow()));
+    }
+
+    @Override
+    public void updateEventListByIndex(Index index) {
+        requireNonNull(index);
+        Event targetEvent = filteredEvents.get(index.getZeroBased());
+        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));
     }
 
     @Override

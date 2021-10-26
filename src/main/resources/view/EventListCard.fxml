@@ -11,23 +11,29 @@
         </columnConstraints>
         <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15" />
+                <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
+            <stylesheets>
+                <URL value = "@Clickable.css"/>
+            </stylesheets>
+            <HBox alignment="CENTER_LEFT" spacing="5">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label" text="\$first" />
             </HBox>
-            <Label fx:id="from" managed="false" styleClass="cell_small_label" text="\$from" />
+            <Label fx:id="from" managed="false" onMouseClicked="#copyStartDateTime" styleClass="cell_small_label" text="\$from" />
             <!-- Optional fields-->
-            <Label fx:id="to" managed="false" styleClass="cell_small_label" text="\$to" />
-            <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="zoomLink" managed="false" styleClass="cell_small_label" text="\$meeting-link" />
-            <Label fx:id="description" managed="false" styleClass="cell_small_label" text="\$description" />
+            <Label fx:id="to" managed="false" onMouseClicked="#copyEndDateTime" styleClass="cell_small_label" text="\$to" />
+            <Label fx:id="address" managed="false" onMouseClicked="#copyAddress" styleClass="cell_small_label" text="\$address" />
+            <HBox>
+                <Label fx:id="zoomLinkTitle" managed="false" styleClass="cell_small_label"/>
+                <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label" text="\$meeting-link"/>
+            </HBox>
+            <Label fx:id="description" managed="false" onMouseClicked="#copyDescription" styleClass="cell_small_label" text="\$description" />
             <HBox fx:id="linksHBox">
                 <padding>
                     <Insets top="5" />
