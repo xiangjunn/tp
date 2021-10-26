@@ -15,6 +15,9 @@ import seedu.address.model.event.EventChanger;
 public class EClearCommand extends Command {
 
     public static final String COMMAND_WORD = "eclear";
+
+    public static final String SYNTAX = COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "All events have been cleared!";
 
 

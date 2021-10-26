@@ -19,6 +19,8 @@ import seedu.address.model.event.Event;
 public class EViewCommand extends Command {
     public static final String COMMAND_WORD = "eview";
 
+    public static final String SYNTAX = COMMAND_WORD + " INDEX";
+
     public static final String MESSAGE_SUCCESS = "Viewing Event: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View one event of the index provided "

@@ -17,10 +17,13 @@ import seedu.address.model.event.Event;
 
 public class ELinkCommand extends Command {
     public static final String COMMAND_WORD = "elink";
+    public static final String PARAMETERS = "EVENT_INDEX "
+            + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Links an event to a contact. "
         + "Parameters: "
-        + "EVENT_INDEX "
-        + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n"
+        + PARAMETERS
         + "Examples:\n"
         + "elink 1 c/1\n"
         + "elink 3 c/1 c/2 c/3 c/4 c/5";

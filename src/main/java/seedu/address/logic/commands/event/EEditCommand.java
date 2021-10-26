@@ -40,19 +40,21 @@ import seedu.address.model.tag.Tag;
 public class EEditCommand extends Command {
 
     public static final String COMMAND_WORD = "eedit";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
-            + "by the index number used in the displayed event list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String PARAMETERS = "INDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_START_TIME + "START] "
             + "[" + PREFIX_END_TIME + "END] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_ZOOM + PREFIX_ZOOM + "ZOOM] "
+            + "[" + PREFIX_ZOOM + "ZOOM] "
             + "[" + PREFIX_TAG + "TAG]..."
-            + "[" + PREFIX_DELETE_TAG + "DELETE TAG]...\n"
+            + "[" + PREFIX_DELETE_TAG + "DELETE TAG]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
+            + "by the index number used in the displayed event list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_START_TIME + "2020-12-01 "
             + PREFIX_ADDRESS + "12th Street";

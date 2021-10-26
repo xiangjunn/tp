@@ -20,6 +20,13 @@ import seedu.address.model.Model;
 public class CListCommand extends Command {
 
     public static final String COMMAND_WORD = "clist";
+    public static final String PARAMETERS = "[" + PREFIX_PHONE + "] "
+            + "[" + PREFIX_EMAIL + "] "
+            + "[" + PREFIX_ADDRESS + "] "
+            + "[" + PREFIX_TELEGRAM + "] "
+            + "[" + PREFIX_ZOOM + "] "
+            + "[" + PREFIX_TAG + "] \n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_SUCCESS = "Listed all contacts";
 
@@ -27,12 +34,7 @@ public class CListCommand extends Command {
         + " details by default.\n"
         + "Include optional parameters to filter details.\n"
         + "Parameters: "
-        + "[" + PREFIX_PHONE + "] "
-        + "[" + PREFIX_EMAIL + "] "
-        + "[" + PREFIX_ADDRESS + "] "
-        + "[" + PREFIX_TELEGRAM + "] "
-        + "[" + PREFIX_ZOOM + "] "
-        + "[" + PREFIX_TAG + "] \n"
+        + PARAMETERS
         + "Example: " + COMMAND_WORD + " " + PREFIX_EMAIL + " " + PREFIX_ZOOM;
 
     @Override

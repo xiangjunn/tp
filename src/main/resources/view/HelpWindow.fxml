@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.stage.Stage?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.*?>
+
+<!--<?import javafx.scene.layout.GridPane?>-->
 
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
@@ -24,113 +21,20 @@
                 <URL value="@HelpWindow.css" />
             </stylesheets>
 
-            <VBox alignment="TOP_LEFT" prefHeight="500" prefWidth="700">
+            <VBox prefHeight="500" prefWidth="700">
                 <children>
                     <Label fx:id="introduction" text="Label" />
                     <ScrollPane fx:id="scrollPane" fitToWidth="true">
                         <content>
-                            <VBox alignment="TOP_LEFT">
+                            <VBox>
                                 <Label fx:id="contactTitle" text="contactTitle" />
-                                <GridPane fx:id="contactTable" hgap="1.0" vgap="1.0" style="-fx-background-color: #b7eae5;">
-                                    <Label fx:id="actionHeaderContact" prefWidth="Infinity" text="header" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                    <Label fx:id="cAdd" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                    <Label fx:id="cClear" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                    <Label fx:id="cDelete" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                                    <Label fx:id="cEdit" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                                    <Label fx:id="cFind" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                                    <Label fx:id="cList" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                                    <Label fx:id="cView" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-
-                                    <Label fx:id="formatContact" prefWidth="Infinity" text="header" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                    <Label fx:id="cAddCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="cClearCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="cDeleteCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label fx:id="cEditCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="cFindCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Label fx:id="cListCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                    <Label fx:id="cViewCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-
-                                    <columnConstraints>
-                                        <ColumnConstraints percentWidth="20" />
-                                        <ColumnConstraints percentWidth="80" />
-                                    </columnConstraints>
-
-                                    <padding>
-                                        <Insets topRightBottomLeft="1.0" />
-                                    </padding>
-
-                                    <VBox.margin>
-                                        <Insets topRightBottomLeft="1.0" />
-                                    </VBox.margin>
-                                </GridPane>
+                                <TableView fx:id="contactTable" prefWidth="600" prefHeight="300"/>
 
                                 <Label fx:id="eventTitle" text="Label" />
-                                <GridPane fx:id="eventTable" hgap="1.0" vgap="1.0" style="-fx-background-color: #fce081;">
-                                    <Label fx:id="actionHeaderEvent" prefWidth="Infinity" text="header" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                    <Label fx:id="eAdd" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                    <Label fx:id="eClear" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                    <Label fx:id="eDelete" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                                    <Label fx:id="eEdit" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                                    <Label fx:id="eFind" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                                    <Label fx:id="eLink" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                                    <Label fx:id="eList" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                                    <Label fx:id="eSort" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-                                    <Label fx:id="eView" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-
-                                    <Label fx:id="formatEvent" prefWidth="Infinity" text="header" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                    <Label fx:id="eAddCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="eClearCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="eDeleteCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label fx:id="eEditCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="eFindCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Label fx:id="eLinkCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                    <Label fx:id="eListCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                    <Label fx:id="eSortCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                    <Label fx:id="eViewCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-
-                                    <columnConstraints>
-                                        <ColumnConstraints percentWidth="20" />
-                                        <ColumnConstraints percentWidth="80" />
-                                    </columnConstraints>
-
-                                    <padding>
-                                        <Insets topRightBottomLeft="1.0" />
-                                    </padding>
-
-                                    <VBox.margin>
-                                        <Insets topRightBottomLeft="1.0" />
-                                    </VBox.margin>
-                                </GridPane>
+                                <TableView fx:id="eventTable" prefWidth="600" prefHeight="300"/>
 
                                 <Label fx:id="generalTitle" text="Label" />
-                                <GridPane fx:id="generalTable" hgap="1.0" vgap="1.0" style="-fx-background-color: #d9d9d9;">
-                                    <Label fx:id="actionHeaderGeneral" prefWidth="Infinity" text="header" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                    <Label fx:id="calendar" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                    <Label fx:id="exit" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                    <Label fx:id="help" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                                    <Label fx:id="redo" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                                    <Label fx:id="undo" text="action" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-
-                                    <Label fx:id="formatGeneral" prefWidth="Infinity" text="header" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                    <Label fx:id="calendarCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="exitCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="helpCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label fx:id="redoCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="undoCommand" text="command" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
-                                    <columnConstraints>
-                                        <ColumnConstraints percentWidth="20" />
-                                        <ColumnConstraints percentWidth="80" />
-                                    </columnConstraints>
-
-                                    <padding>
-                                        <Insets topRightBottomLeft="1.0" />
-                                    </padding>
-
-                                    <VBox.margin>
-                                        <Insets topRightBottomLeft="1.0" />
-                                    </VBox.margin>
-                                </GridPane>
+                                <TableView fx:id="generalTable" prefWidth="600" prefHeight="100"/>
                             </VBox>
                         </content>
                     </ScrollPane>

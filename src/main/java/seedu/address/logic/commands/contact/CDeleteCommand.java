@@ -19,10 +19,12 @@ import seedu.address.model.contact.Contact;
 public class CDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "cdelete";
+    public static final String PARAMETERS = "INDEX[-INDEX]\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the contact identified by the index number used in the displayed contact list."
-            + " Parameters: INDEX[-INDEX]\n"
+            + " Parameters: " + PARAMETERS
             + "Note: index must be a positive integer and first index must be smaller than or equal to second"
             + " index if the optional second index is included)\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"

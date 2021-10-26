@@ -15,10 +15,12 @@ import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 public class EFindCommand extends Command {
 
     public static final String COMMAND_WORD = "efind";
+    public static final String PARAMETERS = "KEYWORD [MORE_KEYWORDS]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events which have names containing any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " exam hard CS2103T";
 
     private final EventNameContainsKeywordsPredicate predicate;

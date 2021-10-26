@@ -20,6 +20,13 @@ import seedu.address.model.Model;
 public class EListCommand extends Command {
 
     public static final String COMMAND_WORD = "elist";
+    public static final String PARAMETERS = "[" + PREFIX_START_TIME + "] "
+            + "[" + PREFIX_END_TIME + "] "
+            + "[" + PREFIX_DESCRIPTION + "] "
+            + "[" + PREFIX_ADDRESS + "] "
+            + "[" + PREFIX_ZOOM + "] "
+            + "[" + PREFIX_TAG + "] \n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_SUCCESS = "Listed all events";
 
@@ -28,12 +35,7 @@ public class EListCommand extends Command {
             + "Include optional parameters to filter details.\n"
             + "Parameters should not be followed by any values.\n" //added this to warn users not to add any values.
             + "Parameters: "
-            + "[" + PREFIX_START_TIME + "] "
-            + "[" + PREFIX_END_TIME + "] "
-            + "[" + PREFIX_DESCRIPTION + "] "
-            + "[" + PREFIX_ADDRESS + "] "
-            + "[" + PREFIX_ZOOM + "] "
-            + "[" + PREFIX_TAG + "] \n"
+            + PARAMETERS
             + "Example: " + COMMAND_WORD + " " + PREFIX_END_TIME + " " + PREFIX_ZOOM;
     @Override
     public CommandResult execute(Model model) {

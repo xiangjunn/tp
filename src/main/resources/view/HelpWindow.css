@@ -12,71 +12,10 @@
     -fx-underline: "true";
 }
 
-#CAdd,
-#CClear,
-#CDelete,
-#CEdit,
-#CFind,
-#CList,
-#CView,
-#EAdd,
-#EClear,
-#EDelete,
-#EEdit,
-#EFind,
-#ELink,
-#EList,
-#ESort,
-#EView,
-#Calendar,
-#Exit,
-#Help,
-#Redo,
-#Undo,
-#CAddCommand,
-#CClearCommand,
-#CDeleteCommand,
-#CEditCommand,
-#CFindCommand,
-#CListCommand,
-#CViewCommand,
-#EAddCommand,
-#EClearCommand,
-#EDeleteCommand,
-#EEditCommand,
-#EFindCommand,
-#ELinkCommand,
-#EListCommand,
-#ESortCommand,
-#EViewCommand,
-#CalendarCommand,
-#ExitCommand,
-#HelpCommand,
-#RedoCommand,
-#UndoCommand,
 #copyButton,
 #helpMessage {
-    -fx-font-family: "Open Sans Light";
+    -fx-font-family: "Open Sans";
     -fx-padding: 3 3 3 3;
 }
 
-#actionHeaderContact,
-#formatContact {
-    -fx-font-family: "Open Sans Extra Bold";
-    -fx-padding: 3 3 3 3;
-    -fx-background-color: #1fe0cd;
-}
 
-#actionHeaderEvent,
-#formatEvent {
-    -fx-font-family: "Open Sans Extra Bold";
-    -fx-padding: 3 3 3 3;
-    -fx-background-color: #ffd136;
-}
-
-#actionHeaderGeneral,
-#formatGeneral {
-    -fx-font-family: "Open Sans Extra Bold";
-    -fx-padding: 3 3 3 3;
-    -fx-background-color: #828282;
-}

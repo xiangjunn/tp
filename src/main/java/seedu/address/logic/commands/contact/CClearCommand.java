@@ -12,6 +12,9 @@ import seedu.address.model.Model;
 public class CClearCommand extends Command {
 
     public static final String COMMAND_WORD = "cclear";
+
+    public static final String SYNTAX = COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "All entries of contacts have been cleared!";
 
 
