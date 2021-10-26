@@ -22,12 +22,24 @@
                 </Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="from" managed="false" styleClass="cell_small_label" text="\$from" />
+            <Label fx:id="from" wrapText="false" managed="false" styleClass="cell_small_label" text="\$from" />
             <!-- Optional fields-->
-            <Label fx:id="to" managed="false" styleClass="cell_small_label" text="\$to" />
-            <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="zoomLink" managed="false" styleClass="cell_small_label" text="\$meeting-link" />
-            <Label fx:id="description" managed="false" styleClass="cell_small_label" text="\$description" />
+            <Label fx:id="to" wrapText="false" managed="false" styleClass="cell_small_label" text="\$to" />
+            <Label fx:id="address" wrapText="false" managed="false" styleClass="cell_small_label" text="\$address" />
+            <Label fx:id="zoomLink" wrapText="false" managed="false" styleClass="cell_small_label" text="\$meeting-link" />
+            <Label fx:id="description" wrapText="false" managed="false" styleClass="cell_small_label" text="\$description" />
+            <HBox>
+                <padding>
+                    <Insets top="5" />
+                </padding>
+                <Label fx:id="linksLabel" styleClass="cell_small_label" text="Linked contacts: " managed="false" >
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <FlowPane fx:id="links" managed="false" />
+            </HBox>
             <FlowPane fx:id="tags" managed="false" />
         </VBox>
     </GridPane>

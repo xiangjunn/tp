@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
+import java.util.HashMap;
 
 import seedu.address.commons.util.StringUtil;
 
@@ -16,7 +17,11 @@ public class Tag {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
+    private static HashMap<String, String> addedTagList = new HashMap<>();
+
     public final String tagName;
+
+    public final String tagColour;
 
     /**
      * Constructs a {@code Tag}.
@@ -27,6 +32,12 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        if (addedTagList.containsKey(tagName)) {
+            this.tagColour = addedTagList.get(tagName);
+        } else {
+            this.tagColour = Colours.getTagColour();
+            addedTagList.put(tagName, tagColour);
+        }
     }
 
     /**

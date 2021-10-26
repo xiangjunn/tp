@@ -20,6 +20,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
 
 /**
@@ -67,7 +68,7 @@ public class CFindCommandParser implements Parser<CFindCommand> {
         if (isPrefixValuePresent(argMultimap, PREFIX_TAG)) {
             predicate.setTagKeywords(getPrefixValueAndSplit(argMultimap, PREFIX_TAG));
         }
-
+        Contact.setViewingMode(false);
         return new CFindCommand(predicate);
     }
 

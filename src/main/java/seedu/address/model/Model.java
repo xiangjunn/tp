@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -96,6 +97,12 @@ public interface Model {
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
 
+    /**
+     * Updates the filter of the filtered contact list to show the contact at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateContactListByIndex(Index index);
+
     //=========== Event Management =============================================================
 
     /**
@@ -137,8 +144,37 @@ public interface Model {
     void updateFilteredEventList(Predicate<? super Event> predicate);
 
     /**
+     * Links an event to a contact. Both the event and contact will have reference to each other.
+     * @param event The event to link to contact.
+     * @param contact The contact to link to event.
+     */
+    void linkEventAndContact(Event event, Contact contact);
+
+    /**
      * Sorts the filtered event list to show all upcoming events. This will change the order of the filtered list
      * and remove any events which have concluded.
      */
     void sortUpcomingFilteredEventList();
+
+    /**
+     * Updates the filter of the filtered event list to show the event at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateEventListByIndex(Index index);
+
+    /**
+     * Re-render contact cards in UI to show the most updated version.
+     */
+    void rerenderContactCards();
+
+    /**
+     * Re-render event cards in UI to show the most updated version.
+     */
+    void rerenderEventCards();
+
+    /**
+     * Re-render both contact and event cards in UI to show the most updated version.
+     */
+    void rerenderAllCards();
+
 }
