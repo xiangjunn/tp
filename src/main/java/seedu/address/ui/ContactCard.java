@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -43,11 +44,21 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private Label telegramHandle;
     @FXML
-    private Label zoom;
+    private Label zoomText;
     @FXML
     private FlowPane tags;
     @FXML
     private ImageView phoneIcon;
+    @FXML
+    private ImageView addressIcon;
+    @FXML
+    private ImageView telegramIcon;
+    @FXML
+    private HBox zoom;
+    @FXML
+    private ImageView zoomIcon;
+    @FXML
+    private ImageView tagIcon;
     @FXML
     private Label linksLabel;
     @FXML
@@ -59,7 +70,6 @@ public class ContactCard extends UiPart<Region> {
     public ContactCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
-
         boolean isViewMode = Contact.isViewingMode();
 
         id.setText(displayedIndex + ". ");
@@ -83,19 +93,23 @@ public class ContactCard extends UiPart<Region> {
         if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
             address.setText("address: " + contact.getAddress().value);
             address.setManaged(true);
+            addressIcon.setManaged(true);
+            addressIcon.setVisible(true);
             address.setWrapText(isViewMode);
         }
         if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
             telegramHandle.setText("telegram handle: " + contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
+            telegramIcon.setManaged(true);
+            telegramIcon.setVisible(true);
             telegramHandle.setWrapText(isViewMode);
         }
         if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
-            zoom.setText("zoom: " + contact.getZoomLink().link);
-            zoom.setManaged(true);
-            zoom.setWrapText(isViewMode);
+            zoomText.setText("zoom: " + contact.getZoomLink().link);
+            zoomIcon.setImage(new Image(this.getClass().getResourceAsStream("/images/zoom.png")));
+            zoomText.setWrapText(isViewMode);
         }
-        if (Contact.isWillDisplayTags()) {
+        if (Contact.isWillDisplayTags() && !contact.getTags().isEmpty()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
@@ -103,6 +117,8 @@ public class ContactCard extends UiPart<Region> {
                         label.setStyle("-fx-background-color: " + tag.tagColour + ";");
                         tags.getChildren().add(label);
                     });
+            tagIcon.setManaged(true);
+            tagIcon.setVisible(true);
             tags.setManaged(true);
         }
         if (!contact.getLinkedEvents().isEmpty()) {
