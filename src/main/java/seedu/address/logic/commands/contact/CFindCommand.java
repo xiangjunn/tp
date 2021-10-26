@@ -22,15 +22,16 @@ public class CFindCommand extends Command {
 
     public static final String COMMAND_WORD = "cfind";
 
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all contacts whose fields contains any of the "
             + "given keywords.\n"
             + "At least one field must be present, name keywords must follow directly after the command word\n"
             + "Parameters: [NAME_KEYWORD] "
-            + "[" + PREFIX_PHONE + "PHONE_KEYWORDS ] "
-            + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS ] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS ] "
-            + "[" + PREFIX_TELEGRAM + "TELEGRAM_KEYWORDS ] "
-            + "[" + PREFIX_ZOOM + "ZOOM_KEYWORDS ] "
+            + "[" + PREFIX_PHONE + "PHONE_KEYWORDS] "
+            + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS] "
+            + "[" + PREFIX_TELEGRAM + "TELEGRAM_KEYWORDS] "
+            + "[" + PREFIX_ZOOM + "ZOOM_KEYWORDS] "
             + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie "
             + PREFIX_PHONE + "91234567 "

@@ -38,7 +38,7 @@ public class Event {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * All fields, except description and zoom link must be present and not null.
+     * Name, startDateTime and tags must be present and not null.
      */
     public Event(Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime,
                  Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {

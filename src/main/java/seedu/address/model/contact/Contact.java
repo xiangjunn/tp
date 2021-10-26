@@ -38,7 +38,7 @@ public class Contact {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field, except telegram handle and zoom link must be present and not null.
+     * Name, email and tags must be present and not null.
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,

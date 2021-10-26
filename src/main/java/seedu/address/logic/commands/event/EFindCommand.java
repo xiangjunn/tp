@@ -27,14 +27,14 @@ public class EFindCommand extends Command {
             + "given keywords.\n"
             + "At least one field must be present, name keywords must follow directly after the command word\n"
             + "Parameters: [NAME_KEYWORD] "
-            + "[" + PREFIX_START_TIME + "START_TIME_KEYWORDS ] "
-            + "[" + PREFIX_END_TIME + "END_TIME_KEYWORDS ] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS ] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION_KEYWORDS ] "
-            + "[" + PREFIX_ZOOM + "ZOOM_KEYWORDS ] "
-            + "[" + PREFIX_TAG + "TAG_KEYWORDS ]\n"
+            + "[" + PREFIX_START_TIME + "START_TIME_KEYWORDS] "
+            + "[" + PREFIX_END_TIME + "END_TIME_KEYWORDS] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION_KEYWORDS] "
+            + "[" + PREFIX_ZOOM + "ZOOM_KEYWORDS] "
+            + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
             + "Example: " + COMMAND_WORD + " cs 2103t "
-            + PREFIX_START_TIME + " 2020-12-01 "
+            + PREFIX_START_TIME + "2020-12-01 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     private final EventNameContainsKeywordsPredicate predicate;

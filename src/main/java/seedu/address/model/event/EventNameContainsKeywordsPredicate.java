@@ -1,5 +1,7 @@
 package seedu.address.model.event;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -16,7 +18,13 @@ public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
     private List<String> zoomLinkKeywords = new ArrayList<>();
     private List<String> tagKeywords = new ArrayList<>();
 
+    /**
+     * Class constructor
+     *
+     * @param nameKeywords
+     */
     public EventNameContainsKeywordsPredicate(List<String> nameKeywords) {
+        requireNonNull(nameKeywords);
         this.nameKeywords = nameKeywords;
     }
 
@@ -24,30 +32,37 @@ public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
      * empty class constructor if nameKeywords are not provided.
      */
     public EventNameContainsKeywordsPredicate() {
-        nameKeywords = null;
+        nameKeywords = new ArrayList<>();
     }
 
     public void setStartDateTimeKeywords(List<String> startDateTimeKeywords) {
+        requireNonNull(startDateTimeKeywords);
         this.startDateTimeKeywords = startDateTimeKeywords;
     }
     public void setEndDateTimeKeywords(List<String> endDateTimeKeywords) {
+        requireNonNull(endDateTimeKeywords);
         this.endDateTimeKeywords = endDateTimeKeywords;
     }
     public void setAddressKeywords(List<String> addressKeywords) {
+        requireNonNull(addressKeywords);
         this.addressKeywords = addressKeywords;
     }
     public void setDescriptionKeywords(List<String> descriptionKeywords) {
+        requireNonNull(descriptionKeywords);
         this.descriptionKeywords = descriptionKeywords;
     }
     public void setZoomLinkKeywords(List<String> zoomLinkKeywords) {
+        requireNonNull(zoomLinkKeywords);
         this.zoomLinkKeywords = zoomLinkKeywords;
     }
     public void setTagKeywords(List<String> tagKeywords) {
+        requireNonNull(tagKeywords);
         this.tagKeywords = tagKeywords;
     }
 
     @Override
     public boolean test(Event event) {
+        requireNonNull(event);
         boolean isMatch = false;
         if (nameKeywords != null) {
             isMatch = event.nameAnyMatch(nameKeywords);
