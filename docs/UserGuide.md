@@ -5,11 +5,11 @@ title: User Guide
 
 SoConnect is a **desktop app for SoC students to managing contacts of professors and teaching assistants, 
 as well as to keep track of noteworthy events, optimized for use via a Command Line Interface** (CLI) while still having 
-the benefits of a Graphical User Interface (GUI). If you can type fast, SoConnect can get your contact management tasks
+the benefits of a Graphical User Interface ([*GUI*](#general "Graphic-based user interface")). If you can type fast, SoConnect can get your contact management tasks
 done faster than traditional GUI apps.
 
 * Table of Contents
-{:toc}
+{:toc}"
 
 --------------------------------------------------------------------------------------------------------------------
 
