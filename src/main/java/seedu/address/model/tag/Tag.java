@@ -3,8 +3,8 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.commons.util.StringUtil;
 
