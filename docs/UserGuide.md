@@ -228,7 +228,7 @@ Shows all contacts in the SoConnect, with all details by default.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Do not add extraneous values after each specified optional fields.
+Do not add extraneous values after each optional field you specify.
 </div>
 
 **Examples:**
@@ -412,7 +412,7 @@ Shows all events in SoConnect, with all details by default.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Do not add extraneous values after each specified optional fields.
+Do not add extraneous values after each optional field you specify.
 </div>
 
 **Examples:**
