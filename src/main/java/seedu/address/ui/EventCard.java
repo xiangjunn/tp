@@ -4,7 +4,9 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
@@ -25,6 +27,8 @@ public class EventCard extends UiPart<Region> {
      */
 
     private final Event event;
+
+    private boolean isShowLinks = false;
 
     @FXML
     private Label id;
@@ -55,6 +59,9 @@ public class EventCard extends UiPart<Region> {
 
     @FXML
     private FlowPane links;
+
+    @FXML
+    private HBox linksHBox;
 
     /**
      * Creates an {@code EventCard} with the given {@code Event} and index to display.
@@ -103,6 +110,13 @@ public class EventCard extends UiPart<Region> {
                     .add(new Label(Contact.findByUuid(contactUuid).getName().toString())));
             linksLabel.setManaged(true);
             links.setManaged(true);
+            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+                if (isShowLinks) { // Toggle back to default predicate
+
+                } else {
+
+                }
+            });
         }
     }
 

@@ -28,7 +28,7 @@
             <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
             <Label fx:id="zoomLink" managed="false" styleClass="cell_small_label" text="\$meeting-link" />
             <Label fx:id="description" managed="false" styleClass="cell_small_label" text="\$description" />
-            <HBox>
+            <HBox fx:id="linksHBox">
                 <padding>
                     <Insets top="5" />
                 </padding>
