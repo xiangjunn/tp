@@ -251,6 +251,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void unlinkAllContactsFromEvent(Event event) {
+        addressBook.unlinkContactsFromEvent(event);
+    }
+
+    @Override
     public void rerenderContactCards() {
         updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
         updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);

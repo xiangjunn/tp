@@ -227,6 +227,11 @@ class EAddCommandTest {
         }
 
         @Override
+        public void unlinkAllContactsFromEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void rerenderContactCards() {
             throw new AssertionError("This method should not be called.");
         }

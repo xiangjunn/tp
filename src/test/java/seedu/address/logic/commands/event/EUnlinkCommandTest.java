@@ -12,7 +12,7 @@ class EUnlinkCommandTest {
     @Test
     void execute() {
         EUnlinkCommand eUnlinkCommand = new EUnlinkCommand(TypicalIndexes.INDEX_FIRST_EVENT,
-            Set.of(TypicalIndexes.INDEX_FIRST_PERSON));
+            Set.of(TypicalIndexes.INDEX_FIRST_PERSON), false);
     }
 
     @Test

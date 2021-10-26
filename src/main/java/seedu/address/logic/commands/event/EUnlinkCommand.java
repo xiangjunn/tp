@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 
 import java.util.List;
@@ -17,25 +18,30 @@ import seedu.address.model.event.Event;
 
 public class EUnlinkCommand extends Command {
     public static final String COMMAND_WORD = "eunlink";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlinks an event to a contact. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlinks an event to a contact. Include the argument"
+        + " \"c/*\" to clear all links.\n"
         + "Parameters: "
         + "EVENT_INDEX "
         + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n"
         + "Examples:\n"
         + "eunlink 1 c/1\n"
-        + "eunlink 3 c/1 c/2 c/3 c/4 c/5";
+        + "eunlink 3 c/1 c/2 c/3 c/4 c/5\n"
+        + "eunlink 2 c/*";
     public static final String MESSAGE_SUCCESS = "Successfully unlinked the event %s from the contact%s %s";
+    public static final String MESSAGE_SUCCESS_CLEAR_ALL = "Successfully unlinked the event %s from all contacts.";
 
     private final Index eventIndex;
     private final Set<Index> contactIndexes;
+    private final boolean isClearAllLinks;
 
     /**
      * Creates an EUnlinkCommand to remove the link from the specified {@code Event} to a {@code Contact}
      */
-    public EUnlinkCommand(Index eventIndex, Set<Index> contactIndexes) {
-        assert !contactIndexes.isEmpty() : "Set of contact indices cannot be empty.";
+    public EUnlinkCommand(Index eventIndex, Set<Index> contactIndexes, boolean isClearAllLinks) {
+        requireAllNonNull(eventIndex, contactIndexes);
         this.eventIndex = eventIndex;
         this.contactIndexes = contactIndexes;
+        this.isClearAllLinks = isClearAllLinks;
     }
 
     @Override
@@ -48,8 +54,13 @@ public class EUnlinkCommand extends Command {
         checkCommandValidity(lastShownEventList, lastShownContactList);
 
         // execution of command
+        CommandResult commandResult;
         Event eventToUnlink = lastShownEventList.get(eventIndex.getZeroBased());
-        CommandResult commandResult = unlinkEventAndContacts(model, eventToUnlink, lastShownContactList);
+        if (!isClearAllLinks) {
+            commandResult = unlinkEventAndContacts(model, eventToUnlink, lastShownContactList);
+        } else {
+            commandResult = unlinkEventAndAllContacts(eventToUnlink, model);
+        }
 
         // rerender UI to show the links between event and each of the contacts
         model.rerenderAllCards();
@@ -89,6 +100,11 @@ public class EUnlinkCommand extends Command {
             count++;
         }
         return new CommandResult(commandResult);
+    }
+
+    private CommandResult unlinkEventAndAllContacts(Event eventToUnlink, Model model) {
+        model.unlinkAllContactsFromEvent(eventToUnlink);
+        return new CommandResult(String.format(MESSAGE_SUCCESS_CLEAR_ALL, eventToUnlink.getName()));
     }
 
     @Override

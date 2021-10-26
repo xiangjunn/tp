@@ -28,6 +28,6 @@ class EUnlinkCommandParserTest {
         contactIndexes.add(INDEX_SECOND_PERSON);
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
                 + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + VALID_INDEX_TWO,
-            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes));
+            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes, false));
     }
 }

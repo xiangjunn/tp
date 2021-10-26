@@ -124,19 +124,29 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEvent(Event key) {
         // unlink all the contacts linked to event before removing event
-        unlinkContactsFromEvent(key);
+        unlinkContactsFromEventOneWay(key);
         events.remove(key);
     }
 
     /**
-     * Unlink all the contacts linked to the given event.
+     * Unlink all the contacts linked to the given event, but does not remove the stored links in the event.
+     *
+     * @param e The event from which to unlink all linked contacts.
+     */
+    private void unlinkContactsFromEventOneWay(Event e) {
+        Set<UUID> contactsUuid = e.getLinkedContacts();
+        contactsUuid.iterator()
+            .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
+    }
+
+    /**
+     * Unlink all the contacts linked to the given event in both directions.
      *
      * @param e The event from which to unlink all linked contacts.
      */
     public void unlinkContactsFromEvent(Event e) {
-        Set<UUID> contactsUuid = e.getLinkedContacts();
-        contactsUuid.iterator()
-            .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
+        unlinkContactsFromEventOneWay(e);
+        e.clearAllLinks();
     }
 
     /**
