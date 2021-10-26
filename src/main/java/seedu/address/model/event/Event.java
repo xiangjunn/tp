@@ -37,6 +37,8 @@ public class Event {
 
     private final Set<Tag> tags = new HashSet<>();
 
+    private boolean isBookMarked;
+
     /**
      * All fields must be present and not null (currently).
      */
@@ -50,6 +52,7 @@ public class Event {
         this.address = address;
         this.zoomLink = zoomLink;
         this.tags.addAll(tags);
+        this.isBookMarked = false;
     }
 
     public Name getName() {
@@ -150,6 +153,14 @@ public class Event {
         willDisplayTags = false;
     }
 
+    public boolean getIsBookMarked() {
+        return isBookMarked;
+    }
+
+    public void setBookMarked(boolean bookMarked) {
+        isBookMarked = bookMarked;
+    }
+
     /**
      * Returns true if both events have the same name.
      * This defines a weaker notion of equality between two events.
@@ -205,7 +216,8 @@ public class Event {
                 && Objects.equals(getDescription(), event.getDescription())
                 && Objects.equals(getAddress(), event.getAddress())
                 && Objects.equals(getZoomLink(), event.getZoomLink())
-                && Objects.equals(getTags(), event.getTags());
+                && Objects.equals(getTags(), event.getTags())
+                && Objects.equals(getIsBookMarked(), event.getIsBookMarked());
     }
 
     @Override

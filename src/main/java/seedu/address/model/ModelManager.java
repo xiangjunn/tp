@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -165,9 +166,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredContactList(Predicate<Contact> predicate) {
+    public void updateFilteredContactList(Predicate<? super Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+    }
+
+    @Override
+    public void bookMarkContactIndexAt(Index index) {
+        assert index != null : "index should not be null";
+        Predicate<? super Contact> currentPredicate = filteredContacts.getPredicate();
+        // Remove events that have passed
+        addressBook.bookmarkContact(index);
+        updateFilteredContactList(getBookmarkContactPredicate(currentPredicate));
+
+    }
+
+    /**
+     * Returns the new predicate for displaying bookmarked contacts at the top of the list.
+     */
+    private static Predicate<? super Contact> getBookmarkContactPredicate(Predicate<? super Contact> originalPredicate) {
+        return contact -> (originalPredicate == null || originalPredicate.test(contact));
     }
 
     //=========== Filtered Event List Accessors =======================

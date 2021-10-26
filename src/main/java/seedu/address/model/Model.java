@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -94,7 +95,13 @@ public interface Model {
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredContactList(Predicate<Contact> predicate);
+    void updateFilteredContactList(Predicate<? super Contact> predicate);
+
+    /**
+     * Bookmarks the contact indexed at the specified index. This will change the order of the filtered list,
+     * placing bookmarked contact at the top of the list.
+     */
+    void bookMarkContactIndexAt(Index index);
 
     //=========== Event Management =============================================================
 
@@ -141,4 +148,10 @@ public interface Model {
      * and remove any events which have concluded.
      */
     void sortUpcomingFilteredEventList();
+
+    /**
+     * Bookmarks the event indexed at the specified index. This will change the order of the filtered list,
+     * placing bookmarked event at the top of the list.
+     */
+    void bookMarkEventIndexAt(Index index);
 }

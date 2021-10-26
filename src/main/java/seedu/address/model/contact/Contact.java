@@ -31,10 +31,13 @@ public class Contact {
     private final Email email;
     private final TelegramHandle telegramHandle;
 
+
     // Data fields
     private final ZoomLink zoomLink;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+
+    private boolean isBookMarked;
 
     /**
      * Every field, except telegram handle and zoom link must be present and not null.
@@ -50,6 +53,7 @@ public class Contact {
         this.tags.addAll(tags);
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
+        this.isBookMarked = false;
     }
 
     public Name getName() {
@@ -150,6 +154,14 @@ public class Contact {
         willDisplayTags = false;
     }
 
+    public boolean getIsBookMarked() {
+        return isBookMarked;
+    }
+
+    public void setBookMarked(boolean bookMarked) {
+        isBookMarked = bookMarked;
+    }
+
     /**
      * Returns true if both contacts have the same name.
      * This defines a weaker notion of equality between two contacts.
@@ -201,7 +213,8 @@ public class Contact {
             && Objects.equals(getTelegramHandle(), contact.getTelegramHandle())
             && Objects.equals(getZoomLink(), contact.getZoomLink())
             && Objects.equals(getAddress(), contact.getAddress())
-            && Objects.equals(getTags(), contact.getTags());
+            && Objects.equals(getTags(), contact.getTags())
+            && Objects.equals(getIsBookMarked(), contact.getIsBookMarked());
     }
 
     @Override

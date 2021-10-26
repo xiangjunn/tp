@@ -102,6 +102,10 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.sort(Comparator.comparing(Event::getStartDateAndTime));
     }
 
+    public void putBookmarkEventsFirst() {
+        internalList.sort(Comparator.comparing(Event::getIsBookMarked));
+    }
+
     public void resetEvents() {
         internalList.clear();
     }
