@@ -410,6 +410,11 @@ Shows all events in SoConnect, with all details by default.
 * The order of the optional fields does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
 * Fields of an event that have no value will no appear.
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+Do not add extraneous values after each specified optional fields.
+</div>
+
 **Examples:**
 * `elist` shows all events in SoConnect with all available details for each event.
 * `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
