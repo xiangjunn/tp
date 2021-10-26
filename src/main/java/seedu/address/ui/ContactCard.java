@@ -214,11 +214,19 @@ public class ContactCard extends UiPart<Region> {
      */
     private void openLink(String link, String fieldName) {
         try {
-            Desktop.getDesktop().browse(new URI(link));
-            logger.info(String.format(Messages.MESSAGE_CONTACT_LINK_OPENED, fieldName));
-            mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_LINK_OPENED, fieldName));
+            if (!link.matches("^(http(s)?://)")) {
+                link = "http://" + link;
+            }
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI(link));
+                logger.info(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+                mainWindow.handleClick(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+            } else {
+                copy(link, fieldName);
+                logger.warning("Desktop does not support opening URL in browser. Copied link to clipboard");
+            }
         } catch (URISyntaxException | IOException e) {
-            logger.info(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
+            logger.warning(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
             mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
         }
     }
