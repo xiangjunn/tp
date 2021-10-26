@@ -59,6 +59,7 @@ public class EListCommandParser implements Parser<EListCommand> {
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             Event.setWillDisplayTags(true);
         }
+        Event.setViewingMode(false);
         return new EListCommand();
     }
 

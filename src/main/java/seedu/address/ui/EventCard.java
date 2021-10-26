@@ -15,6 +15,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
 /**
@@ -65,6 +66,12 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    private Label linksLabel;
+
+    @FXML
+    private FlowPane links;
+
     /**
      * Creates an {@code EventCard} with the given {@code Event} and index to display.
      */
@@ -72,40 +79,62 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.event = event;
         this.mainWindow = mainWindow;
+
+        boolean isViewMode = Event.isViewingMode();
+
         id.setText(displayedIndex + ". ");
         // compulsory fields
         name.setText(event.getName().fullName);
+        name.setWrapText(isViewMode);
 
         // Compulsory fields
         if (Event.isWillDisplayStartDateTime()) {
             from.setText("from: " + event.getStartDateAndTime());
             from.setManaged(true);
+            from.setWrapText(isViewMode);
         }
         // Optional fields
         if (event.getEndDateAndTime() != null && Event.isWillDisplayEndDateTime()) {
             to.setText("to: " + event.getEndDateAndTime());
             to.setManaged(true);
+            to.setWrapText(isViewMode);
         }
         if (event.getAddress() != null && Event.isWillDisplayAddress()) {
             address.setText("location: " + event.getAddress().value);
             address.setManaged(true);
+            address.setWrapText(isViewMode);
         }
         if (event.getZoomLink() != null && Event.isWillDisplayZoomLink()) {
             zoomLinkTitle.setText("link: ");
             zoomLinkTitle.setManaged(true);
             zoomLink.setText(event.getZoomLink().link);
             zoomLink.setManaged(true);
+            zoomLink.setWrapText(isViewMode);
         }
         if (event.getDescription() != null && Event.isWillDisplayDescription()) {
             description.setText("description: " + event.getDescription().value);
             description.setManaged(true);
+            description.setWrapText(isViewMode);
         }
 
         if (Event.isWillDisplayTags()) {
             event.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .forEach(tag -> {
+                        Label label = new Label(tag.tagName);
+                        label.setStyle("-fx-background-color: " + tag.tagColour + ";");
+                        label.setWrapText(isViewMode);
+                        tags.getChildren().add(label);
+                    });
             tags.setManaged(true);
+        }
+        if (!event.getLinkedContacts().isEmpty()) {
+            event.getLinkedContacts().stream()
+                .sorted(Comparator.comparing(contactUuid -> contactUuid.toString()))
+                .forEach(contactUuid -> links.getChildren()
+                    .add(new Label(Contact.findByUuid(contactUuid).getName().toString())));
+            linksLabel.setManaged(true);
+            links.setManaged(true);
         }
     }
 

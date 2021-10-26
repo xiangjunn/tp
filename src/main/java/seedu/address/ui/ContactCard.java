@@ -20,6 +20,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of a {@code Contact}.
@@ -74,7 +75,9 @@ public class ContactCard extends UiPart<Region> {
     private FlowPane tags;
 
     @FXML
-    private ImageView emailIcon;
+    private Label linksLabel;
+    @FXML
+    private FlowPane links;
 
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
@@ -84,39 +87,64 @@ public class ContactCard extends UiPart<Region> {
         requireAllNonNull(contact, displayedIndex, mainWindow);
         this.mainWindow = mainWindow;
         this.contact = contact;
+
+        boolean isViewMode = Contact.isViewingMode();
+
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
+        name.setWrapText(isViewMode);
+
         // Compulsory fields
         if (Contact.isWillDisplayEmail()) {
             email.setText("email: " + contact.getEmail().value);
             email.setManaged(true);
+            email.setWrapText(isViewMode);
         }
         // Optional fields
         if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
             phone.setText("phone: " + contact.getPhone().value);
             phone.setManaged(true);
+            phone.setWrapText(isViewMode);
         }
         if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
             address.setText("address: " + contact.getAddress().value);
             address.setManaged(true);
+            address.setWrapText(isViewMode);
         }
         if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
             telegramHandleTitle.setText("telegram handle: ");
             telegramHandleTitle.setManaged(true);
             telegramHandle.setText(contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
+            telegramHandle.setWrapText(isViewMode);
         }
         if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
             zoomLinkTitle.setText("zoom: ");
             zoomLinkTitle.setManaged(true);
             zoomLink.setText(contact.getZoomLink().link);
             zoomLink.setManaged(true);
+            zoomLink.setWrapText(isViewMode);
         }
         if (Contact.isWillDisplayTags()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .forEach(tag -> {
+                        Label label = new Label(tag.tagName);
+                        label.setStyle("-fx-background-color: " + tag.tagColour + ";");
+                        label.setWrapText(isViewMode);
+                        tags.getChildren().add(label);
+                    });
             tags.setManaged(true);
+        }
+        if (!contact.getLinkedEvents().isEmpty()) {
+            contact.getLinkedEvents().stream()
+                .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
+                .forEach(eventUuid -> {
+                    String eventName = Event.findByUuid(eventUuid).getName().toString();
+                    links.getChildren().add(new Label(eventName));
+                });
+            linksLabel.setManaged(true);
+            links.setManaged(true);
         }
     }
 
