@@ -40,6 +40,7 @@ public class EListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

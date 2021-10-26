@@ -56,6 +56,7 @@ public class CDeleteCommand extends Command {
         for (int i = indexToDelete; i <= end; i++) {
             Contact contactToDelete = lastShownList.get(indexToDelete);
             model.deleteContact(contactToDelete);
+            model.commitAddressBook();
             commandResult += String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
             if (i != end) {
                 commandResult += "\n";

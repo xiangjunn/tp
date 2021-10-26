@@ -2,11 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.event.Event;
@@ -17,6 +19,8 @@ import seedu.address.model.event.UniqueEventList;
  * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
+    private static ArrayList<AddressBook> addressBookStateList = new ArrayList<>();
+    private static int currentPointer = 0;
 
     private final UniqueContactList contacts;
     private final UniqueEventList events;
@@ -33,6 +37,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
     }
 
+    // change to private?
     public AddressBook() {}
 
     /**
@@ -41,6 +46,100 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    //// manage addressBookStates
+
+    /**
+     * Gets the current version of AddressBook
+     * @return current version of AddressBook
+     */
+    public static AddressBook getCurrentAddressBook() {
+        // TODO: 10/26/2021 add check for invalid current pointer;
+        if (addressBookStateList.isEmpty()) {
+            currentPointer = 0;
+            addressBookStateList.add(new AddressBook());
+        }
+        return addressBookStateList.get(currentPointer);
+    }
+
+    /**
+     * Clear history of addressBook when exit the app
+     */
+    public void clearHistory() {
+        addressBookStateList.clear();
+    }
+
+    /**
+     *
+     */
+    public void print() {
+        System.out.println("Number of states: " + addressBookStateList.size() + ", current pointer: " + currentPointer);
+    }
+
+    /**
+     * Save the current state of address book to the addressBookStateList
+     */
+    public void commit() {
+        assert !addressBookStateList.isEmpty() : "addressBook must have been initialised";
+        if (currentPointer < 0) {
+            //throw exception
+            System.out.println("index <0");
+        }
+
+        AddressBook currentAddressBook = this.copy();
+        if (currentPointer < addressBookStateList.size() - 1) {
+            addressBookStateList.set(currentPointer + 1, currentAddressBook);
+            for (int i = currentPointer + 2; i < addressBookStateList.size(); i++) {
+                addressBookStateList.set(i, null);
+            }
+        } else {
+            addressBookStateList.add(currentAddressBook);
+        }
+        currentPointer++;
+    }
+
+    /**
+     * Check if the current version of addressBook is undoable
+     * @return false if addressBook is already at its original state or if currentIndex is out of range
+     */
+    public boolean isUndoable() {
+        return currentPointer > 0 && currentPointer < addressBookStateList.size();
+    }
+
+    /**
+     * Check of current version of addressBook is redoable
+     * @return false if addressBook is already at its latest version or if currentIndex is out of range
+     */
+    public boolean isRedoable() {
+        return currentPointer >= 0 && currentPointer < addressBookStateList.size() - 1;
+    }
+
+    /**
+     * Restore the previous address book state from the addressBookStateList
+     */
+    public void undo() {
+        currentPointer--;
+        assert isUndoable();
+    }
+
+    /**
+     * Restore the previous undone address book state from its history
+     */
+    public void redo() {
+        currentPointer++;
+        assert isRedoable();
+    }
+
+    /**
+     * Create a copy of the current addressBook
+     * @return a copy of current addressBook
+     */
+    public AddressBook copy() {
+        AddressBook toCopy = new AddressBook();
+        toCopy.setContacts(contacts.copy());
+        toCopy.setEvents(events.copy());
+        return toCopy;
     }
 
     //// list overwrite operations

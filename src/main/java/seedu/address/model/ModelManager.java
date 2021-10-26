@@ -41,7 +41,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(AddressBook.getCurrentAddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -88,7 +88,45 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return AddressBook.getCurrentAddressBook();
+    }
+
+    //=========== AddressBook ================================================================================
+    @Override
+    public void commitAddressBook() {
+        addressBook.commit();
+    }
+
+    @Override
+    public void undoAddressBook() {
+        addressBook.undo();
+        addressBook.resetData(getAddressBook());
+    }
+
+    @Override
+    public void redoAddressBook() {
+        addressBook.redo();
+        addressBook.resetData(getAddressBook());
+    }
+
+    @Override
+    public void clearHistory() {
+        addressBook.clearHistory();
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return addressBook.isUndoable();
+    }
+
+    @Override
+    public boolean isRedoable() {
+        return addressBook.isRedoable();
+    }
+
+    @Override
+    public void print() {
+        addressBook.print();
     }
 
     //=========== Manage Contacts ======================
@@ -144,7 +182,6 @@ public class ModelManager implements Model {
     @Override
     public void setEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
-
         addressBook.setEvent(target, editedEvent);
     }
 

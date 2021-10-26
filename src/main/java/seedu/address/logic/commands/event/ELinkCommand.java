@@ -53,6 +53,7 @@ public class ELinkCommand extends Command {
 
         // rerender UI to show the links between event and each of the contacts
         model.rerenderAllCards();
+        model.commitAddressBook();
 
         return commandResult;
     }

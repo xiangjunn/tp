@@ -60,7 +60,7 @@ class JsonSerializableAddressBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getCurrentAddressBook();
         for (JsonAdaptedContact jsonAdaptedContact : contacts) {
             Contact contact = jsonAdaptedContact.toModelType();
             if (addressBook.hasContact(contact)) {
