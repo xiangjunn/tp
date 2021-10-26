@@ -29,7 +29,7 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="email" managed="false" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="email" wrapText="false" managed="false" styleClass="cell_small_label" text="\$email" />
       <!-- Optional fields-->
       <HBox>
         <ImageView fx:id="phoneIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
@@ -49,6 +49,18 @@
       <Label fx:id="address" managed="false" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="telegramHandle" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
       <Label fx:id="zoom" managed="false" styleClass="cell_small_label" text="\$zoom" />
+      <HBox>
+        <padding>
+          <Insets top="5" />
+        </padding>
+        <Label fx:id="linksLabel" styleClass="cell_small_label" text="Linked events: " managed="false" >
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
+        </Label>
+        <FlowPane fx:id="links" managed="false" />
+      </HBox>
       <FlowPane fx:id="tags" managed="false" />
     </VBox>
   </GridPane>

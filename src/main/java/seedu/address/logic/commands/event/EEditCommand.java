@@ -95,9 +95,11 @@ public class EEditCommand extends Command {
         Set<Tag> updatedDeletedTags = editEventDescriptor.getTagsToDelete().orElse(new HashSet<>());
         Set<Tag> updatedTags = editEventDescriptor.getShouldDeleteAllTags()
                 ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
-
-        return new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
-                updatedZoomLink, updatedTags);
+        Event updatedEvent = new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
+            updatedAddress, updatedZoomLink, updatedTags, eventToEdit.getUuid(), eventToEdit.getLinkedContacts());
+        // update the edited event to the hashmap that stores references to all events
+        Event.addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     /**
@@ -129,6 +131,8 @@ public class EEditCommand extends Command {
 
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        // rerender UI to show latest change for contacts with links to edited event
+        model.rerenderContactCards();
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent),
             List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
     }

@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of a {@code Contact}.
@@ -47,6 +48,10 @@ public class ContactCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private ImageView phoneIcon;
+    @FXML
+    private Label linksLabel;
+    @FXML
+    private FlowPane links;
 
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
@@ -54,12 +59,18 @@ public class ContactCard extends UiPart<Region> {
     public ContactCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
+
+        boolean isViewMode = Contact.isViewingMode();
+
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
+        name.setWrapText(isViewMode);
+
         // Compulsory fields
         if (Contact.isWillDisplayEmail()) {
             email.setText("email: " + contact.getEmail().value);
             email.setManaged(true);
+            email.setWrapText(isViewMode);
         }
         // Optional fields
         if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
@@ -67,24 +78,42 @@ public class ContactCard extends UiPart<Region> {
             phone.setManaged(true);
             phoneIcon.setManaged(true);
             phoneIcon.setVisible(true);
+            phone.setWrapText(isViewMode);
         }
         if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
             address.setText("address: " + contact.getAddress().value);
             address.setManaged(true);
+            address.setWrapText(isViewMode);
         }
         if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
             telegramHandle.setText("telegram handle: " + contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
+            telegramHandle.setWrapText(isViewMode);
         }
         if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
             zoom.setText("zoom: " + contact.getZoomLink().link);
             zoom.setManaged(true);
+            zoom.setWrapText(isViewMode);
         }
         if (Contact.isWillDisplayTags()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .forEach(tag -> {
+                        Label label = new Label(tag.tagName);
+                        label.setStyle("-fx-background-color: " + tag.tagColour + ";");
+                        tags.getChildren().add(label);
+                    });
             tags.setManaged(true);
+        }
+        if (!contact.getLinkedEvents().isEmpty()) {
+            contact.getLinkedEvents().stream()
+                .sorted(Comparator.comparing(eventUuid -> eventUuid.toString()))
+                .forEach(eventUuid -> {
+                    String eventName = Event.findByUuid(eventUuid).getName().toString();
+                    links.getChildren().add(new Label(eventName));
+                });
+            linksLabel.setManaged(true);
+            links.setManaged(true);
         }
     }
 
