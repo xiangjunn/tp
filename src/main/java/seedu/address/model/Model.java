@@ -19,6 +19,11 @@ public interface Model {
     Predicate<Event> PREDICATE_HIDE_ALL_EVENTS = unused -> false;
 
     /**
+     * Gets the latest version of model
+     */
+    Model getLastModel();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -73,8 +78,6 @@ public interface Model {
 
     /** Check if the current state of addressBook is redoable */
     boolean isRedoable();
-
-    void print();
 
     //=========== Contact Management =============================================================
 

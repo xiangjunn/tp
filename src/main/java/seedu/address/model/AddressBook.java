@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.event.Event;
@@ -66,21 +65,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Clear history of addressBook when exit the app
      */
-    public void clearHistory() {
+    public static void clearHistory() {
         addressBookStateList.clear();
     }
 
     /**
-     *
+     * Get the most updated version of addressBook
+     * @return the most updated version of addressBook
      */
-    public void print() {
-        System.out.println("Number of states: " + addressBookStateList.size() + ", current pointer: " + currentPointer);
+    public static AddressBook getLastAddressBook() {
+        return addressBookStateList.get(addressBookStateList.size() - 1);
     }
 
     /**
      * Save the current state of address book to the addressBookStateList
      */
     public void commit() {
+        if (addressBookStateList.isEmpty()) {
+            getCurrentAddressBook();
+        }
         assert !addressBookStateList.isEmpty() : "addressBook must have been initialised";
         if (currentPointer < 0) {
             //throw exception

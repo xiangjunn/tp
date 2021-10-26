@@ -82,6 +82,11 @@ public class CAddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+        public Model getLastModel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
@@ -112,17 +117,49 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void addContact(Contact contact) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // manage versioned addressBook
+        @Override
+        public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isUndoable() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isRedoable() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // manage contacts
+        @Override
+        public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,6 +193,7 @@ public class CAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        // manage events
         @Override
         public void addEvent(Event event) {
             throw new AssertionError("This method should not be called.");
@@ -238,7 +276,7 @@ public class CAddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single contact.
+     * A Model stub that contains a single event.
      */
     private class ModelStubWithEvent extends ModelStub {
         private final Event event;
@@ -271,6 +309,11 @@ public class CAddCommandTest {
         public void addContact(Contact contact) {
             requireNonNull(contact);
             personsAdded.add(contact);
+        }
+
+        @Override
+        public void commitAddressBook() {
+            // TODO: 10/27/2021 add check for commit
         }
 
         @Override

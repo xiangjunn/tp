@@ -44,6 +44,15 @@ public class ModelManager implements Model {
         this(AddressBook.getCurrentAddressBook(), new UserPrefs());
     }
 
+    /**
+     * Get the most updated version of Model Manager
+     * @return the most updated version of Model Manager
+     */
+    @Override
+    public ModelManager getLastModel() {
+        return new ModelManager(AddressBook.getLastAddressBook(), userPrefs);
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -111,7 +120,7 @@ public class ModelManager implements Model {
 
     @Override
     public void clearHistory() {
-        addressBook.clearHistory();
+        AddressBook.clearHistory();
     }
 
     @Override
@@ -122,11 +131,6 @@ public class ModelManager implements Model {
     @Override
     public boolean isRedoable() {
         return addressBook.isRedoable();
-    }
-
-    @Override
-    public void print() {
-        addressBook.print();
     }
 
     //=========== Manage Contacts ======================
