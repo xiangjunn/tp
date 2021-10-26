@@ -302,10 +302,12 @@ Format: `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
 * `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
 * `EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**, eg 1, 2, 3, …​
+* Alternatively, replace the `CONTACT_INDEX` with a `*` character to clear all links from the event.
 
 Examples:
 * `eunlink 1 c/1` unlinks the first event in the displayed event list from the first contact in the displayed contact list.
-* `elink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
+* `eunlink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
+* `eunlink 3 c/*` unlinks the third event in the displayed event list from all contacts that are linked to it.
 
 ### Clearing all events: `eclear`
 
@@ -402,10 +404,10 @@ Action | Format, Examples
 **Delete** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
-**Link** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+**Link** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `elink 1 c/3 c/1`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **Sort** | `esort`
-**Unlink** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+**Unlink** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1 c/2` <br> e.g., `eunlink 3 c/*`
 
 ________________________________________________________________________________________________________________
 
