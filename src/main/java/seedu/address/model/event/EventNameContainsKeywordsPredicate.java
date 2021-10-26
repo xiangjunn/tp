@@ -64,12 +64,10 @@ public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
     public boolean test(Event event) {
         requireNonNull(event);
         boolean isMatch = false;
-        if (nameKeywords != null) {
-            isMatch = event.nameAnyMatch(nameKeywords);
-        }
-        return isMatch || event.startTimeAnyMatch(startDateTimeKeywords) || event.endTimeAnyMatch(endDateTimeKeywords)
-                || event.addressAnyMatch(addressKeywords) || event.descriptionAnyMatch(descriptionKeywords)
-                || event.zoomLinkAnyMatch(zoomLinkKeywords) || event.anyTagsContain(tagKeywords);
+        return event.nameAnyMatch(nameKeywords) || event.startTimeAnyMatch(startDateTimeKeywords)
+                || event.endTimeAnyMatch(endDateTimeKeywords) || event.addressAnyMatch(addressKeywords)
+                || event.descriptionAnyMatch(descriptionKeywords) || event.zoomLinkAnyMatch(zoomLinkKeywords)
+                || event.anyTagsContain(tagKeywords);
     }
 
     @Override

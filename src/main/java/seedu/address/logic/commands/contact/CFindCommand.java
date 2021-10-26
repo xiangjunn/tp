@@ -55,6 +55,6 @@ public class CFindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CFindCommand // instanceof handles nulls
-                && predicate.equals(((CFindCommand) other).predicate)); // state check;
+                && predicate.equals(((CFindCommand) other).predicate)); // state check
     }
 }
