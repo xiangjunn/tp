@@ -3,6 +3,10 @@ package seedu.address.model.common;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents zoom link of a contact (usually a professor or tutor).
  * Guarantees: immutable
@@ -74,5 +78,15 @@ public class ZoomLink {
         return other == this // short circuit if same object
                 || (other instanceof ZoomLink // instanceof handles nulls
                 && link.equals(((ZoomLink) other).link)); // state check
+    }
+
+    /**
+     * Checks if this {@code link} contains any keywords in {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        assert link != null : "the link should not be null";
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(link, string));
     }
 }

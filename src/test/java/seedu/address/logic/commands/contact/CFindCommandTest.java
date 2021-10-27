@@ -29,10 +29,12 @@ public class CFindCommandTest {
 
     @Test
     public void equals() {
+        String firstSearchPhrase = "first";
+        String secondSearchPhrase = "second";
         ContactNameContainsKeywordsPredicate firstPredicate =
-                new ContactNameContainsKeywordsPredicate(Collections.singletonList("first"));
+                new ContactNameContainsKeywordsPredicate(Collections.singletonList(firstSearchPhrase));
         ContactNameContainsKeywordsPredicate secondPredicate =
-                new ContactNameContainsKeywordsPredicate(Collections.singletonList("second"));
+                new ContactNameContainsKeywordsPredicate(Collections.singletonList(secondSearchPhrase));
 
         CFindCommand findFirstCommand = new CFindCommand(firstPredicate);
         CFindCommand findSecondCommand = new CFindCommand(secondPredicate);
