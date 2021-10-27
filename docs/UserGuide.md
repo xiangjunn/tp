@@ -193,12 +193,26 @@ Edits an existing contact in SoConnect.
 
 ### Finding contacts: `cfind`
 
-Finds all contacts with names that contain any of the given keywords.
+Finds all contacts that contain any of the given keywords based on your search type.
 
-**Format:** `cfind KEYWORD [MORE_KEYWORDS]`
+**Format:** `cfind [KEYWORD]… [e/KEYWORD…] [p/KEYWORD…] [a/KEYWORD…] [th/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`
 
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
+
+There are two types of contact searches you can do in SoConnect:
+1. If you **do not specify any optional fields before your keywords**, e.g. `cfind KEYWORD1 KEYWORD2`,
+
+   You will only search the names of the contacts based on the keywords you provide.
+
+2. If you specified optional fields before your keyword, e.g. `cfind e/KEYWORD1 p/KEYWORD2`,
+
+   You will search the emails and phone numbers of the contacts based on `KEYWORD1` and `KEYWORD2` respectively.
+</div>
+
+* You need to provide **at least one keyword**.
+* You can provide multiple keywords without specifying any optional fields.
+* You can only **specify each optional field once**.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
-* Only the name is searched.
 * Partial words can be matched e.g. `Han` will match `Hans`.
 * Contact matching at least one keyword will be returned (i.e. _`OR` search_).
   e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
@@ -211,6 +225,10 @@ The search by `cfind` is case-insensitive. e.g. `hans` will match `Hans`.
 **Examples:**
 * `cfind John` returns `john` and `Johnathon Doe`.
 * `cfind alex david` returns `Alex Yeoh` and `David Li`.
+* `cfind p/123 e/gmail` returns 
+   contacts with phone numbers that contain `123` and with emails that contain `gmail.com`.
+* `cfind alex david p/123 456` returns `Alex Yeoh`, `David Li` and 
+   contacts with phone numbers that contain `123` and `456`.
 
 
 ### Listing all contacts: `clist`
@@ -357,12 +375,24 @@ Edits an existing event in SoConnect.
 
 ### Finding Events: `efind`
 
-Finds all events with names that contain any of the given keywords.
+Finds all events that contain any of the given keywords based on your search type.
 
-**Format:** `efind KEYWORD [MORE_KEYWORDS]`
+**Format:** `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-* The order of the keywords does not matter. e.g. `Exam Hard` will match `Hard Exam`.
-* Only the name is searched.
+There are two types of event searches you can do in SoConnect:
+1. If you **do not specify any optional fields before your keywords**, e.g. `efind KEYWORD1 KEYWORD2`,
+
+   You will only search the names of the events based on the keywords you provide.
+
+2. If you specified optional fields before your keyword, e.g. `efind a/KEYWORD1 d/KEYWORD2`,
+
+   You will search the addresses and descriptions of the events based on `KEYWORD1` and `KEYWORD2` respectively.
+</div>
+
+* You need to provide **at least one keyword**.
+* You can provide multiple keywords without specifying any optional fields.
+* You can only **specify each optional field once**.
 * Partial words can be matched e.g. `Exa` will match `CS2103T Exam` .
 * Events matching at least one keyword will be returned (i.e. _`OR` search_).
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
@@ -375,6 +405,7 @@ The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 **Examples:**
 * `efind ex` returns `exams` and `Examinations`
 * `efind CS Exam` returns `CS2100 Exam`,  `CS2101`
+* `efind CS EXAM t/hard easy` returns `CS2100 Exam`, `CS2101` and events with tags that contain `hard` and `easy`
 
 
 ### Linking an event to contacts: `elink`
