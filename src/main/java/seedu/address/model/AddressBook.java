@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
@@ -64,6 +66,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets the existing data of contacts of this {@code AddressBook}.
      */
     public void resetContacts() {
+        this.events.iterator()
+            .forEachRemaining(Event::clearAllLinks);
         this.contacts.resetContacts();
     }
 
@@ -107,6 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEvent(Event e) {
         events.add(e);
+        Event.addToMap(e);
     }
 
     /**
@@ -133,10 +138,28 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeEvent(Event key) {
+        // unlink all the contacts linked to event before removing event
+        unlinkContactsFromEvent(key);
         events.remove(key);
     }
 
+    /**
+     * Unlink all the contacts linked to the given event.
+     *
+     * @param e The event from which to unlink all linked contacts.
+     */
+    public void unlinkContactsFromEvent(Event e) {
+        Set<UUID> contactsUuid = e.getLinkedContacts();
+        contactsUuid.iterator()
+            .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
+    }
+
+    /**
+     * Resets the existing data of events of this {@code AddressBook}.
+     */
     public void resetEvents() {
+        this.contacts.iterator()
+            .forEachRemaining(Contact::clearAllLinks);
         this.events.resetEvents();
     }
 
@@ -168,8 +191,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
-    public void addContact(Contact p) {
-        contacts.add(p);
+    public void addContact(Contact c) {
+        contacts.add(c);
+        Contact.addToMap(c);
     }
 
     /**
@@ -188,9 +212,29 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeContact(Contact key) {
+        // unlink all the events linked to contact before removing contact
+        unlinkEventsFromContact(key);
         contacts.remove(key);
     }
 
+    /**
+     * Unlink all the events linked to the given contact.
+     *
+     * @param c The contact from which to unlink all linked events.
+     */
+    public void unlinkEventsFromContact(Contact c) {
+        Set<UUID> eventsUuid = c.getLinkedEvents();
+        eventsUuid.iterator()
+                .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
+    }
+  
+    /**
+     * Bookmarks contact indexed at {@code index} in this {@code AddressBook}.
+     */
+    public void markContactAt(Index index) {
+        contacts.bookmarkContact(index);
+    }
+  
     //// util methods
 
     @Override

@@ -3,13 +3,16 @@ package seedu.address.model.event;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,13 +20,15 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
-
+    // stores references to all events, accessible by their unique UUIDs
+    private static HashMap<UUID, Event> map = new HashMap<>();
     private static boolean willDisplayStartDateTime = true;
     private static boolean willDisplayEndDateTime = true;
     private static boolean willDisplayDescription = true;
     private static boolean willDisplayAddress = true;
     private static boolean willDisplayZoomLink = true;
     private static boolean willDisplayTags = true;
+    private static boolean viewingMode = false;
 
 
     //Compulsory fields
@@ -34,16 +39,22 @@ public class Event {
     private final Description description;
     private final Address address;
     private final ZoomLink zoomLink;
+    private final UUID uuid;
 
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<UUID> linkedContacts = new HashSet<>();
 
     private boolean isBookMarked;
 
     /**
-     * All fields must be present and not null (currently).
+     * This constructor is for creating event stored in storage. The event stored in storage contains information
+     * of uuid and contacts linked to it, in addition to information about other fields.
+     * This constructor ensures that everytime the application loads the data from storage, the uuid of the event
+     * stays the same and contains uuid of contacts that are linked to it.
      */
-    public Event(Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime,
-                 Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
+    public Event(
+            Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
+            Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts) {
         requireAllNonNull(name, startDateAndTime, tags);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
@@ -52,6 +63,8 @@ public class Event {
         this.address = address;
         this.zoomLink = zoomLink;
         this.tags.addAll(tags);
+        this.uuid = uuid;
+        this.linkedContacts.addAll(linkedContacts);
         this.isBookMarked = false;
     }
 
@@ -79,12 +92,24 @@ public class Event {
         return zoomLink;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns a unmodifiable set of UUIDs, each uniquely represents an contact, that are linked to the event object
+     * that calls this method.
+     */
+    public Set<UUID> getLinkedContacts() {
+        return Collections.unmodifiableSet(linkedContacts);
     }
 
     public static boolean isWillDisplayStartDateTime() {
@@ -153,6 +178,14 @@ public class Event {
         willDisplayTags = false;
     }
 
+    public static boolean isViewingMode() {
+        return viewingMode;
+    }
+
+    public static void setViewingMode(boolean viewingMode) {
+        Event.viewingMode = viewingMode;
+    }
+  
     public boolean getIsBookMarked() {
         return isBookMarked;
     }
@@ -160,7 +193,7 @@ public class Event {
     public void setBookMarked(boolean bookMarked) {
         isBookMarked = bookMarked;
     }
-
+  
     /**
      * Returns true if both events have the same name.
      * This defines a weaker notion of equality between two events.
@@ -172,6 +205,49 @@ public class Event {
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName());
+    }
+
+    /**
+     * Links the contact to the event object that calls this method.
+     * @param contact The event to be linked with.
+     */
+    public void linkTo(Contact contact) {
+        this.linkedContacts.add(contact.getUuid());
+    }
+
+    /**
+     * Adds the event to the hashmap that stores references to all events.
+     * If the hashmap already contains the UUID of the event as key, the value associated to the
+     * key will be replaced to the event passed as parameter to this method.
+     * @param event The event to be added.
+     */
+    public static void addToMap(Event event) {
+        map.put(event.getUuid(), event);
+    }
+
+    /**
+     * Returns an event with the unique UUID that is passed in to the method.
+     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
+     * @param uuid The unique identifier for an event in the hashmap.
+     */
+    public static Event findByUuid(UUID uuid) {
+        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
+        return map.get(uuid);
+    }
+
+    /**
+     * Removes the link between the contact and the event object that calls this method.
+     * @param contact The contact to be unlinked.
+     */
+    public void unlink(Contact contact) {
+        this.linkedContacts.remove(contact.getUuid());
+    }
+
+    /**
+     * Removes all links to the contact object that calls this method.
+     */
+    public void clearAllLinks() {
+        this.linkedContacts.clear();
     }
 
     @Override

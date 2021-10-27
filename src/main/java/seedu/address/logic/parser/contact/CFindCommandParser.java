@@ -7,6 +7,7 @@ import java.util.Arrays;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
 
 /**
@@ -28,6 +29,7 @@ public class CFindCommandParser implements Parser<CFindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
+        Contact.setViewingMode(false);
         return new CFindCommand(new ContactNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 

@@ -168,6 +168,11 @@ public class CAddCommandTest {
         }
 
         @Override
+        public void updateContactListByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addEvent(Event event) {
             throw new AssertionError("This method should not be called.");
         }
@@ -209,17 +214,40 @@ public class CAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void updateEventListByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        };
+
         @Override
+        public void linkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void rerenderContactCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+	@Override
+        public void rerenderEventCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderAllCards() {
+          
+            throw new AssertionError("This method should not be called.");
+        }
+      
+       @Override
         public void bookmarkEventIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void reshuffleEventsInOrder() {
+      
+	@Override
+	public void reshuffleEventsInOrder() {
             throw new AssertionError("This method should not be called.");
         }
-
-
     }
 
     /**
