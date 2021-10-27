@@ -101,7 +101,12 @@ public interface Model {
      * Bookmarks the contact indexed at the specified index. This will change the order of the filtered list,
      * placing bookmarked contact at the top of the list.
      */
-    void bookMarkContactIndexAt(Index index);
+    void bookmarkContactIndexedAt(Index index);
+
+    /**
+     * This will change the order of the filtered list, bookmarked contact will be placed at the top of the list.
+     */
+    public void reshuffleContactsInOrder();
 
     //=========== Event Management =============================================================
 
@@ -153,5 +158,5 @@ public interface Model {
      * Bookmarks the event indexed at the specified index. This will change the order of the filtered list,
      * placing bookmarked event at the top of the list.
      */
-    void bookMarkEventIndexAt(Index index);
+    void bookmarkEventIndexedAt(Index index);
 }

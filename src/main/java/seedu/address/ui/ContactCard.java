@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
 
+
 /**
  * An UI component that displays information of a {@code Contact}.
  */
@@ -83,6 +84,10 @@ public class ContactCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
+        }
+
+        if (contact.getIsBookMarked()) {
+            name.setStyle("-fx-background-color: gold");
         }
     }
 

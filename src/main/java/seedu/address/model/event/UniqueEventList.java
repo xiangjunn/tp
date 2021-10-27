@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
 
@@ -108,6 +109,13 @@ public class UniqueEventList implements Iterable<Event> {
 
     public void resetEvents() {
         internalList.clear();
+    }
+
+    /**
+     * Bookmarks the event indexed at {@code index}, moves that event to the top of the list.
+     */
+    public void bookmarkEvent(Index index) {
+        internalUnmodifiableList.sort(Comparator.comparing(Event::getIsBookMarked));
     }
 
     /**

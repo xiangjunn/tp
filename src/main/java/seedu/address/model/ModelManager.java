@@ -172,20 +172,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void bookMarkContactIndexAt(Index index) {
+    public void bookmarkContactIndexedAt(Index index) {
         assert index != null : "index should not be null";
-        Predicate<? super Contact> currentPredicate = filteredContacts.getPredicate();
-        // Remove events that have passed
         addressBook.bookmarkContact(index);
-        updateFilteredContactList(getBookmarkContactPredicate(currentPredicate));
-
     }
 
-    /**
-     * Returns the new predicate for displaying bookmarked contacts at the top of the list.
-     */
-    private static Predicate<? super Contact> getBookmarkContactPredicate(Predicate<? super Contact> originalPredicate) {
-        return contact -> (originalPredicate == null || originalPredicate.test(contact));
+    @Override
+    public void reshuffleContactsInOrder() {
+        addressBook.reshuffleContactsInOrder();
     }
 
     //=========== Filtered Event List Accessors =======================
@@ -219,6 +213,14 @@ public class ModelManager implements Model {
         return event -> (originalPredicate == null || originalPredicate.test(event))
             && ((event.getEndDateAndTime() == null && event.getStartDateAndTime().isNotBeforeNow())
             || (event.getEndDateAndTime() != null && event.getEndDateAndTime().isNotBeforeNow()));
+    }
+
+    @Override
+    public void bookmarkEventIndexedAt(Index index) {
+        assert index != null : "index should not be null";
+        Predicate<? super Event> currentPredicate = filteredEvents.getPredicate();
+        // Remove events that have passed
+        addressBook.bookmarkEvent(index);
     }
 
     @Override

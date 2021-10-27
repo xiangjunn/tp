@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -157,7 +158,17 @@ class EAddCommandTest {
         }
 
         @Override
-        public void updateFilteredContactList(Predicate<Contact> predicate) {
+        public void updateFilteredContactList(Predicate<? super Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void bookmarkContactIndexedAt(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void reshuffleContactsInOrder() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -204,6 +215,12 @@ class EAddCommandTest {
         public void sortUpcomingFilteredEventList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void bookmarkEventIndexedAt(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
