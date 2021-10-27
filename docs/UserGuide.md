@@ -592,11 +592,11 @@ empty data file SoConnect creates on the other Computer.
 
 * You can copy specific details of a contact or an event just by clicking on that detail!
 
-As shown on the image above, clicking on the `telegram handle` of `Bernice` will copy her Telegram handle.
+As shown on the image above, clicking on the `telegram handle` of `Bernice Yu` will copy her Telegram handle.
 
 * You can also open any links that you have included in a contact or in an event.
 
-Referring back to the same image, if you click on the `zoom` link saved under `Bernice`, 
+Referring back to the same image, if you click on the `zoom` link saved under `Bernice Yu`, 
 SoConnect will help you open the link on your browser automatically.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -611,7 +611,7 @@ Action | Format, Examples
 **[Clear](#clearing-all-contacts-cclear)** | `cclear`
 **[Delete](#deleting-a-contact-cdelete)** | `cdelete INDEX1[-INDEX2]`<br> e.g. `cdelete 3` <br> e.g. `cdelete 1-5`
 **[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g. `cedit 3 dt/*`
-**[Find](#finding-contacts-cfind)** | `cfind KEYWORD [MORE_KEYWORDS]`<br> e.g. `cfind James Jake`
+**[Find](#finding-contacts-cfind)** | `cfind [KEYWORD]… [e/KEYWORD…] [p/KEYWORD…] [a/KEYWORD…] [th/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`<br> e.g. `cfind James Jake p/12345678`
 **[List](#listing-all-contacts-clist)** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g. `clist` <br> e.g. `clist e/ p/`
 **[View](#viewing-a-contact-cview)** | `cview INDEX`<br> e.g. `cview 3`
 
@@ -623,8 +623,8 @@ Action | Format, Examples
 **[Clear](#clearing-all-events-eclear)** | `eclear`
 **[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
-**[Find](#finding-events-efind)** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
-**[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+**[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind CS2103T t/hard`
+**[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2 c/3`
 **[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **[Sort](#sorting-events-esort)** | `esort`
 **[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
