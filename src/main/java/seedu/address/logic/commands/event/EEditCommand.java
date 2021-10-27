@@ -60,6 +60,7 @@ public class EEditCommand extends Command {
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book.";
+    public static final String MESSAGE_INVALID_DATE_TIME_RANGE = "Event start time cannot be later than end time.";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
@@ -127,6 +128,11 @@ public class EEditCommand extends Command {
 
         if (!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        }
+
+        if (editedEvent.getEndDateAndTime() != null
+                && editedEvent.getEndDateAndTime().isBefore(editedEvent.getStartDateAndTime())) {
+            throw new CommandException(MESSAGE_INVALID_DATE_TIME_RANGE);
         }
 
         model.setEvent(eventToEdit, editedEvent);

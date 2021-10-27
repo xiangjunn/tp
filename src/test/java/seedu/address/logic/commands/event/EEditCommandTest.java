@@ -163,6 +163,13 @@ class EEditCommandTest {
     }
 
     @Test
+    public void execute_invalidDateTimeRangeEvent_failure() {
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST_EVENT, new EditEventDescriptorBuilder()
+                .withStartDateTime("20-10-2021 20:00").withEndDateTime("20-10-2021 18:00").build());
+        assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_INVALID_DATE_TIME_RANGE);
+    }
+
+    @Test
     public void equals() {
         final EEditCommand standardCommand = new EEditCommand(INDEX_FIRST_EVENT, DESC_TUTORIAL);
 
