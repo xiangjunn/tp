@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.HashMap;
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Represents a Tag in the address book.
@@ -51,6 +54,15 @@ public class Tag {
                 && tagName.equals(((Tag) other).tagName)); // state check
     }
 
+    /**
+     * Checks if this {@code tagName} contains any of keywords in {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(tagName, string));
+    }
+
     @Override
     public int hashCode() {
         return tagName.hashCode();
@@ -59,6 +71,7 @@ public class Tag {
     /**
      * Format state as text for viewing.
      */
+    @Override
     public String toString() {
         return '[' + tagName + ']';
     }

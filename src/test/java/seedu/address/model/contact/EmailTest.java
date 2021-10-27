@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class EmailTest {
@@ -17,6 +20,20 @@ public class EmailTest {
     public void constructor_invalidEmail_throwsIllegalArgumentException() {
         String invalidEmail = "";
         assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
+    }
+
+    @Test
+    public void containsString() {
+        Email email =
+                new Email("peter_jack@example.com");
+
+        // keywords contained in email
+        List<String> listOfKeywordsContained = Arrays.asList("pete", "@EXAMPLE");
+        assertTrue(email.containsString(listOfKeywordsContained));
+
+        //keywords not contained in email
+        List<String> noKeywordsContained = Arrays.asList("retep", "..", "yahoo");
+        assertFalse(email.containsString(noKeywordsContained));
     }
 
     @Test

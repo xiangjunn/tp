@@ -1,6 +1,13 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
@@ -15,13 +22,22 @@ import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 public class EFindCommand extends Command {
 
     public static final String COMMAND_WORD = "efind";
-    public static final String PARAMETERS = "KEYWORD [MORE_KEYWORDS]...\n";
+    public static final String PARAMETERS = "[KEYWORD]… "
+            + "[" + PREFIX_START_TIME + "KEYWORD…] "
+            + "[" + PREFIX_END_TIME + "KEYWORD…] "
+            + "[" + PREFIX_ADDRESS + "KEYWORD…] "
+            + "[" + PREFIX_DESCRIPTION + "KEYWORD…] "
+            + "[" + PREFIX_ZOOM + "KEYWORD…] "
+            + "[" + PREFIX_TAG + "KEYWORD…]\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events which have names containing any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose fields contains any of the "
+            + "given keywords.\n"
+            + "At least one field must be present, name keywords must follow directly after the command word\n"
             + "Parameters: " + PARAMETERS
-            + "Example: " + COMMAND_WORD + " exam hard CS2103T";
+            + "Example: " + COMMAND_WORD + " cs 2103t "
+            + PREFIX_START_TIME + "2020-12-01 "
+            + PREFIX_EMAIL + "johndoe@example.com";
 
     private final EventNameContainsKeywordsPredicate predicate;
 
