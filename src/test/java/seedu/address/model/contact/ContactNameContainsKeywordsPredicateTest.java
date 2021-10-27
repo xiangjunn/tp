@@ -1,7 +1,10 @@
 package seedu.address.model.contact;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
+
 
 public class ContactNameContainsKeywordsPredicateTest {
 
@@ -59,6 +63,13 @@ public class ContactNameContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new ContactNameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+
+        // Keyword matches multiple fields
+        predicate = new ContactNameContainsKeywordsPredicate();
+        predicate.setAddressKeywords(Arrays.asList("JURONG", "TOK"));
+        // Both predicate test on ALICE and BENSON should return true
+        assertEquals(predicate.test(ALICE), predicate.test(FIONA));
+
     }
 
     @Test
@@ -73,9 +84,10 @@ public class ContactNameContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name
-        predicate = new ContactNameContainsKeywordsPredicate(Arrays.asList("12345",
-                "alice@email.com", "Main", "Street"));
+        predicate = new ContactNameContainsKeywordsPredicate(Arrays.asList("22345"));
+        predicate.setEmailKeywords(Arrays.asList("alex@email.com"));
+        predicate.setTagKeywords(Arrays.asList("smart", "cca"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+                .withEmail("alice@email.com").withAddress("Main Street").withTags("friends").build()));
     }
 }

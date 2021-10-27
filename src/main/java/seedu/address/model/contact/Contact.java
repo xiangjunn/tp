@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -25,8 +26,8 @@ public class Contact {
     private static boolean willDisplayPhone = true;
     private static boolean willDisplayEmail = true;
     private static boolean willDisplayTelegramHandle = true;
-    private static boolean willDisplayZoomLink = true;
     private static boolean willDisplayAddress = true;
+    private static boolean willDisplayZoomLink = true;
     private static boolean willDisplayTags = true;
     private static boolean viewingMode = false;
 
@@ -38,13 +39,13 @@ public class Contact {
     private final UUID uuid;
 
     // Data fields
-    private final ZoomLink zoomLink;
     private final Address address;
+    private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedEvents = new HashSet<>();
 
     /**
-     * Every field, except telegram handle and zoom link must be present and not null.
+     * Name, email and tags must be present and not null.
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
@@ -200,6 +201,54 @@ public class Contact {
     }
 
     /**
+     * Checks if this {@code name} contains any keywords in {code strings}
+     */
+    public boolean nameAnyMatch(List<String> strings) {
+        return name.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code email} contains any keywords in {code strings}
+     */
+    public boolean emailAnyMatch(List<String> strings) {
+        return email.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code phone} contains any keywords in {code strings}
+     */
+    public boolean phoneAnyMatch(List<String> strings) {
+        return (phone != null) && phone.containsString(strings);
+    }
+    /**
+     * Checks if this {@code address} contains any keywords in {code strings}
+     */
+    public boolean addressAnyMatch(List<String> strings) {
+        return (address != null) && address.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code telegramHandle} contains any keywords in {code strings}
+     */
+    public boolean telegramHandleAnyMatch(List<String> strings) {
+        return (telegramHandle != null) && telegramHandle.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code zoomLink} contains any keywords in {code strings}
+     */
+    public boolean zoomLinkAnyMatch(List<String> strings) {
+        return (zoomLink != null) && zoomLink.containsString(strings);
+    }
+
+    /**
+     * Checks if at least one of the {@code tags} contains any keywords in {code strings}
+     */
+    public boolean anyTagsContain(List<String> strings) {
+        return tags.stream().anyMatch(tag -> tag.containsString(strings));
+    }
+
+    /**
      * Returns true if both contacts have the same name.
      * This defines a weaker notion of equality between two contacts.
      */
@@ -278,6 +327,10 @@ public class Contact {
         return builder.toString();
     }
 
+    /**
+     * Returns true if both contacts have the same details.
+     * This defines a stronger notion of equality between two contacts.
+     */
     @Override
     public boolean equals(Object other) {
         if (this == other) {

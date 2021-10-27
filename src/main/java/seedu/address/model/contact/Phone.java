@@ -3,6 +3,10 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Contact's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
@@ -43,6 +47,16 @@ public class Phone {
         return other == this // short circuit if same object
                 || (other instanceof Phone // instanceof handles nulls
                 && value.equals(((Phone) other).value)); // state check
+    }
+
+    /**
+     * Checks if this {@code value} contains any keywords in {@code strings}
+     * @param strings
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(value, string));
     }
 
     @Override

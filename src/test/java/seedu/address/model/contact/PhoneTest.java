@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class PhoneTest {
@@ -17,6 +20,19 @@ public class PhoneTest {
     public void constructor_invalidPhone_throwsIllegalArgumentException() {
         String invalidPhone = "";
         assertThrows(IllegalArgumentException.class, () -> new Phone(invalidPhone));
+    }
+
+    @Test
+    public void containsString() {
+        Phone phone = new Phone("91234567");
+
+        // keywords contained in phone
+        List<String> listOfKeywordsContained = Arrays.asList("123", "912");
+        assertTrue(phone.containsString(listOfKeywordsContained));
+
+        //keywords not contained in phone
+        List<String> noKeywordsContained = Arrays.asList("999", "..", "0000000");
+        assertFalse(phone.containsString(noKeywordsContained));
     }
 
     @Test
