@@ -119,10 +119,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        contactListPanel = new ContactListPanel(logic.getFilteredContactList());
+        contactListPanel = new ContactListPanel(logic.getFilteredContactList(), this);
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        eventListPanel = new EventListPanel(logic.getFilteredEventList(), this);
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -188,6 +188,16 @@ public class MainWindow extends UiPart<Stage> {
         }
         calendarWindow = new CalendarWindow(logic.getAddressBook().getEventList());
         calendarWindow.show();
+    }
+
+    /**
+     * Display result when user clicks on certain fields
+     *
+     * @param message Message displayed to user
+     */
+    @FXML
+    public void handleClick(String message) {
+        resultDisplay.setFeedbackToUser(message);
     }
 
     /**
