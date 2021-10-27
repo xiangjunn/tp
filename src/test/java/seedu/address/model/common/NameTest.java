@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class NameTest {
@@ -17,6 +20,19 @@ public class NameTest {
     public void constructor_invalidName_throwsIllegalArgumentException() {
         String invalidName = "";
         assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+    }
+
+    @Test
+    public void containsString() {
+        Name alice = new Name("Alice");
+
+        // keywords contained in name
+        List<String> listOfKeywordsContained = Arrays.asList("aLi", "icE");
+        assertTrue(alice.containsString(listOfKeywordsContained));
+
+        //keywords not contained in name
+        List<String> noKeywordsContained = Arrays.asList("BoB", "Pan", "Peter");
+        assertFalse(alice.containsString(noKeywordsContained));
     }
 
     @Test
