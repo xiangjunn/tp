@@ -380,6 +380,17 @@ If your changes to the data file makes its format invalid, SoConnect will discar
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SoConnect home folder.
 
+**Q**: How do I view the contacts linked to a particular event?<br>
+**A**: Click on the particular event card in the panel containing events. Then click on the yellow boxes which are links to the contacts. The linked contacts will be displayed on the contact panel on the left.
+
+**Q**: How do I view the events linked to a particular contact?<br>
+**A**: Click on the particular contact card in the panel containing contacts. Then click on the yellow boxes which are links to the events. The linked events will be displayed on the event panel on the left.
+
+**Q**: What is the purpose of using links?<br>
+**A**: Links are a form of relationship between the contacts and the events saved in SoConnect. Typically, we link an event to a contact if the contact is involved as a participant of the event. For instance, you can link your professor to the lecture event.
+
+**Q**: How do I copy the email address of a contact?<br>
+**A**: Click on the contact card in the panel containing contacts. Then click on the email address you want to copy. The email address will be copied to your clipboard.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
