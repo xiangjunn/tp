@@ -50,6 +50,7 @@ public class ContactTest {
         assertFalse(BOB.isSameContact(editedBob));
     }
 
+
     @Test
     public void equals() {
         // same values -> returns true

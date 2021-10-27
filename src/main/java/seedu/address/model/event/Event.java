@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -30,21 +31,38 @@ public class Event {
     private static boolean willDisplayTags = true;
     private static boolean viewingMode = false;
 
-
-    //Compulsory fields
+    // Identity fields
     private final Name name;
     private final StartDateTime startDateAndTime;
-
     private final EndDateTime endDateAndTime;
     private final Description description;
+
+    // Data fields
     private final Address address;
     private final ZoomLink zoomLink;
     private final UUID uuid;
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedContacts = new HashSet<>();
-
     private boolean isBookMarked;
+
+    /**
+     * Name, startDateTime and tags must be present and not null.
+     */
+    public Event(Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime,
+                 Description description, Address address, ZoomLink zoomLink, Set<Tag> tags) {
+        requireAllNonNull(name, startDateAndTime, tags);
+        this.name = name;
+        this.startDateAndTime = startDateAndTime;
+        this.endDateAndTime = endDateAndTime;
+        this.description = description;
+        this.address = address;
+        this.zoomLink = zoomLink;
+        this.tags.addAll(tags);
+        this.uuid = UUID.randomUUID();
+        this.isBookMarked = false;
+    }
+
 
     /**
      * This constructor is for creating event stored in storage. The event stored in storage contains information
@@ -195,6 +213,54 @@ public class Event {
     }
   
     /**
+     * Checks if this {@code name} contains any keywords in {code strings}
+     */
+    public boolean nameAnyMatch(List<String> strings) {
+        return name.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code startDateTime} contains any keywords in {code strings}
+     */
+    public boolean startTimeAnyMatch(List<String> strings) {
+        return startDateAndTime.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code endDateTime} contains any keywords in {code strings}
+     */
+    public boolean endTimeAnyMatch(List<String> strings) {
+        return (endDateAndTime != null) && endDateAndTime.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code address} contains any keywords in {code strings}
+     */
+    public boolean addressAnyMatch(List<String> strings) {
+        return (address != null) && address.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code description} contains any keywords in {code strings}
+     */
+    public boolean descriptionAnyMatch(List<String> strings) {
+        return (description != null) && description.containsString(strings);
+    }
+
+    /**
+     * Checks if this {@code zoomLink} contains any keywords in {code strings}
+     */
+    public boolean zoomLinkAnyMatch(List<String> strings) {
+        return (zoomLink != null) && zoomLink.containsString(strings);
+    }
+
+    /**
+     * Checks if at least one of the {@code tags} contains any keywords in {code strings}
+     */
+    public boolean anyTagsContain(List<String> strings) {
+        return tags.stream().anyMatch(tag -> tag.containsString(strings));
+    }
+    /**
      * Returns true if both events have the same name.
      * This defines a weaker notion of equality between two events.
      */
@@ -303,4 +369,3 @@ public class Event {
                 address, zoomLink, tags);
     }
 }
-
