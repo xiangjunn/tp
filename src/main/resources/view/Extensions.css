@@ -47,7 +47,7 @@
     -fx-graphic:url(../images/zoom.png);
 }
 
-#linksIcon{
+#linkToEvent{
     -fx-graphic:url(../images/event.png);
 }
 
@@ -57,4 +57,16 @@
 
 #event{
     -fx-graphic:url(../images/eventBig.png);
+}
+
+#from, #to{
+    -fx-graphic:url(../images/datetime.png);
+}
+
+#description{
+    -fx-graphic:url(../images/description.png);
+}
+
+#linkToContact{
+    -fx-graphic:url(../images/group.png);
 }

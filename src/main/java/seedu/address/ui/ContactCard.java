@@ -62,6 +62,7 @@ public class ContactCard extends UiPart<Region> {
 
     @FXML
     private Label telegramHandleTitle;
+
     @FXML
     private Label telegramHandle;
 
@@ -70,11 +71,13 @@ public class ContactCard extends UiPart<Region> {
 
     @FXML
     private Label tagIcon;
+
     @FXML
     private FlowPane tags;
 
     @FXML
-    private Label linksIcon;
+    private Label linkToEvent;
+
     @FXML
     private FlowPane links;
 
@@ -144,8 +147,8 @@ public class ContactCard extends UiPart<Region> {
                     String eventName = Event.findByUuid(eventUuid).getName().toString();
                     links.getChildren().add(new Label(eventName));
                 });
-            linksIcon.setManaged(true);
-            linksIcon.setVisible(true);
+            linkToEvent.setManaged(true);
+            linkToEvent.setVisible(true);
             links.setManaged(true);
         }
     }

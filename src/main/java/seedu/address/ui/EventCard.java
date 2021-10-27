@@ -55,19 +55,19 @@ public class EventCard extends UiPart<Region> {
     private Label address;
 
     @FXML
-    private Label zoomLinkTitle;
-
-    @FXML
     private Label zoom;
 
     @FXML
     private Label description;
 
     @FXML
+    private Label tagIcon;
+
+    @FXML
     private FlowPane tags;
 
     @FXML
-    private Label linksLabel;
+    private Label linkToContact;
 
     @FXML
     private FlowPane links;
@@ -89,31 +89,34 @@ public class EventCard extends UiPart<Region> {
 
         // Compulsory fields
         if (Event.isWillDisplayStartDateTime()) {
-            from.setText("from: " + event.getStartDateAndTime());
+            from.setText(event.getStartDateAndTime().toString());
             from.setManaged(true);
+            from.setVisible(true);
             from.setWrapText(isViewMode);
         }
         // Optional fields
         if (event.getEndDateAndTime() != null && Event.isWillDisplayEndDateTime()) {
-            to.setText("to: " + event.getEndDateAndTime());
+            to.setText(event.getEndDateAndTime().toString());
             to.setManaged(true);
+            to.setVisible(true);
             to.setWrapText(isViewMode);
         }
         if (event.getAddress() != null && Event.isWillDisplayAddress()) {
-            address.setText("location: " + event.getAddress().value);
+            address.setText(event.getAddress().value);
             address.setManaged(true);
+            address.setVisible(true);
             address.setWrapText(isViewMode);
         }
         if (event.getZoomLink() != null && Event.isWillDisplayZoomLink()) {
-            zoomLinkTitle.setText("link: ");
-            zoomLinkTitle.setManaged(true);
             zoom.setText(event.getZoomLink().link);
             zoom.setManaged(true);
+            zoom.setVisible(true);
             zoom.setWrapText(isViewMode);
         }
         if (event.getDescription() != null && Event.isWillDisplayDescription()) {
-            description.setText("description: " + event.getDescription().value);
+            description.setText(event.getDescription().value);
             description.setManaged(true);
+            description.setVisible(true);
             description.setWrapText(isViewMode);
         }
 
@@ -126,6 +129,8 @@ public class EventCard extends UiPart<Region> {
                         label.setWrapText(isViewMode);
                         tags.getChildren().add(label);
                     });
+            tagIcon.setManaged(true);
+            tagIcon.setVisible(true);
             tags.setManaged(true);
         }
         if (!event.getLinkedContacts().isEmpty()) {
@@ -133,7 +138,8 @@ public class EventCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(contactUuid -> contactUuid.toString()))
                 .forEach(contactUuid -> links.getChildren()
                     .add(new Label(Contact.findByUuid(contactUuid).getName().toString())));
-            linksLabel.setManaged(true);
+            linkToContact.setManaged(true);
+            linkToContact.setVisible(true);
             links.setManaged(true);
         }
     }

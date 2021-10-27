@@ -56,7 +56,7 @@
         <padding>
           <Insets top="2" bottom="2" />
         </padding>
-        <Label fx:id="linksIcon" styleClass="cell_small_label" managed="false" visible="false" >
+        <Label fx:id="linkToEvent" styleClass="cell_small_label" managed="false" visible="false" >
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
@@ -77,7 +77,7 @@
           <padding>
             <Insets left="2" top="3" />
           </padding>
-          <FlowPane fx:id="tags" />
+          <FlowPane fx:id="tags" managed="false" />
         </HBox>
       </HBox>
     </VBox>
