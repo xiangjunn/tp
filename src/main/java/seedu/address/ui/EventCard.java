@@ -30,7 +30,7 @@ public class EventCard extends UiPart<Region> {
     private Label id;
 
     @FXML
-    private Label name;
+    private Label eventName;
 
     @FXML
     private Label from;
@@ -68,8 +68,8 @@ public class EventCard extends UiPart<Region> {
 
         id.setText(displayedIndex + ". ");
         // compulsory fields
-        name.setText(event.getName().fullName);
-        name.setWrapText(isViewMode);
+        eventName.setText(event.getName().fullName);
+        eventName.setWrapText(isViewMode);
 
         // Compulsory fields
         if (Event.isWillDisplayStartDateTime()) {

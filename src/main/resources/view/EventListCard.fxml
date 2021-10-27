@@ -20,7 +20,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="eventName" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <Label fx:id="from" wrapText="false" managed="false" styleClass="cell_small_label" text="\$from" />
             <!-- Optional fields-->
