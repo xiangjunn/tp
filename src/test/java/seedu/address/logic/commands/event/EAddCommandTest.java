@@ -62,8 +62,8 @@ class EAddCommandTest {
 
         EAddCommand command = new EAddCommand(event);
 
-        assertThrows(CommandException.class, EAddCommand.MESSAGE_INVALID_DATE_TIME_RANGE,
-                () -> command.execute(modelStub));
+        assertThrows(CommandException.class, EAddCommand.MESSAGE_INVALID_DATE_TIME_RANGE, () ->
+                command.execute(modelStub));
     }
 
     @Test
