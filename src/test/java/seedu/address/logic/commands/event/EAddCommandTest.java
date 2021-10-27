@@ -172,6 +172,11 @@ class EAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateContactListByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // events
 
         @Override
@@ -216,11 +221,34 @@ class EAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void updateEventListByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void linkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderContactCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderEventCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderAllCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void bookmarkEventIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**

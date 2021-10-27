@@ -55,6 +55,7 @@ public class CListCommandParser implements Parser<CListCommand> {
         if (prefixPresent(PREFIX_TAG, argMultimap)) {
             Contact.setWillDisplayTags(true);
         }
+        Contact.setViewingMode(false);
         return new CListCommand();
     }
 

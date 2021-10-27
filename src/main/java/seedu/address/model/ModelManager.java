@@ -172,6 +172,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateContactListByIndex(Index index) {
+        requireNonNull(index);
+        Contact targetContact = filteredContacts.get(index.getZeroBased());
+        filteredContacts.setPredicate(curr -> curr.isSameContact(targetContact));
+    }
+  
+    @Override
     public void bookmarkContactIndexedAt(Index index) {
         assert index != null : "index should not be null";
         addressBook.bookmarkContact(index);
@@ -216,13 +223,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateEventListByIndex(Index index) {
+        requireNonNull(index);
+        Event targetEvent = filteredEvents.get(index.getZeroBased());
+        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));
+    }
+
+    @Override
     public void bookmarkEventIndexedAt(Index index) {
         assert index != null : "index should not be null";
         Predicate<? super Event> currentPredicate = filteredEvents.getPredicate();
         // Remove events that have passed
         addressBook.bookmarkEvent(index);
     }
-
+        
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -241,5 +255,29 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredContacts.equals(other.filteredContacts)
                 && filteredEvents.equals(other.filteredEvents);
+    }
+
+    @Override
+    public void linkEventAndContact(Event event, Contact contact) {
+        event.linkTo(contact);
+        contact.linkTo(event);
+    }
+
+    @Override
+    public void rerenderContactCards() {
+        updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+    }
+
+    @Override
+    public void rerenderEventCards() {
+        updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+    }
+
+    @Override
+    public void rerenderAllCards() {
+        rerenderContactCards();
+        rerenderEventCards();
     }
 }
