@@ -3,6 +3,7 @@ package seedu.address.logic.commands.general;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -44,6 +45,10 @@ public class CommandTestUtil {
     public static final String EMPTY_PREFIX_ADDRESS = " " + PREFIX_ADDRESS;
     public static final String EMPTY_PREFIX_ZOOM = " " + PREFIX_ZOOM;
     public static final String EMPTY_PREFIX_TAG = " " + PREFIX_TAG;
+    public static final String EMPTY_PREFIX_CONTACT = " " + PREFIX_CONTACT;
+    public static final String VALID_INDEX_ONE = "1";
+    public static final String VALID_INDEX_TWO = "2";
+    public static final String INVALID_INDEX = "0";
 
     //for contacts
     public static final String VALID_NAME_AMY = "Amy Bee";
