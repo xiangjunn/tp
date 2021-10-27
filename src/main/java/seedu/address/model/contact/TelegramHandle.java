@@ -3,6 +3,10 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
+
 public class TelegramHandle {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -59,6 +63,16 @@ public class TelegramHandle {
         return other == this // short circuit if same object
             || (other instanceof TelegramHandle // instanceof handles nulls
             && handle.equals(((TelegramHandle) other).handle)); // state check
+    }
+
+    /**
+     * Checks if this {@code handle} contains any keywords in {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        assert handle != null : "the handle should not be null";
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(handle, string));
     }
 
     @Override

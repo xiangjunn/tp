@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class DateAndTimeTest {
@@ -17,6 +20,19 @@ class DateAndTimeTest {
     public void constructor_invalidZoomLink_throwsIllegalArgumentException() {
         String emptyDateTime = "";
         assertThrows(IllegalArgumentException.class, () -> new DateAndTime(emptyDateTime));
+    }
+
+    @Test
+    public void containsString() {
+        DateAndTime dateAndTime = new DateAndTime("01-12-2012 11:22");
+
+        // keywords contained in dateAndTime
+        List<String> listOfKeywordsContained = Arrays.asList("01-10-20", "11:");
+        assertTrue(dateAndTime.containsString(listOfKeywordsContained));
+
+        //keywords not contained in dateAndTime
+        List<String> noKeywordsContained = Arrays.asList("morning", "11:3", "11:21");
+        assertFalse(dateAndTime.containsString(noKeywordsContained));
     }
 
     @Test

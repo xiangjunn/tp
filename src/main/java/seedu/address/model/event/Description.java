@@ -2,6 +2,10 @@ package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents the description of an event in the address book.
  * Guarantees: immutable; is always valid
@@ -30,6 +34,16 @@ public class Description {
     @Override
     public String toString() {
         return value;
+    }
+
+    /**
+     * Checks if this {@code value} contains any keywords in {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        assert value != null : "the value should not be null";
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(value, string));
     }
 
     @Override

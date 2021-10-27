@@ -3,6 +3,10 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Contact's email in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
@@ -62,6 +66,16 @@ public class Email {
         return other == this // short circuit if same object
                 || (other instanceof Email // instanceof handles nulls
                 && value.equals(((Email) other).value)); // state check
+    }
+
+    /**
+     * Checks if this {@code value} contains any keywords in {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        assert value != null : "the value should not be null";
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(value, string));
     }
 
     @Override
