@@ -39,6 +39,9 @@ public class EUnlinkCommand extends Command {
      */
     public EUnlinkCommand(Index eventIndex, Set<Index> contactIndexes, boolean isClearAllLinks) {
         requireAllNonNull(eventIndex, contactIndexes);
+        assert (!contactIndexes.isEmpty() || isClearAllLinks)
+            && !(!contactIndexes.isEmpty() && isClearAllLinks)
+            : "Either the set is empty or isClearAllLinks is true, but not both";
         this.eventIndex = eventIndex;
         this.contactIndexes = contactIndexes;
         this.isClearAllLinks = isClearAllLinks;

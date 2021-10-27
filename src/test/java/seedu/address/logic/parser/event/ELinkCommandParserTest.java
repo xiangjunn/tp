@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.event.ELinkCommand;
-import seedu.address.logic.commands.event.EUnlinkCommand;
 
 class ELinkCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT = String.format(
