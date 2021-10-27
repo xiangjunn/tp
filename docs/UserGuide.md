@@ -586,10 +586,18 @@ empty data file SoConnect creates on the other Computer.
 
 {to be added soon}
 
-### Upcoming Features
+### Copy Details and Opening Links
 
-Here are some of the features that are currently under progress. You will soon be able to:
-* Find contacts and events by specific fields
+![clickable links](images/clickableLinkExample.png)
+
+* You can copy specific details of a contact or an event just by clicking on that detail!
+
+As shown on the image above, clicking on the `telegram handle` of `Bernice` will copy her Telegram handle.
+
+* You can also open any links that you have included in a contact or in an event.
+
+Referring back to the same image, if you click on the `zoom` link saved under `Bernice`, 
+SoConnect will help you open the link on your browser automatically.
 
 --------------------------------------------------------------------------------------------------------------------
 
