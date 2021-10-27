@@ -104,7 +104,7 @@ public interface Model {
     void bookmarkContactIndexedAt(Index index);
 
     /**
-     * This will change the order of the filtered list, bookmarked contact will be placed at the top of the list.
+     * This will change the order of the filtered list, bookmarked contacts will be placed at the top of the list.
      */
     public void reshuffleContactsInOrder();
 
@@ -159,4 +159,9 @@ public interface Model {
      * placing bookmarked event at the top of the list.
      */
     void bookmarkEventIndexedAt(Index index);
+
+    /**
+     * This will change the order of the filtered list, bookmarked events will be placed at the top of the list.
+     */
+    public void reshuffleEventsInOrder();
 }

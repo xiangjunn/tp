@@ -13,8 +13,8 @@ import seedu.address.model.contact.Contact;
 public class CBookmarkCommand extends Command {
     public static final String COMMAND_WORD = "cmark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks all contact indexed at "
-            + "the specified index and displays them at the top of the contact list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks all contact(s) indexed at "
+            + "the specified index(es) and displays them at the top of the contact list.\n"
             + "Parameters: INDEX \n"
             + "Example: " + COMMAND_WORD + " 1";
 

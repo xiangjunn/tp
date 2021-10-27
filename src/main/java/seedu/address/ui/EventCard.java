@@ -89,6 +89,10 @@ public class EventCard extends UiPart<Region> {
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
             tags.setManaged(true);
         }
+
+        if (event.getIsBookMarked()) {
+            name.setStyle("-fx-background-color: gold");
+        }
     }
 
     @Override

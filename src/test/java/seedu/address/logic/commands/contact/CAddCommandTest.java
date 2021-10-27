@@ -214,6 +214,12 @@ public class CAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void reshuffleEventsInOrder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
     }
 
     /**

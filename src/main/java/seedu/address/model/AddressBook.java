@@ -147,6 +147,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         events.bookmarkEvent(index);
     }
 
+    /**
+     * Places bookmarked {@code events} at the top of the list.
+     */
+    public void reshuffleEventsInOrder() {
+        events.reshuffleEventsInOrder();
+    }
 
     //// contact-level operations
 
@@ -183,13 +189,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         contacts.remove(key);
-    }
-
-    /**
-     * Bookmarks contact indexed at {@code index} in this {@code AddressBook}.
-     */
-    public void markContactAt(Index index) {
-        contacts.bookmarkContact(index);
     }
 
     //// util methods

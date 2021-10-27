@@ -218,9 +218,12 @@ public class ModelManager implements Model {
     @Override
     public void bookmarkEventIndexedAt(Index index) {
         assert index != null : "index should not be null";
-        Predicate<? super Event> currentPredicate = filteredEvents.getPredicate();
-        // Remove events that have passed
         addressBook.bookmarkEvent(index);
+    }
+
+    @Override
+    public void reshuffleEventsInOrder() {
+        addressBook.reshuffleEventsInOrder();
     }
 
     @Override

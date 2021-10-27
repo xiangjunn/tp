@@ -103,19 +103,35 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.sort(Comparator.comparing(Event::getStartDateAndTime));
     }
 
-    public void putBookmarkEventsFirst() {
-        internalList.sort(Comparator.comparing(Event::getIsBookMarked));
-    }
-
     public void resetEvents() {
         internalList.clear();
     }
 
     /**
-     * Bookmarks the event indexed at {@code index}, moves that event to the top of the list.
+     * Bookmarks the event indexed at {@code index}.
      */
     public void bookmarkEvent(Index index) {
-        internalUnmodifiableList.sort(Comparator.comparing(Event::getIsBookMarked));
+        Event eventToMark = internalUnmodifiableList.get(index.getZeroBased());
+        eventToMark.setBookMarked(true);
+    }
+
+    /**
+     * Moves bookmarked events to the top of the list.
+     */
+    public void reshuffleEventsInOrder() {
+        ObservableList<Event> markedEventsFirst = FXCollections.observableArrayList();
+        internalList.forEach(event -> {
+            if (event.getIsBookMarked()) {
+                markedEventsFirst.add(event);
+            }
+        });
+        internalList.forEach(event -> {
+            if (!event.getIsBookMarked()) {
+                markedEventsFirst.add(event);
+            }
+        });
+        internalList.removeAll(internalUnmodifiableList); //removes all event from the list
+        internalList.addAll(markedEventsFirst); //adds in list in correct order
     }
 
     /**

@@ -1,5 +1,4 @@
-package seedu.address.logic.commands.contact;
-
+package seedu.address.logic.commands.event;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,13 +15,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-class CBookmarkCommandTest {
+class EBookmarkCommandTest {
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CBookmarkCommand(null));
+        assertThrows(NullPointerException.class, () -> new EBookmarkCommand(null));
     }
 
 
@@ -35,14 +34,14 @@ class CBookmarkCommandTest {
         firstIndexes.add(first);
         List<Index> secondIndexes = new ArrayList<>();
         secondIndexes.add(second);
-        CBookmarkCommand bookmarkFirstCommand = new CBookmarkCommand(firstIndexes);
-        CBookmarkCommand bookmarkSecondCommand = new CBookmarkCommand(secondIndexes);
+        EBookmarkCommand bookmarkFirstCommand = new EBookmarkCommand(firstIndexes);
+        EBookmarkCommand bookmarkSecondCommand = new EBookmarkCommand(secondIndexes);
 
         // same object -> returns true
         assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommand));
 
         // same values -> returns true
-        CBookmarkCommand bookmarkFirstCommandCopy = new CBookmarkCommand(firstIndexes);
+        EBookmarkCommand bookmarkFirstCommandCopy = new EBookmarkCommand(firstIndexes);
         ;
         assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommandCopy));
 
@@ -59,6 +58,5 @@ class CBookmarkCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
     }
-
 
 }
