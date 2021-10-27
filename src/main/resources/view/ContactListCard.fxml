@@ -9,31 +9,40 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import java.net.URL?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
+      <stylesheets>
+        <URL value = "@Clickable.css"/>
+      </stylesheets>
+      <HBox alignment="CENTER_LEFT" spacing="5">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label" text="\$first" />
       </HBox>
-      <Label fx:id="email" wrapText="false" managed="false" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="email" managed="false" onMouseClicked="#copyEmail" styleClass="cell_small_label" text="\$email" />
       <!-- Optional fields-->
-
-      <Label fx:id="phone" wrapText="false" managed="false" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" wrapText="false" managed="false" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="telegramHandle" wrapText="false" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
-      <Label fx:id="zoom" wrapText="false" managed="false" styleClass="cell_small_label" text="\$zoom" />
+      <Label fx:id="phone" managed="false" onMouseClicked="#copyPhone" styleClass="cell_small_label" text="\$phone" />
+      <Label fx:id="address" managed="false" onMouseClicked="#copyAddress" styleClass="cell_small_label" text="\$address" />
+      <HBox>
+        <Label fx:id="telegramHandleTitle" managed="false" styleClass="cell_small_label" text="\$telegramTitle" />
+        <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" styleClass="cell_small_label" text="\$telegramHandle"/>
+      </HBox>
+      <HBox>
+        <Label fx:id="zoomLinkTitle" managed="false" styleClass="cell_small_label" text="\$zoomLinkTitle" />
+        <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label" text="\$zoom"/>
+      </HBox>
       <HBox>
         <padding>
           <Insets top="5" />
