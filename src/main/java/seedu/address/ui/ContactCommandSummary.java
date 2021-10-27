@@ -13,11 +13,6 @@ import seedu.address.logic.commands.contact.CListCommand;
 import seedu.address.logic.commands.contact.CViewCommand;
 
 public class ContactCommandSummary {
-    /** Description of what the command does. */
-    private StringProperty action;
-
-    /** Format of a valid command. */
-    private StringProperty format;
 
     public static final String ADD = "Add";
     public static final String CLEAR = "Clear";
@@ -26,6 +21,12 @@ public class ContactCommandSummary {
     public static final String FIND = "Find\n (at least one keyword must be present)";
     public static final String LIST = "List";
     public static final String VIEW = "View";
+
+    /** Description of what the command does. */
+    private StringProperty action;
+
+    /** Format of a valid command. */
+    private StringProperty format;
 
 
     /**

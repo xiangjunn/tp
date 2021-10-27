@@ -9,16 +9,15 @@ import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 
 public class GeneralCommandSummary {
-    private StringProperty action;
-
-    /** Format of a valid command. */
-    private StringProperty format;
 
     public static final String CALENDAR = "Calendar";
     public static final String EXIT = "Exit";
     public static final String HELP = "Help";
-//    public static final String REDO = "Redo";
-//    public static final String UNDO = "Undo";
+
+    private StringProperty action;
+
+    /** Format of a valid command. */
+    private StringProperty format;
 
 
     /**

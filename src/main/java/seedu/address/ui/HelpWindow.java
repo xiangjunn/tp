@@ -30,7 +30,7 @@ public class HelpWindow extends UiPart<Stage> {
     //headers
     public static final String CONTACT_TITLE = "Contact Management";
     public static final String EVENT_TITLE = "Event Management";
-    public static final String GENERAL_TTILE = "General";
+    public static final String GENERAL_TITLE = "General";
     public static final String ACTION_HEADER = "Action";
     public static final String FORMAT_HEADER = "Format";
 
@@ -97,7 +97,7 @@ public class HelpWindow extends UiPart<Stage> {
 
         contactTitle.setText(CONTACT_TITLE);
         eventTitle.setText(EVENT_TITLE);
-        generalTitle.setText(GENERAL_TTILE);
+        generalTitle.setText(GENERAL_TITLE);
 
         setCommandSummary(contactTable, contactAction, contactFormat, contactList);
         setCommandSummary(eventTable, eventAction, eventFormat, eventList);
@@ -107,7 +107,14 @@ public class HelpWindow extends UiPart<Stage> {
 
     }
 
+    /**
+     * Creates a new HelpWindow.
+     */
+    public HelpWindow() {
+        this(new Stage());
+    }
 
+    @SuppressWarnings("unchecked")
     public <S> void setCommandSummary(TableView<S> table, TableColumn<S, String> actionHeader,
                                       TableColumn<S, String> formatHeader, ObservableList<S> list) {
         table.setItems(list);
@@ -125,6 +132,7 @@ public class HelpWindow extends UiPart<Stage> {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+
     public <S> Callback<TableColumn<S, String>,
                 TableCell<S, String>> getCallback(TableColumn<S, String> header) {
         return tc -> {
@@ -138,13 +146,6 @@ public class HelpWindow extends UiPart<Stage> {
         };
     }
 
-
-    /**
-     * Creates a new HelpWindow.
-     */
-    public HelpWindow() {
-        this(new Stage());
-    }
 
     /**
      * Shows the help window.
