@@ -1,14 +1,23 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -18,6 +27,8 @@ import seedu.address.model.event.Event;
 public class ContactCard extends UiPart<Region> {
 
     private static final String FXML = "ContactListCard.fxml";
+
+    private static Logger logger = LogsCenter.getLogger(ContactCard.class);
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -29,26 +40,39 @@ public class ContactCard extends UiPart<Region> {
 
     public final Contact contact;
 
+    private MainWindow mainWindow;
+
     @FXML
     private HBox cardPane;
+
     @FXML
     private Label name;
+
     @FXML
     private Label id;
+
     @FXML
     private Label phone;
+
     @FXML
     private Label address;
+
     @FXML
     private Label email;
+
+    @FXML
+    private Label telegramHandleTitle;
     @FXML
     private Label telegramHandle;
+
     @FXML
     private Label zoom;
+
     @FXML
     private Label tagIcon;
     @FXML
     private FlowPane tags;
+
     @FXML
     private Label linksIcon;
     @FXML
@@ -57,8 +81,10 @@ public class ContactCard extends UiPart<Region> {
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
      */
-    public ContactCard(Contact contact, int displayedIndex) {
+    public ContactCard(Contact contact, int displayedIndex, MainWindow mainWindow) {
         super(FXML);
+        requireAllNonNull(contact, displayedIndex, mainWindow);
+        this.mainWindow = mainWindow;
         this.contact = contact;
         boolean isViewMode = Contact.isViewingMode();
 
@@ -104,6 +130,7 @@ public class ContactCard extends UiPart<Region> {
                     .forEach(tag -> {
                         Label label = new Label(tag.tagName);
                         label.setStyle("-fx-background-color: " + tag.tagColour + ";");
+                        label.setWrapText(isViewMode);
                         tags.getChildren().add(label);
                     });
             tagIcon.setManaged(true);
@@ -139,5 +166,87 @@ public class ContactCard extends UiPart<Region> {
         ContactCard card = (ContactCard) other;
         return id.getText().equals(card.id.getText())
                 && contact.equals(card.contact);
+    }
+
+    /**
+     * Copies contact fields to the clipboard.
+     */
+    private void copy(String fieldContent, String fieldName) {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(fieldContent);
+        clipboard.setContent(content);
+        mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_FIELD_COPIED, fieldName));
+        logger.info(String.format(Messages.MESSAGE_CONTACT_FIELD_COPIED, fieldName));
+    }
+
+    /**
+     * Copies contact name to the clipboard.
+     */
+    @FXML
+    private void copyName() {
+        copy(contact.getName().fullName, "name");
+    }
+
+    /**
+     * Copies contact email to the clipboard.
+     */
+    @FXML
+    private void copyEmail() {
+        copy(contact.getEmail().value, "email");
+    }
+
+    /**
+     * Copies contact phone number to the clipboard.
+     */
+    @FXML
+    private void copyPhone() {
+        copy(contact.getPhone().value, "phone");
+    }
+
+    /**
+     * Copies contact address to the clipboard.
+     */
+    @FXML
+    private void copyAddress() {
+        copy(contact.getAddress().value, "address");
+    }
+
+    /**
+     * Open contact links in browser
+     */
+    private void openLink(String link, String fieldName) {
+        try {
+            if (!link.matches("^(http(s)?://)")) {
+                link = "http://" + link;
+            }
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI(link));
+                logger.info(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+                mainWindow.handleClick(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+            } else {
+                copy(link, fieldName);
+                logger.warning("Desktop does not support opening URL in browser. Copied link to clipboard");
+            }
+        } catch (URISyntaxException | IOException e) {
+            logger.warning(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
+            mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
+        }
+    }
+
+    /**
+     * Open contact zoom link in browser.
+     */
+    @FXML
+    private void openZoomLink() {
+        openLink(contact.getZoomLink().link, "zoom");
+    }
+
+    /**
+     * Open telegram link in browser.
+     */
+    @FXML
+    private void openTelegramHandle() {
+        openLink(contact.getTelegramHandle().link, "telegram");
     }
 }
