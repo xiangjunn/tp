@@ -14,7 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.event.EBookmarkCommand;
 import seedu.address.logic.parser.event.EBookmarkCommandParser;
 
-class EBookmarkCommandParserTest {
+class CBookmarkCommandParserTest {
     private EBookmarkCommandParser parser = new EBookmarkCommandParser();
 
     @Test

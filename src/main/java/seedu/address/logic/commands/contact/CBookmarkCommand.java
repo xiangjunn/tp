@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -32,11 +34,14 @@ public class CBookmarkCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String commandResult = "";
         List<Contact> lastShownList = model.getFilteredContactList();
         for (Index index : indexesToMark) {
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            }
             Contact contactToMark = lastShownList.get(index.getZeroBased());
             if (contactToMark.getIsBookMarked()) {
                 commandResult += String.format(MESSAGE_ALREADY_MARKED, contactToMark);

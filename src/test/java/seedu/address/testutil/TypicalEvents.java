@@ -68,7 +68,10 @@ public class TypicalEvents {
             .withDescription(VALID_DESCRIPTION_EXAM).withAddress(VALID_ADDRESS_EXAM)
             .withZoomLink(VALID_ZOOM_EXAM).withTags(VALID_TAG_EXAMS, VALID_TAG_COOL).build();
 
+    private static Event TEAM_MEETING_BOOKMARKED = new EventBuilder(TEAM_MEETING).withBookmarked().build();
+
     private TypicalEvents() {}
+
 
     /**
      * Returns an {@code AddressBook} with all the typical events.
@@ -85,5 +88,18 @@ public class TypicalEvents {
     public static List<Event> getTypicalEvents() {
         return new ArrayList<>(Arrays.asList(CS2103_MIDTERM, CS2100_CONSULTATION, CS2101_MEETING, FOOTBALL_PRACTICE,
                 TEAM_MEETING, BIRTHDAY_PARTY));
+    }
+
+    private static List<Event> getListWithBookmarkEvent() {
+        return new ArrayList<>(Arrays.asList(TEAM_MEETING_BOOKMARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
+                CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
+    }
+
+    public static AddressBook getAddressBookWithBookmarkEvent() {
+        AddressBook ab = new AddressBook();
+        for (Event event : getListWithBookmarkEvent()) {
+            ab.addEvent(event);
+        }
+        return ab;
     }
 }
