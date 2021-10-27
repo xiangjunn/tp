@@ -112,6 +112,7 @@ public class EUnlinkCommand extends Command {
         return other == this // short circuit if same object
             || (other instanceof EUnlinkCommand // instanceof handles nulls
             && eventIndex.equals(((EUnlinkCommand) other).eventIndex)
-            && contactIndexes.equals(((EUnlinkCommand) other).contactIndexes)); // state check
+            && contactIndexes.equals(((EUnlinkCommand) other).contactIndexes)
+            && isClearAllLinks == ((EUnlinkCommand) other).isClearAllLinks); // state check
     }
 }
