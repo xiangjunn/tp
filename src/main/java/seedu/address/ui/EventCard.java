@@ -120,7 +120,7 @@ public class EventCard extends UiPart<Region> {
             description.setWrapText(isViewMode);
         }
 
-        if (Event.isWillDisplayTags()) {
+        if (Event.isWillDisplayTags() && !event.getTags().isEmpty()) {
             event.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {

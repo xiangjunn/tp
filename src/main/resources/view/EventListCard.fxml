@@ -81,7 +81,7 @@
                     <padding>
                         <Insets left="2" top="3" />
                     </padding>
-                    <FlowPane fx:id="tags" />
+                    <FlowPane fx:id="tags" managed="false" />
                 </HBox>
             </HBox>
         </VBox>
