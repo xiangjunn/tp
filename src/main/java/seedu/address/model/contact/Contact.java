@@ -37,8 +37,6 @@ public class Contact {
     private final Email email;
     private final TelegramHandle telegramHandle;
     private final UUID uuid;
-    
-
 
     // Data fields
     private final Address address;
@@ -204,7 +202,6 @@ public class Contact {
     public static void setViewingMode(boolean viewingMode) {
         Contact.viewingMode = viewingMode;
     }
-    
     public boolean getIsBookMarked() {
         return isBookMarked;
     }

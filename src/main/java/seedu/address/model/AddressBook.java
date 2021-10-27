@@ -227,14 +227,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         eventsUuid.iterator()
                 .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
     }
-  
     /**
      * Bookmarks contact indexed at {@code index} in this {@code AddressBook}.
      */
     public void markContactAt(Index index) {
         contacts.bookmarkContact(index);
     }
-  
+
     //// util methods
 
     @Override

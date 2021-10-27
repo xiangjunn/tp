@@ -177,7 +177,6 @@ public class ModelManager implements Model {
         Contact targetContact = filteredContacts.get(index.getZeroBased());
         filteredContacts.setPredicate(curr -> curr.isSameContact(targetContact));
     }
-  
     @Override
     public void bookmarkContactIndexedAt(Index index) {
         assert index != null : "index should not be null";
@@ -234,7 +233,6 @@ public class ModelManager implements Model {
         assert index != null : "index should not be null";
         addressBook.bookmarkEvent(index);
     }
-        
     @Override
     public void reshuffleEventsInOrder() {
         addressBook.reshuffleEventsInOrder();

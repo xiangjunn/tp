@@ -227,25 +227,23 @@ public class CAddCommandTest {
         public void rerenderContactCards() {
             throw new AssertionError("This method should not be called.");
         }
-
-	@Override
+        @Override
         public void rerenderEventCards() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void rerenderAllCards() {
-          
             throw new AssertionError("This method should not be called.");
         }
-      
-       @Override
+
+        @Override
         public void bookmarkEventIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
-      
-	@Override
-	public void reshuffleEventsInOrder() {
+
+        @Override
+        public void reshuffleEventsInOrder() {
             throw new AssertionError("This method should not be called.");
         }
     }

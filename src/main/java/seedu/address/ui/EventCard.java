@@ -118,10 +118,9 @@ public class EventCard extends UiPart<Region> {
             linksLabel.setManaged(true);
             links.setManaged(true);
         }
-
-	if (event.getIsBookMarked()) {
+        if (event.getIsBookMarked()) {
             name.setStyle("-fx-background-color: gold");
-	}
+        }
     }
 
     @Override

@@ -89,13 +89,12 @@ public class AddressBookParser {
 
         case CListCommand.COMMAND_WORD:
             return new CListCommandParser().parse(arguments);
-        
+
         case CViewCommand.COMMAND_WORD:
             return new CViewCommandParser().parse(arguments);
 
         case CBookmarkCommand.COMMAND_WORD:
             return new CBookmarkCommandParser().parse(arguments);
-            
         case EAddCommand.COMMAND_WORD:
             return new EAddCommandParser().parse(arguments);
 

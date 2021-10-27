@@ -187,7 +187,6 @@ public interface Model {
      * Re-render both contact and event cards in UI to show the most updated version.
      */
     void rerenderAllCards();
-  
     /**
      * Bookmarks the event indexed at the specified index. This will change the order of the filtered list,
      * placing bookmarked event at the top of the list.

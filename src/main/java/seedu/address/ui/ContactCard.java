@@ -113,13 +113,10 @@ public class ContactCard extends UiPart<Region> {
             links.setManaged(true);
 
         }
-      
         if (contact.getIsBookMarked()) {
             name.setStyle("-fx-background-color: gold");
         }
-      
     }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

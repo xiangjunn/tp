@@ -203,7 +203,6 @@ public class Event {
     public static void setViewingMode(boolean viewingMode) {
         Event.viewingMode = viewingMode;
     }
-  
     public boolean getIsBookMarked() {
         return isBookMarked;
     }
@@ -211,7 +210,6 @@ public class Event {
     public void setBookMarked(boolean bookMarked) {
         isBookMarked = bookMarked;
     }
-  
     /**
      * Checks if this {@code name} contains any keywords in {code strings}
      */
