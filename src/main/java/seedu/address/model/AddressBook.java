@@ -59,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             currentPointer = 0;
             addressBookStateList.add(new AddressBook());
         }
+        assert !addressBookStateList.isEmpty() : "addressBookStateList should have been initialised";
         return addressBookStateList.get(currentPointer);
     }
 
@@ -67,14 +68,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public static void clearHistory() {
         addressBookStateList.clear();
-    }
-
-    /**
-     * Get the most updated version of addressBook
-     * @return the most updated version of addressBook
-     */
-    public static AddressBook getLastAddressBook() {
-        return addressBookStateList.get(addressBookStateList.size() - 1);
+        currentPointer = 0;
     }
 
     /**
@@ -84,7 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (addressBookStateList.isEmpty()) {
             getCurrentAddressBook();
         }
-        assert !addressBookStateList.isEmpty() : "addressBook must have been initialised";
+        assert !addressBookStateList.isEmpty();
         if (currentPointer < 0) {
             //throw exception
             System.out.println("index <0");

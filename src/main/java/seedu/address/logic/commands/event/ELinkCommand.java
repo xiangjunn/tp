@@ -76,6 +76,7 @@ public class ELinkCommand extends Command {
         for (Index contactIndex : contactIndexes) {
             Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
             model.linkEventAndContact(eventToLink, contactToLink);
+            model.commitAddressBook();
             if (count == 0) {
                 commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(),
                     contactIndexes.size() > 1 ? "s" : "", contactToLink.getName());

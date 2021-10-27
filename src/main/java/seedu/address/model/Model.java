@@ -19,11 +19,6 @@ public interface Model {
     Predicate<Event> PREDICATE_HIDE_ALL_EVENTS = unused -> false;
 
     /**
-     * Gets the latest version of model
-     */
-    Model getLastModel();
-
-    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -58,8 +53,11 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /** Returns the current AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns initial version of AddressBook */
+    ReadOnlyAddressBook getInitialAddressBook();
 
     /** Adds new state of AddressBook to its history list */
     void commitAddressBook();

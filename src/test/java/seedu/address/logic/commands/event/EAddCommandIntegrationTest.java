@@ -24,16 +24,18 @@ public class EAddCommandIntegrationTest {
 
     private Model model;
 
+    private Model expectedModel;
+
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newEvent_success() {
         Event validEvent = new EventBuilder().build();
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.addEvent(validEvent);
 
         EventChanger eventChanger = EventChanger.addEventChanger(validEvent);
@@ -45,7 +47,7 @@ public class EAddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateEvent_throwsCommandException() {
-        Event eventInList = getTypicalAddressBook().getEventList().get(0);
+        Event eventInList = model.getInitialAddressBook().getEventList().get(0);
         assertCommandFailure(new EAddCommand(eventInList), model, EAddCommand.MESSAGE_DUPLICATE_EVENT);
     }
 

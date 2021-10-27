@@ -82,10 +82,9 @@ public class CAddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public Model getLastModel() {
+        public ReadOnlyAddressBook getInitialAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
-
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -318,6 +317,11 @@ public class CAddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+
+        @Override
+        public ReadOnlyAddressBook getInitialAddressBook() {
             return new AddressBook();
         }
     }

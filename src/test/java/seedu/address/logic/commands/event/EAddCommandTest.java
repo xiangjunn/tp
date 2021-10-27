@@ -82,10 +82,9 @@ class EAddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public Model getLastModel() {
+        public ReadOnlyAddressBook getInitialAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
-
         //settings
 
         @Override
@@ -301,6 +300,11 @@ class EAddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+
+        @Override
+        public ReadOnlyAddressBook getInitialAddressBook() {
             return new AddressBook();
         }
 

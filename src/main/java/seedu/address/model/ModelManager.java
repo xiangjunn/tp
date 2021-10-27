@@ -41,16 +41,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(AddressBook.getCurrentAddressBook(), new UserPrefs());
-    }
-
-    /**
-     * Get the most updated version of Model Manager
-     * @return the most updated version of Model Manager
-     */
-    @Override
-    public ModelManager getLastModel() {
-        return new ModelManager(AddressBook.getLastAddressBook(), userPrefs);
+        this(new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -98,6 +89,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return AddressBook.getCurrentAddressBook();
+    }
+
+    @Override
+    public ReadOnlyAddressBook getInitialAddressBook() {
+        return addressBook;
     }
 
     //=========== AddressBook ================================================================================
