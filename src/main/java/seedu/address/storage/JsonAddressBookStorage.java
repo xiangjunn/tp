@@ -34,6 +34,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
+        AddressBook.clearHistory();
         return readAddressBook(filePath);
     }
 
