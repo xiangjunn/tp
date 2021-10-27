@@ -35,6 +35,7 @@ public class EListCommand extends Command {
             + "[" + PREFIX_ZOOM + "] "
             + "[" + PREFIX_TAG + "] \n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_END_TIME + " " + PREFIX_ZOOM;
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
