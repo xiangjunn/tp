@@ -20,7 +20,7 @@ public class EventBuilder {
     public static final String DEFAULT_NAME = "Midterms";
     public static final String DEFAULT_START_DATE_AND_TIME = "13-10-2021 21:00";
     public static final String DEFAULT_END_DATE_AND_TIME = "13-10-2021 23:00";
-    public static final String DEFAULT_DESCRIPTION = "";
+    public static final String DEFAULT_DESCRIPTION = "Important";
     public static final String DEFAULT_ADDRESS = "COM2, SR1, #02-11";
     public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
 
