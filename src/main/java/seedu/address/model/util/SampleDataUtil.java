@@ -12,6 +12,7 @@ import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EndDateTime;
 import seedu.address.model.event.Event;
@@ -26,43 +27,42 @@ public class SampleDataUtil {
         return new Contact[] {
             new Contact(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                null, null, getTagSet("friends")),
+                null, new TelegramHandle("yeoh_alex"), getTagSet("friends")),
             new Contact(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                null, null, getTagSet("colleagues", "friends")),
-            new Contact(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                null, null, getTagSet("neighbours")),
-            new Contact(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                null, null, getTagSet("family")),
-            new Contact(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+                new ZoomLink("nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0"),
+                new TelegramHandle("bbernicee"), getTagSet("TA", "friends")),
+            new Contact(new Name("Charlotte Oliveiro"), null, new Email("charlotte@example.com"),
+                null, null, null, getTagSet()),
+            new Contact(new Name("David Li"), null, new Email("lidavid@comp.nus.edu.sg"),
+                new Address("COM1-B1-0931"),
+                null, new TelegramHandle("lidavid"), getTagSet("professor", "CS2103T")),
+            new Contact(new Name("Irfan Ibrahim"), null, new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                null, null, getTagSet("classmates")),
+                null, new TelegramHandle("irfanx"), getTagSet("classmates")),
             new Contact(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                null, null, getTagSet("colleagues"))
+                null,
+                new ZoomLink("nus-sg.zoom.us/j/89157903482"), null, getTagSet("TA"))
         };
     }
 
     public static Event[] getSampleEvents() {
         return new Event[] {
             new Event(new Name("CS2103T project meeting"),
-                new StartDateTime("10-02-2021 21:00"), new EndDateTime("10-02-2021 22:00"), null,
+                new StartDateTime("10-10-2021 21:00"), new EndDateTime("10-10-2021 22:00"), null,
                 null, new ZoomLink("nus-sg.zoom.us/j/21342513543"),
                 Set.of(new Tag("Recurring"), new Tag("CS2103T"))),
-            new Event(new Name("Basketball training"), new StartDateTime("10-02-2021 20:00"),
-                new EndDateTime("10-02-2021 21:00"), new Description("Meeting every week"),
+            new Event(new Name("Basketball training"), new StartDateTime("01-11-2021 20:00"),
+                new EndDateTime("01-11-2021 21:00"), new Description("Meeting every week"),
                 new Address("NUS Sport Centre"), null,
                 Set.of(new Tag("Recurring"), new Tag("CCA"))),
-            new Event(new Name("Google Interview"), new StartDateTime("10-09-2021 15:30"),
-                new EndDateTime("10-09-2021 16:00"), null,
-                null, new ZoomLink("careers.google.com/summer"),
+            new Event(new Name("Google Interview"), new StartDateTime("10-11-2021 15:30"),
+                new EndDateTime("10-11-2021 16:00"), new Description("Revise on Data Structures and Algorithms."
+                + " Also read up on Computer Networks and Object-Oriented Programming. I can do this!"),
+                null, new ZoomLink("careers.google.com/student"),
                 Set.of(new Tag("Internship"))),
-            new Event(new Name("Dance class"), new StartDateTime("13-10-2021 20:00"),
-                new EndDateTime("13-10-2021 22:00"), new Description("Lorem ipsum dolor sit amet, consectetur"
-                + " adipiscing elit. Sed lorem urna, auctor vel elit vitae, hendrerit convallis lorem. Aliquam non "
-                + "lobortis nisl, convallis placerat urna."),
+            new Event(new Name("Dance class"), new StartDateTime("13-11-2021 20:00"),
+                new EndDateTime("13-11-2021 22:00"), new Description("Dancing is my passion. I like pole dancing."),
                 new Address("NUS UTown"), null,
                 Set.of(new Tag("Recurring"), new Tag("CCA")))
         };
@@ -70,13 +70,23 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Contact sampleContact : getSampleContacts()) {
+        Contact[] sampleContacts = getSampleContacts();
+        Event[] sampleEvents = getSampleEvents();
+        for (Contact sampleContact : sampleContacts) {
             sampleAb.addContact(sampleContact);
         }
-        for (Event sampleEvent : getSampleEvents()) {
+        for (Event sampleEvent : sampleEvents) {
             sampleAb.addEvent(sampleEvent);
         }
+        // Link some contacts and events
+        link(sampleContacts[0], sampleEvents[1]);
+        link(sampleContacts[4], sampleEvents[1]);
         return sampleAb;
+    }
+
+    private static void link(Contact contact, Event event) {
+        contact.linkTo(event);
+        event.linkTo(contact);
     }
 
     /**
