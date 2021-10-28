@@ -56,7 +56,6 @@ public class CDeleteCommand extends Command {
         for (int i = indexToDelete; i <= end; i++) {
             Contact contactToDelete = lastShownList.get(indexToDelete);
             model.deleteContact(contactToDelete);
-            model.commitAddressBook();
             commandResult += String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
             if (i != end) {
                 commandResult += "\n";
@@ -64,6 +63,7 @@ public class CDeleteCommand extends Command {
         }
         // rerender UI to update the links for events with links to deleted contact
         model.rerenderEventCards();
+        model.commitAddressBook();
         return new CommandResult(commandResult);
     }
 

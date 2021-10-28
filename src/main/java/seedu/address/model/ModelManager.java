@@ -107,6 +107,7 @@ public class ModelManager implements Model {
     public void undoAddressBook() {
         addressBook.undo();
         addressBook.resetData(getAddressBook());
+        resetDisplayAllFilteredList();
     }
 
     @Override
@@ -189,6 +190,14 @@ public class ModelManager implements Model {
     @Override
     public void resetEvents() {
         this.addressBook.resetEvents();
+    }
+
+    /**
+     * Reset the display to addressBook to display all contacts and events
+     */
+    public void resetDisplayAllFilteredList() {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     //=========== Filtered Contact List Accessors =====================

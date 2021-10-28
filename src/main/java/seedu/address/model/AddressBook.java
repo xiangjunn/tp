@@ -36,7 +36,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
     }
 
-    // change to private?
     public AddressBook() {}
 
     /**
@@ -59,7 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             currentPointer = 0;
             addressBookStateList.add(new AddressBook());
         }
-        assert !addressBookStateList.isEmpty() : "addressBookStateList should have been initialised";
+        assert !addressBookStateList.isEmpty() : "addressBookStateList should have been initialised here";
         return addressBookStateList.get(currentPointer);
     }
 
@@ -79,10 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             getCurrentAddressBook();
         }
         assert !addressBookStateList.isEmpty();
-        if (currentPointer < 0) {
-            //throw exception
-            System.out.println("index <0");
-        }
+        assert currentPointer >= 0 && currentPointer < addressBookStateList.size();
 
         AddressBook currentAddressBook = this.copy();
         if (currentPointer < addressBookStateList.size() - 1) {
@@ -116,16 +112,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Restore the previous address book state from the addressBookStateList
      */
     public void undo() {
+        assert isUndoable() : "AddressBook should be undoable when this method is called.";
         currentPointer--;
-        assert isUndoable();
     }
+
 
     /**
      * Restore the previous undone address book state from its history
      */
     public void redo() {
+        assert isRedoable() : "AddressBook should be redoable when this method is called.";
         currentPointer++;
-        assert isRedoable();
     }
 
     /**
@@ -161,8 +158,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets the existing data of contacts of this {@code AddressBook}.
      */
     public void resetContacts() {
-        this.events.iterator()
-            .forEachRemaining(Event::clearAllLinks);
+        this.events.iterator().forEachRemaining(Event::clearAllLinks);
+        this.contacts.iterator().forEachRemaining(Contact::clearAllLinks);
         this.contacts.resetContacts();
     }
 
@@ -232,15 +229,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void unlinkContactsFromEvent(Event e) {
         Set<UUID> contactsUuid = e.getLinkedContacts();
         contactsUuid.iterator()
-            .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
+            .forEachRemaining(contactUuid -> {
+                Contact linkedContact = Contact.findByUuid(contactUuid);
+                linkedContact.unlink(e);
+                e.unlink(linkedContact);
+            });
     }
 
     /**
      * Resets the existing data of events of this {@code AddressBook}.
      */
     public void resetEvents() {
-        this.contacts.iterator()
-            .forEachRemaining(Contact::clearAllLinks);
+        this.contacts.iterator().forEachRemaining(Contact::clearAllLinks);
+        this.events.iterator().forEachRemaining(Event::clearAllLinks);
         this.events.resetEvents();
     }
 
@@ -293,7 +294,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void unlinkEventsFromContact(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
-                .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
+                .forEachRemaining(eventUuid -> {
+                    Event linkedEvent = Event.findByUuid(eventUuid);
+                    linkedEvent.unlink(c);
+                    c.unlink(linkedEvent);
+                });
     }
 
     //// util methods
