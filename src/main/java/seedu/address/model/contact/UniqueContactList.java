@@ -107,6 +107,25 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
+     * Moves bookmarked contacts to the top of the list.
+     */
+    public void reshuffleContactsInOrder() {
+        ObservableList<Contact> markedContactsFirst = FXCollections.observableArrayList();
+        internalList.forEach(contact -> {
+            if (contact.getIsBookMarked()) {
+                markedContactsFirst.add(contact);
+            }
+        });
+        internalList.forEach(contact -> {
+            if (!contact.getIsBookMarked()) {
+                markedContactsFirst.add(contact);
+            }
+        });
+        internalList.removeAll(internalUnmodifiableList); //removes all contact from the list
+        internalList.addAll(markedContactsFirst); //adds in list in correct order
+    }
+
+    /**
      * Get a copy of uniqueContactList
      * @return a copy of a UniqueContactList
      */
