@@ -146,19 +146,25 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEvent(Event key) {
         // unlink all the contacts linked to event before removing event
-        unlinkContactsFromEvent(key);
+        unlinkContactsFromEventOneWay(key);
         events.remove(key);
     }
 
     /**
-     * Unlink all the contacts linked to the given event.
-     *
-     * @param e The event from which to unlink all linked contacts.
+     * Unlink all the contacts linked to the given event {@code e}, but does not remove the stored links in the event.
      */
-    public void unlinkContactsFromEvent(Event e) {
+    private void unlinkContactsFromEventOneWay(Event e) {
         Set<UUID> contactsUuid = e.getLinkedContacts();
         contactsUuid.iterator()
             .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
+    }
+
+    /**
+     * Unlink all the contacts linked to the given event {@code e} in both directions.
+     */
+    public void unlinkContactsFromEventBothWays(Event e) {
+        unlinkContactsFromEventOneWay(e);
+        e.clearAllLinks();
     }
 
     /**
@@ -227,16 +233,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         // unlink all the events linked to contact before removing contact
-        unlinkEventsFromContact(key);
+        unlinkEventsFromContactOneWay(key);
         contacts.remove(key);
     }
 
     /**
-     * Unlink all the events linked to the given contact.
-     *
-     * @param c The contact from which to unlink all linked events.
+     * Unlink all the events linked to the given contact {@code c}, but does not remove the stored links in the contact.
      */
-    public void unlinkEventsFromContact(Contact c) {
+    public void unlinkEventsFromContactOneWay(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
                 .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
@@ -254,7 +258,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return contacts.asUnmodifiableObservableList().size() + " contacts\n"
                 + events.asUnmodifiableObservableList().size() + " events";
-        // TODO: refine later
     }
 
     @Override

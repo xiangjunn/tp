@@ -25,6 +25,52 @@
     -fx-background-insets: 10;
 }
 
-#emailIcon {
-    -fx-text-fill: white;
+#contact{
+    -fx-graphic:url(../images/name.png);
+}
+
+#email{
+    -fx-graphic:url(../images/email.png);
+}
+
+#phone{
+    -fx-graphic:url(../images/phone.png);
+}
+
+#address{
+    -fx-graphic:url(../images/address.png);
+}
+#telegramHandle{
+    -fx-graphic:url(../images/telegram.png);
+}
+#zoom{
+    -fx-graphic:url(../images/zoom.png);
+}
+
+#linkToEvent{
+    -fx-graphic:url(../images/event.png);
+}
+
+#tagIcon{
+    -fx-graphic:url(../images/tag.png);
+}
+
+#event{
+    -fx-graphic:url(../images/eventBig.png);
+}
+
+#from{
+    -fx-graphic:url(../images/start.png);
+}
+
+#to{
+    -fx-graphic:url(../images/end.png);
+}
+
+#description{
+    -fx-graphic:url(../images/description.png);
+}
+
+#linkToContact{
+    -fx-graphic:url(../images/group.png);
 }

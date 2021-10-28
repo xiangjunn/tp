@@ -9,44 +9,77 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import java.net.URL?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
+      <stylesheets>
+        <URL value = "@Clickable.css"/>
+      </stylesheets>
+      <HBox alignment="CENTER_LEFT" spacing="5">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label, clickable" text="\$first" />
       </HBox>
-      <Label fx:id="email" wrapText="false" managed="false" styleClass="cell_small_label" text="\$email" />
-      <!-- Optional fields-->
+      <Label fx:id="email" managed="false" visible="false" onMouseClicked="#copyEmail"
+             styleClass="cell_small_label, clickable" text="\$email" />
 
-      <Label fx:id="phone" wrapText="false" managed="false" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" wrapText="false" managed="false" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="telegramHandle" wrapText="false" managed="false" styleClass="cell_small_label" text="\$telegramHandle" />
-      <Label fx:id="zoom" wrapText="false" managed="false" styleClass="cell_small_label" text="\$zoom" />
-      <HBox>
+      <!-- Optional fields -->
+      <!-- phone -->
+      <Label fx:id="phone" managed="false" visible="false" onMouseClicked="#copyPhone"
+             styleClass="cell_small_label, clickable" text="\$phone" />
+
+      <!-- address -->
+      <Label fx:id="address" managed="false" visible="false" onMouseClicked="#copyAddress"
+             styleClass="cell_small_label, clickable" text="\$address" />
+
+      <!-- telegram handle -->
+      <Label fx:id="telegramHandle" managed="false" visible="false" onMouseClicked="#openTelegramHandle"
+             styleClass="cell_small_label, clickable" text="\$telegramHandle" />
+
+      <!-- zoom -->
+      <Label fx:id="zoom" managed="false" visible="false" onMouseClicked="#openZoomLink"
+             styleClass="cell_small_label, clickable" text="\$zoom" />
+
+      <!-- links -->
+      <HBox fx:id="linksHBox" styleClass="clickable">
         <padding>
-          <Insets top="5" />
+          <Insets top="2" bottom="2" />
         </padding>
-        <Label fx:id="linksLabel" styleClass="cell_small_label" text="Linked events: " managed="false" >
+        <Label fx:id="linkToEvent" styleClass="cell_small_label" managed="false" visible="false" >
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <FlowPane fx:id="links" managed="false" />
+        <HBox>
+          <padding>
+            <Insets left="2" top="3" />
+          </padding>
+          <FlowPane fx:id="links" managed="false" />
+        </HBox>
       </HBox>
-      <FlowPane fx:id="tags" managed="false" />
+
+      <!-- tags -->
+      <HBox>
+        <Label fx:id="tagIcon" managed="false" visible="false" />
+        <HBox>
+          <padding>
+            <Insets left="2" top="3" />
+          </padding>
+          <FlowPane fx:id="tags" managed="false" />
+        </HBox>
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>

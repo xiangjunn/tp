@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -47,6 +48,11 @@ public class UniqueEventList implements Iterable<Event> {
         if (contains(toAdd)) {
             throw new DuplicateEventException();
         }
+
+        if (toAdd.getEndDateAndTime() != null && toAdd.getEndDateAndTime().isBefore(toAdd.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
+        }
+
         internalList.add(toAdd);
     }
 
@@ -65,6 +71,11 @@ public class UniqueEventList implements Iterable<Event> {
 
         if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
             throw new DuplicateEventException();
+        }
+
+        if (target.getEndDateAndTime() != null
+            && target.getEndDateAndTime().isBefore(target.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
         }
 
         internalList.set(index, editedEvent);

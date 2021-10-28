@@ -32,24 +32,24 @@ public class TypicalPersons {
             .withPhone("94351253").withTelegramHandle(null).withZoomLink(null)
             .withTags("friends").build();
     public static final Contact BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25").withTelegramHandle(null).withZoomLink(null)
+            .withAddress("311, Clementi Ave 2, #02-25").withTelegramHandle("benson67").withZoomLink(null)
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Contact CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withTelegramHandle(null).withZoomLink(null)
+            .withTelegramHandle("carlcarl7").withZoomLink("https://nus-sg.zoom.us/j/7453256545252")
             .withEmail("heinz@example.com").withAddress("wall street").build();
     public static final Contact DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withTelegramHandle(null).withZoomLink(null)
+            .withTelegramHandle(null).withZoomLink("nus-sg.zoom.us/j/783624625626")
             .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
     public static final Contact ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withTelegramHandle(null).withZoomLink(null)
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Contact FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
+            .withTelegramHandle("ellelele").withZoomLink(null)
+            .withEmail("werner@example.com").withAddress(null).build();
+    public static final Contact FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("93106433")
             .withTelegramHandle(null).withZoomLink(null)
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Contact GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
+    public static final Contact GEORGE = new PersonBuilder().withName("George Best").withPhone(null)
             .withTelegramHandle(null).withZoomLink(null)
-            .withEmail("anna@example.com").withAddress("4th street").build();
+            .withEmail("george@example.com").withAddress(null).build();
 
     // Manually added
     public static final Contact HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -65,7 +65,6 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withZoomLink(VALID_ZOOM_BOB)
             .withTelegramHandle(VALID_TELEGRAM_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
 
@@ -84,5 +83,8 @@ public class TypicalPersons {
         return ab;
     }
 
+    public static List<Contact> getTypicalPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
 
 }

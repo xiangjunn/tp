@@ -55,6 +55,18 @@ class EAddCommandTest {
     }
 
     @Test
+    public void execute_invalidDateTimeRange_throwsCommandException() {
+        Event event = new EventBuilder().withName("Outing").withStartDateAndTime("20-10-2021 20:00")
+                .withEndDateAndTime("20-10-2021 18:00").build();
+        ModelStub modelStub = new ModelStubAcceptingEventAdded();
+
+        EAddCommand command = new EAddCommand(event);
+
+        assertThrows(CommandException.class, EAddCommand.MESSAGE_INVALID_DATE_TIME_RANGE, () ->
+                command.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Event lecture = new EventBuilder().withName("Lecture").build();
         Event exam = new EventBuilder().withName("Exam").build();
@@ -232,6 +244,16 @@ class EAddCommandTest {
 
         @Override
         public void linkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unlinkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unlinkAllContactsFromEvent(Event event) {
             throw new AssertionError("This method should not be called.");
         }
 

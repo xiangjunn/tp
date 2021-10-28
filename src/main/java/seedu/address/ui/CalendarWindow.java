@@ -92,10 +92,7 @@ public class CalendarWindow extends UiPart<Stage> {
         Entry<Event> entry = new Entry<>();
         entry.setTitle(event.getName().fullName);
         entry.setMinimumDuration(Duration.ZERO);
-        entry.changeEndDate(end.time.toLocalDate());
-        entry.changeEndTime(end.time.toLocalTime());
-        entry.changeStartDate(start.time.toLocalDate());
-        entry.changeStartTime(start.time.toLocalTime());
+        entry.setInterval(start.time, end.time);
         entry.setCalendar(calendarOfEvents);
         mapOfCalendarEntries.put(event, entry);
     }

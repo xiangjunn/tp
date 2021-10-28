@@ -283,15 +283,39 @@ Links the specified event to multiple contacts.
 
 Format: `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
 
-* Links the event at the specified `EVENT_INDEX` to the contacts at their respective specified `CONTACT_INDEX`.
+* Links the event at the specified `EVENT_INDEX` to the contacts at `CONTACT_INDEX`.
 * `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
-* `EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**, eg 1, 2, 3, …​
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
+</div>
 
 Examples:
 * `elink 1 c/1` links the first event from the displayed event list to the first contact from the displayed contact list.
 * `elink 2 c/1 c/2 c/3` links the second event from the displayed event list to the first, second and third contacts from the displayed contact list.
 
+### Unlinking event from multiple contacts: `eunlink`
+
+Removes the links between the specified event and the multiple contacts.
+
+Format: `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+
+* Unlinks the event at the specified `EVENT_INDEX` from the contacts at `CONTACT_INDEX`.
+* `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
+* Alternatively, replace the `CONTACT_INDEX` with `*` to clear all links from the event.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
+</div>
+
+Examples:
+* `eunlink 1 c/1` unlinks the first event in the displayed event list from the first contact in the displayed contact list.
+* `eunlink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
+* `eunlink 3 c/*` unlinks the third event in the displayed event list from all contacts that are linked to it.
 
 ### Clearing all events: `eclear`
 
@@ -310,7 +334,7 @@ Shows a calendar of all the events. Alternatively, access using the top menu via
 Any changes made in the calendar window will not be saved. Do not attempt to add new events using the calendar window. Doing so might result in a crash and your data may be lost.
 </div>
 
-![calendar](images/Calendar.png)
+![calendar](images/demo-screenshots/Calendar.png)
 
 ### Undo a command : `undo`
 
@@ -335,7 +359,7 @@ Examples:
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/demo-screenshots/helpMessage.png)
 
 Format: `help`
 
@@ -364,6 +388,19 @@ If your changes to the data file makes its format invalid, SoConnect will discar
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SoConnect home folder.
 
+**Q**: How do I view the contacts linked to a particular event?<br>
+**A**: Click on the particular event card in the panel containing events. Then click on the yellow boxes which are links to the contacts. The linked contacts will be displayed on the contact panel on the left.
+![View links of event](images/demo-screenshots/ClickLinksEvent.png)
+
+**Q**: How do I view the events linked to a particular contact?<br>
+**A**: Click on the particular contact card in the panel containing contacts. Then click on the yellow boxes which are links to the events. The linked events will be displayed on the event panel on the left.
+![View links of contact](images/demo-screenshots/ClickLinksContact.png)
+
+**Q**: What is the purpose of using links?<br>
+**A**: Links are a form of relationship between the contacts and the events saved in SoConnect. Typically, we link an event to a contact if the contact is involved as a participant of the event. For instance, you can link your professor to the lecture.
+
+**Q**: How do I copy the email address of a contact?<br>
+**A**: Click on the contact card in the panel containing contacts. Then click on the email address you want to copy. The email address will be copied to your clipboard.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
@@ -388,9 +425,10 @@ Action | Format, Examples
 **Delete** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
-**Link** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+**Link** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `elink 1 c/3 c/1`
 **List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **Sort** | `esort`
+**Unlink** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1 c/2` <br> e.g., `eunlink 3 c/*`
 
 ________________________________________________________________________________________________________________
 
