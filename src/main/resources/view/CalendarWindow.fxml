@@ -9,24 +9,24 @@
 
 <?import javafx.scene.layout.StackPane?>
 <fx:root resizable="false" title="Calendar" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-    <icons>
-        <Image url="@/images/calendar.png" />
-    </icons>
-    <scene>
-        <Scene>
-            <stylesheets>
-                <URL value="@Fonts.css" />
-            </stylesheets>
+  <icons>
+    <Image url="@/images/calendar.png" />
+  </icons>
+  <scene>
+    <Scene>
+      <stylesheets>
+        <URL value="@Fonts.css" />
+      </stylesheets>
 
-            <HBox alignment="CENTER">
-                <opaqueInsets>
-                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0"/>
-                </opaqueInsets>
-                <padding>
-                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0"/>
-                </padding>
-                <StackPane fx:id="calendarUi"/>
-            </HBox>
-        </Scene>
-    </scene>
+      <HBox alignment="CENTER">
+        <opaqueInsets>
+          <Insets bottom="10.0" left="5.0" right="10.0" top="5.0"/>
+        </opaqueInsets>
+        <padding>
+          <Insets bottom="10.0" left="5.0" right="10.0" top="5.0"/>
+        </padding>
+        <StackPane fx:id="calendarUi"/>
+      </HBox>
+    </Scene>
+  </scene>
 </fx:root>

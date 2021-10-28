@@ -65,6 +65,7 @@ public class CDeleteCommand extends Command {
         }
         // rerender UI to update the links for events with links to deleted contact
         model.rerenderEventCards();
+        model.commitAddressBook();
         return new CommandResult(commandResult);
     }
 

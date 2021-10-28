@@ -45,6 +45,7 @@ public class EViewCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         model.updateEventListByIndex(viewIndex);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.get(0)));
     }
 

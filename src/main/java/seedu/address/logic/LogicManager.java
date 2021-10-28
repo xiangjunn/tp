@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getAddressBook(), false);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -83,5 +83,25 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void filterContactsWithLinksToEvent(Event event) {
+        model.updateFilteredContactList(contact -> contact.getLinkedEvents().contains(event.getUuid()));
+    }
+
+    @Override
+    public void filterEventsWithLinkToContact(Contact contact) {
+        model.updateFilteredEventList(event -> event.getLinkedContacts().contains(contact.getUuid()));
+    }
+
+    @Override
+    public void resetFilterOfContacts() {
+        model.rerenderContactCards();
+    }
+
+    @Override
+    public void resetFilterOfEvents() {
+        model.rerenderEventCards();
     }
 }

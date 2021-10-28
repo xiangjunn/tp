@@ -1,5 +1,4 @@
 package seedu.address.logic.commands.contact;
-
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -28,8 +27,7 @@ public class CAddCommandIntegrationTest {
     @Test
     public void execute_newPerson_success() {
         Contact validContact = new PersonBuilder().build();
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.addContact(validContact);
 
         assertCommandSuccess(new CAddCommand(validContact), model,
@@ -39,7 +37,8 @@ public class CAddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Contact contactInList = model.getAddressBook().getContactList().get(0);
-        assertCommandFailure(new CAddCommand(contactInList), model, CAddCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(new CAddCommand(contactInList), model,
+                CAddCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
 }

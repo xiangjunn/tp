@@ -17,13 +17,13 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.event.ELinkCommand;
+import seedu.address.logic.commands.event.EUnlinkCommand;
 
-class ELinkCommandParserTest {
+class EUnlinkCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT = String.format(
         MESSAGE_INVALID_COMMAND_FORMAT,
-        ELinkCommand.MESSAGE_USAGE);
-    private final ELinkCommandParser parser = new ELinkCommandParser();
+        EUnlinkCommand.MESSAGE_USAGE);
+    private final EUnlinkCommandParser parser = new EUnlinkCommandParser();
 
     @Test
     public void parse_multipleContacts_success() {
@@ -33,7 +33,7 @@ class ELinkCommandParserTest {
         contactIndexes.add(INDEX_SECOND_PERSON);
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
                 + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + VALID_INDEX_TWO,
-            new ELinkCommand(INDEX_FIRST_EVENT, contactIndexes));
+            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes, false));
     }
 
     @Test
@@ -43,12 +43,21 @@ class ELinkCommandParserTest {
         contactIndexes.add(INDEX_FIRST_PERSON);
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
                 + VALID_INDEX_ONE,
-            new ELinkCommand(INDEX_FIRST_EVENT, contactIndexes));
+            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes, false));
+    }
+
+    @Test
+    public void parse_allContacts_success() {
+        // whitespace only preamble
+        Set<Index> contactIndexes = new HashSet<>();
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
+                + "*",
+            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes, true));
     }
 
     @Test
     public void parse_invalidInput_failure() {
-        // No contacts to link
+        // No contacts to unlink
         assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE, MESSAGE_INVALID_FORMAT);
 
         // No arguments
@@ -56,14 +65,12 @@ class ELinkCommandParserTest {
 
         // No event index
         assertParseFailure(parser, PREAMBLE_WHITESPACE + EMPTY_PREFIX_CONTACT
-            + VALID_INDEX_ONE, MESSAGE_INVALID_FORMAT);
+            + "*", MESSAGE_INVALID_FORMAT);
 
         // Invalid index
         assertParseFailure(parser, PREAMBLE_WHITESPACE + "a" + EMPTY_PREFIX_CONTACT
-            + VALID_INDEX_ONE, MESSAGE_INVALID_FORMAT);
+            + "*", MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
             + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + "a", MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
-            + "*", MESSAGE_INVALID_FORMAT);
     }
 }
