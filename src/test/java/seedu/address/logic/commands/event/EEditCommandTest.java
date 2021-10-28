@@ -24,7 +24,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.event.EEditCommand.EditEventDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -40,6 +39,8 @@ class EEditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    private Model expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
+
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Event editedEvent = new EventBuilder().build();
@@ -49,7 +50,6 @@ class EEditCommandTest {
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         EventChanger eventChanger = EventChanger.editEventChanger(model.getFilteredEventList().get(0), editedEvent);
         expectedModel.setEvent(model.getFilteredEventList().get(0), editedEvent);
 
@@ -73,7 +73,6 @@ class EEditCommandTest {
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEvent(lastEvent, editedEvent);
 
         EventChanger eventChanger = EventChanger.editEventChanger(lastEvent, editedEvent);
@@ -88,8 +87,6 @@ class EEditCommandTest {
         Event editedEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         EventChanger eventChanger = EventChanger.editEventChanger(editedEvent, editedEvent);
 
@@ -108,7 +105,6 @@ class EEditCommandTest {
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEvent(model.getFilteredEventList().get(0), editedEvent);
 
         EventChanger eventChanger = EventChanger.editEventChanger(eventInFilteredList, editedEvent);

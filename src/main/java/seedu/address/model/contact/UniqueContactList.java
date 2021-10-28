@@ -3,6 +3,7 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,6 +104,15 @@ public class UniqueContactList implements Iterable<Contact> {
      */
     public void resetContacts() {
         internalList.clear();
+    }
+
+    /**
+     * Get a copy of uniqueContactList
+     * @return a copy of a UniqueContactList
+     */
+    public ObservableList<Contact> copy() {
+        List<Contact> contactList = new ArrayList<>(internalList);
+        return FXCollections.observableArrayList(contactList);
     }
 
     /**

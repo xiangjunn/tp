@@ -31,6 +31,7 @@ import seedu.address.model.event.EventChanger;
 public class EDeleteCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
 
     //Todo : change INDEX_FIRST_PERSON to a general index for both contacts and events
     @Test
@@ -40,7 +41,6 @@ public class EDeleteCommandTest {
 
         String expectedMessage = String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
         EventChanger eventChanger = EventChanger.deleteEventChanger(eventToDelete);
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteEvent(eventToDelete);
 
         assertCommandSuccess(eDeleteCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
@@ -64,7 +64,6 @@ public class EDeleteCommandTest {
 
         String expectedMessage = String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
         EventChanger eventChanger = EventChanger.deleteEventChanger(eventToDelete);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteEvent(eventToDelete);
         showNoEvent(expectedModel);
 

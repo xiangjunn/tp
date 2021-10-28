@@ -26,7 +26,7 @@ import seedu.address.model.event.EventNameContainsKeywordsPredicate;
  */
 public class EFindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {

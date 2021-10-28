@@ -285,6 +285,7 @@ This section details all the features and commands available in SoConnect that c
 * [Linking an event to contacts](#linking-an-event-to-contacts-elink)
 * [Listing all events](#listing-all-events-elist)
 * [Sorting events](#sorting-events-esort)
+* [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)
 * [Viewing an event](#viewing-an-event-eview)
 
 
@@ -463,6 +464,28 @@ Events that have ended will not be shown after you execute `esort`
 </div>
 
 
+### Unlinking an event from contacts: `eunlink`
+
+Unlinks the specified event and the specified contact(s).
+
+Format: `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`
+
+* Unlinks the event at the specified `EVENT_INDEX` from the contacts at `CONTACT_INDEX`.
+* `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
+* Alternatively, replace the `CONTACT_INDEX` with `*` to clear all links from the event.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
+</div>
+
+Examples:
+* `eunlink 1 c/1` unlinks the first event in the displayed event list from the first contact in the displayed contact list.
+* `eunlink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
+* `eunlink 3 c/*` unlinks the third event in the displayed event list from all contacts that are linked to it.
+
+
 ### Viewing an event: `eview`
 
 Views an event with all details fully shown.
@@ -489,8 +512,8 @@ This section details all other the features and commands available in SoConnect 
 * [Calendar Window](#calendar-window-calendar)
 * [Exiting SoConnect](#exiting-soconnect-exit)
 * [Help Window](#help-window-help)
-* [Redo a command](#redo-a-command-redo) {Coming Soon}
-* [Undo a command](#undo-a-command-undo) {Coming Soon}
+* [Redo a command](#redo-a-command-redo)
+* [Undo a command](#undo-a-command-undo)
 
 ### Calendar Window: `calendar`
 
@@ -509,7 +532,7 @@ Do not attempt to add new events using the calendar window.
 Doing so might result in a crash and your data may be lost.
 </div>
 
-![calendar](images/Calendar.png)
+![calendar](images/demo-screenshots/Calendar.png)
 
 
 ### Exiting SoConnect: `exit`
@@ -541,8 +564,6 @@ Restores SoConnect to a previously undone state from its history.
 
 
 ### Undo a command: `undo`
-
-{Coming Soon}
 
 Restore SoConnect to its previous state from its history.
 
@@ -582,22 +603,49 @@ SoConnect will discard all data and start with an empty data file at the next ru
 **A**: Install SoConnect in the other computer and copy over the contents from your previous SoConnect JSON file to the
 empty data file SoConnect creates on the other Computer.
 
-### How to start SoConnect using Command Prompt
 
-{to be added soon}
-
-### Copy Details and Opening Links
+#### Copying Details and Opening Links
 
 ![clickable links](images/clickableLinkExample.png)
 
-* You can copy specific details of a contact or an event just by clicking on that detail!
-
+**Q**: How do I copy the email address of a contact?<br>
+**A**: You can copy any specific details of a contact or an event just by clicking on that detail! <br>
 As shown on the image above, clicking on the `telegram handle` of `Bernice Yu` will copy her Telegram handle.
 
-* You can also open any links that you have included in a contact or in an event.
+**Q**: Can SoConnect automatically open a link on my browser?<br>
+**A**: YES! You can open any links that you have included in a contact or in an event.<br>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Clickable links are underlined in blue
+</div>
 
 Referring back to the same image, if you click on the `zoom` link saved under `Bernice Yu`, 
 SoConnect will help you open the link on your browser automatically.
+
+#### Linked Contacts and Events
+
+**Q**: How do I view the contacts linked to a particular event?<br>
+**A**: Click on the particular event card in the panel containing events. 
+Then click on the yellow boxes which are links to the contacts. 
+The linked contacts will be displayed on the contact panel on the left.
+![View links of event](images/demo-screenshots/ClickLinksEvent.png)
+
+**Q**: How do I view the events linked to a particular contact?<br>
+**A**: Click on the particular contact card in the panel containing contacts. 
+Then click on the yellow boxes which are links to the events. 
+The linked events will be displayed on the event panel on the left.
+![View links of contact](images/demo-screenshots/ClickLinksContact.png)
+
+**Q**: What is the purpose of using links?<br>
+**A**: Links are a form of relationship between the contacts and the events saved in SoConnect. 
+Typically, we link an event to a contact if the contact is involved as a participant of the event. 
+For instance, you can link your professor to the lecture.
+
+
+### How to start SoConnect using Command Prompt
+
+{to be added soon}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -627,7 +675,9 @@ Action | Format, Examples
 **[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2 c/3`
 **[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
 **[Sort](#sorting-events-esort)** | `esort`
+**[Unlink](#unlinking-an-event-from-contacts-eunlink)** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1 c/2` <br> e.g., `eunlink 3 c/*`
 **[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
+
 
 **General**
 
@@ -636,8 +686,8 @@ Action | Format, Examples
 **[Calendar](#calendar-window-calendar)** | `calendar`
 **[Exit](#exiting-soconnect-exit)** | `exit`
 **[Help](#help-window-help)** | `help`
-**[Redo](#redo-a-command-redo)** {Coming Soon} | `redo`
-**[Undo](#undo-a-command-undo)** {Coming Soon} | `undo`
+**[Redo](#redo-a-command-redo)** | `redo`
+**[Undo](#undo-a-command-undo)** | `undo`
 
 ________________________________________________________________________________________________________________
 
