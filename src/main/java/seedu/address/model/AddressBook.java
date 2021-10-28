@@ -217,24 +217,20 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEvent(Event key) {
         // unlink all the contacts linked to event before removing event
-        unlinkContactsFromEventOneWay(key);
+        unlinkContactsFromEvent(key);
         events.remove(key);
     }
 
     /**
      * Unlink all the contacts linked to the given event {@code e}, but does not remove the stored links in the event.
      */
-    private void unlinkContactsFromEventOneWay(Event e) {
+    public void unlinkContactsFromEvent(Event e) {
         Set<UUID> contactsUuid = e.getLinkedContacts();
         contactsUuid.iterator()
-            .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
-    }
-
-    /**
-     * Unlink all the contacts linked to the given event {@code e} in both directions.
-     */
-    public void unlinkContactsFromEventBothWays(Event e) {
-        unlinkContactsFromEventOneWay(e);
+            .forEachRemaining(contactUuid -> {
+                Contact linkedContact = Contact.findByUuid(contactUuid);
+                linkedContact.unlink(e);
+            });
         e.clearAllLinks();
     }
 
@@ -284,17 +280,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         // unlink all the events linked to contact before removing contact
-        unlinkEventsFromContactOneWay(key);
+        unlinkEventsFromContact(key);
         contacts.remove(key);
     }
 
     /**
      * Unlink all the events linked to the given contact {@code c}, but does not remove the stored links in the contact.
      */
-    public void unlinkEventsFromContactOneWay(Contact c) {
+    public void unlinkEventsFromContact(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
-                .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
+            .forEachRemaining(eventUuid -> {
+                Event linkedEvent = Event.findByUuid(eventUuid);
+                linkedEvent.unlink(c);
+            });
+        c.clearAllLinks();
     }
 
     //// util methods

@@ -308,7 +308,7 @@ public class ModelManager implements Model {
 
     @Override
     public void unlinkAllContactsFromEvent(Event event) {
-        addressBook.unlinkContactsFromEventBothWays(event);
+        addressBook.unlinkContactsFromEvent(event);
     }
 
     @Override
