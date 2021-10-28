@@ -48,7 +48,7 @@ public class EventCard extends UiPart<Region> {
     private Label id;
 
     @FXML
-    private Label name;
+    private Label eventName;
 
     @FXML
     private Label from;
@@ -60,19 +60,19 @@ public class EventCard extends UiPart<Region> {
     private Label address;
 
     @FXML
-    private Label zoomLinkTitle;
-
-    @FXML
-    private Label zoomLink;
+    private Label zoom;
 
     @FXML
     private Label description;
 
     @FXML
+    private Label tagIcon;
+
+    @FXML
     private FlowPane tags;
 
     @FXML
-    private Label linksLabel;
+    private Label linkToContact;
 
     @FXML
     private FlowPane links;
@@ -92,40 +92,43 @@ public class EventCard extends UiPart<Region> {
 
         id.setText(displayedIndex + ". ");
         // compulsory fields
-        name.setText(event.getName().fullName);
-        name.setWrapText(isViewMode);
+        eventName.setText(event.getName().fullName);
+        eventName.setWrapText(isViewMode);
 
         // Compulsory fields
         if (Event.isWillDisplayStartDateTime()) {
-            from.setText("from: " + event.getStartDateAndTime());
+            from.setText(event.getStartDateAndTime().toString());
             from.setManaged(true);
+            from.setVisible(true);
             from.setWrapText(isViewMode);
         }
         // Optional fields
         if (event.getEndDateAndTime() != null && Event.isWillDisplayEndDateTime()) {
-            to.setText("to: " + event.getEndDateAndTime());
+            to.setText(event.getEndDateAndTime().toString());
             to.setManaged(true);
+            to.setVisible(true);
             to.setWrapText(isViewMode);
         }
         if (event.getAddress() != null && Event.isWillDisplayAddress()) {
-            address.setText("location: " + event.getAddress().value);
+            address.setText(event.getAddress().value);
             address.setManaged(true);
+            address.setVisible(true);
             address.setWrapText(isViewMode);
         }
         if (event.getZoomLink() != null && Event.isWillDisplayZoomLink()) {
-            zoomLinkTitle.setText("link: ");
-            zoomLinkTitle.setManaged(true);
-            zoomLink.setText(event.getZoomLink().link);
-            zoomLink.setManaged(true);
-            zoomLink.setWrapText(isViewMode);
+            zoom.setText(event.getZoomLink().link);
+            zoom.setManaged(true);
+            zoom.setVisible(true);
+            zoom.setWrapText(isViewMode);
         }
         if (event.getDescription() != null && Event.isWillDisplayDescription()) {
-            description.setText("description: " + event.getDescription().value);
+            description.setText(event.getDescription().value);
             description.setManaged(true);
+            description.setVisible(true);
             description.setWrapText(isViewMode);
         }
 
-        if (Event.isWillDisplayTags()) {
+        if (Event.isWillDisplayTags() && !event.getTags().isEmpty()) {
             event.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
@@ -134,6 +137,8 @@ public class EventCard extends UiPart<Region> {
                         label.setWrapText(isViewMode);
                         tags.getChildren().add(label);
                     });
+            tagIcon.setManaged(true);
+            tagIcon.setVisible(true);
             tags.setManaged(true);
         }
         if (!event.getLinkedContacts().isEmpty()) {
@@ -141,7 +146,8 @@ public class EventCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(UUID::toString))
                 .forEach(contactUuid -> links.getChildren()
                     .add(new Label(Contact.findByUuid(contactUuid).getName().toString())));
-            linksLabel.setManaged(true);
+            linkToContact.setManaged(true);
+            linkToContact.setVisible(true);
             links.setManaged(true);
             linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
                 if (isShowLinks) { // Toggle back to default predicate

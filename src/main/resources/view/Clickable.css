@@ -1,4 +1,4 @@
-.linkable, #telegramHandle, #zoomLink {
+.linkable, #zoom, #telegramHandle {
     -fx-text-fill: #1fc2de;
     -fx-underline: true;
 }

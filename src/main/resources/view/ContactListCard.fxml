@@ -31,18 +31,27 @@
         </Label>
         <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label, clickable" text="\$first" />
       </HBox>
-      <Label fx:id="email" managed="false" onMouseClicked="#copyEmail" styleClass="cell_small_label, clickable" text="\$email" />
-      <!-- Optional fields-->
-      <Label fx:id="phone" managed="false" onMouseClicked="#copyPhone" styleClass="cell_small_label, clickable" text="\$phone" />
-      <Label fx:id="address" managed="false" onMouseClicked="#copyAddress" styleClass="cell_small_label, clickable" text="\$address" />
-      <HBox>
-        <Label fx:id="telegramHandleTitle" managed="false" styleClass="cell_small_label" text="\$telegramTitle" />
-        <Label fx:id="telegramHandle" managed="false" onMouseClicked="#openTelegramHandle" styleClass="cell_small_label, clickable, linkable" text="\$telegramHandle"/>
-      </HBox>
-      <HBox>
-        <Label fx:id="zoomLinkTitle" managed="false" styleClass="cell_small_label" text="\$zoomLinkTitle" />
-        <Label fx:id="zoomLink" managed="false" onMouseClicked="#openZoomLink" styleClass="cell_small_label, clickable, linkable" text="\$zoom"/>
-      </HBox>
+      <Label fx:id="email" managed="false" visible="false" onMouseClicked="#copyEmail"
+             styleClass="cell_small_label, clickable" text="\$email" />
+
+      <!-- Optional fields -->
+      <!-- phone -->
+      <Label fx:id="phone" managed="false" visible="false" onMouseClicked="#copyPhone"
+             styleClass="cell_small_label, clickable" text="\$phone" />
+
+      <!-- address -->
+      <Label fx:id="address" managed="false" visible="false" onMouseClicked="#copyAddress"
+             styleClass="cell_small_label, clickable" text="\$address" />
+
+      <!-- telegram handle -->
+      <Label fx:id="telegramHandle" managed="false" visible="false" onMouseClicked="#openTelegramHandle"
+             styleClass="cell_small_label, clickable, linkable" text="\$telegramHandle" />
+
+      <!-- zoom -->
+      <Label fx:id="zoom" managed="false" visible="false" onMouseClicked="#openZoomLink"
+             styleClass="cell_small_label, clickable, linkable" text="\$zoom" />
+
+      <!-- links -->
       <HBox fx:id="linksHBox" styleClass="clickable">
         <padding>
           <Insets top="5" />

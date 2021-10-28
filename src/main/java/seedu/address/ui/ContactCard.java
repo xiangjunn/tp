@@ -66,19 +66,22 @@ public class ContactCard extends UiPart<Region> {
 
     @FXML
     private Label telegramHandleTitle;
+
     @FXML
     private Label telegramHandle;
 
     @FXML
-    private Label zoomLinkTitle;
+    private Label zoom;
+
     @FXML
-    private Label zoomLink;
+    private Label tagIcon;
 
     @FXML
     private FlowPane tags;
 
     @FXML
-    private Label linksLabel;
+    private Label linkToEvent;
+
     @FXML
     private FlowPane links;
 
@@ -92,7 +95,6 @@ public class ContactCard extends UiPart<Region> {
         requireAllNonNull(contact, displayedIndex, mainWindow);
         this.mainWindow = mainWindow;
         this.contact = contact;
-
         boolean isViewMode = Contact.isViewingMode();
 
         id.setText(displayedIndex + ". ");
@@ -101,36 +103,37 @@ public class ContactCard extends UiPart<Region> {
 
         // Compulsory fields
         if (Contact.isWillDisplayEmail()) {
-            email.setText("email: " + contact.getEmail().value);
+            email.setText(contact.getEmail().value);
             email.setManaged(true);
+            email.setVisible(true);
             email.setWrapText(isViewMode);
         }
         // Optional fields
         if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
-            phone.setText("phone: " + contact.getPhone().value);
+            phone.setText(contact.getPhone().value);
             phone.setManaged(true);
+            phone.setVisible(true);
             phone.setWrapText(isViewMode);
         }
         if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
-            address.setText("address: " + contact.getAddress().value);
+            address.setText(contact.getAddress().value);
             address.setManaged(true);
+            address.setVisible(true);
             address.setWrapText(isViewMode);
         }
         if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
-            telegramHandleTitle.setText("telegram handle: ");
-            telegramHandleTitle.setManaged(true);
             telegramHandle.setText(contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
+            telegramHandle.setVisible(true);
             telegramHandle.setWrapText(isViewMode);
         }
         if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
-            zoomLinkTitle.setText("zoom: ");
-            zoomLinkTitle.setManaged(true);
-            zoomLink.setText(contact.getZoomLink().link);
-            zoomLink.setManaged(true);
-            zoomLink.setWrapText(isViewMode);
+            zoom.setText(contact.getZoomLink().link);
+            zoom.setManaged(true);
+            zoom.setVisible(true);
+            zoom.setWrapText(isViewMode);
         }
-        if (Contact.isWillDisplayTags()) {
+        if (Contact.isWillDisplayTags() && !contact.getTags().isEmpty()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
@@ -139,6 +142,8 @@ public class ContactCard extends UiPart<Region> {
                         label.setWrapText(isViewMode);
                         tags.getChildren().add(label);
                     });
+            tagIcon.setManaged(true);
+            tagIcon.setVisible(true);
             tags.setManaged(true);
         }
         if (!contact.getLinkedEvents().isEmpty()) {
@@ -148,7 +153,8 @@ public class ContactCard extends UiPart<Region> {
                     String eventName = Event.findByUuid(eventUuid).getName().toString();
                     links.getChildren().add(new Label(eventName));
                 });
-            linksLabel.setManaged(true);
+            linkToEvent.setManaged(true);
+            linkToEvent.setVisible(true);
             links.setManaged(true);
             linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
                 if (isShowLinks) { // Toggle back to default predicate
