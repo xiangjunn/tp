@@ -150,24 +150,25 @@ public class ContactCard extends UiPart<Region> {
 
         if (!contact.getLinkedEvents().isEmpty()) {
             contact.getLinkedEvents().stream()
-                .sorted(Comparator.comparing(UUID::toString))
-                .forEach(eventUuid -> {
-                    String eventName = Event.findByUuid(eventUuid).getName().toString();
-                    links.getChildren().add(new Label(eventName));
-                });
+                    .sorted(Comparator.comparing(UUID::toString))
+                    .forEach(eventUuid -> {
+                        String eventName = Event.findByUuid(eventUuid).getName().toString();
+                        links.getChildren().add(new Label(eventName));
+                    });
             linkToEvent.setManaged(true);
             linkToEvent.setVisible(true);
             links.setManaged(true);
 
         }
-        
-            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
-        }
-  
+
+        linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+
+
         if (contact.getIsBookMarked()) {
             name.setStyle("-fx-background-color: gold");
         }
     }
+
 
     private void toggleShowLinks(MouseEvent e) {
         if (isShowLinks) {

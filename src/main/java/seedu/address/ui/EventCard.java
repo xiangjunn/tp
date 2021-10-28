@@ -153,7 +153,7 @@ public class EventCard extends UiPart<Region> {
             linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
         }
         if (event.getIsBookMarked()) {
-            name.setStyle("-fx-background-color: gold");
+            eventName.setStyle("-fx-background-color: gold");
         }
     }
 

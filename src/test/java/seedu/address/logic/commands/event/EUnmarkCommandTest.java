@@ -60,7 +60,7 @@ class EUnmarkCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        String expectedMessage = String.format(EUnmarkCommand.MESSAGE_SUCCESS, TEAM_MEETING) + "\n";
+        String expectedMessage = String.format(EUnmarkCommand.MESSAGE_SUCCESS, TEAM_MEETING_BOOKMARKED) + "\n";
         List<Index> indexes = List.of(Index.fromOneBased(1));
         EUnmarkCommand eUnmarkCommand = new EUnmarkCommand(indexes);
         assertCommandSuccess(eUnmarkCommand, model, new CommandResult(expectedMessage), expectedModel);

@@ -12,11 +12,13 @@ import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -27,14 +29,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 import seedu.address.testutil.PersonBuilder;
 
 class CUnmarkCommandTest {
 
     private static final Contact ELLE_BOOKMARKED = new PersonBuilder(ELLE).withBookmarked().build();
 
-    private Model expectedModel = new ModelManager(getAddressBookWith(getListAfterUnmark()), new UserPrefs());
-    private Model model = new ModelManager(getAddressBookWith(getListWithBookmarkContact()), new UserPrefs());
+    private Model expectedModel;
+    private Model model;
 
     private List<Contact> getListWithBookmarkContact() {
         return new ArrayList<>(Arrays.asList(ELLE_BOOKMARKED, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
@@ -49,7 +52,16 @@ class CUnmarkCommandTest {
         for (Contact contact : contactList) {
             ab.addContact(contact);
         }
+        for (Event event : getTypicalAddressBook().getEventList()) {
+            ab.addEvent(event);
+        }
         return ab;
+    }
+
+    @BeforeEach
+    private void setUp() {
+        expectedModel = new ModelManager(getAddressBookWith(getListAfterUnmark()), new UserPrefs());
+        model = new ModelManager(getAddressBookWith(getListWithBookmarkContact()), new UserPrefs());
     }
 
     @Test
@@ -59,7 +71,7 @@ class CUnmarkCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_SUCCESS, ELLE) + "\n";
+        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_SUCCESS, ELLE_BOOKMARKED) + "\n";
         List<Index> indexes = List.of(Index.fromOneBased(1));
         CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
         assertCommandSuccess(cunmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
@@ -78,7 +90,7 @@ class CUnmarkCommandTest {
     @Test
     public void execute_contactNotMarked() {
         List<Index> indexes = List.of(Index.fromOneBased(1));
-        model = expectedModel;
+
         CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
         String expectedMessage = String.format(CUnmarkCommand.MESSAGE_NOT_MARKED, ELLE) + "\n";
         assertCommandSuccess(cunmarkCommand, model, expectedMessage, expectedModel);
