@@ -227,11 +227,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private void unlinkContactsFromEventOneWay(Event e) {
         Set<UUID> contactsUuid = e.getLinkedContacts();
         contactsUuid.iterator()
-            .forEachRemaining(contactUuid -> {
-                Contact linkedContact = Contact.findByUuid(contactUuid);
-                linkedContact.unlink(e);
-                e.unlink(linkedContact);
-            });
+            .forEachRemaining(contactUuid -> Contact.findByUuid(contactUuid).unlink(e));
     }
 
     /**
@@ -298,11 +294,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void unlinkEventsFromContactOneWay(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
-                .forEachRemaining(eventUuid -> {
-                    Event linkedEvent = Event.findByUuid(eventUuid);
-                    linkedEvent.unlink(c);
-                    c.unlink(linkedEvent);
-                });
+                .forEachRemaining(eventUuid -> Event.findByUuid(eventUuid).unlink(c));
     }
 
     //// util methods
