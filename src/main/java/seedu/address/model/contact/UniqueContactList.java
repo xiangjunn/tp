@@ -142,6 +142,7 @@ public class UniqueContactList implements Iterable<Contact> {
         contactToMark.setBookMarked(false);
     }
 
+    /**
      * Get a copy of uniqueContactList
      * @return a copy of a UniqueContactList
      */

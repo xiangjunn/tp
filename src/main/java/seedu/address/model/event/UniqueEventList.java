@@ -154,6 +154,7 @@ public class UniqueEventList implements Iterable<Event> {
         eventToMark.setBookMarked(false);
     }
 
+    /**
      * Create a copy of a uniqueEventList
      * @return
      */
