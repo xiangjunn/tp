@@ -23,6 +23,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
+
 /**
  * An UI component that displays information of a {@code Contact}.
  */
@@ -51,6 +52,9 @@ public class ContactCard extends UiPart<Region> {
 
     @FXML
     private Label name;
+
+    @FXML
+    private Label favourite;
 
     @FXML
     private Label id;
@@ -146,19 +150,29 @@ public class ContactCard extends UiPart<Region> {
             tagIcon.setVisible(true);
             tags.setManaged(true);
         }
+
         if (!contact.getLinkedEvents().isEmpty()) {
             contact.getLinkedEvents().stream()
-                .sorted(Comparator.comparing(UUID::toString))
-                .forEach(eventUuid -> {
-                    String eventName = Event.findByUuid(eventUuid).getName().toString();
-                    links.getChildren().add(new Label(eventName));
-                });
+                    .sorted(Comparator.comparing(UUID::toString))
+                    .forEach(eventUuid -> {
+                        String eventName = Event.findByUuid(eventUuid).getName().toString();
+                        links.getChildren().add(new Label(eventName));
+                    });
             linkToEvent.setManaged(true);
             linkToEvent.setVisible(true);
             links.setManaged(true);
-            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+
+        }
+
+        linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+
+
+        if (contact.getIsBookMarked()) {
+            favourite.setManaged(true);
+            favourite.setVisible(true);
         }
     }
+
 
     private void toggleShowLinks(MouseEvent e) {
         if (isShowLinks) {
@@ -168,6 +182,7 @@ public class ContactCard extends UiPart<Region> {
         }
         isShowLinks = !isShowLinks;
     }
+
 
     @Override
     public boolean equals(Object other) {

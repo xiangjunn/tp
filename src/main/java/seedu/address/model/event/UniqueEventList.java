@@ -10,6 +10,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
@@ -116,6 +117,41 @@ public class UniqueEventList implements Iterable<Event> {
 
     public void resetEvents() {
         internalList.clear();
+    }
+
+    /**
+     * Bookmarks the event indexed at {@code index}.
+     */
+    public void bookmarkEvent(Index index) {
+        Event eventToMark = internalUnmodifiableList.get(index.getZeroBased());
+        eventToMark.setBookMarked(true);
+    }
+
+    /**
+     * Moves bookmarked events to the top of the list.
+     */
+    public void reshuffleEventsInOrder() {
+        ObservableList<Event> markedEventsFirst = FXCollections.observableArrayList();
+        internalList.forEach(event -> {
+            if (event.getIsBookMarked()) {
+                markedEventsFirst.add(event);
+            }
+        });
+        internalList.forEach(event -> {
+            if (!event.getIsBookMarked()) {
+                markedEventsFirst.add(event);
+            }
+        });
+        internalList.removeAll(internalUnmodifiableList); //removes all event from the list
+        internalList.addAll(markedEventsFirst); //adds in list in correct order
+    }
+
+    /**
+     * Unmarks the event indexed at {@code index}.
+     */
+    public void unmarkEvent(Index index) {
+        Event eventToMark = internalUnmodifiableList.get(index.getZeroBased());
+        eventToMark.setBookMarked(false);
     }
 
     /**

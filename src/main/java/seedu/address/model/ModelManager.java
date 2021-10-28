@@ -222,7 +222,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredContactList(Predicate<Contact> predicate) {
+    public void updateFilteredContactList(Predicate<? super Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
     }
@@ -232,6 +232,22 @@ public class ModelManager implements Model {
         requireNonNull(index);
         Contact targetContact = filteredContacts.get(index.getZeroBased());
         filteredContacts.setPredicate(curr -> curr.isSameContact(targetContact));
+    }
+    @Override
+    public void bookmarkContactIndexedAt(Index index) {
+        assert index != null : "index should not be null";
+        filteredContacts.get(index.getZeroBased()).setBookMarked(true);
+    }
+
+    @Override
+    public void reshuffleContactsInOrder() {
+        addressBook.reshuffleContactsInOrder();
+    }
+
+    @Override
+    public void unmarkContactIndexedAt(Index index) {
+        assert index != null : "index should not be null";
+        filteredContacts.get(index.getZeroBased()).setBookMarked(false);
     }
 
     //=========== Filtered Event List Accessors =======================
@@ -272,6 +288,16 @@ public class ModelManager implements Model {
         requireNonNull(index);
         Event targetEvent = filteredEvents.get(index.getZeroBased());
         filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));
+    }
+
+    @Override
+    public void bookmarkEventIndexedAt(Index index) {
+        assert index != null : "index should not be null";
+        filteredEvents.get(index.getZeroBased()).setBookMarked(true);
+    }
+    @Override
+    public void reshuffleEventsInOrder() {
+        addressBook.reshuffleEventsInOrder();
     }
 
     @Override
@@ -328,4 +354,11 @@ public class ModelManager implements Model {
         rerenderContactCards();
         rerenderEventCards();
     }
+
+    @Override
+    public void unmarkEventIndexedAt(Index index) {
+        assert index != null : "index should not be null";
+        filteredEvents.get(index.getZeroBased()).setBookMarked(false);
+    }
+
 }
