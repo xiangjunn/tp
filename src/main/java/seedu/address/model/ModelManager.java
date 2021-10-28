@@ -236,7 +236,7 @@ public class ModelManager implements Model {
     @Override
     public void bookmarkContactIndexedAt(Index index) {
         assert index != null : "index should not be null";
-        addressBook.bookmarkContact(index);
+        filteredContacts.get(index.getZeroBased()).setBookMarked(true);
     }
 
     @Override
@@ -247,7 +247,7 @@ public class ModelManager implements Model {
     @Override
     public void unmarkContactIndexedAt(Index index) {
         assert index != null : "index should not be null";
-        addressBook.unmarkContact(index);
+        filteredContacts.get(index.getZeroBased()).setBookMarked(false);
     }
 
     //=========== Filtered Event List Accessors =======================
@@ -293,7 +293,7 @@ public class ModelManager implements Model {
     @Override
     public void bookmarkEventIndexedAt(Index index) {
         assert index != null : "index should not be null";
-        addressBook.bookmarkEvent(index);
+        filteredEvents.get(index.getZeroBased()).setBookMarked(true);
     }
     @Override
     public void reshuffleEventsInOrder() {
@@ -358,7 +358,7 @@ public class ModelManager implements Model {
     @Override
     public void unmarkEventIndexedAt(Index index) {
         assert index != null : "index should not be null";
-        addressBook.unmarkEvent(index);
+        filteredEvents.get(index.getZeroBased()).setBookMarked(false);
     }
 
 }

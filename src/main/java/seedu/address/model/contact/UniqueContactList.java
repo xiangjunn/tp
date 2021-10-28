@@ -9,7 +9,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 
@@ -108,14 +107,6 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
-     * Bookmarks the contact indexed at {@code index}.
-     */
-    public void bookmarkContact(Index index) {
-        Contact contactToMark = internalUnmodifiableList.get(index.getZeroBased());
-        contactToMark.setBookMarked(true);
-    }
-
-    /**
      * Moves bookmarked contacts to the top of the list.
      */
     public void reshuffleContactsInOrder() {
@@ -132,14 +123,6 @@ public class UniqueContactList implements Iterable<Contact> {
         });
         internalList.removeAll(internalUnmodifiableList); //removes all contact from the list
         internalList.addAll(markedContactsFirst); //adds in list in correct order
-    }
-
-    /**
-     * Unmarks the contact indexed at {@code index}.
-     */
-    public void unmarkContact(Index index) {
-        Contact contactToMark = internalUnmodifiableList.get(index.getZeroBased());
-        contactToMark.setBookMarked(false);
     }
 
     /**

@@ -54,6 +54,9 @@ public class ContactCard extends UiPart<Region> {
     private Label name;
 
     @FXML
+    private Label favourite;
+
+    @FXML
     private Label id;
 
     @FXML
@@ -165,7 +168,8 @@ public class ContactCard extends UiPart<Region> {
 
 
         if (contact.getIsBookMarked()) {
-            name.setStyle("-fx-background-color: gold");
+            favourite.setManaged(true);
+            favourite.setVisible(true);
         }
     }
 

@@ -22,14 +22,18 @@
       <stylesheets>
         <URL value = "@Clickable.css"/>
       </stylesheets>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label, clickable" text="\$first" />
+      <HBox alignment="CENTER_LEFT" spacing="5" >
+          <Label fx:id="id" styleClass="cell_big_label">
+            <minWidth>
+              <!-- Ensures that the label text is never truncated -->
+              <Region fx:constant="USE_PREF_SIZE" />
+            </minWidth>
+          </Label>
+          <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label, clickable" text="\$first" />
+          <VBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+            <Label fx:id="favourite" managed="false" visible="false" ></Label>
+          </VBox>
+
       </HBox>
       <Label fx:id="email" managed="false" visible="false" onMouseClicked="#copyEmail"
              styleClass="cell_small_label, clickable" text="\$email" />
