@@ -444,7 +444,7 @@ Do not attempt to add new events using the calendar window.
 Doing so might result in a crash and your data may be lost.
 </div>
 
-![calendar](images/Calendar.png)
+![calendar](images/demo-screenshots/Calendar.png)
 
 
 ### Exiting SoConnect: `exit`
@@ -476,8 +476,6 @@ Restores SoConnect to a previously undone state from its history.
 
 
 ### Undo a command: `undo`
-
-{Coming Soon}
 
 Restore SoConnect to its previous state from its history.
 
@@ -516,15 +514,19 @@ SoConnect will discard all data and start with an empty data file at the next ru
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SoConnect home folder.
 
-### How to start SoConnect using Command Prompt
+**Q**: How do I view the contacts linked to a particular event?<br>
+**A**: Click on the particular event card in the panel containing events. Then click on the yellow boxes which are links to the contacts. The linked contacts will be displayed on the contact panel on the left.
+![View links of event](images/demo-screenshots/ClickLinksEvent.png)
 
-{to be added soon}
+**Q**: How do I view the events linked to a particular contact?<br>
+**A**: Click on the particular contact card in the panel containing contacts. Then click on the yellow boxes which are links to the events. The linked events will be displayed on the event panel on the left.
+![View links of contact](images/demo-screenshots/ClickLinksContact.png)
 
-### Upcoming Features
+**Q**: What is the purpose of using links?<br>
+**A**: Links are a form of relationship between the contacts and the events saved in SoConnect. Typically, we link an event to a contact if the contact is involved as a participant of the event. For instance, you can link your professor to the lecture.
 
-Here are some of the features that are currently under progress. You will soon be able to:
-* Find contacts and events by specific fields
-* Link events and contacts together
+**Q**: How do I copy the email address of a contact?<br>
+**A**: Click on the contact card in the panel containing contacts. Then click on the email address you want to copy. The email address will be copied to your clipboard.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -546,14 +548,15 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**[Add](#adding-an-event-eadd)** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-**[Clear](#clearing-all-events-eclear)** | `eclear`
-**[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
-**[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
-**[Find](#finding-events-efind)** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
-**[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
-**[Sort](#sorting-events-esort)** | `esort`
-**[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
+**Add** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
+**Clear** | `eclear`
+**Delete** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
+**Edit** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
+**Find** | `efind KEYWORD [MORE_KEYWORDS]`<br> e.g., `efind CS2103T Exams`
+**Link** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `elink 1 c/3 c/1`
+**List** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
+**Sort** | `esort`
+**Unlink** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1 c/2` <br> e.g., `eunlink 3 c/*`
 
 **General**
 

@@ -35,11 +35,13 @@ public class EListCommand extends Command {
             + "[" + PREFIX_ZOOM + "] "
             + "[" + PREFIX_TAG + "] \n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_END_TIME + " " + PREFIX_ZOOM;
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

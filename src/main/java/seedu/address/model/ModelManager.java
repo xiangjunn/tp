@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -88,7 +89,46 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
+        return AddressBook.getCurrentAddressBook();
+    }
+
+    @Override
+    public ReadOnlyAddressBook getInitialAddressBook() {
         return addressBook;
+    }
+
+    //=========== AddressBook ================================================================================
+    @Override
+    public void commitAddressBook() {
+        addressBook.commit();
+    }
+
+    @Override
+    public void undoAddressBook() {
+        addressBook.undo();
+        addressBook.resetData(getAddressBook());
+        resetDisplayAllFilteredList();
+    }
+
+    @Override
+    public void redoAddressBook() {
+        addressBook.redo();
+        addressBook.resetData(getAddressBook());
+    }
+
+    @Override
+    public void clearHistory() {
+        AddressBook.clearHistory();
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return addressBook.isUndoable();
+    }
+
+    @Override
+    public boolean isRedoable() {
+        return addressBook.isRedoable();
     }
 
     //=========== Manage Contacts ======================
@@ -144,13 +184,30 @@ public class ModelManager implements Model {
     @Override
     public void setEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
-
         addressBook.setEvent(target, editedEvent);
     }
 
     @Override
     public void resetEvents() {
         this.addressBook.resetEvents();
+    }
+
+    /**
+     * Reset the display to addressBook to display all contacts and events
+     */
+    public void resetDisplayAllFilteredList() {
+        filteredContacts.forEach(contact -> {
+            Contact.setViewingMode(false);
+            Contact.setAllDisplayToTrue();
+        });
+        filteredEvents.forEach(event -> {
+            Event.setViewingMode(false);
+            Event.setAllDisplayToTrue();
+        });
+        updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
+        updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     //=========== Filtered Contact List Accessors =====================
@@ -168,6 +225,13 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateContactListByIndex(Index index) {
+        requireNonNull(index);
+        Contact targetContact = filteredContacts.get(index.getZeroBased());
+        filteredContacts.setPredicate(curr -> curr.isSameContact(targetContact));
     }
 
     //=========== Filtered Event List Accessors =======================
@@ -204,6 +268,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateEventListByIndex(Index index) {
+        requireNonNull(index);
+        Event targetEvent = filteredEvents.get(index.getZeroBased());
+        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -221,5 +292,40 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredContacts.equals(other.filteredContacts)
                 && filteredEvents.equals(other.filteredEvents);
+    }
+
+    @Override
+    public void linkEventAndContact(Event event, Contact contact) {
+        event.linkTo(contact);
+        contact.linkTo(event);
+    }
+
+    @Override
+    public void unlinkEventAndContact(Event event, Contact contact) {
+        event.unlink(contact);
+        contact.unlink(event);
+    }
+
+    @Override
+    public void unlinkAllContactsFromEvent(Event event) {
+        addressBook.unlinkContactsFromEvent(event);
+    }
+
+    @Override
+    public void rerenderContactCards() {
+        updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+    }
+
+    @Override
+    public void rerenderEventCards() {
+        updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+    }
+
+    @Override
+    public void rerenderAllCards() {
+        rerenderContactCards();
+        rerenderEventCards();
     }
 }

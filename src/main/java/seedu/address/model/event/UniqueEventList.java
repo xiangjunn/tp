@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -46,6 +48,11 @@ public class UniqueEventList implements Iterable<Event> {
         if (contains(toAdd)) {
             throw new DuplicateEventException();
         }
+
+        if (toAdd.getEndDateAndTime() != null && toAdd.getEndDateAndTime().isBefore(toAdd.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
+        }
+
         internalList.add(toAdd);
     }
 
@@ -64,6 +71,11 @@ public class UniqueEventList implements Iterable<Event> {
 
         if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
             throw new DuplicateEventException();
+        }
+
+        if (target.getEndDateAndTime() != null
+            && target.getEndDateAndTime().isBefore(target.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
         }
 
         internalList.set(index, editedEvent);
@@ -104,6 +116,15 @@ public class UniqueEventList implements Iterable<Event> {
 
     public void resetEvents() {
         internalList.clear();
+    }
+
+    /**
+     * Create a copy of a uniqueEventList
+     * @return
+     */
+    public ObservableList<Event> copy() {
+        List<Event> eventList = new ArrayList<>(internalList);
+        return FXCollections.observableArrayList(eventList);
     }
 
     /**

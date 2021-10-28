@@ -2,7 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
@@ -15,6 +18,8 @@ import seedu.address.model.event.UniqueEventList;
  * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
+    private static ArrayList<AddressBook> addressBookStateList = new ArrayList<>();
+    private static int currentPointer = 0;
 
     private final UniqueContactList contacts;
     private final UniqueEventList events;
@@ -41,6 +46,96 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    //// manage addressBookStates
+
+    /**
+     * Gets the current version of AddressBook
+     * @return current version of AddressBook
+     */
+    public static AddressBook getCurrentAddressBook() {
+        // TODO: 10/26/2021 add check for invalid current pointer;
+        if (addressBookStateList.isEmpty()) {
+            currentPointer = 0;
+            addressBookStateList.add(new AddressBook());
+        }
+        assert !addressBookStateList.isEmpty() : "addressBookStateList should have been initialised here";
+        return addressBookStateList.get(currentPointer);
+    }
+
+    /**
+     * Clear history of addressBook when exit the app
+     */
+    public static void clearHistory() {
+        addressBookStateList.clear();
+        currentPointer = 0;
+    }
+
+    /**
+     * Save the current state of address book to the addressBookStateList
+     */
+    public void commit() {
+        if (addressBookStateList.isEmpty()) {
+            getCurrentAddressBook();
+        }
+        assert !addressBookStateList.isEmpty();
+        assert currentPointer >= 0 && currentPointer < addressBookStateList.size();
+
+        AddressBook currentAddressBook = this.copy();
+        if (currentPointer < addressBookStateList.size() - 1) {
+            addressBookStateList.set(currentPointer + 1, currentAddressBook);
+            for (int i = currentPointer + 2; i < addressBookStateList.size(); i++) {
+                addressBookStateList.set(i, null);
+            }
+        } else {
+            addressBookStateList.add(currentAddressBook);
+        }
+        currentPointer++;
+    }
+
+    /**
+     * Check if the current version of addressBook is undoable
+     * @return false if addressBook is already at its original state or if currentIndex is out of range
+     */
+    public boolean isUndoable() {
+        return currentPointer > 0 && currentPointer < addressBookStateList.size();
+    }
+
+    /**
+     * Check of current version of addressBook is redoable
+     * @return false if addressBook is already at its latest version or if currentIndex is out of range
+     */
+    public boolean isRedoable() {
+        return currentPointer >= 0 && currentPointer < addressBookStateList.size() - 1;
+    }
+
+    /**
+     * Restore the previous address book state from the addressBookStateList
+     */
+    public void undo() {
+        assert isUndoable() : "AddressBook should be undoable when this method is called.";
+        currentPointer--;
+    }
+
+
+    /**
+     * Restore the previous undone address book state from its history
+     */
+    public void redo() {
+        assert isRedoable() : "AddressBook should be redoable when this method is called.";
+        currentPointer++;
+    }
+
+    /**
+     * Create a copy of the current addressBook
+     * @return a copy of current addressBook
+     */
+    public AddressBook copy() {
+        AddressBook toCopy = new AddressBook();
+        toCopy.setContacts(contacts.copy());
+        toCopy.setEvents(events.copy());
+        return toCopy;
+    }
+
     //// list overwrite operations
 
     /**
@@ -63,6 +158,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets the existing data of contacts of this {@code AddressBook}.
      */
     public void resetContacts() {
+        this.events.iterator().forEachRemaining(Event::clearAllLinks);
+        this.contacts.iterator().forEachRemaining(Contact::clearAllLinks);
         this.contacts.resetContacts();
     }
 
@@ -92,6 +189,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEvent(Event e) {
         events.add(e);
+        Event.addToMap(e);
     }
 
     /**
@@ -118,10 +216,30 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeEvent(Event key) {
+        // unlink all the contacts linked to event before removing event
+        unlinkContactsFromEvent(key);
         events.remove(key);
     }
 
+    /**
+     * Unlink all the contacts linked to the given event {@code e}, but does not remove the stored links in the event.
+     */
+    public void unlinkContactsFromEvent(Event e) {
+        Set<UUID> contactsUuid = e.getLinkedContacts();
+        contactsUuid.iterator()
+            .forEachRemaining(contactUuid -> {
+                Contact linkedContact = Contact.findByUuid(contactUuid);
+                linkedContact.unlink(e);
+            });
+        e.clearAllLinks();
+    }
+
+    /**
+     * Resets the existing data of events of this {@code AddressBook}.
+     */
     public void resetEvents() {
+        this.contacts.iterator().forEachRemaining(Contact::clearAllLinks);
+        this.events.iterator().forEachRemaining(Event::clearAllLinks);
         this.events.resetEvents();
     }
 
@@ -140,8 +258,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
-    public void addContact(Contact p) {
-        contacts.add(p);
+    public void addContact(Contact c) {
+        contacts.add(c);
+        Contact.addToMap(c);
     }
 
     /**
@@ -160,7 +279,22 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeContact(Contact key) {
+        // unlink all the events linked to contact before removing contact
+        unlinkEventsFromContact(key);
         contacts.remove(key);
+    }
+
+    /**
+     * Unlink all the events linked to the given contact {@code c}, but does not remove the stored links in the contact.
+     */
+    public void unlinkEventsFromContact(Contact c) {
+        Set<UUID> eventsUuid = c.getLinkedEvents();
+        eventsUuid.iterator()
+            .forEachRemaining(eventUuid -> {
+                Event linkedEvent = Event.findByUuid(eventUuid);
+                linkedEvent.unlink(c);
+            });
+        c.clearAllLinks();
     }
 
     //// util methods
@@ -169,7 +303,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return contacts.asUnmodifiableObservableList().size() + " contacts\n"
                 + events.asUnmodifiableObservableList().size() + " events";
-        // TODO: refine later
     }
 
     @Override

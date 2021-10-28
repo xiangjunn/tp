@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -54,6 +55,18 @@ class EAddCommandTest {
     }
 
     @Test
+    public void execute_invalidDateTimeRange_throwsCommandException() {
+        Event event = new EventBuilder().withName("Outing").withStartDateAndTime("20-10-2021 20:00")
+                .withEndDateAndTime("20-10-2021 18:00").build();
+        ModelStub modelStub = new ModelStubAcceptingEventAdded();
+
+        EAddCommand command = new EAddCommand(event);
+
+        assertThrows(CommandException.class, EAddCommand.MESSAGE_INVALID_DATE_TIME_RANGE, () ->
+                command.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Event lecture = new EventBuilder().withName("Lecture").build();
         Event exam = new EventBuilder().withName("Exam").build();
@@ -81,7 +94,10 @@ class EAddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
+        @Override
+        public ReadOnlyAddressBook getInitialAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
         //settings
 
         @Override
@@ -113,6 +129,39 @@ class EAddCommandTest {
         public void setAddressBookFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+
+
+        // manage versioned addressBook
+        @Override
+        public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isUndoable() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isRedoable() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         //contacts
 
@@ -161,6 +210,11 @@ class EAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateContactListByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // events
 
         @Override
@@ -202,6 +256,41 @@ class EAddCommandTest {
 
         @Override
         public void sortUpcomingFilteredEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateEventListByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void linkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unlinkEventAndContact(Event event, Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unlinkAllContactsFromEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderContactCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderEventCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rerenderAllCards() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -246,5 +335,13 @@ class EAddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public ReadOnlyAddressBook getInitialAddressBook() {
+            return new AddressBook();
+        }
+
+        @Override
+        public void commitAddressBook() {}
     }
 }

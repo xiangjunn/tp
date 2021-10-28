@@ -30,14 +30,16 @@ public class CDeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         CDeleteCommand cDeleteCommand = new CDeleteCommand(RANGE_FIRST_TO_FIRST);
 
-        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
+        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         assertCommandSuccess(cDeleteCommand, model, expectedMessage, expectedModel);
@@ -59,9 +61,8 @@ public class CDeleteCommandTest {
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         CDeleteCommand cDeleteCommand = new CDeleteCommand(RANGE_FIRST_TO_FIRST);
 
-        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
+        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
         showNoPerson(expectedModel);
 
@@ -89,13 +90,12 @@ public class CDeleteCommandTest {
         Contact thirdContactToDelete = model.getFilteredContactList().get(INDEX_THIRD_PERSON.getZeroBased());
         CDeleteCommand cDeleteCommand = new CDeleteCommand(RANGE_FIRST_TO_THIRD);
 
-        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, firstContactToDelete)
+        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, firstContactToDelete)
                 + "\n"
-                + String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, secondContactToDelete)
+                + String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, secondContactToDelete)
                 + "\n"
-                + String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, thirdContactToDelete);
+                + String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, thirdContactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(firstContactToDelete);
         expectedModel.deleteContact(secondContactToDelete);
         expectedModel.deleteContact(thirdContactToDelete);

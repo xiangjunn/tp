@@ -93,9 +93,11 @@ public class CEditCommand extends Command {
         Set<Tag> updatedDeletedTags = editContactDescriptor.getTagsToDelete().orElse(new HashSet<>());
         Set<Tag> updatedTags = editContactDescriptor.isShouldDeleteAllTags()
             ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, contactToEdit.getTags());
-
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedZoomLink,
-            updatedTelegram, updatedTags);
+        Contact updatedContact = new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedZoomLink,
+            updatedTelegram, updatedTags, contactToEdit.getUuid(), contactToEdit.getLinkedEvents());
+        // update the edited contact to the hashmap that stores references to all contacts
+        Contact.addToMap(updatedContact);
+        return updatedContact;
     }
 
     /**
@@ -127,6 +129,9 @@ public class CEditCommand extends Command {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        // rerender UI to show latest change for events with links to edited contact
+        model.rerenderEventCards();
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
     }
 

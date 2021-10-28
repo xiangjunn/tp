@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
@@ -53,8 +54,29 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /** Returns the current AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns initial version of AddressBook */
+    ReadOnlyAddressBook getInitialAddressBook();
+
+    /** Adds new state of AddressBook to its history list */
+    void commitAddressBook();
+
+    /** Restores the previous addressBook state from its history */
+    void undoAddressBook();
+
+    /** Restores a previously undone addressBook state from its history */
+    void redoAddressBook();
+
+    /** Clear all history of versioned addressBook when exit the app */
+    void clearHistory();
+
+    /** Check if the current state of addressBook is undoable */
+    boolean isUndoable();
+
+    /** Check if the current state of addressBook is redoable */
+    boolean isRedoable();
 
     //=========== Contact Management =============================================================
 
@@ -95,6 +117,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
+
+    /**
+     * Updates the filter of the filtered contact list to show the contact at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateContactListByIndex(Index index);
 
     //=========== Event Management =============================================================
 
@@ -137,8 +165,49 @@ public interface Model {
     void updateFilteredEventList(Predicate<? super Event> predicate);
 
     /**
+     * Links an event to a contact. Both the event and contact will have reference to each other.
+     * @param event The event to link to contact.
+     * @param contact The contact to link to event.
+     */
+    void linkEventAndContact(Event event, Contact contact);
+
+    /**
+     * Unlinks an event to a contact. Both references between the contact and the event will be removed.
+     * @param event The event to unlink from contact.
+     * @param contact The contact to unlink from event.
+     */
+    void unlinkEventAndContact(Event event, Contact contact);
+
+    /** Unlinks an {@code event} from all its linked contacts. Both references between the contact and the event
+     *  will be removed.
+     */
+    void unlinkAllContactsFromEvent(Event event);
+
+    /**
      * Sorts the filtered event list to show all upcoming events. This will change the order of the filtered list
      * and remove any events which have concluded.
      */
     void sortUpcomingFilteredEventList();
+
+    /**
+     * Updates the filter of the filtered event list to show the event at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateEventListByIndex(Index index);
+
+    /**
+     * Re-render contact cards in UI to show the most updated version.
+     */
+    void rerenderContactCards();
+
+    /**
+     * Re-render event cards in UI to show the most updated version.
+     */
+    void rerenderEventCards();
+
+    /**
+     * Re-render both contact and event cards in UI to show the most updated version.
+     */
+    void rerenderAllCards();
+
 }

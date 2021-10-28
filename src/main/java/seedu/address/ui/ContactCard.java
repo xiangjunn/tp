@@ -1,14 +1,27 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Comparator;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of a {@code Contact}.
@@ -16,6 +29,8 @@ import seedu.address.model.contact.Contact;
 public class ContactCard extends UiPart<Region> {
 
     private static final String FXML = "ContactListCard.fxml";
+
+    private static Logger logger = LogsCenter.getLogger(ContactCard.class);
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,63 +42,131 @@ public class ContactCard extends UiPart<Region> {
 
     public final Contact contact;
 
+    private MainWindow mainWindow;
+
+    private boolean isShowLinks = false;
+
     @FXML
     private HBox cardPane;
+
     @FXML
     private Label name;
+
     @FXML
     private Label id;
+
     @FXML
     private Label phone;
+
     @FXML
     private Label address;
+
     @FXML
     private Label email;
+
+    @FXML
+    private Label telegramHandleTitle;
+
     @FXML
     private Label telegramHandle;
+
     @FXML
     private Label zoom;
+
+    @FXML
+    private Label tagIcon;
+
     @FXML
     private FlowPane tags;
-    @FXML
-    private ImageView emailIcon;
 
+    @FXML
+    private Label linkToEvent;
+
+    @FXML
+    private FlowPane links;
+
+    @FXML
+    private HBox linksHBox;
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
      */
-    public ContactCard(Contact contact, int displayedIndex) {
+    public ContactCard(Contact contact, int displayedIndex, MainWindow mainWindow) {
         super(FXML);
+        requireAllNonNull(contact, displayedIndex, mainWindow);
+        this.mainWindow = mainWindow;
         this.contact = contact;
+        boolean isViewMode = Contact.isViewingMode();
+
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
+        name.setWrapText(isViewMode);
+
         // Compulsory fields
         if (Contact.isWillDisplayEmail()) {
-            email.setText("email: " + contact.getEmail().value);
+            email.setText(contact.getEmail().value);
             email.setManaged(true);
+            email.setVisible(true);
+            email.setWrapText(isViewMode);
         }
         // Optional fields
         if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
-            phone.setText("phone: " + contact.getPhone().value);
+            phone.setText(contact.getPhone().value);
             phone.setManaged(true);
+            phone.setVisible(true);
+            phone.setWrapText(isViewMode);
         }
         if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
-            address.setText("address: " + contact.getAddress().value);
+            address.setText(contact.getAddress().value);
             address.setManaged(true);
+            address.setVisible(true);
+            address.setWrapText(isViewMode);
         }
         if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
-            telegramHandle.setText("telegram handle: " + contact.getTelegramHandle().handle);
+            telegramHandle.setText(contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
+            telegramHandle.setVisible(true);
+            telegramHandle.setWrapText(isViewMode);
         }
         if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
-            zoom.setText("zoom: " + contact.getZoomLink().link);
+            zoom.setText(contact.getZoomLink().link);
             zoom.setManaged(true);
+            zoom.setVisible(true);
+            zoom.setWrapText(isViewMode);
         }
-        if (Contact.isWillDisplayTags()) {
+        if (Contact.isWillDisplayTags() && !contact.getTags().isEmpty()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .forEach(tag -> {
+                        Label label = new Label(tag.tagName);
+                        label.setStyle("-fx-background-color: " + tag.tagColour + ";");
+                        label.setWrapText(isViewMode);
+                        tags.getChildren().add(label);
+                    });
+            tagIcon.setManaged(true);
+            tagIcon.setVisible(true);
             tags.setManaged(true);
         }
+        if (!contact.getLinkedEvents().isEmpty()) {
+            contact.getLinkedEvents().stream()
+                .sorted(Comparator.comparing(UUID::toString))
+                .forEach(eventUuid -> {
+                    String eventName = Event.findByUuid(eventUuid).getName().toString();
+                    links.getChildren().add(new Label(eventName));
+                });
+            linkToEvent.setManaged(true);
+            linkToEvent.setVisible(true);
+            links.setManaged(true);
+            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+        }
+    }
+
+    private void toggleShowLinks(MouseEvent e) {
+        if (isShowLinks) {
+            mainWindow.showAllEvents();
+        } else {
+            mainWindow.showLinksOfContact(contact);
+        }
+        isShowLinks = !isShowLinks;
     }
 
     @Override
@@ -102,5 +185,87 @@ public class ContactCard extends UiPart<Region> {
         ContactCard card = (ContactCard) other;
         return id.getText().equals(card.id.getText())
                 && contact.equals(card.contact);
+    }
+
+    /**
+     * Copies contact fields to the clipboard.
+     */
+    private void copy(String fieldContent, String fieldName) {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(fieldContent);
+        clipboard.setContent(content);
+        mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_FIELD_COPIED, fieldName));
+        logger.info(String.format(Messages.MESSAGE_CONTACT_FIELD_COPIED, fieldName));
+    }
+
+    /**
+     * Copies contact name to the clipboard.
+     */
+    @FXML
+    private void copyName() {
+        copy(contact.getName().fullName, "name");
+    }
+
+    /**
+     * Copies contact email to the clipboard.
+     */
+    @FXML
+    private void copyEmail() {
+        copy(contact.getEmail().value, "email");
+    }
+
+    /**
+     * Copies contact phone number to the clipboard.
+     */
+    @FXML
+    private void copyPhone() {
+        copy(contact.getPhone().value, "phone");
+    }
+
+    /**
+     * Copies contact address to the clipboard.
+     */
+    @FXML
+    private void copyAddress() {
+        copy(contact.getAddress().value, "address");
+    }
+
+    /**
+     * Open contact links in browser
+     */
+    private void openLink(String link, String fieldName) {
+        try {
+            if (!link.matches("^http(s)?://.*$")) {
+                link = "http://" + link;
+            }
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI(link));
+                logger.info(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+                mainWindow.handleClick(String.format(Messages.MESSAGE_EVENT_LINK_OPENED, fieldName));
+            } else {
+                copy(link, fieldName);
+                logger.warning("Desktop does not support opening URL in browser. Copied link to clipboard");
+            }
+        } catch (URISyntaxException | IOException e) {
+            logger.warning(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
+            mainWindow.handleClick(String.format(Messages.MESSAGE_CONTACT_LINK_NOT_FOUND, fieldName));
+        }
+    }
+
+    /**
+     * Open contact zoom link in browser.
+     */
+    @FXML
+    private void openZoomLink() {
+        openLink(contact.getZoomLink().link, "zoom");
+    }
+
+    /**
+     * Open telegram link in browser.
+     */
+    @FXML
+    private void openTelegramHandle() {
+        openLink(contact.getTelegramHandle().link, "telegram");
     }
 }

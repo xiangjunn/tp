@@ -60,6 +60,7 @@ public class EEditCommand extends Command {
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book.";
+    public static final String MESSAGE_INVALID_DATE_TIME_RANGE = "Event start time cannot be later than end time.";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
@@ -95,9 +96,11 @@ public class EEditCommand extends Command {
         Set<Tag> updatedDeletedTags = editEventDescriptor.getTagsToDelete().orElse(new HashSet<>());
         Set<Tag> updatedTags = editEventDescriptor.getShouldDeleteAllTags()
                 ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
-
-        return new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription, updatedAddress,
-                updatedZoomLink, updatedTags);
+        Event updatedEvent = new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
+            updatedAddress, updatedZoomLink, updatedTags, eventToEdit.getUuid(), eventToEdit.getLinkedContacts());
+        // update the edited event to the hashmap that stores references to all events
+        Event.addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     /**
@@ -127,8 +130,16 @@ public class EEditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
+        if (editedEvent.getEndDateAndTime() != null
+                && editedEvent.getEndDateAndTime().isBefore(editedEvent.getStartDateAndTime())) {
+            throw new CommandException(MESSAGE_INVALID_DATE_TIME_RANGE);
+        }
+
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        // rerender UI to show latest change for contacts with links to edited event
+        model.rerenderContactCards();
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent),
             List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
     }
