@@ -7,12 +7,17 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.general.RedoCommand;
+import seedu.address.logic.commands.general.UndoCommand;
+
 
 public class GeneralCommandSummary {
 
     public static final String CALENDAR = "Calendar";
     public static final String EXIT = "Exit";
     public static final String HELP = "Help";
+    public static final String REDO = "Redo";
+    public static final String UNDO = "Undo";
 
     private StringProperty action;
 
@@ -76,6 +81,8 @@ public class GeneralCommandSummary {
         return FXCollections.observableArrayList(
                 new GeneralCommandSummary(CALENDAR, CalendarCommand.SYNTAX),
                 new GeneralCommandSummary(EXIT, ExitCommand.SYNTAX),
-                new GeneralCommandSummary(HELP, HelpCommand.SYNTAX));
+                new GeneralCommandSummary(HELP, HelpCommand.SYNTAX),
+                new GeneralCommandSummary(REDO, RedoCommand.SYNTAX),
+                new GeneralCommandSummary(UNDO, UndoCommand.SYNTAX));
     }
 }

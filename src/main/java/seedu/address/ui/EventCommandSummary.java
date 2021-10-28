@@ -12,6 +12,7 @@ import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.event.ESortCommand;
+import seedu.address.logic.commands.event.EUnlinkCommand;
 import seedu.address.logic.commands.event.EViewCommand;
 
 
@@ -25,8 +26,9 @@ public class EventCommandSummary {
     public static final String FIND = "Find\n(at least one keyword must be present)";
     public static final String LINK = "Link";
     public static final String LIST = "List";
-    public static final String VIEW = "View";
     public static final String SORT = "Sort";
+    public static final String UNLINK = "Unlink";
+    public static final String VIEW = "View";
 
     /** Description of what the command does. */
     private StringProperty action;
@@ -97,7 +99,8 @@ public class EventCommandSummary {
                 new EventCommandSummary(LINK, ELinkCommand.SYNTAX),
                 new EventCommandSummary(LIST, EListCommand.SYNTAX),
                 new EventCommandSummary(SORT, ESortCommand.SYNTAX),
-                new EventCommandSummary(VIEW, EViewCommand.SYNTAX));
+                new EventCommandSummary(VIEW, EViewCommand.SYNTAX),
+                new EventCommandSummary(UNLINK, EUnlinkCommand.SYNTAX));
     }
 }
 

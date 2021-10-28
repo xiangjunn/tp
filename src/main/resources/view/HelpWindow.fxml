@@ -28,13 +28,13 @@
                         <content>
                             <VBox>
                                 <Label fx:id="contactTitle" text="contactTitle" />
-                                <TableView fx:id="contactTable" prefWidth="600" prefHeight="300"/>
+                                <TableView fx:id="contactTable" prefWidth="600" prefHeight="340"/>
 
                                 <Label fx:id="eventTitle" text="Label" />
-                                <TableView fx:id="eventTable" prefWidth="600" prefHeight="300"/>
+                                <TableView fx:id="eventTable" prefWidth="600" prefHeight="400"/>
 
                                 <Label fx:id="generalTitle" text="Label" />
-                                <TableView fx:id="generalTable" prefWidth="600" prefHeight="100"/>
+                                <TableView fx:id="generalTable" prefWidth="600" prefHeight="150"/>
                             </VBox>
                         </content>
                     </ScrollPane>
