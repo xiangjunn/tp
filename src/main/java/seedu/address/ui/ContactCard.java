@@ -156,20 +156,17 @@ public class ContactCard extends UiPart<Region> {
             linkToEvent.setManaged(true);
             linkToEvent.setVisible(true);
             links.setManaged(true);
-            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-                if (isShowLinks) { // Toggle back to default predicate
-                    mainWindow.showAllEvents();
-                    setIsShowLinks(false);
-                } else {
-                    mainWindow.showLinksOfContact(contact);
-                    setIsShowLinks(true);
-                }
-            });
+            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
         }
     }
 
-    private void setIsShowLinks(boolean isShowLinks) {
-        this.isShowLinks = isShowLinks;
+    private void toggleShowLinks(MouseEvent e) {
+        if (isShowLinks) {
+            mainWindow.showAllEvents();
+        } else {
+            mainWindow.showLinksOfContact(contact);
+        }
+        isShowLinks = !isShowLinks;
     }
 
     @Override
