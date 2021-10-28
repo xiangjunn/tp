@@ -48,7 +48,7 @@
 
             <!-- zoom -->
             <Label fx:id="zoom" managed="false" visible="false" onMouseClicked="#openZoomLink"
-                   styleClass="cell_small_label, clickable, linkable" text="\$meeting-link"/>
+                   styleClass="cell_small_label, clickable" text="\$meeting-link"/>
 
             <!-- description -->
             <Label fx:id="description" managed="false" visible="false" onMouseClicked="#copyDescription"
