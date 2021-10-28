@@ -188,6 +188,12 @@ public class ModelManager implements Model {
         addressBook.reshuffleContactsInOrder();
     }
 
+    @Override
+    public void unmarkContactIndexedAt(Index index) {
+        assert index != null : "index should not be null";
+        addressBook.unmarkContact(index);
+    }
+
     //=========== Filtered Event List Accessors =======================
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
@@ -281,4 +287,11 @@ public class ModelManager implements Model {
         rerenderContactCards();
         rerenderEventCards();
     }
+
+    @Override
+    public void unmarkEventIndexedAt(Index index) {
+        assert index != null : "index should not be null";
+        addressBook.unmarkEvent(index);
+    }
+
 }

@@ -67,9 +67,11 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private static Contact ELLE_BOOKMARKED = new PersonBuilder(ELLE).withBookmarked().build();
-
     private TypicalPersons() {} // prevents instantiation
+
+    public static List<Contact> getTypicalPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
@@ -82,19 +84,5 @@ public class TypicalPersons {
         return ab;
     }
 
-    public static List<Contact> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
 
-    private static List<Contact> getListWithBookmarkContact() {
-        return new ArrayList<>(Arrays.asList(ELLE_BOOKMARKED, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
-    }
-
-    public static AddressBook getAddressBookWithBookmarkContact() {
-        AddressBook ab = new AddressBook();
-        for (Contact contact : getListWithBookmarkContact()) {
-            ab.addContact(contact);
-        }
-        return ab;
-    }
 }

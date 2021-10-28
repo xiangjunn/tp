@@ -134,6 +134,14 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
+     * Unmarks the contact indexed at {@code index}.
+     */
+    public void unmarkContact(Index index) {
+        Contact contactToMark = internalUnmodifiableList.get(index.getZeroBased());
+        contactToMark.setBookMarked(false);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Contact> asUnmodifiableObservableList() {

@@ -72,7 +72,8 @@ public class Event {
      */
     public Event(
             Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
-            Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts) {
+            Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts,
+            boolean isBookMarked) {
         requireAllNonNull(name, startDateAndTime, tags);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
@@ -83,7 +84,7 @@ public class Event {
         this.tags.addAll(tags);
         this.uuid = uuid;
         this.linkedContacts.addAll(linkedContacts);
-        this.isBookMarked = false;
+        this.isBookMarked = isBookMarked;
     }
 
     public Name getName() {

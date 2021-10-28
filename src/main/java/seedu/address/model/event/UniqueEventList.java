@@ -135,6 +135,14 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
+     * Unmarks the event indexed at {@code index}.
+     */
+    public void unmarkEvent(Index index) {
+        Event eventToMark = internalUnmodifiableList.get(index.getZeroBased());
+        eventToMark.setBookMarked(false);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Event> asUnmodifiableObservableList() {

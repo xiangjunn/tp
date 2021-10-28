@@ -168,6 +168,11 @@ public class CAddCommandTest {
         }
 
         @Override
+        public void unmarkContactIndexedAt(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateContactListByIndex(Index index) {
             throw new AssertionError("This method should not be called.");
         }
@@ -244,6 +249,11 @@ public class CAddCommandTest {
 
         @Override
         public void reshuffleEventsInOrder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unmarkEventIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
     }

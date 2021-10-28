@@ -95,6 +95,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         contacts.reshuffleContactsInOrder();
     }
 
+    /**
+     * Unmarks the contact indexed at {@code index}
+     */
+    public void unmarkContact(Index index) {
+        contacts.unmarkContact(index);
+    }
+
     //// event-level operations
 
     /**
@@ -175,6 +182,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void reshuffleEventsInOrder() {
         events.reshuffleEventsInOrder();
+    }
+
+    /**
+     * Unmarks the event indexed at {@code index}
+     */
+    public void unmarkEvent(Index index) {
+        events.unmarkEvent(index);
     }
 
     //// contact-level operations

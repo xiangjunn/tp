@@ -71,8 +71,8 @@ public class Contact {
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents) {
-        requireAllNonNull(name, email, tags);
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isBookMarked) {
+        requireAllNonNull(name, email, tags, isBookMarked);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -82,7 +82,8 @@ public class Contact {
         this.zoomLink = zoomLink;
         this.uuid = uuid;
         this.linkedEvents.addAll(linkedEvents);
-        this.isBookMarked = false;
+        this.isBookMarked = isBookMarked;
+
     }
 
     public Name getName() {

@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,13 +29,19 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.PersonBuilder;
 
-class CBookmarkCommandTest {
+class CUnmarkCommandTest {
+
     private static final Contact ELLE_BOOKMARKED = new PersonBuilder(ELLE).withBookmarked().build();
-    private Model expectedModel = new ModelManager(getAddressBookWith(getListWithBookmarkContact()), new UserPrefs());
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    private Model expectedModel = new ModelManager(getAddressBookWith(getListAfterUnmark()), new UserPrefs());
+    private Model model = new ModelManager(getAddressBookWith(getListWithBookmarkContact()), new UserPrefs());
 
     private List<Contact> getListWithBookmarkContact() {
         return new ArrayList<>(Arrays.asList(ELLE_BOOKMARKED, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
+    }
+
+    private List<Contact> getListAfterUnmark() {
+        return new ArrayList<>(Arrays.asList(ELLE, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
     }
 
     public AddressBook getAddressBookWith(List<Contact> contactList) {
@@ -49,32 +54,34 @@ class CBookmarkCommandTest {
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CBookmarkCommand(null));
+        assertThrows(NullPointerException.class, () -> new CUnmarkCommand(null));
     }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        String expectedMessage = String.format(CBookmarkCommand.MESSAGE_SUCCESS, ELLE) + "\n";
-        List<Index> indexes = List.of(Index.fromOneBased(5));
-        CBookmarkCommand cBookmarkCommand = new CBookmarkCommand(indexes);
-        assertCommandSuccess(cBookmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
+        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_SUCCESS, ELLE) + "\n";
+        List<Index> indexes = List.of(Index.fromOneBased(1));
+        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
+        assertCommandSuccess(cunmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
+
+        //TODO test with at least one marked contact remaining
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         List<Index> outOfBoundIndex = List.of(Index.fromOneBased(model.getFilteredContactList().size() + 1));
-        CBookmarkCommand cbookmarkCommand = new CBookmarkCommand(outOfBoundIndex);
+        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(outOfBoundIndex);
 
-        assertCommandFailure(cbookmarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(cunmarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_contactAlreadyMarked() {
+    public void execute_contactNotMarked() {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         model = expectedModel;
-        CBookmarkCommand cbookmarkCommand = new CBookmarkCommand(indexes);
-        String expectedMessage = String.format(CBookmarkCommand.MESSAGE_ALREADY_MARKED, ELLE) + "\n";
-        assertCommandSuccess(cbookmarkCommand, model, expectedMessage, expectedModel);
+        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
+        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_NOT_MARKED, ELLE) + "\n";
+        assertCommandSuccess(cunmarkCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -86,25 +93,25 @@ class CBookmarkCommandTest {
         firstIndexes.add(first);
         List<Index> secondIndexes = new ArrayList<>();
         secondIndexes.add(second);
-        CBookmarkCommand bookmarkFirstCommand = new CBookmarkCommand(firstIndexes);
-        CBookmarkCommand bookmarkSecondCommand = new CBookmarkCommand(secondIndexes);
+        CUnmarkCommand unmarkFirstCommand = new CUnmarkCommand(firstIndexes);
+        CUnmarkCommand unmarkSecondCommand = new CUnmarkCommand(secondIndexes);
 
         // same object -> returns true
-        assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommand));
+        assertTrue(unmarkFirstCommand.equals(unmarkFirstCommand));
 
         // same values -> returns true
-        CBookmarkCommand bookmarkFirstCommandCopy = new CBookmarkCommand(firstIndexes);
+        CUnmarkCommand unmarkFirstCommandCopy = new CUnmarkCommand(firstIndexes);
         ;
-        assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommandCopy));
+        assertTrue(unmarkFirstCommand.equals(unmarkFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(bookmarkFirstCommand.equals(1));
+        assertFalse(unmarkFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(bookmarkFirstCommand.equals(null));
+        assertFalse(unmarkFirstCommand.equals(null));
 
         // different Index -> returns false
-        assertFalse(bookmarkFirstCommand.equals(bookmarkSecondCommand));
+        assertFalse(unmarkFirstCommand.equals(unmarkSecondCommand));
     }
 
 }

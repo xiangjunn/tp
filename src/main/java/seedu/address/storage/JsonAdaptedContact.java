@@ -36,6 +36,7 @@ class JsonAdaptedContact {
     private final String uuid;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<String> linkedEvents = new ArrayList<>();
+    private final boolean isBookmarked;
 
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
@@ -45,7 +46,8 @@ class JsonAdaptedContact {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("telegramHandle") String telegramHandle, @JsonProperty("zoomLink") String zoomLink,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("uuid") String uuid,
-            @JsonProperty("linkedEvents") List<String> linkedEvents) {
+            @JsonProperty("linkedEvents") List<String> linkedEvents,
+            @JsonProperty("isBookmarked") boolean isBookmarked) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -59,6 +61,7 @@ class JsonAdaptedContact {
         if (linkedEvents != null) {
             this.linkedEvents.addAll(linkedEvents);
         }
+        this.isBookmarked = isBookmarked;
     }
 
     /**
@@ -80,6 +83,7 @@ class JsonAdaptedContact {
         linkedEvents.addAll(source.getLinkedEvents().stream()
             .map(UUID::toString)
             .collect(Collectors.toList()));
+        isBookmarked = source.getIsBookMarked();
     }
 
     /**
@@ -138,8 +142,9 @@ class JsonAdaptedContact {
         final Set<Tag> modelTags = new HashSet<>(contactTags);
         final Set<UUID> modelLinkedEvents = new HashSet<>(
                 linkedEvents.stream().map(UUID::fromString).collect(Collectors.toList()));
+
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelZoomLink,
-                modelTelegramHandle, modelTags, modelUuid, modelLinkedEvents);
+                modelTelegramHandle, modelTags, modelUuid, modelLinkedEvents, isBookmarked);
     }
 
 }

@@ -94,7 +94,8 @@ public class CEditCommand extends Command {
         Set<Tag> updatedTags = editContactDescriptor.isShouldDeleteAllTags()
             ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, contactToEdit.getTags());
         Contact updatedContact = new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedZoomLink,
-            updatedTelegram, updatedTags, contactToEdit.getUuid(), contactToEdit.getLinkedEvents());
+            updatedTelegram, updatedTags, contactToEdit.getUuid(), contactToEdit.getLinkedEvents(),
+                contactToEdit.getIsBookMarked());
         // update the edited contact to the hashmap that stores references to all contacts
         Contact.addToMap(updatedContact);
         return updatedContact;
