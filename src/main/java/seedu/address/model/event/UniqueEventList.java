@@ -72,7 +72,8 @@ public class UniqueEventList implements Iterable<Event> {
             throw new DuplicateEventException();
         }
 
-        if (target.getEndDateAndTime().isBefore(target.getStartDateAndTime())) {
+        if (target.getEndDateAndTime() != null
+            && target.getEndDateAndTime().isBefore(target.getStartDateAndTime())) {
             throw new InvalidDateTimeRangeException();
         }
 
