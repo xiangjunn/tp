@@ -15,16 +15,24 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
-    /** The calendar should be shown to the user. */
+    /**
+     * The calendar should be shown to the user.
+     */
     private final boolean showCalendar;
 
-    /** The list of all events to be changed. By default an empty list */
+    /**
+     * The list of all events to be changed. By default an empty list
+     */
     private final List<EventChanger> eventChangerList;
 
     /**
@@ -92,10 +100,10 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit
-                && showCalendar == otherCommandResult.showCalendar
-                && eventChangerList.equals(otherCommandResult.eventChangerList);
+            && showHelp == otherCommandResult.showHelp
+            && exit == otherCommandResult.exit
+            && showCalendar == otherCommandResult.showCalendar
+            && eventChangerList.equals(otherCommandResult.eventChangerList);
     }
 
     @Override
@@ -103,9 +111,25 @@ public class CommandResult {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
-    /** For assertion checking. */
+    /**
+     * For assertion checking.
+     */
     private boolean numberOfTrueAtMost1(boolean first, boolean second, boolean third) {
         // Calculated using k-map to obtain disjunctive normal form.
         return (!first && !second) || (!first && !third) || (!second && !third);
+    }
+
+    /**
+     * For testing purposes.
+     */
+    @Override
+    public String toString() {
+        return "CommandResult{"
+            + "feedbackToUser='" + feedbackToUser + '\''
+            + ", showHelp=" + showHelp
+            + ", exit=" + exit
+            + ", showCalendar=" + showCalendar
+            + ", eventChangerList=" + eventChangerList
+            + '}';
     }
 }

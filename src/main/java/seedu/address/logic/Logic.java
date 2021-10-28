@@ -51,4 +51,16 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /** Changes the filter to the model so that only contacts linked to {@code event} will be shown. */
+    void filterContactsWithLinksToEvent(Event event);
+
+    /** Changes the filter to the model so that only events linked to {@code contact} will be shown. */
+    void filterEventsWithLinkToContact(Contact contact);
+
+    /** Changes the filter of the contacts to show all contacts. */
+    void resetFilterOfContacts();
+
+    /** Changes the filter of the events to show all events. */
+    void resetFilterOfEvents();
 }

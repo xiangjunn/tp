@@ -16,6 +16,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -198,6 +200,26 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleClick(String message) {
         resultDisplay.setFeedbackToUser(message);
+    }
+
+    /** Filters the list of contacts to show the linked contacts of the {@code event}. */
+    public void showLinksOfEvent(Event event) {
+        this.logic.filterContactsWithLinksToEvent(event);
+    }
+
+    /** Filters the list of events to show the linked events of the {@code contact}. */
+    public void showLinksOfContact(Contact contact) {
+        this.logic.filterEventsWithLinkToContact(contact);
+    }
+
+    /** Changes the filter of the events so that all events will be displayed. */
+    public void showAllEvents() {
+        this.logic.resetFilterOfEvents();
+    }
+
+    /** Changes the filter of the contacts so that all contacts will be displayed. */
+    public void showAllContacts() {
+        this.logic.resetFilterOfContacts();
     }
 
     /**

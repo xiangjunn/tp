@@ -84,4 +84,24 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public void filterContactsWithLinksToEvent(Event event) {
+        model.updateFilteredContactList(contact -> contact.getLinkedEvents().contains(event.getUuid()));
+    }
+
+    @Override
+    public void filterEventsWithLinkToContact(Contact contact) {
+        model.updateFilteredEventList(event -> event.getLinkedContacts().contains(contact.getUuid()));
+    }
+
+    @Override
+    public void resetFilterOfContacts() {
+        model.rerenderContactCards();
+    }
+
+    @Override
+    public void resetFilterOfEvents() {
+        model.rerenderEventCards();
+    }
 }
