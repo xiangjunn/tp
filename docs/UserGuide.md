@@ -113,7 +113,7 @@ This section details all the features and commands available in SoConnect that c
 * [Editing a contact](#editing-a-contact-cedit)
 * [Finding contacts](#finding-contacts-cfind)
 * [Listing all contacts](#listing-all-contacts-clist)
-* [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)
+* [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)
 * [Viewing a contact](#viewing-a-contact-cview)
 
 
@@ -138,7 +138,7 @@ Bookmarks the specified contact(s).
 
 **Format:** `cmark INDEX1 [INDEX]...`
 
-![image](images/demo-screenshots/BookmarkContacts.png)
+![image](images/demo-screenshots/BookmarkContact.png)
 
 * Bookmarks the contact at `INDEX1` and places it in the bookmarked contacts section (at index 2) in the contacts list.
 * You may bookmark **more than one contact at a time** by specifying multiple indexes `cmark 1 2`.
@@ -153,7 +153,7 @@ Bookmarks the specified contact(s).
 * `cmark 2` bookmarks the second contact in the list (Bernice Yu).
 * `cmark 2 4` bookmarks the second (Bernice Yu) and fourth (David Li) contacts in the list.
 
-_See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
+_See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)_
 
 
 
@@ -281,16 +281,16 @@ Do not add extraneous values after each optional field you specify.
 * `clist e/ p/` shows all contacts in SoConnect with only their names, email addresses and phone numbers (if available).
 
 
-### Removing bookmark of a contact: `cunmark`
+### Removing bookmark of a contact: `cumark`
 
 Remove bookmark(s) of the specified contact(s).
 
-**Format:** `cunmark INDEX1 [INDEX]...`
+**Format:** `cumark INDEX1 [INDEX]...`
 
 ![image](images/demo-screenshots/UnmarkContacts.png)
 
 * Removes the bookmark of the contact at `INDEX1` and places it **after** the bookmarked contacts section (at index 4) in the contacts list.  
-* You may remove bookmarks of **more than one contact at a time** by specifying multiple indexes, eg `cunmark 1 2`
+* You may remove bookmarks of **more than one contact at a time** by specifying multiple indexes, eg `cumark 1 2`
 * `INDEX` refers to the index number shown in the displayed contact list.
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
@@ -300,10 +300,10 @@ Remove bookmark(s) of the specified contact(s).
 </div>
 
 **Examples:**
-* `cunmark 1` removes the bookmark of the first contact in the list (Alex Yeoh).
-* `cunmark 2 3` removes the bookmarks of the second (Charlotte Oliveiro) and third (Irfan Ibrahim) contact in the list.
+* `cumark 1` removes the bookmark of the first contact in the list (Alex Yeoh).
+* `cumark 2 3` removes the bookmarks of the second (Charlotte Oliveiro) and third (Irfan Ibrahim) contact in the list.
 
-_See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)
+_See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
 ### Viewing a contact: `cview`
 
@@ -336,7 +336,7 @@ This section details all the features and commands available in SoConnect that c
 * [Finding events](#finding-events-efind)
 * [Linking an event to contacts](#linking-an-event-to-contacts-elink)
 * [Listing all events](#listing-all-events-elist)
-* [Removing bookmark of an event](#removing-bookmark-of-an-event-eunmark)
+* [Removing bookmark of an event](#removing-bookmark-of-an-event-eumark)
 * [Sorting events](#sorting-events-esort)
 * [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)
 * [Viewing an event](#viewing-an-event-eview)
@@ -386,7 +386,7 @@ Bookmarks the specified event(s).
 * `emark 2` bookmarks the second event in the list (Dance Class).
 * `emark 2 4` bookmarks the second (Dance Class) and fourth (Google Interview) event in the list.
 
-_See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
+_See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)_
 
 
 ### Clearing all events: `eclear`
@@ -531,16 +531,16 @@ Do not add extraneous values after each optional field you specify.
 * `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
 
 
-### Removing bookmark of an event: `eunmark`
+### Removing bookmark of an event: `eumark`
 
 Removes bookmark of the specified event(s).
 
-**Format:** `eunmark INDEX1 [INDEX]...`
+**Format:** `eumark INDEX1 [INDEX]...`
 
 ![image](images/demo-screenshots/UnmarkEvents.png)
 
 * Removes bookmark of the event at `INDEX1` and places it **after** the bookmarked events section (at index 5) in the events list.
-* You may **remove bookmarks of more than one event** by specifying multiple indexes, eg `eunmark 1 2`
+* You may **remove bookmarks of more than one event** by specifying multiple indexes, eg `eumark 1 2`
 * `INDEX` refers to the index number shown in the displayed event list.
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
@@ -550,8 +550,8 @@ Removes bookmark of the specified event(s).
 </div>
 
 **Examples:**
-* `eunmark 1` unmarks the first event in the list (CS2103T project meeting).
-* `eunmark 2 4` unmarks the second (Dance Class) and fourth (Google Interview) event in the list.
+* `eumark 1` removes the bookmark of the first event in the list (CS2103T project meeting).
+* `eumark 2 4` removes the bookmark of the second (Dance Class) and fourth (Google Interview) event in the list.
 
 _See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
@@ -644,7 +644,7 @@ Shows a link which refers you to SoConnect User Guide.
 
 **Format:** `help`
 
-![help message](images/helpMessage.png)
+![help message](images/demo-screenshots/helpMessage.png)
 
 
 ### Redo a command: `redo`
@@ -763,7 +763,7 @@ Action | Format, Examples
 **[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g. `cedit 3 dt/*`
 **[Find](#finding-contacts-cfind)** | `cfind [KEYWORD]… [e/KEYWORD…] [p/KEYWORD…] [a/KEYWORD…] [th/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`<br> e.g. `cfind James Jake p/12345678`
 **[List](#listing-all-contacts-clist)** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g. `clist` <br> e.g. `clist e/ p/`
-**[Removing Bookmark](#removing-bookmark-of-a-contact-cunmark)** | `cunmark INDEX [INDEX]…`<br> e.g. `cunmark 1 3 4`
+**[Remove Bookmark](#removing-bookmark-of-a-contact-cumark)** | `cumark INDEX [INDEX]…`<br> e.g. `cumark 1 3 4`
 **[View](#viewing-a-contact-cview)** | `cview INDEX`<br> e.g. `cview 3`
 
 **Event Management**
@@ -778,7 +778,7 @@ Action | Format, Examples
 **[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind CS2103T t/hard`
 **[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2 c/3`
 **[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
-**[Removing Bookmark](#removing-bookmark-of-an-event-eunmark)** | `eunmark INDEX [INDEX]…`<br> e.g. `eunmark 1 3 4`
+**[Remove Bookmark](#removing-bookmark-of-an-event-eumark)** | `eumark INDEX [INDEX]…`<br> e.g. `eumark 1 3 4`
 **[Sort](#sorting-events-esort)** | `esort`
 **[Unlink](#unlinking-an-event-from-contacts-eunlink)** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1 c/2` <br> e.g., `eunlink 3 c/*`
 **[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
