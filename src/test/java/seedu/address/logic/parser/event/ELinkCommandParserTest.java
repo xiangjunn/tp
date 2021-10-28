@@ -3,7 +3,6 @@ package seedu.address.logic.parser.event;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.general.CommandTestUtil.EMPTY_PREFIX_CONTACT;
 import static seedu.address.logic.commands.general.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_INDEX_ONE;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_INDEX_TWO;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -60,10 +59,10 @@ class ELinkCommandParserTest {
             + VALID_INDEX_ONE, MESSAGE_INVALID_FORMAT);
 
         // Invalid index
-        assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_ADDRESS_AMY + EMPTY_PREFIX_CONTACT
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "index" + EMPTY_PREFIX_CONTACT
             + VALID_INDEX_ONE, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
-            + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + VALID_ADDRESS_AMY, MESSAGE_INVALID_FORMAT);
+            + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + "index", MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
             + "*", MESSAGE_INVALID_FORMAT);
     }
