@@ -59,10 +59,10 @@ class ELinkCommandParserTest {
             + VALID_INDEX_ONE, MESSAGE_INVALID_FORMAT);
 
         // Invalid index
-        assertParseFailure(parser, PREAMBLE_WHITESPACE + "index" + EMPTY_PREFIX_CONTACT
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "a" + EMPTY_PREFIX_CONTACT
             + VALID_INDEX_ONE, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
-            + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + "index", MESSAGE_INVALID_FORMAT);
+            + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + "a", MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
             + "*", MESSAGE_INVALID_FORMAT);
     }
