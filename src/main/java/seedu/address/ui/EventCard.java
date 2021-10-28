@@ -5,13 +5,16 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Comparator;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
@@ -38,6 +41,8 @@ public class EventCard extends UiPart<Region> {
     private final Event event;
 
     private MainWindow mainWindow;
+
+    private boolean isShowLinks = false;
 
     @FXML
     private Label id;
@@ -71,6 +76,9 @@ public class EventCard extends UiPart<Region> {
 
     @FXML
     private FlowPane links;
+
+    @FXML
+    private HBox linksHBox;
 
     /**
      * Creates an {@code EventCard} with the given {@code Event} and index to display.
@@ -135,13 +143,23 @@ public class EventCard extends UiPart<Region> {
         }
         if (!event.getLinkedContacts().isEmpty()) {
             event.getLinkedContacts().stream()
-                .sorted(Comparator.comparing(contactUuid -> contactUuid.toString()))
+                .sorted(Comparator.comparing(UUID::toString))
                 .forEach(contactUuid -> links.getChildren()
                     .add(new Label(Contact.findByUuid(contactUuid).getName().toString())));
             linkToContact.setManaged(true);
             linkToContact.setVisible(true);
             links.setManaged(true);
+            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
         }
+    }
+
+    private void toggleShowLinks(MouseEvent e) {
+        if (isShowLinks) {
+            mainWindow.showAllContacts();
+        } else {
+            mainWindow.showLinksOfEvent(event);
+        }
+        isShowLinks = !isShowLinks;
     }
 
     @Override
@@ -219,7 +237,7 @@ public class EventCard extends UiPart<Region> {
      */
     private void openLink(String link, String fieldName) {
         try {
-            if (!link.matches("^(http(s)?://)")) {
+            if (!link.matches("^http(s)?://.*$")) {
                 link = "http://" + link;
             }
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {

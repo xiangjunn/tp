@@ -29,30 +29,30 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="name" onMouseClicked="#copyName" styleClass="cell_big_label, clickable" text="\$first" />
       </HBox>
       <Label fx:id="email" managed="false" visible="false" onMouseClicked="#copyEmail"
-             styleClass="cell_small_label" text="\$email" />
+             styleClass="cell_small_label, clickable" text="\$email" />
 
       <!-- Optional fields -->
       <!-- phone -->
       <Label fx:id="phone" managed="false" visible="false" onMouseClicked="#copyPhone"
-             styleClass="cell_small_label" text="\$phone" />
+             styleClass="cell_small_label, clickable" text="\$phone" />
 
       <!-- address -->
       <Label fx:id="address" managed="false" visible="false" onMouseClicked="#copyAddress"
-             styleClass="cell_small_label" text="\$address" />
+             styleClass="cell_small_label, clickable" text="\$address" />
 
       <!-- telegram handle -->
       <Label fx:id="telegramHandle" managed="false" visible="false" onMouseClicked="#openTelegramHandle"
-             styleClass="cell_small_label" text="\$telegramHandle" />
+             styleClass="cell_small_label, clickable" text="\$telegramHandle" />
 
       <!-- zoom -->
       <Label fx:id="zoom" managed="false" visible="false" onMouseClicked="#openZoomLink"
-             styleClass="cell_small_label" text="\$zoom" />
+             styleClass="cell_small_label, clickable" text="\$zoom" />
 
       <!-- links -->
-      <HBox>
+      <HBox fx:id="linksHBox" styleClass="clickable">
         <padding>
           <Insets top="2" bottom="2" />
         </padding>
