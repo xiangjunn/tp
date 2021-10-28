@@ -70,6 +70,7 @@ public class TypicalEvents {
 
     private TypicalEvents() {}
 
+
     /**
      * Returns an {@code AddressBook} with all the typical events.
      *
@@ -86,4 +87,5 @@ public class TypicalEvents {
         return new ArrayList<>(Arrays.asList(CS2103_MIDTERM, CS2100_CONSULTATION, CS2101_MEETING, FOOTBALL_PRACTICE,
                 TEAM_MEETING, BIRTHDAY_PARTY));
     }
+
 }

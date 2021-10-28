@@ -31,6 +31,9 @@
                 </Label>
                 <!-- event name -->
                 <Label fx:id="eventName" onMouseClicked="#copyName" styleClass="cell_big_label, clickable" text="\$first"/>
+                <VBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+                    <Label fx:id="favourite" managed="false" visible="false" ></Label>
+                </VBox>
             </HBox>
 
             <!-- start date -->

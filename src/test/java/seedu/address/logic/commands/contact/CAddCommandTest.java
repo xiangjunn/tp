@@ -189,7 +189,22 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void updateFilteredContactList(Predicate<Contact> predicate) {
+        public void updateFilteredContactList(Predicate<? super Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void bookmarkContactIndexedAt(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void reshuffleContactsInOrder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unmarkContactIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -241,7 +256,6 @@ public class CAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public void updateEventListByIndex(Index index) {
             throw new AssertionError("This method should not be called.");
         };
@@ -265,7 +279,6 @@ public class CAddCommandTest {
         public void rerenderContactCards() {
             throw new AssertionError("This method should not be called.");
         }
-
         @Override
         public void rerenderEventCards() {
             throw new AssertionError("This method should not be called.");
@@ -273,7 +286,21 @@ public class CAddCommandTest {
 
         @Override
         public void rerenderAllCards() {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void bookmarkEventIndexedAt(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void reshuffleEventsInOrder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unmarkEventIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
     }

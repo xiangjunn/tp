@@ -116,13 +116,28 @@ public interface Model {
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredContactList(Predicate<Contact> predicate);
+    void updateFilteredContactList(Predicate<? super Contact> predicate);
+
+    /**
+     * Bookmarks the contact indexed at the specified index.
+     */
+    void bookmarkContactIndexedAt(Index index);
+
+    /**
+     * This will change the order of the filtered list, bookmarked contacts will be placed at the top of the list.
+     */
+    public void reshuffleContactsInOrder();
 
     /**
      * Updates the filter of the filtered contact list to show the contact at {@code index}.
      * @throws NullPointerException if {@code index} is null.
      */
     void updateContactListByIndex(Index index);
+
+    /**
+     * Unmarks the contact indexed at the specified index.
+     */
+    void unmarkContactIndexedAt(Index index);
 
     //=========== Event Management =============================================================
 
@@ -209,5 +224,21 @@ public interface Model {
      * Re-render both contact and event cards in UI to show the most updated version.
      */
     void rerenderAllCards();
+    /**
+     * Bookmarks the event indexed at the specified index. This will change the order of the filtered list,
+     * placing bookmarked event at the top of the list.
+     */
+    void bookmarkEventIndexedAt(Index index);
+
+    /**
+     * This will change the order of the filtered list, bookmarked events will be placed at the top of the list.
+     */
+    void reshuffleEventsInOrder();
+
+    /**
+     * Unmarks the event indexed at the specified index.
+     */
+    void unmarkEventIndexedAt(Index index);
+
 
 }

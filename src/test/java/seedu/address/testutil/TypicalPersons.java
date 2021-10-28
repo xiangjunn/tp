@@ -68,6 +68,10 @@ public class TypicalPersons {
 
     private TypicalPersons() {} // prevents instantiation
 
+    public static List<Contact> getTypicalPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
@@ -79,7 +83,4 @@ public class TypicalPersons {
         return ab;
     }
 
-    public static List<Contact> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
 }

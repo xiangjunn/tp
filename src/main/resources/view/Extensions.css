@@ -74,3 +74,7 @@
 #linkToContact{
     -fx-graphic:url(../images/group.png);
 }
+
+#favourite{
+    -fx-graphic:url(../images/bookmark.png);
+}

@@ -51,6 +51,9 @@ public class EventCard extends UiPart<Region> {
     private Label eventName;
 
     @FXML
+    private Label favourite;
+
+    @FXML
     private Label from;
 
     @FXML
@@ -141,6 +144,7 @@ public class EventCard extends UiPart<Region> {
             tagIcon.setVisible(true);
             tags.setManaged(true);
         }
+
         if (!event.getLinkedContacts().isEmpty()) {
             event.getLinkedContacts().stream()
                 .sorted(Comparator.comparing(UUID::toString))
@@ -150,6 +154,10 @@ public class EventCard extends UiPart<Region> {
             linkToContact.setVisible(true);
             links.setManaged(true);
             linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+        }
+        if (event.getIsBookMarked()) {
+            favourite.setManaged(true);
+            favourite.setVisible(true);
         }
     }
 
