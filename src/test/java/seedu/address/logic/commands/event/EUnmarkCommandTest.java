@@ -56,15 +56,15 @@ class EUnmarkCommandTest {
         assertThrows(NullPointerException.class, () -> new EUnmarkCommand(null));
     }
 
-    @Test
-    public void execute_validIndexUnfilteredList_success() {
+    //@Test
+    //public void execute_validIndexUnfilteredList_success() {
     //        String expectedMessage = String.format(EUnmarkCommand.MESSAGE_SUCCESS, TEAM_MEETING_BOOKMARKED) + "\n";
     //        List<Index> indexes = List.of(Index.fromOneBased(1));
     //        EUnmarkCommand eUnmarkCommand = new EUnmarkCommand(indexes);
     //        assertCommandSuccess(eUnmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
     //
     //        //TODO test with at least one marked event remaining
-    }
+    //}
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
@@ -73,14 +73,14 @@ class EUnmarkCommandTest {
         assertCommandFailure(eunmarkCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void execute_eventNotMarked() {
+    //@Test
+    //public void execute_eventNotMarked() {
     //        List<Index> indexes = List.of(Index.fromOneBased(1));
     //        model = expectedModel;
     //        EUnmarkCommand eunmarkCommand = new EUnmarkCommand(indexes);
     //        String expectedMessage = String.format(EUnmarkCommand.MESSAGE_NOT_MARKED, TEAM_MEETING) + "\n";
     //        assertCommandSuccess(eunmarkCommand, model, expectedMessage, expectedModel);
-    }
+    //}
 
     @Test
     public void equals() {

@@ -67,15 +67,15 @@ class CUnmarkCommandTest {
         assertThrows(NullPointerException.class, () -> new CUnmarkCommand(null));
     }
 
-    @Test
-    public void execute_validIndexUnfilteredList_success() {
+    //@Test
+    //public void execute_validIndexUnfilteredList_success() {
     //        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_SUCCESS, ELLE_BOOKMARKED) + "\n";
     //        List<Index> indexes = List.of(Index.fromOneBased(1));
     //        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
     //        assertCommandSuccess(cunmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
     //
     //        //TODO test with at least one marked contact remaining
-    }
+    //}
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
@@ -85,14 +85,14 @@ class CUnmarkCommandTest {
         assertCommandFailure(cunmarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void execute_contactNotMarked() {
+    //@Test
+    //public void execute_contactNotMarked() {
     //        List<Index> indexes = List.of(Index.fromOneBased(1));
     //
     //        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
     //        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_NOT_MARKED, ELLE) + "\n";
     //        assertCommandSuccess(cunmarkCommand, model, expectedMessage, expectedModel);
-    }
+    //}
 
     @Test
     public void equals() {
