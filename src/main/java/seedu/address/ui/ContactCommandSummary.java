@@ -18,7 +18,7 @@ public class ContactCommandSummary {
     public static final String CLEAR = "Clear";
     public static final String DELETE = "Delete";
     public static final String EDIT = "Edit";
-    public static final String FIND = "Find\n (at least one keyword must be present)";
+    public static final String FIND = "Find\n(at least one keyword must be present)";
     public static final String LIST = "List";
     public static final String VIEW = "View";
 
