@@ -112,6 +112,8 @@ This section details all the features and commands available in SoConnect that c
 * [Editing a contact](#editing-a-contact-cedit)
 * [Finding contacts](#finding-contacts-cfind)
 * [Listing all contacts](#listing-all-contacts-clist)
+* [Bookmarking contact(s)](3bookmarking-contact(s))
+* [Unmarking contact(s)](3unmarking-contact(s))
 * [Viewing a contact](#viewing-a-contact-cview)
 
 
@@ -253,6 +255,51 @@ Do not add extraneous values after each optional field you specify.
 * `clist` shows all contacts in SoConnect with all available details for each contact.
 * `clist e/ p/` shows all contacts in SoConnect with only their names, email addresses and phone numbers (if available).
 
+### Bookmarking contact(s): `cmark`
+
+Marks the specified contact(s).
+
+**Format:** `cmark INDEX1 [INDEX]...`
+
+![image](images/demo-screenshots/BookmarkContacts.png)
+
+* Bookmarks the contact at `INDEX1` and places it in the bookmarked contacts section (at index 2) in the contacts list.  
+* You may bookmark more than one contact by specifying multiple indexes `cmark 1 2`
+* `INDEX` refers to the index number shown in the displayed contact list.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`INDEX` **must be a positive integer**, eg 1, 2, 3, …
+
+</div>
+
+**Examples:**
+* `cmark 2` bookmarks the second contact in the list (Bernice Yu).
+* `cmark 2 4` bookmarks the second (Bernice Yu) and fourth (David Li) contacts in the list.
+
+### Unmarking contact(s): `cunmark`
+
+Unmarks the specified contact(s).
+
+**Format:** `cunmark INDEX1 [INDEX]...`
+
+![image](images/demo-screenshots/UnmarkContacts.png)
+
+* Unmarks the contact at `INDEX1` and places it **after** the bookmarked contacts section (at index 4) in the contacts list.  
+* You may unmark more than one contact by specifying multiple indexes, eg `cunmark 1 2`
+* `INDEX` refers to the index number shown in the displayed contact list.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`INDEX` **must be a positive integer**, eg 1, 2, 3, …
+   
+ You must ensure that the contact indexed at `INDEX` is **initially bookmarked**. 
+
+</div>
+
+**Examples:**
+* `cunmark 1` unmarks the first contact in the list (Alex Yeoh).
+* `cunmark 2 3` unmarks the second (Charlotte Oliveiro) and third (Irfan Ibrahim) contacts in the list.
 
 ### Viewing a contact: `cview`
 
@@ -284,7 +331,9 @@ This section details all the features and commands available in SoConnect that c
 * [Finding events](#finding-events-efind)
 * [Linking an event to contacts](#linking-an-event-to-contacts-elink)
 * [Listing all events](#listing-all-events-elist)
+* [Bookmarking contact(s)](3bookmarking-contact(s))
 * [Sorting events](#sorting-events-esort)
+* [Unmarking event(s)](3unmarking-event(s))
 * [Viewing an event](#viewing-an-event-eview)
 
 
@@ -450,6 +499,27 @@ Do not add extraneous values after each optional field you specify.
 * `elist` shows all events in SoConnect with all available details for each event.
 * `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
 
+### Bookmarking event(s): `emark`
+
+Marks the specified event(s).
+
+**Format:** `emark INDEX1 [INDEX]...`
+
+![image](images/demo-screenshots/BookmarkEvents.png)
+
+* Bookmarks the event at `INDEX1` and adds it to the back of the bookmarked events section (at index 2) in the events list.  
+* You may bookmark more than one event by specifying multiple indexes, eg `emark 1 2`
+* `INDEX` refers to the index number shown in the displayed event list.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`INDEX` **must be a positive integer**, eg 1, 2, 3, …
+
+</div>
+
+**Examples:**
+* `emark 2` bookmarks the second event in the list (Dance Class).
+* `emark 2 4` bookmarks the second (Dance Class) and fourth (Google Interview) event in the list.
 
 ### Sorting events: `esort`
 
@@ -462,6 +532,29 @@ Sorts all events by start time and displays all upcoming or ongoing events.
 Events that have ended will not be shown after you execute `esort`
 </div>
 
+### Unmarking event(s): `eunmark`
+
+Unmarks the specified event(s).
+
+**Format:** `eunmark INDEX1 [INDEX]...`
+
+![image](images/demo-screenshots/UnmarkEvents.png)
+
+* Unmarks the event at `INDEX1` and places it **after** the bookmarked events section (at index 5) in the events list.  
+* You may unmark more than one event by specifying multiple indexes, eg `eunmark 1 2` 
+* `INDEX` refers to the index number shown in the displayed event list.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+`INDEX` **must be a positive integer**, eg 1, 2, 3, …
+   
+ You must ensure that the event indexed at `INDEX` is **initially bookmarked**. 
+
+</div>
+
+**Examples:**
+* `eunmark 1` unmarks the first event in the list (CS2103T project meeting).
+* `eunmark 2 4` unmarks the second (Dance Class) and fourth (Google Interview) event in the list.
 
 ### Viewing an event: `eview`
 
