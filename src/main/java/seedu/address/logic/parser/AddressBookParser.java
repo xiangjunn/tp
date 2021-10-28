@@ -8,13 +8,16 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.contact.CAddCommand;
+import seedu.address.logic.commands.contact.CBookmarkCommand;
 import seedu.address.logic.commands.contact.CClearCommand;
 import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.contact.CUnmarkCommand;
 import seedu.address.logic.commands.contact.CViewCommand;
 import seedu.address.logic.commands.event.EAddCommand;
+import seedu.address.logic.commands.event.EBookmarkCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
 import seedu.address.logic.commands.event.EEditCommand;
@@ -23,6 +26,7 @@ import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.event.ESortCommand;
 import seedu.address.logic.commands.event.EUnlinkCommand;
+import seedu.address.logic.commands.event.EUnmarkCommand;
 import seedu.address.logic.commands.event.EViewCommand;
 import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.commands.general.ExitCommand;
@@ -30,18 +34,22 @@ import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.general.RedoCommand;
 import seedu.address.logic.commands.general.UndoCommand;
 import seedu.address.logic.parser.contact.CAddCommandParser;
+import seedu.address.logic.parser.contact.CBookmarkCommandParser;
 import seedu.address.logic.parser.contact.CDeleteCommandParser;
 import seedu.address.logic.parser.contact.CEditCommandParser;
 import seedu.address.logic.parser.contact.CFindCommandParser;
 import seedu.address.logic.parser.contact.CListCommandParser;
+import seedu.address.logic.parser.contact.CUnmarkCommandParser;
 import seedu.address.logic.parser.contact.CViewCommandParser;
 import seedu.address.logic.parser.event.EAddCommandParser;
+import seedu.address.logic.parser.event.EBookmarkCommandParser;
 import seedu.address.logic.parser.event.EDeleteCommandParser;
 import seedu.address.logic.parser.event.EEditCommandParser;
 import seedu.address.logic.parser.event.EFindCommandParser;
 import seedu.address.logic.parser.event.ELinkCommandParser;
 import seedu.address.logic.parser.event.EListCommandParser;
 import seedu.address.logic.parser.event.EUnlinkCommandParser;
+import seedu.address.logic.parser.event.EUnmarkCommandParser;
 import seedu.address.logic.parser.event.EViewCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -93,6 +101,12 @@ public class AddressBookParser {
         case CViewCommand.COMMAND_WORD:
             return new CViewCommandParser().parse(arguments);
 
+        case CBookmarkCommand.COMMAND_WORD:
+            return new CBookmarkCommandParser().parse(arguments);
+
+        case CUnmarkCommand.COMMAND_WORD:
+            return new CUnmarkCommandParser().parse(arguments);
+
         case EAddCommand.COMMAND_WORD:
             return new EAddCommandParser().parse(arguments);
 
@@ -122,6 +136,12 @@ public class AddressBookParser {
 
         case EViewCommand.COMMAND_WORD:
             return new EViewCommandParser().parse(arguments);
+
+        case EBookmarkCommand.COMMAND_WORD:
+            return new EBookmarkCommandParser().parse(arguments);
+
+        case EUnmarkCommand.COMMAND_WORD:
+            return new EUnmarkCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

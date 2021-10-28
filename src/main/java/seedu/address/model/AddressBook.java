@@ -173,6 +173,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         setEvents(newData.getEventList());
     }
 
+    /**
+     * Places bookmarked {@code contacts} at the top of the list.
+     */
+    public void reshuffleContactsInOrder() {
+        contacts.reshuffleContactsInOrder();
+    }
+
     //// event-level operations
 
     /**
@@ -243,6 +250,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.events.resetEvents();
     }
 
+    /**
+     * Places bookmarked {@code events} at the top of the list.
+     */
+    public void reshuffleEventsInOrder() {
+        events.reshuffleEventsInOrder();
+    }
 
     //// contact-level operations
 

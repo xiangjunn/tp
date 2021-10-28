@@ -206,7 +206,22 @@ class EAddCommandTest {
         }
 
         @Override
-        public void updateFilteredContactList(Predicate<Contact> predicate) {
+        public void updateFilteredContactList(Predicate<? super Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void bookmarkContactIndexedAt(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void reshuffleContactsInOrder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unmarkContactIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -259,7 +274,6 @@ class EAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public void updateEventListByIndex(Index index) {
             throw new AssertionError("This method should not be called.");
         }
@@ -291,6 +305,20 @@ class EAddCommandTest {
 
         @Override
         public void rerenderAllCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void bookmarkEventIndexedAt(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void reshuffleEventsInOrder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unmarkEventIndexedAt(Index index) {
             throw new AssertionError("This method should not be called.");
         }
     }

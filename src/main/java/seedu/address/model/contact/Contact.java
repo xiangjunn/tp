@@ -43,6 +43,7 @@ public class Contact {
     private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedEvents = new HashSet<>();
+    private boolean isBookMarked;
 
     /**
      * Name, email and tags must be present and not null.
@@ -59,6 +60,7 @@ public class Contact {
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
         this.uuid = UUID.randomUUID(); // to generate a uuid to uniquely identify contact
+        this.isBookMarked = false;
     }
 
     /**
@@ -69,8 +71,8 @@ public class Contact {
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents) {
-        requireAllNonNull(name, email, tags);
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isBookMarked) {
+        requireAllNonNull(name, email, tags, isBookMarked);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -80,6 +82,8 @@ public class Contact {
         this.zoomLink = zoomLink;
         this.uuid = uuid;
         this.linkedEvents.addAll(linkedEvents);
+        this.isBookMarked = isBookMarked;
+
     }
 
     public Name getName() {
@@ -198,6 +202,13 @@ public class Contact {
 
     public static void setViewingMode(boolean viewingMode) {
         Contact.viewingMode = viewingMode;
+    }
+    public boolean getIsBookMarked() {
+        return isBookMarked;
+    }
+
+    public void setBookMarked(boolean bookMarked) {
+        isBookMarked = bookMarked;
     }
 
     /**
@@ -346,7 +357,8 @@ public class Contact {
             && Objects.equals(getTelegramHandle(), contact.getTelegramHandle())
             && Objects.equals(getZoomLink(), contact.getZoomLink())
             && Objects.equals(getAddress(), contact.getAddress())
-            && Objects.equals(getTags(), contact.getTags());
+            && Objects.equals(getTags(), contact.getTags())
+            && Objects.equals(getIsBookMarked(), contact.getIsBookMarked());
     }
 
     @Override
