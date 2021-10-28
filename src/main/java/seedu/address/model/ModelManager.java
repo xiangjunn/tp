@@ -196,6 +196,16 @@ public class ModelManager implements Model {
      * Reset the display to addressBook to display all contacts and events
      */
     public void resetDisplayAllFilteredList() {
+        filteredContacts.forEach(contact -> {
+            Contact.setViewingMode(false);
+            Contact.setAllDisplayToTrue();
+        });
+        filteredEvents.forEach(event -> {
+            Event.setViewingMode(false);
+            Event.setAllDisplayToTrue();
+        });
+        updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
+        updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
