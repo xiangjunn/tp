@@ -45,7 +45,7 @@ public class CEditCommandTest {
 
         String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
         assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
@@ -66,7 +66,7 @@ public class CEditCommandTest {
 
         String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
 
         assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
@@ -79,7 +79,7 @@ public class CEditCommandTest {
 
         String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
 
         assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
     }
@@ -95,7 +95,7 @@ public class CEditCommandTest {
 
         String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
         assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
@@ -115,7 +115,7 @@ public class CEditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit contact in filtered list into a duplicate in address book
-        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Contact contactInList = getTypicalAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
         CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder(contactInList, Set.of(), false).build());
 
@@ -140,7 +140,7 @@ public class CEditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < getTypicalAddressBook().getContactList().size());
 
         CEditCommand cEditCommand = new CEditCommand(outOfBoundIndex,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());

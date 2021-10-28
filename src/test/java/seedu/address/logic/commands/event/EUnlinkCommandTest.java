@@ -78,7 +78,7 @@ class EUnlinkCommandTest {
             Set.of(TypicalIndexes.INDEX_FIRST_PERSON), false);
         Event eventToUnlink = typicalModel.getFilteredEventList().get(0);
         Contact contactToUnlink = typicalModel.getFilteredContactList().get(0);
-        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
+        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
         setUp(newModel);
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
@@ -96,7 +96,7 @@ class EUnlinkCommandTest {
         Contact contact1ToUnlink = typicalModel.getFilteredContactList().get(0);
         Contact contact2ToUnlink = typicalModel.getFilteredContactList().get(1);
         Set<Contact> setOfContacts = Set.of(contact1ToUnlink, contact2ToUnlink);
-        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
+        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
         setUp(newModel);
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
@@ -113,7 +113,7 @@ class EUnlinkCommandTest {
             INDEX_FIRST_EVENT,
             Set.of(), true);
         Event eventToUnlink = typicalModel.getFilteredEventList().get(0);
-        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
+        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
         setUp(newModel);
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));

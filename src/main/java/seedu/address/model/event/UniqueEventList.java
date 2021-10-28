@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -151,6 +152,14 @@ public class UniqueEventList implements Iterable<Event> {
     public void unmarkEvent(Index index) {
         Event eventToMark = internalUnmodifiableList.get(index.getZeroBased());
         eventToMark.setBookMarked(false);
+    }
+
+     * Create a copy of a uniqueEventList
+     * @return
+     */
+    public ObservableList<Event> copy() {
+        List<Event> eventList = new ArrayList<>(internalList);
+        return FXCollections.observableArrayList(eventList);
     }
 
     /**
