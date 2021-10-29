@@ -140,7 +140,7 @@ Bookmarks the specified contact(s).
 
 ![image](images/demo-screenshots/BookmarkContact.png)
 
-* Bookmarks the contact at `INDEX1` and places it in the bookmarked contacts section (at index 2) in the contacts list.
+* Bookmarks the contact at `INDEX1` and pins it at the top of the contact list.
 * You may bookmark **more than one contact at a time** by specifying multiple indexes `cmark 1 2`.
 * `INDEX` refers to the index number shown in the displayed contact list.
 
@@ -150,8 +150,8 @@ Bookmarks the specified contact(s).
 </div>
 
 **Examples:**
-* `cmark 2` bookmarks the second contact in the list (Bernice Yu).
-* `cmark 2 4` bookmarks the second (Bernice Yu) and fourth (David Li) contacts in the list.
+* `cmark 2` bookmarks the second contact in SoConnect.
+* `cmark 2 4` bookmarks the second and fourth contacts in SoConnect.
 
 _See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)_
 
@@ -287,9 +287,7 @@ Remove bookmark(s) of the specified contact(s).
 
 **Format:** `cumark INDEX1 [INDEX]...`
 
-![image](images/demo-screenshots/UnmarkContacts.png)
-
-* Removes the bookmark of the contact at `INDEX1` and places it **after** the bookmarked contacts section (at index 4) in the contacts list.  
+* Removes the bookmark of the contact at `INDEX1`.  
 * You may remove bookmarks of **more than one contact at a time** by specifying multiple indexes, eg `cumark 1 2`
 * `INDEX` refers to the index number shown in the displayed contact list.
 
@@ -300,8 +298,8 @@ Remove bookmark(s) of the specified contact(s).
 </div>
 
 **Examples:**
-* `cumark 1` removes the bookmark of the first contact in the list (Alex Yeoh).
-* `cumark 2 3` removes the bookmarks of the second (Charlotte Oliveiro) and third (Irfan Ibrahim) contact in the list.
+* `cumark 1` removes the bookmark of the first contact in SoConnect.
+* `cumark 2 3` removes the bookmarks of the second and third contact in SoConnect.
 
 _See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
@@ -373,7 +371,7 @@ Bookmarks the specified event(s).
 
 ![image](images/demo-screenshots/BookmarkEvents.png)
 
-* Bookmarks the event at `INDEX1` and adds it to the back of the bookmarked events section (at index 2) in the events list.
+* Bookmarks the event at `INDEX1` and pins it to the top of the event list.
 * You may bookmark **more than one event at a time** by specifying multiple indexes, eg `emark 1 2`
 * `INDEX` refers to the index number shown in the displayed event list.
 
@@ -383,8 +381,8 @@ Bookmarks the specified event(s).
 </div>
 
 **Examples:**
-* `emark 2` bookmarks the second event in the list (Dance Class).
-* `emark 2 4` bookmarks the second (Dance Class) and fourth (Google Interview) event in the list.
+* `emark 2` bookmarks the second event in SoConnect.
+* `emark 2 4` bookmarks the second and fourth event in SoConnect.
 
 _See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)_
 
@@ -537,9 +535,7 @@ Removes bookmark of the specified event(s).
 
 **Format:** `eumark INDEX1 [INDEX]...`
 
-![image](images/demo-screenshots/UnmarkEvents.png)
-
-* Removes bookmark of the event at `INDEX1` and places it **after** the bookmarked events section (at index 5) in the events list.
+* Removes bookmark of the event at `INDEX1`.
 * You may **remove bookmarks of more than one event** by specifying multiple indexes, eg `eumark 1 2`
 * `INDEX` refers to the index number shown in the displayed event list.
 
@@ -550,8 +546,8 @@ Removes bookmark of the specified event(s).
 </div>
 
 **Examples:**
-* `eumark 1` removes the bookmark of the first event in the list (CS2103T project meeting).
-* `eumark 2 4` removes the bookmark of the second (Dance Class) and fourth (Google Interview) event in the list.
+* `eumark 1` removes the bookmark of the first event in SoConnect.
+* `eumark 2 4` removes the bookmark of the second and fourth event in SoConnect.
 
 _See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
@@ -640,7 +636,7 @@ Exits and Closes SoConnect.
 
 ### Help Window: `help`
 
-Shows a link which refers you to SoConnect User Guide.
+Displays a summary of all commands in SoConnect User Guide.
 
 **Format:** `help`
 
@@ -743,9 +739,18 @@ Typically, we link an event to a contact if the contact is involved as a partici
 For instance, you can link your professor to the lecture.
 
 
-### How to start SoConnect using Command Prompt
+### How to start SoConnect using Terminal
 
-{to be added soon}
+Open the terminal (For [MacOS](https://support.apple.com/en-sg/guide/terminal/welcome/mac) or Linux) or Command Prompt (For [Windows](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)).
+
+Navigate to the folder containing `soconnect.jar`. See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/), [MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html) (Linux uses the same command for navigating folders).
+
+Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+If you are still unable to open the file, [check your Java version](https://www.java.com/en/download/help/version_manual.html) again and make sure it is version 11. [Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
+</div>
 
 
 --------------------------------------------------------------------------------------------------------------------
