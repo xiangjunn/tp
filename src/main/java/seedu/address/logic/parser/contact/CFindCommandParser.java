@@ -21,14 +21,14 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new CFindCommand object
  */
 public class CFindCommandParser implements Parser<CFindCommand> {
 
-    private ContactNameContainsKeywordsPredicate predicate;
+    private ContactContainsKeywordsPredicate predicate;
 
     /**
      * Parses the given {@code String} of arguments in the context of the CFindCommand
@@ -45,10 +45,10 @@ public class CFindCommandParser implements Parser<CFindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CFindCommand.MESSAGE_USAGE));
         }
 
-        predicate = new ContactNameContainsKeywordsPredicate();
+        predicate = new ContactContainsKeywordsPredicate();
         if (!argMultimap.getPreamble().isEmpty()) {
             String[] nameKeywords = argMultimap.getPreamble().trim().split("\\s+");
-            predicate = new ContactNameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+            predicate = new ContactContainsKeywordsPredicate(Arrays.asList(nameKeywords));
         }
         if (isPrefixValuePresent(argMultimap, PREFIX_PHONE)) {
             predicate.setPhoneKeywords(getPrefixValueAndSplit(argMultimap, PREFIX_PHONE));

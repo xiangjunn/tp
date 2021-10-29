@@ -12,7 +12,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -40,9 +40,9 @@ public class CFindCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    private final ContactNameContainsKeywordsPredicate predicate;
+    private final ContactContainsKeywordsPredicate predicate;
 
-    public CFindCommand(ContactNameContainsKeywordsPredicate predicate) {
+    public CFindCommand(ContactContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

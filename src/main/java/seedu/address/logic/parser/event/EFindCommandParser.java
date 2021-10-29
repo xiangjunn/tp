@@ -21,14 +21,14 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventNameContainsKeywordsPredicate;
+import seedu.address.model.event.EventContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new EFindCommand object
  */
 public class EFindCommandParser implements Parser<EFindCommand> {
 
-    private EventNameContainsKeywordsPredicate predicate;
+    private EventContainsKeywordsPredicate predicate;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EFindCommand
@@ -45,10 +45,10 @@ public class EFindCommandParser implements Parser<EFindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EFindCommand.MESSAGE_USAGE));
         }
 
-        predicate = new EventNameContainsKeywordsPredicate();
+        predicate = new EventContainsKeywordsPredicate();
         if (!argMultimap.getPreamble().isEmpty()) {
             String[] nameKeywords = argMultimap.getPreamble().trim().split("\\s+");
-            predicate = new EventNameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+            predicate = new EventContainsKeywordsPredicate(Arrays.asList(nameKeywords));
         }
         if (isPrefixValuePresent(argMultimap, PREFIX_START_TIME)) {
             predicate.setStartDateTimeKeywords(getPrefixValueAndSplit(argMultimap, PREFIX_START_TIME));
