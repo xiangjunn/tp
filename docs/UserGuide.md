@@ -636,7 +636,7 @@ Exits and Closes SoConnect.
 
 ### Help Window: `help`
 
-Shows a link which refers you to SoConnect User Guide.
+Displays a summary of all commands in SoConnect User Guide.
 
 **Format:** `help`
 
