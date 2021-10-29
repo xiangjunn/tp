@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,12 +36,12 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventNameContainsKeywordsPredicate;
+import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.EventUtil;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
 
@@ -49,8 +49,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_cadd() throws Exception {
-        Contact contact = new PersonBuilder().build();
-        CAddCommand command = (CAddCommand) parser.parseCommand(PersonUtil.getCAddCommand(contact));
+        Contact contact = new ContactBuilder().build();
+        CAddCommand command = (CAddCommand) parser.parseCommand(ContactUtil.getCAddCommand(contact));
         assertEquals(new CAddCommand(contact), command);
     }
 
@@ -76,26 +76,26 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_cdelete() throws Exception {
         CDeleteCommand command = (CDeleteCommand) parser.parseCommand(
-                CDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST_PERSON);
+                CDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        Range rangeOfIndexes = Range.convertFromIndex(INDEX_FIRST);
         assertEquals(new CDeleteCommand(rangeOfIndexes), command);
     }
 
     @Test
     public void parseCommand_edelete() throws Exception {
         EDeleteCommand command = (EDeleteCommand) parser.parseCommand(
-                EDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new EDeleteCommand(INDEX_FIRST_PERSON), command);
+                EDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new EDeleteCommand(INDEX_FIRST), command);
     }
 
     @Test
     public void parseCommand_cedit() throws Exception {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ContactBuilder().build();
         CEditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact,
             null, false).build();
         CEditCommand command = (CEditCommand) parser.parseCommand(CEditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new CEditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST.getOneBased() + " " + ContactUtil.getEditContactDescriptorDetails(descriptor));
+        assertEquals(new CEditCommand(INDEX_FIRST, descriptor), command);
     }
 
     @Test
@@ -103,8 +103,8 @@ public class AddressBookParserTest {
         Event event = new EventBuilder().build();
         EEditCommand.EditEventDescriptor descriptor = new EditEventDescriptorBuilder(event, null, false).build();
         EEditCommand commmand = (EEditCommand) parser.parseCommand(EEditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + EventUtil.getEditEventDescriptorDetails(descriptor));
-        assertEquals(new EEditCommand(INDEX_FIRST_PERSON, descriptor), commmand);
+                + INDEX_FIRST.getOneBased() + " " + EventUtil.getEditEventDescriptorDetails(descriptor));
+        assertEquals(new EEditCommand(INDEX_FIRST, descriptor), commmand);
     }
 
     @Test

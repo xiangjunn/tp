@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.contact;
 
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.general.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.general.CommandTestUtil.showContactAtIndex;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class CListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new CListCommand(), model, CListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

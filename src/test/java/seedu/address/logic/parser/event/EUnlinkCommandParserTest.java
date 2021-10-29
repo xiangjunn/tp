@@ -7,9 +7,8 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_INDEX_O
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_INDEX_TWO;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,21 +28,21 @@ class EUnlinkCommandParserTest {
     public void parse_multipleContacts_success() {
         // whitespace only preamble
         Set<Index> contactIndexes = new HashSet<>();
-        contactIndexes.add(INDEX_FIRST_PERSON);
-        contactIndexes.add(INDEX_SECOND_PERSON);
+        contactIndexes.add(INDEX_FIRST);
+        contactIndexes.add(INDEX_SECOND);
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
                 + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT + VALID_INDEX_TWO,
-            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes, false));
+            new EUnlinkCommand(INDEX_FIRST, contactIndexes, false));
     }
 
     @Test
     public void parse_singleContact_success() {
         // whitespace only preamble
         Set<Index> contactIndexes = new HashSet<>();
-        contactIndexes.add(INDEX_FIRST_PERSON);
+        contactIndexes.add(INDEX_FIRST);
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
                 + VALID_INDEX_ONE,
-            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes, false));
+            new EUnlinkCommand(INDEX_FIRST, contactIndexes, false));
     }
 
     @Test
@@ -52,7 +51,7 @@ class EUnlinkCommandParserTest {
         Set<Index> contactIndexes = new HashSet<>();
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_INDEX_ONE + EMPTY_PREFIX_CONTACT
                 + "*",
-            new EUnlinkCommand(INDEX_FIRST_EVENT, contactIndexes, true));
+            new EUnlinkCommand(INDEX_FIRST, contactIndexes, true));
     }
 
     @Test

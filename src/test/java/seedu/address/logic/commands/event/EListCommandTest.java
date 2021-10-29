@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class EListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showEventAtIndex(model, INDEX_FIRST_EVENT);
+        showEventAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new EListCommand(), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

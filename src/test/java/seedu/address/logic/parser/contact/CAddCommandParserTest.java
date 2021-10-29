@@ -30,8 +30,8 @@ import static seedu.address.logic.commands.general.CommandTestUtil.ZOOM_DESC_AMY
 import static seedu.address.logic.commands.general.CommandTestUtil.ZOOM_DESC_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalContacts.AMY;
+import static seedu.address.testutil.TypicalContacts.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,14 +42,14 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ContactBuilder;
 
 public class CAddCommandParserTest {
     private CAddCommandParser parser = new CAddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Contact expectedContact = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Contact expectedContact = new ContactBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -77,7 +77,7 @@ public class CAddCommandParserTest {
             new CAddCommand(expectedContact));
 
         // multiple tags - all accepted
-        Contact expectedContactMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Contact expectedContactMultipleTags = new ContactBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + ZOOM_DESC_BOB + TELEGRAM_DESC_BOB + TAG_DESC_FRIEND,
@@ -87,19 +87,19 @@ public class CAddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Contact expectedContact = new PersonBuilder(AMY).withTags().build();
+        Contact expectedContact = new ContactBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TELEGRAM_DESC_AMY + ZOOM_DESC_AMY,
                 new CAddCommand(expectedContact));
 
         // Missing phone
-        Contact expectedContact2 = new PersonBuilder(BOB).withPhone(null).build();
+        Contact expectedContact2 = new ContactBuilder(BOB).withPhone(null).build();
         assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TELEGRAM_DESC_BOB + ZOOM_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
             new CAddCommand(expectedContact2));
 
         // Missing all optional fields
-        Contact expectedContact3 = new PersonBuilder(AMY).withAddress(null).withTags().withPhone(null)
+        Contact expectedContact3 = new ContactBuilder(AMY).withAddress(null).withTags().withPhone(null)
                 .withTelegramHandle(null).withZoomLink(null).build();
         assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY, new CAddCommand(expectedContact3));
     }

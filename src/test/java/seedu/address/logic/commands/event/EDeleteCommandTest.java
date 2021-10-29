@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.general.CommandTestUtil.assertCommand
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalRanges.RANGE_FIRST_TO_FIRST;
 import static seedu.address.testutil.TypicalRanges.RANGE_SECOND_TO_THIRD;
 
@@ -33,11 +33,10 @@ public class EDeleteCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
 
-    //Todo : change INDEX_FIRST_PERSON to a general index for both contacts and events
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EDeleteCommand eDeleteCommand = new EDeleteCommand(INDEX_FIRST_PERSON);
+        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        EDeleteCommand eDeleteCommand = new EDeleteCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
         EventChanger eventChanger = EventChanger.deleteEventChanger(eventToDelete);
@@ -57,10 +56,10 @@ public class EDeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showEventAtIndex(model, INDEX_FIRST_PERSON);
+        showEventAtIndex(model, INDEX_FIRST);
 
-        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EDeleteCommand eDeleteCommand = new EDeleteCommand(INDEX_FIRST_PERSON);
+        Event eventToDelete = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        EDeleteCommand eDeleteCommand = new EDeleteCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete);
         EventChanger eventChanger = EventChanger.deleteEventChanger(eventToDelete);
@@ -73,9 +72,9 @@ public class EDeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showEventAtIndex(model, INDEX_FIRST_PERSON);
+        showEventAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getEventList().size());
 
