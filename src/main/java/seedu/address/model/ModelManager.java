@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
     private final FilteredList<Event> filteredEvents;
+    private EventDisplaySetting eventDisplaySetting = EventDisplaySetting.DEFAULT_SETTING;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -67,6 +69,15 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
+    }
+
+    public EventDisplaySetting getEventDisplaySetting() {
+        return eventDisplaySetting;
+    }
+
+    public void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting) {
+        requireNonNull(eventDisplaySetting);
+        this.eventDisplaySetting = eventDisplaySetting;
     }
 
     @Override
@@ -200,10 +211,7 @@ public class ModelManager implements Model {
             Contact.setViewingMode(false);
             Contact.setAllDisplayToTrue();
         });
-        filteredEvents.forEach(event -> {
-            Event.setViewingMode(false);
-            Event.setAllDisplayToTrue();
-        });
+        eventDisplaySetting = EventDisplaySetting.DEFAULT_SETTING;
         updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
         updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
@@ -317,7 +325,8 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredContacts.equals(other.filteredContacts)
-                && filteredEvents.equals(other.filteredEvents);
+                && filteredEvents.equals(other.filteredEvents)
+                && eventDisplaySetting.equals(other.eventDisplaySetting);
     }
 
     @Override

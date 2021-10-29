@@ -20,7 +20,6 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.Event;
 import seedu.address.model.event.EventContainsKeywordsPredicate;
 
 /**
@@ -68,7 +67,6 @@ public class EFindCommandParser implements Parser<EFindCommand> {
         if (isPrefixValuePresent(argMultimap, PREFIX_TAG)) {
             predicate.setTagKeywords(getPrefixValueAndSplit(argMultimap, PREFIX_TAG));
         }
-        Event.setViewingMode(false);
         return new EFindCommand(predicate);
     }
     /**

@@ -14,6 +14,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.event.EventContainsKeywordsPredicate;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * Finds and lists all events in SoConnect which have names containing any of the argument keywords.
@@ -49,6 +50,7 @@ public class EFindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setEventDisplaySetting(EventDisplaySetting.DEFAULT_SETTING);
         model.updateFilteredEventList(predicate);
         model.commitAddressBook();
         return new CommandResult(

@@ -10,9 +10,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
+import java.util.Objects;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * Lists all events in the address book to the user.
@@ -38,13 +41,25 @@ public class EListCommand extends Command {
             + PARAMETERS
             + "Example: " + COMMAND_WORD + " " + PREFIX_END_TIME + " " + PREFIX_ZOOM;
 
+    public final EventDisplaySetting displaySetting;
+
+    public EListCommand(EventDisplaySetting displaySetting) {
+        this.displaySetting = displaySetting;
+    }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setEventDisplaySetting(displaySetting);
         model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(displaySetting);
     }
 
     @Override
@@ -55,6 +70,7 @@ public class EListCommand extends Command {
         }
 
         // instanceof handles nulls
-        return other instanceof EListCommand;
+        return other instanceof EListCommand
+            && ((EListCommand) other).displaySetting.equals(displaySetting);
     }
 }

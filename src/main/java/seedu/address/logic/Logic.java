@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * API of the Logic component
@@ -46,6 +47,11 @@ public interface Logic {
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
+
+    /**
+     * Returns the display settings of the events.
+     */
+    EventDisplaySetting getEventDisplaySetting();
 
     /**
      * Set the user prefs' GUI settings.

@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 
 /**
@@ -37,6 +38,7 @@ public class EViewCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.setEventDisplaySetting(new EventDisplaySetting(true));
         List<Event> lastShownList = model.getFilteredEventList();
 
         Index viewIndex = index;

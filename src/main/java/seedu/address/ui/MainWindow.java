@@ -124,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
         contactListPanel = new ContactListPanel(logic.getFilteredContactList(), this);
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList(), this);
+        eventListPanel = new EventListPanel(logic.getFilteredEventList(), this, logic::getEventDisplaySetting);
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

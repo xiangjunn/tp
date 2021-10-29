@@ -20,6 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * An UI component that displays information of an {@code Event}.
@@ -42,6 +43,7 @@ public class EventCard extends UiPart<Region> {
 
     private MainWindow mainWindow;
 
+    /** True only when the user is attempting to show all links of the {@code event}. */
     private boolean isShowLinks = false;
 
     @FXML
@@ -86,12 +88,14 @@ public class EventCard extends UiPart<Region> {
     /**
      * Creates an {@code EventCard} with the given {@code Event} and index to display.
      */
-    public EventCard(Event event, int displayedIndex, MainWindow mainWindow) {
+    public EventCard(
+        Event event, int displayedIndex, MainWindow mainWindow,
+        EventDisplaySetting eventDisplaySetting) {
         super(FXML);
         this.event = event;
         this.mainWindow = mainWindow;
 
-        boolean isViewMode = Event.isViewingMode();
+        boolean isViewMode = eventDisplaySetting.isViewingFull();
 
         id.setText(displayedIndex + ". ");
         // compulsory fields
@@ -99,39 +103,39 @@ public class EventCard extends UiPart<Region> {
         eventName.setWrapText(isViewMode);
 
         // Compulsory fields
-        if (Event.isWillDisplayStartDateTime()) {
+        if (eventDisplaySetting.isWillDisplayStartDateTime()) {
             from.setText(event.getStartDateAndTime().toString());
             from.setManaged(true);
             from.setVisible(true);
             from.setWrapText(isViewMode);
         }
         // Optional fields
-        if (event.getEndDateAndTime() != null && Event.isWillDisplayEndDateTime()) {
+        if (event.getEndDateAndTime() != null && eventDisplaySetting.isWillDisplayEndDateTime()) {
             to.setText(event.getEndDateAndTime().toString());
             to.setManaged(true);
             to.setVisible(true);
             to.setWrapText(isViewMode);
         }
-        if (event.getAddress() != null && Event.isWillDisplayAddress()) {
+        if (event.getAddress() != null && eventDisplaySetting.isWillDisplayAddress()) {
             address.setText(event.getAddress().value);
             address.setManaged(true);
             address.setVisible(true);
             address.setWrapText(isViewMode);
         }
-        if (event.getZoomLink() != null && Event.isWillDisplayZoomLink()) {
+        if (event.getZoomLink() != null && eventDisplaySetting.isWillDisplayZoomLink()) {
             zoom.setText(event.getZoomLink().link);
             zoom.setManaged(true);
             zoom.setVisible(true);
             zoom.setWrapText(isViewMode);
         }
-        if (event.getDescription() != null && Event.isWillDisplayDescription()) {
+        if (event.getDescription() != null && eventDisplaySetting.isWillDisplayDescription()) {
             description.setText(event.getDescription().value);
             description.setManaged(true);
             description.setVisible(true);
             description.setWrapText(isViewMode);
         }
 
-        if (Event.isWillDisplayTags() && !event.getTags().isEmpty()) {
+        if (eventDisplaySetting.isWillDisplayTags() && !event.getTags().isEmpty()) {
             event.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {

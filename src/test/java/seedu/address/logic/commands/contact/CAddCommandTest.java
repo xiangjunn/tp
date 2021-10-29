@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 import seedu.address.testutil.PersonBuilder;
 
 public class CAddCommandTest {
@@ -103,6 +104,16 @@ public class CAddCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public EventDisplaySetting getEventDisplaySetting() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting) {
             throw new AssertionError("This method should not be called.");
         }
 

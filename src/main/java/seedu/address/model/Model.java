@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * The API of the Model component.
@@ -38,6 +39,16 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the display settings of the events.
+     */
+    EventDisplaySetting getEventDisplaySetting();
+
+    /**
+     * Sets the display settings of the events.
+     */
+    void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting);
 
     /**
      * Returns the user prefs' address book file path.
@@ -126,7 +137,7 @@ public interface Model {
     /**
      * This will change the order of the filtered list, bookmarked contacts will be placed at the top of the list.
      */
-    public void reshuffleContactsInOrder();
+    void reshuffleContactsInOrder();
 
     /**
      * Updates the filter of the filtered contact list to show the contact at {@code index}.

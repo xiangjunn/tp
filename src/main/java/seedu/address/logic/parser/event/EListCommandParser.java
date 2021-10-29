@@ -16,7 +16,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * Parses input arguments and creates a new EListCommand object
@@ -36,31 +36,20 @@ public class EListCommandParser implements Parser<EListCommand> {
                 PREFIX_ADDRESS, PREFIX_ZOOM, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EListCommand.MESSAGE_USAGE));
         }
+        EventDisplaySetting displaySetting;
         if (noPrefixesPresent(argMultimap)) {
-            Event.setAllDisplayToTrue();
+            displaySetting = EventDisplaySetting.DEFAULT_SETTING;
         } else {
-            Event.setAllDisplayToFalse();
+            displaySetting = new EventDisplaySetting(
+                argMultimap.getValue(PREFIX_START_TIME).isPresent(),
+                argMultimap.getValue(PREFIX_END_TIME).isPresent(),
+                argMultimap.getValue(PREFIX_DESCRIPTION).isPresent(),
+                argMultimap.getValue(PREFIX_ADDRESS).isPresent(),
+                argMultimap.getValue(PREFIX_ZOOM).isPresent(),
+                argMultimap.getValue(PREFIX_TAG).isPresent()
+            );
         }
-        if (argMultimap.getValue(PREFIX_START_TIME).isPresent()) {
-            Event.setWillDisplayStartDateTime(true);
-        }
-        if (argMultimap.getValue(PREFIX_END_TIME).isPresent()) {
-            Event.setWillDisplayEndDateTime(true);
-        }
-        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            Event.setWillDisplayDescription(true);
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            Event.setWillDisplayAddress(true);
-        }
-        if (argMultimap.getValue(PREFIX_ZOOM).isPresent()) {
-            Event.setWillDisplayZoomLink(true);
-        }
-        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            Event.setWillDisplayTags(true);
-        }
-        Event.setViewingMode(false);
-        return new EListCommand();
+        return new EListCommand(displaySetting);
     }
 
     /**
