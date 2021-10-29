@@ -743,9 +743,18 @@ Typically, we link an event to a contact if the contact is involved as a partici
 For instance, you can link your professor to the lecture.
 
 
-### How to start SoConnect using Command Prompt
+### How to start SoConnect using Terminal
 
-{to be added soon}
+Open the terminal (For [MacOS](https://support.apple.com/en-sg/guide/terminal/welcome/mac) or Linux) or Command Prompt (For [Windows](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)).
+
+Navigate to the folder containing `soconnect.jar`. See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/), [MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html) (Linux uses the same command for navigating folders).
+
+Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+If you are still unable to open the file, [check your Java version](https://www.java.com/en/download/help/version_manual.html) again and make sure it is version 11. [Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
+</div>
 
 
 --------------------------------------------------------------------------------------------------------------------
