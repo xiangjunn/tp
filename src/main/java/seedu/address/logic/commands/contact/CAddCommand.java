@@ -21,16 +21,18 @@ import seedu.address.model.contact.Contact;
 public class CAddCommand extends Command {
 
     public static final String COMMAND_WORD = "cadd";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to the address book. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
+    public static final String PARAMETERS = PREFIX_NAME + "NAME "
             + PREFIX_EMAIL + "EMAIL "
             + "[" + PREFIX_PHONE + "PHONE_NUMBER] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TELEGRAM + "TELEGRAM_HANDLE] "
             + "[" + PREFIX_ZOOM + "ZOOM] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to the address book. "
+            + "Parameters: "
+            + PARAMETERS
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_EMAIL + "e7654321@u.nus.edu "

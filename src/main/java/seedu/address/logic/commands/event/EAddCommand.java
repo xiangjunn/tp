@@ -24,16 +24,18 @@ import seedu.address.model.event.EventChanger;
 public class EAddCommand extends Command {
 
     public static final String COMMAND_WORD = "eadd";
+    public static final String PARAMETERS = "[" + PREFIX_NAME + "NAME "
+            + "[" + PREFIX_START_TIME + "START "
+            + "[" + PREFIX_END_TIME + "END] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_ZOOM + "ZOOM] "
+            + "[" + PREFIX_TAG + "TAG]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_START_TIME + "START "
-            + PREFIX_END_TIME + "END "
-            + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_ZOOM + "ZOOM "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PARAMETERS
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Summer Party "
             + PREFIX_START_TIME + "12-12-2021 15:12 "
@@ -50,7 +52,7 @@ public class EAddCommand extends Command {
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
-     * @param event
+     * @param event the specified Event
      */
     public EAddCommand(Event event) {
         requireNonNull(event);

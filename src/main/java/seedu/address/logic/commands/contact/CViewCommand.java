@@ -21,6 +21,8 @@ import seedu.address.model.contact.Contact;
 public class CViewCommand extends Command {
     public static final String COMMAND_WORD = "cview";
 
+    public static final String SYNTAX = COMMAND_WORD + " INDEX";
+
     public static final String MESSAGE_SUCCESS = "Viewing Contact: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View one contact of the index provided "

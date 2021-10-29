@@ -21,10 +21,12 @@ import seedu.address.model.event.EventChanger;
 public class EDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "edelete";
+    public static final String PARAMETERS = "INDEX1[-INDEX2]";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed SoConnect.\n"
-            + "Parameters: INDEX1[-INDEX2] (both indexes must be a positive integer)\n"
+            + "Parameters: " + PARAMETERS + " (both indexes must be a positive integer)\n"
             + "Example 1: " + COMMAND_WORD + " 1"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 
