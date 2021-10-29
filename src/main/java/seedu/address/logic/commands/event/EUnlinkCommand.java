@@ -18,11 +18,15 @@ import seedu.address.model.event.Event;
 
 public class EUnlinkCommand extends Command {
     public static final String COMMAND_WORD = "eunlink";
+
+    public static final String PARAMETERS = "EVENT_INDEX "
+            + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlinks an event to a contact. Include the argument"
         + " \"c/*\" to clear all links.\n"
         + "Parameters: "
-        + "EVENT_INDEX "
-        + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n"
+        + PARAMETERS
         + "Examples:\n"
         + "eunlink 1 c/1\n"
         + "eunlink 3 c/1 c/2 c/3 c/4 c/5\n"

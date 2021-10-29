@@ -51,6 +51,9 @@ public class EventCard extends UiPart<Region> {
     private Label eventName;
 
     @FXML
+    private Label favourite;
+
+    @FXML
     private Label from;
 
     @FXML
@@ -153,7 +156,8 @@ public class EventCard extends UiPart<Region> {
             linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
         }
         if (event.getIsBookMarked()) {
-            eventName.setStyle("-fx-background-color: gold");
+            favourite.setManaged(true);
+            favourite.setVisible(true);
         }
     }
 

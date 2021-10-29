@@ -10,6 +10,8 @@ import seedu.address.model.Model;
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
+    public static final String SYNTAX = COMMAND_WORD;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Restore the previously undone state of addressBook";
 
     public static final String MESSAGE_SUCCESS = "Command redone";

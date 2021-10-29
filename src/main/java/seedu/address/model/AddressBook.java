@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.event.Event;
@@ -175,24 +174,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Bookmarks the contact indexed at {@code index}
-     */
-    public void bookmarkContact(Index index) {
-        contacts.bookmarkContact(index);
-    }
-
-    /**
      * Places bookmarked {@code contacts} at the top of the list.
      */
     public void reshuffleContactsInOrder() {
         contacts.reshuffleContactsInOrder();
-    }
-
-    /**
-     * Unmarks the contact indexed at {@code index}
-     */
-    public void unmarkContact(Index index) {
-        contacts.unmarkContact(index);
     }
 
     //// event-level operations
@@ -266,24 +251,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Bookmarks the event indexed at {@code index}
-     */
-    public void bookmarkEvent(Index index) {
-        events.bookmarkEvent(index);
-    }
-
-    /**
      * Places bookmarked {@code events} at the top of the list.
      */
     public void reshuffleEventsInOrder() {
         events.reshuffleEventsInOrder();
-    }
-
-    /**
-     * Unmarks the event indexed at {@code index}
-     */
-    public void unmarkEvent(Index index) {
-        events.unmarkEvent(index);
     }
 
     //// contact-level operations
@@ -337,12 +308,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 linkedEvent.unlink(c);
             });
         c.clearAllLinks();
-    }
-    /**
-     * Bookmarks contact indexed at {@code index} in this {@code AddressBook}.
-     */
-    public void markContactAt(Index index) {
-        contacts.bookmarkContact(index);
     }
 
     //// util methods

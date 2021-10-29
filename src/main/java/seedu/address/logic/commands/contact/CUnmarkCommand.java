@@ -16,9 +16,12 @@ public class CUnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "cumark";
 
+    public static final String PARAMETERS = "INDEX [INDEX]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unmarks all contact(s) indexed at "
             + "the specified index(es) and displays them after the marked contacts.\n"
-            + "Parameters: INDEX \n"
+            + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Unmarked Contact: %1$s";

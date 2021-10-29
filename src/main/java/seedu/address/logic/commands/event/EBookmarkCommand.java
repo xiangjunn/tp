@@ -16,9 +16,12 @@ public class EBookmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "emark";
 
+    public static final String PARAMETERS = "INDEX [INDEX]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks all event(s) indexed at "
             + "the specified index(es) and displays them at the top of the event list.\n"
-            + "Parameters: INDEX \n"
+            + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Bookmarked Event: %1$s";
