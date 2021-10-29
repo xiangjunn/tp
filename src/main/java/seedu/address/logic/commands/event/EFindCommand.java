@@ -33,7 +33,8 @@ public class EFindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose fields contains any of the "
             + "given keywords.\n"
-            + "At least one field must be present, name keywords must follow directly after the command word\n"
+            + "At least one keyword must be present. "
+            + "For name search, keywords must follow directly after the command word\n"
             + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " cs 2103t "
             + PREFIX_START_TIME + "2020-12-01 "
