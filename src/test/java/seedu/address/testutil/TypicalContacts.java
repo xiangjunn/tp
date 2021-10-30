@@ -78,7 +78,8 @@ public class TypicalContacts {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Contact contact : getTypicalContacts()) {
-            ab.addContact(contact);
+            // build a new contact so that everytime this method is called, it returns new contacts
+            ab.addContact(new ContactBuilder(contact).build());
         }
         return ab;
     }

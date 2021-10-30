@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -9,6 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.AddressBook;
+import seedu.address.model.contact.Contact;
+import seedu.address.testutil.TypicalContacts;
 
 
 public class JsonSerializableAddressBookTest {
@@ -24,15 +28,15 @@ public class JsonSerializableAddressBookTest {
 
     @Test
     public void toModelType_typicalContactsFile_success() throws Exception {
-    //        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_CONTACTS_FILE,
-    //                JsonSerializableAddressBook.class).get();
-    //        AddressBook addressBookFromFile = dataFromFile.toModelType();
-    //        AddressBook typicalContactsAndEventAddressBook = TypicalContacts.getTypicalAddressBook();
-    //        AddressBook contactOnlyAddressBook = new AddressBook();
-    //        for (Contact p : addressBookFromFile.getContactList()) {
-    //            contactOnlyAddressBook.addContact(p);
-    //        }
-    //        assertEquals(contactOnlyAddressBook, typicalContactsAndEventAddressBook);
+        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_CONTACTS_FILE,
+                JsonSerializableAddressBook.class).get();
+        AddressBook addressBookFromFile = dataFromFile.toModelType();
+        AddressBook typicalContactsAndEventAddressBook = TypicalContacts.getTypicalAddressBook();
+        AddressBook contactOnlyAddressBook = new AddressBook();
+        for (Contact p : addressBookFromFile.getContactList()) {
+            contactOnlyAddressBook.addContact(p);
+        }
+        assertEquals(contactOnlyAddressBook, typicalContactsAndEventAddressBook);
     }
 
     @Test
