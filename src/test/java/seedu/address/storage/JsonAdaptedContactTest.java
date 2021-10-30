@@ -44,7 +44,7 @@ public class JsonAdaptedContactTest {
     private static final List<String> VALID_LINKED_EVENTS = new ArrayList<>();
 
     @Test
-    public void toModelType_validContactDetails_returnsContact() throws Exception {
+    public void toModelType_validContactDetails_returnsContact() throws IllegalValueException {
         JsonAdaptedContact contact = new JsonAdaptedContact(CARL);
         assertEquals(CARL, contact.toModelType());
     }
@@ -77,7 +77,7 @@ public class JsonAdaptedContactTest {
     }
 
     @Test
-    public void toModelType_nullPhone_returnsContact() throws Exception {
+    public void toModelType_nullPhone_returnsContact() throws IllegalValueException {
         Contact contactWithNullPhone = new ContactBuilder().withPhone(null).build();
         JsonAdaptedContact contact = new JsonAdaptedContact(contactWithNullPhone);
         assertEquals(contactWithNullPhone, contact.toModelType());
@@ -110,7 +110,7 @@ public class JsonAdaptedContactTest {
     }
 
     @Test
-    public void toModelType_nullAddress_returnsContact() throws Exception {
+    public void toModelType_nullAddress_returnsContact() throws IllegalValueException {
         Contact contactWithNullAddress = new ContactBuilder().withAddress(null).build();
         JsonAdaptedContact contact = new JsonAdaptedContact(contactWithNullAddress);
         assertEquals(contactWithNullAddress, contact.toModelType());
@@ -126,7 +126,7 @@ public class JsonAdaptedContactTest {
     }
 
     @Test
-    public void toModelType_nullTelegramHandle_returnsContact() throws Exception {
+    public void toModelType_nullTelegramHandle_returnsContact() throws IllegalValueException {
         Contact contactWithNullTelegramHandle = new ContactBuilder().withTelegramHandle(null).build();
         JsonAdaptedContact contact = new JsonAdaptedContact(contactWithNullTelegramHandle);
         assertEquals(contactWithNullTelegramHandle, contact.toModelType());
@@ -142,7 +142,7 @@ public class JsonAdaptedContactTest {
     }
 
     @Test
-    public void toModelType_nullZoomLink_returnsContact() throws Exception {
+    public void toModelType_nullZoomLink_returnsContact() throws IllegalValueException {
         Contact contactWithNullZoomLink = new ContactBuilder().withZoomLink(null).build();
         JsonAdaptedContact contact = new JsonAdaptedContact(contactWithNullZoomLink);
         assertEquals(contactWithNullZoomLink, contact.toModelType());

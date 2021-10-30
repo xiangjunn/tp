@@ -24,8 +24,8 @@ import seedu.address.model.event.EventChanger;
 public class EAddCommand extends Command {
 
     public static final String COMMAND_WORD = "eadd";
-    public static final String PARAMETERS = "[" + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_START_TIME + "START "
+    public static final String PARAMETERS = "" + PREFIX_NAME + "NAME "
+            + "" + PREFIX_START_TIME + "START "
             + "[" + PREFIX_END_TIME + "END] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
