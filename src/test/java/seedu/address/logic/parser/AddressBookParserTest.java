@@ -15,12 +15,16 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.contact.CAddCommand;
+import seedu.address.logic.commands.contact.CBookmarkCommand;
 import seedu.address.logic.commands.contact.CClearCommand;
 import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.contact.CUnmarkCommand;
+import seedu.address.logic.commands.contact.CViewCommand;
 import seedu.address.logic.commands.event.EAddCommand;
+import seedu.address.logic.commands.event.EBookmarkCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
 import seedu.address.logic.commands.event.EEditCommand;
@@ -28,9 +32,13 @@ import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
 import seedu.address.logic.commands.event.ESortCommand;
+import seedu.address.logic.commands.event.EUnlinkCommand;
+import seedu.address.logic.commands.event.EUnmarkCommand;
+import seedu.address.logic.commands.event.EViewCommand;
 import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.general.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
@@ -134,13 +142,45 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_cview() throws Exception {
+        assertTrue(parser.parseCommand(CViewCommand.COMMAND_WORD + " 1") instanceof CViewCommand);
+    }
+    @Test
+    public void parseCommand_eview() throws Exception {
+        assertTrue(parser.parseCommand(EViewCommand.COMMAND_WORD + " 1") instanceof EViewCommand);
+    }
+
+    @Test
     public void parseCommand_esort() throws Exception {
         assertTrue(parser.parseCommand(ESortCommand.COMMAND_WORD) instanceof ESortCommand);
     }
 
     @Test
+    public void parseCommand_cmark() throws Exception {
+        assertTrue(parser.parseCommand(CBookmarkCommand.COMMAND_WORD + " 1") instanceof CBookmarkCommand);
+    }
+    @Test
+    public void parseCommand_emark() throws Exception {
+        assertTrue(parser.parseCommand(EBookmarkCommand.COMMAND_WORD + " 1") instanceof EBookmarkCommand);
+    }
+
+    @Test
+    public void parseCommand_cunmark() throws Exception {
+        assertTrue(parser.parseCommand(CUnmarkCommand.COMMAND_WORD + " 1") instanceof CUnmarkCommand);
+    }
+    @Test
+    public void parseCommand_eunmark() throws Exception {
+        assertTrue(parser.parseCommand(EUnmarkCommand.COMMAND_WORD + " 1") instanceof EUnmarkCommand);
+    }
+
+    @Test
     public void parseCommand_elink() throws Exception {
         assertTrue(parser.parseCommand(ELinkCommand.COMMAND_WORD + " 1 c/3 c/4") instanceof ELinkCommand);
+    }
+
+    @Test
+    public void parseCommand_eunlink() throws Exception {
+        assertTrue(parser.parseCommand(EUnlinkCommand.COMMAND_WORD + " 1 c/3 c/4") instanceof EUnlinkCommand);
     }
 
     @Test
@@ -159,6 +199,12 @@ public class AddressBookParserTest {
     public void parseCommand_calendar() throws Exception {
         assertTrue(parser.parseCommand(CalendarCommand.COMMAND_WORD) instanceof CalendarCommand);
         assertTrue(parser.parseCommand(CalendarCommand.COMMAND_WORD + " 4") instanceof CalendarCommand);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 1") instanceof UndoCommand);
     }
 
     @Test

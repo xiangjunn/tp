@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.contact;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
@@ -35,5 +37,13 @@ public class CListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new CListCommand(), model, CListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equal() {
+        CListCommand standardCommand = new CListCommand();
+        assertTrue(standardCommand.equals(standardCommand));
+        assertTrue(standardCommand.equals(new CListCommand()));
+        assertFalse(standardCommand.equals(new CClearCommand()));
     }
 }

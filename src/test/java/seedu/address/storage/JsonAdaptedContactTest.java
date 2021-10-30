@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedContact.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.BENSON;
+import static seedu.address.testutil.TypicalContacts.CARL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
+import seedu.address.model.common.ZoomLink;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.TelegramHandle;
 import seedu.address.testutil.ContactBuilder;
 
 public class JsonAdaptedContactTest {
@@ -25,15 +27,17 @@ public class JsonAdaptedContactTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_TELEGRAM_HANDLE = "abc";
+    private static final String INVALID_ZOOM_LINK = "@bc";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_TELEGRAM_HANDLE = BENSON.getAddress().toString();
-    private static final String VALID_ZOOM_LINK = BENSON.getAddress().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = CARL.getName().toString();
+    private static final String VALID_PHONE = CARL.getPhone().toString();
+    private static final String VALID_EMAIL = CARL.getEmail().toString();
+    private static final String VALID_ADDRESS = CARL.getAddress().toString();
+    private static final String VALID_TELEGRAM_HANDLE = CARL.getTelegramHandle().toString();
+    private static final String VALID_ZOOM_LINK = CARL.getZoomLink().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = CARL.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
     private static final String VALID_UUID = UUID.randomUUID().toString();
@@ -41,8 +45,8 @@ public class JsonAdaptedContactTest {
 
     @Test
     public void toModelType_validContactDetails_returnsContact() throws Exception {
-        JsonAdaptedContact contact = new JsonAdaptedContact(BENSON);
-        assertEquals(BENSON, contact.toModelType());
+        JsonAdaptedContact contact = new JsonAdaptedContact(CARL);
+        assertEquals(CARL, contact.toModelType());
     }
 
     @Test
@@ -110,6 +114,38 @@ public class JsonAdaptedContactTest {
         Contact contactWithNullAddress = new ContactBuilder().withAddress(null).build();
         JsonAdaptedContact contact = new JsonAdaptedContact(contactWithNullAddress);
         assertEquals(contactWithNullAddress, contact.toModelType());
+    }
+
+    @Test
+    public void toModelType_invalidTelegramHandle_throwsIllegalValueException() {
+        JsonAdaptedContact contact =
+            new JsonAdaptedContact(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, INVALID_TELEGRAM_HANDLE,
+                VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS, false);
+        String expectedMessage = TelegramHandle.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, contact::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullTelegramHandle_returnsContact() throws Exception {
+        Contact contactWithNullTelegramHandle = new ContactBuilder().withTelegramHandle(null).build();
+        JsonAdaptedContact contact = new JsonAdaptedContact(contactWithNullTelegramHandle);
+        assertEquals(contactWithNullTelegramHandle, contact.toModelType());
+    }
+
+    @Test
+    public void toModelType_invalidZoomLink_throwsIllegalValueException() {
+        JsonAdaptedContact contact =
+            new JsonAdaptedContact(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TELEGRAM_HANDLE,
+                INVALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_EVENTS, false);
+        String expectedMessage = ZoomLink.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, contact::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullZoomLink_returnsContact() throws Exception {
+        Contact contactWithNullZoomLink = new ContactBuilder().withZoomLink(null).build();
+        JsonAdaptedContact contact = new JsonAdaptedContact(contactWithNullZoomLink);
+        assertEquals(contactWithNullZoomLink, contact.toModelType());
     }
 
     @Test
