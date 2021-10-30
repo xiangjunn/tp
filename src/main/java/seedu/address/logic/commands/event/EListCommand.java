@@ -7,8 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Objects;
 
@@ -51,8 +49,7 @@ public class EListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setEventDisplaySetting(displaySetting);
-        model.updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.rerenderEventCards();
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -45,27 +45,27 @@ public class EventDisplaySetting {
         this.isViewingFull = isViewingFull;
     }
 
-    public boolean isWillDisplayStartDateTime() {
+    public boolean willDisplayStartDateTime() {
         return willDisplayStartDateTime;
     }
 
-    public boolean isWillDisplayEndDateTime() {
+    public boolean willDisplayEndDateTime() {
         return willDisplayEndDateTime;
     }
 
-    public boolean isWillDisplayDescription() {
+    public boolean willDisplayDescription() {
         return willDisplayDescription;
     }
 
-    public boolean isWillDisplayAddress() {
+    public boolean willDisplayAddress() {
         return willDisplayAddress;
     }
 
-    public boolean isWillDisplayZoomLink() {
+    public boolean willDisplayZoomLink() {
         return willDisplayZoomLink;
     }
 
-    public boolean isWillDisplayTags() {
+    public boolean willDisplayTags() {
         return willDisplayTags;
     }
 
@@ -82,19 +82,20 @@ public class EventDisplaySetting {
             return false;
         }
         EventDisplaySetting that = (EventDisplaySetting) o;
-        return isWillDisplayStartDateTime() == that.isWillDisplayStartDateTime()
-            && isWillDisplayEndDateTime() == that.isWillDisplayEndDateTime()
-            && isWillDisplayDescription() == that.isWillDisplayDescription()
-            && isWillDisplayAddress() == that.isWillDisplayAddress()
-            && isWillDisplayZoomLink() == that.isWillDisplayZoomLink()
-            && isWillDisplayTags() == that.isWillDisplayTags()
+        return willDisplayStartDateTime() == that.willDisplayStartDateTime()
+            && willDisplayEndDateTime() == that.willDisplayEndDateTime()
+            && willDisplayDescription() == that.willDisplayDescription()
+            && willDisplayAddress() == that.willDisplayAddress()
+            && willDisplayZoomLink() == that.willDisplayZoomLink()
+            && willDisplayTags() == that.willDisplayTags()
             && isViewingFull() == that.isViewingFull();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isWillDisplayStartDateTime(), isWillDisplayEndDateTime(), isWillDisplayDescription(),
-            isWillDisplayAddress(), isWillDisplayZoomLink(), isWillDisplayTags(), isViewingFull());
+        return Objects.hash(
+            willDisplayStartDateTime(), willDisplayEndDateTime(), willDisplayDescription(),
+            willDisplayAddress(), willDisplayZoomLink(), willDisplayTags(), isViewingFull());
     }
 
     /** For debugging/logging purposes. */

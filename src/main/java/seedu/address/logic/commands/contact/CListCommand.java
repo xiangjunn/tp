@@ -7,12 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
-import static seedu.address.model.Model.PREDICATE_HIDE_ALL_CONTACTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+
+import java.util.Objects;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.contact.ContactDisplaySetting;
 
 /**
  * Lists all persons in the address book to the user.
@@ -37,13 +38,24 @@ public class CListCommand extends Command {
         + PARAMETERS
         + "Example: " + COMMAND_WORD + " " + PREFIX_EMAIL + " " + PREFIX_ZOOM;
 
+    private final ContactDisplaySetting displaySetting;
+
+    public CListCommand(ContactDisplaySetting displaySetting) {
+        this.displaySetting = displaySetting;
+    }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the cards.
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        model.setContactDisplaySetting(displaySetting);
+        model.rerenderContactCards();
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(displaySetting);
     }
 
     @Override
@@ -54,6 +66,7 @@ public class CListCommand extends Command {
         }
 
         // instanceof handles nulls
-        return other instanceof CListCommand;
+        return other instanceof CListCommand
+            && ((CListCommand) other).displaySetting.equals(displaySetting);
     }
 }

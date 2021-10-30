@@ -103,39 +103,39 @@ public class EventCard extends UiPart<Region> {
         eventName.setWrapText(isViewMode);
 
         // Compulsory fields
-        if (eventDisplaySetting.isWillDisplayStartDateTime()) {
+        if (eventDisplaySetting.willDisplayStartDateTime()) {
             from.setText(event.getStartDateAndTime().toString());
             from.setManaged(true);
             from.setVisible(true);
             from.setWrapText(isViewMode);
         }
         // Optional fields
-        if (event.getEndDateAndTime() != null && eventDisplaySetting.isWillDisplayEndDateTime()) {
+        if (event.getEndDateAndTime() != null && eventDisplaySetting.willDisplayEndDateTime()) {
             to.setText(event.getEndDateAndTime().toString());
             to.setManaged(true);
             to.setVisible(true);
             to.setWrapText(isViewMode);
         }
-        if (event.getAddress() != null && eventDisplaySetting.isWillDisplayAddress()) {
+        if (event.getAddress() != null && eventDisplaySetting.willDisplayAddress()) {
             address.setText(event.getAddress().value);
             address.setManaged(true);
             address.setVisible(true);
             address.setWrapText(isViewMode);
         }
-        if (event.getZoomLink() != null && eventDisplaySetting.isWillDisplayZoomLink()) {
+        if (event.getZoomLink() != null && eventDisplaySetting.willDisplayZoomLink()) {
             zoom.setText(event.getZoomLink().link);
             zoom.setManaged(true);
             zoom.setVisible(true);
             zoom.setWrapText(isViewMode);
         }
-        if (event.getDescription() != null && eventDisplaySetting.isWillDisplayDescription()) {
+        if (event.getDescription() != null && eventDisplaySetting.willDisplayDescription()) {
             description.setText(event.getDescription().value);
             description.setManaged(true);
             description.setVisible(true);
             description.setWrapText(isViewMode);
         }
 
-        if (eventDisplaySetting.isWillDisplayTags() && !event.getTags().isEmpty()) {
+        if (eventDisplaySetting.willDisplayTags() && !event.getTags().isEmpty()) {
             event.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {

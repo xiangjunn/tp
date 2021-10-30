@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDisplaySetting;
 
@@ -49,6 +50,16 @@ public interface Model {
      * Sets the display settings of the events.
      */
     void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting);
+
+    /**
+     * Returns the display settings of the contacts.
+     */
+    ContactDisplaySetting getContactDisplaySetting();
+
+    /**
+     * Sets the display settings of the contacts.
+     */
+    void setContactDisplaySetting(ContactDisplaySetting displaySetting);
 
     /**
      * Returns the user prefs' address book file path.
@@ -250,6 +261,5 @@ public interface Model {
      * Unmarks the event indexed at the specified index.
      */
     void unmarkEventIndexedAt(Index index);
-
 
 }

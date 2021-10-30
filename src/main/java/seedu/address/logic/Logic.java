@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDisplaySetting;
 
@@ -52,6 +53,11 @@ public interface Logic {
      * Returns the display settings of the events.
      */
     EventDisplaySetting getEventDisplaySetting();
+
+    /**
+     * Returns the display settings of the contacts.
+     */
+    ContactDisplaySetting getContactDisplaySetting();
 
     /**
      * Set the user prefs' GUI settings.

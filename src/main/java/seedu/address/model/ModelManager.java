@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDisplaySetting;
 
@@ -27,6 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<Contact> filteredContacts;
     private final FilteredList<Event> filteredEvents;
     private EventDisplaySetting eventDisplaySetting = EventDisplaySetting.DEFAULT_SETTING;
+    private ContactDisplaySetting contactDisplaySetting = ContactDisplaySetting.DEFAULT_SETTING;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -78,6 +80,17 @@ public class ModelManager implements Model {
     public void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting) {
         requireNonNull(eventDisplaySetting);
         this.eventDisplaySetting = eventDisplaySetting;
+    }
+
+    @Override
+    public ContactDisplaySetting getContactDisplaySetting() {
+        return contactDisplaySetting;
+    }
+
+    @Override
+    public void setContactDisplaySetting(ContactDisplaySetting displaySetting) {
+        requireNonNull(displaySetting);
+        this.contactDisplaySetting = displaySetting;
     }
 
     @Override
@@ -207,15 +220,9 @@ public class ModelManager implements Model {
      * Reset the display to addressBook to display all contacts and events
      */
     public void resetDisplayAllFilteredList() {
-        filteredContacts.forEach(contact -> {
-            Contact.setViewingMode(false);
-            Contact.setAllDisplayToTrue();
-        });
         eventDisplaySetting = EventDisplaySetting.DEFAULT_SETTING;
-        updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS);
-        updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS);
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        contactDisplaySetting = ContactDisplaySetting.DEFAULT_SETTING;
+        rerenderAllCards();
     }
 
     //=========== Filtered Contact List Accessors =====================
@@ -326,7 +333,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredContacts.equals(other.filteredContacts)
                 && filteredEvents.equals(other.filteredEvents)
-                && eventDisplaySetting.equals(other.eventDisplaySetting);
+                && eventDisplaySetting.equals(other.eventDisplaySetting)
+                && contactDisplaySetting.equals(other.contactDisplaySetting);
     }
 
     @Override

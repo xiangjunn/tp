@@ -13,6 +13,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactDisplaySetting;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -49,6 +50,7 @@ public class CFindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setContactDisplaySetting(ContactDisplaySetting.DEFAULT_SETTING);
         model.updateFilteredContactList(predicate);
         model.commitAddressBook();
         return new CommandResult(
