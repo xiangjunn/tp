@@ -280,8 +280,10 @@ public class Contact {
     public Contact linkTo(Event event) {
         Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
         updatedLinkedEvents.add(event.getUuid());
-        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
             uuid, updatedLinkedEvents, isBookMarked);
+        addToMap(updatedContact); // must update the map to represent the latest changes
+        return updatedContact;
     }
 
     /**
@@ -312,8 +314,10 @@ public class Contact {
     public Contact unlink(Event event) {
         Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
         updatedLinkedEvents.remove(event.getUuid());
-        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
             uuid, updatedLinkedEvents, isBookMarked);
+        addToMap(updatedContact);
+        return updatedContact;
     }
 
     /**
@@ -321,8 +325,10 @@ public class Contact {
      * @return The contact that has no link to any contacts.
      */
     public Contact clearAllLinks() {
-        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
             uuid, new HashSet<>(), isBookMarked);
+        addToMap(updatedContact);
+        return updatedContact;
     }
 
     @Override

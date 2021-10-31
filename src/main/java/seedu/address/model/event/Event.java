@@ -280,8 +280,10 @@ public class Event {
     public Event linkTo(Contact contact) {
         Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
         updatedLinkedContacts.add(contact.getUuid());
-        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
             uuid, updatedLinkedContacts, isBookMarked);
+        addToMap(updatedEvent); // must update the map to represent the latest changes
+        return updatedEvent;
     }
 
     /**
@@ -312,8 +314,10 @@ public class Event {
     public Event unlink(Contact contact) {
         Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
         updatedLinkedContacts.remove(contact.getUuid());
-        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
             uuid, updatedLinkedContacts, isBookMarked);
+        addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     /**
@@ -321,8 +325,10 @@ public class Event {
      * @return The event that has no link to any contacts.
      */
     public Event clearAllLinks() {
-        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
             uuid, new HashSet<>(), isBookMarked);
+        addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     @Override

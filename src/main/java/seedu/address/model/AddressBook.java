@@ -222,8 +222,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEvent(Event key) {
         // unlink all the contacts linked to event before removing event
-        unlinkContactsFromEvent(key);
-        events.remove(key);
+        Event updatedEvent = unlinkContactsFromEvent(key);
+        events.remove(updatedEvent);
     }
 
     /**
@@ -249,14 +249,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Unlink all the contacts linked to the given event {@code e}, but does not remove the stored links in the event.
      */
-    public void unlinkContactsFromEvent(Event e) {
+    public Event unlinkContactsFromEvent(Event e) {
         Set<UUID> contactsUuid = e.getLinkedContacts();
         contactsUuid.iterator()
             .forEachRemaining(contactUuid -> {
                 Contact linkedContact = Contact.findByUuid(contactUuid);
                 setContact(linkedContact, linkedContact.unlink(e));
             });
-        setEvent(e, e.clearAllLinks());
+        Event updatedEvent = e.clearAllLinks();
+        setEvent(e, updatedEvent);
+        return updatedEvent;
     }
 
     /**
@@ -309,21 +311,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         // unlink all the events linked to contact before removing contact
-        unlinkEventsFromContact(key);
-        contacts.remove(key);
+        Contact updatedContact = unlinkEventsFromContact(key);
+        contacts.remove(updatedContact);
     }
 
     /**
      * Unlink all the events linked to the given contact {@code c}, but does not remove the stored links in the contact.
      */
-    public void unlinkEventsFromContact(Contact c) {
+    public Contact unlinkEventsFromContact(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
             .forEachRemaining(eventUuid -> {
                 Event linkedEvent = Event.findByUuid(eventUuid);
                 setEvent(linkedEvent, linkedEvent.unlink(c));
             });
-        setContact(c, c.clearAllLinks());
+        Contact updatedContact = c.clearAllLinks();
+        setContact(c, updatedContact);
+        return updatedContact;
     }
 
     //// util methods
