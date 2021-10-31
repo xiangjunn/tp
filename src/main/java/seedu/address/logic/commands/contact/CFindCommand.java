@@ -12,7 +12,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.contact.ContactNameContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactDisplaySetting;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -40,15 +41,16 @@ public class CFindCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    private final ContactNameContainsKeywordsPredicate predicate;
+    private final ContactContainsKeywordsPredicate predicate;
 
-    public CFindCommand(ContactNameContainsKeywordsPredicate predicate) {
+    public CFindCommand(ContactContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setContactDisplaySetting(ContactDisplaySetting.DEFAULT_SETTING);
         model.updateFilteredContactList(predicate);
         model.commitAddressBook();
         return new CommandResult(

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.ContactDisplaySetting;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -28,12 +29,14 @@ public class CListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new CListCommand(), model, CListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new CListCommand(ContactDisplaySetting.DEFAULT_SETTING), model,
+            CListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new CListCommand(), model, CListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new CListCommand(ContactDisplaySetting.DEFAULT_SETTING),
+            model, CListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

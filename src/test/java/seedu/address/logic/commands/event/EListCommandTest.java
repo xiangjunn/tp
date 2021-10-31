@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
+import static seedu.address.model.event.EventDisplaySetting.DEFAULT_SETTING;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.EventDisplaySetting;
 
 class EListCommandTest {
 
@@ -27,20 +29,39 @@ class EListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new EListCommand(), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.setEventDisplaySetting(DEFAULT_SETTING);
+        assertCommandSuccess(new EListCommand(DEFAULT_SETTING), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showEventAtIndex(model, INDEX_FIRST_EVENT);
-        assertCommandSuccess(new EListCommand(), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.setEventDisplaySetting(DEFAULT_SETTING);
+        assertCommandSuccess(new EListCommand(DEFAULT_SETTING), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_listIsNotFiltered_showsSomeFields() {
+        EventDisplaySetting eventDisplaySetting = new EventDisplaySetting(true, false, false, false, true, false);
+        expectedModel.setEventDisplaySetting(eventDisplaySetting);
+        assertCommandSuccess(new EListCommand(eventDisplaySetting), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_listIsFiltered_showsSomeFields() {
+        showEventAtIndex(model, INDEX_FIRST_EVENT);
+        EventDisplaySetting eventDisplaySetting = new EventDisplaySetting(true, false, false, false, true, false);
+        expectedModel.setEventDisplaySetting(eventDisplaySetting);
+        assertCommandSuccess(new EListCommand(eventDisplaySetting), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void equal() {
-        EListCommand standardCommand = new EListCommand();
+        EListCommand standardCommand = new EListCommand(DEFAULT_SETTING);
         assertTrue(standardCommand.equals(standardCommand));
-        assertTrue(standardCommand.equals(new EListCommand()));
+        assertTrue(standardCommand.equals(new EListCommand(DEFAULT_SETTING)));
+        assertFalse(standardCommand.equals(new EListCommand(new EventDisplaySetting(false, false,
+            false, true, true, true))));
         assertFalse(standardCommand.equals(new EClearCommand()));
 
     }

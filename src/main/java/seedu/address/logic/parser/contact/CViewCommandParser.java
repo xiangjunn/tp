@@ -7,7 +7,6 @@ import seedu.address.logic.commands.contact.CViewCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.contact.Contact;
 
 public class CViewCommandParser implements Parser<CViewCommand> {
     /**
@@ -19,7 +18,6 @@ public class CViewCommandParser implements Parser<CViewCommand> {
     public CViewCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            Contact.setViewingMode(true);
             return new CViewCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
