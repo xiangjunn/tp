@@ -240,5 +240,8 @@ public interface Model {
      */
     void unmarkEventIndexedAt(Index index);
 
-
+    /**
+     * Removes all links between contacts and events.
+     */
+    void removeAllLinks();
 }

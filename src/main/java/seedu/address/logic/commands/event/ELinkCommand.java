@@ -51,8 +51,7 @@ public class ELinkCommand extends Command {
         checkCommandValidity(lastShownEventList, lastShownContactList);
 
         // execution of command
-        Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
-        CommandResult commandResult = linkEventAndContacts(model, eventToLink, lastShownContactList);
+        CommandResult commandResult = linkEventAndContacts(model, lastShownEventList, lastShownContactList);
 
         // rerender UI to show the links between event and each of the contacts
         model.rerenderAllCards();
@@ -73,10 +72,14 @@ public class ELinkCommand extends Command {
         }
     }
 
-    private CommandResult linkEventAndContacts(Model model, Event eventToLink, List<Contact> lastShownContactList) {
+    private CommandResult linkEventAndContacts(Model model, List<Event> lastShownEventList,
+            List<Contact> lastShownContactList) {
         String commandResult = "";
         int count = 0;
         for (Index contactIndex : contactIndexes) {
+            // have to get the event from the list again because a new event replaces the index
+            // whenever a link occurs, hence cannot use the old reference of event.
+            Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
             Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
             model.linkEventAndContact(eventToLink, contactToLink);
             if (count == 0) {

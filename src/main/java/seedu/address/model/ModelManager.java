@@ -161,16 +161,9 @@ public class ModelManager implements Model {
 
     @Override
     public void resetContacts() {
-        // all links should be removed first
-        List<Event> eventList = filteredEvents.stream()
-            .map(Event::clearAllLinks)
-            .collect(Collectors.toList());
-        filteredEvents.setAll(eventList);
-        // not necessary to remove from contacts since they will be deleted, but just to be defensive
-        List<Contact> contactList = filteredContacts.stream()
-            .map(Contact::clearAllLinks)
-            .collect(Collectors.toList());
-        filteredContacts.setAll(contactList);
+        // not necessary to remove links from contacts since they will be deleted, but just to be strict
+        // about the bidirectional relationship
+        removeAllLinks();
 
         this.addressBook.resetContacts();
     }
@@ -202,16 +195,9 @@ public class ModelManager implements Model {
 
     @Override
     public void resetEvents() {
-        // all links should be removed first
-        List<Contact> contactList = filteredContacts.stream()
-            .map(Contact::clearAllLinks)
-            .collect(Collectors.toList());
-        filteredContacts.setAll(contactList);
-        // not necessary to remove from events since they will be deleted, but just to be defensive
-        List<Event> eventList = filteredEvents.stream()
-            .map(Event::clearAllLinks)
-            .collect(Collectors.toList());
-        filteredEvents.setAll(eventList);
+        // not necessary to remove links from events since they will be deleted, but just to be strict
+        // about the bidirectional relationship
+        removeAllLinks();
 
         this.addressBook.resetEvents();
     }
@@ -387,4 +373,9 @@ public class ModelManager implements Model {
         filteredEvents.get(index.getZeroBased()).setBookMarked(false);
     }
 
+    @Override
+    public void removeAllLinks() {
+        filteredEvents.forEach(event -> setEvent(event, event.clearAllLinks()));
+        filteredContacts.forEach(contact -> setContact(contact, contact.clearAllLinks()));
+    }
 }
