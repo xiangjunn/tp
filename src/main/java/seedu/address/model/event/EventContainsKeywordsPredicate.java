@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 /**
  * Tests that a {@code Event}'s {@code Name} matches any of the keywords given.
  */
-public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
+public class EventContainsKeywordsPredicate implements Predicate<Event> {
     private final List<String> nameKeywords;
     private List<String> startDateTimeKeywords = new ArrayList<>();
     private List<String> endDateTimeKeywords = new ArrayList<>();
@@ -19,19 +19,17 @@ public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
     private List<String> tagKeywords = new ArrayList<>();
 
     /**
-     * Class constructor
-     *
-     * @param nameKeywords
+     * Creates a {@code EventContainsKeywordsPredicate} object with the name keywords.
      */
-    public EventNameContainsKeywordsPredicate(List<String> nameKeywords) {
+    public EventContainsKeywordsPredicate(List<String> nameKeywords) {
         requireNonNull(nameKeywords);
         this.nameKeywords = nameKeywords;
     }
 
     /**
-     * empty class constructor if nameKeywords are not provided.
+     * Creates a {@code EventContainsKeywordsPredicate} object with no keywords.
      */
-    public EventNameContainsKeywordsPredicate() {
+    public EventContainsKeywordsPredicate() {
         nameKeywords = new ArrayList<>();
     }
 
@@ -72,14 +70,14 @@ public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventNameContainsKeywordsPredicate // instanceof handles nulls
-                && nameKeywords.equals(((EventNameContainsKeywordsPredicate) other).nameKeywords)
-                && startDateTimeKeywords.equals(((EventNameContainsKeywordsPredicate) other).startDateTimeKeywords)
-                && endDateTimeKeywords.equals(((EventNameContainsKeywordsPredicate) other).endDateTimeKeywords)
-                && addressKeywords.equals(((EventNameContainsKeywordsPredicate) other).addressKeywords)
-                && descriptionKeywords.equals(((EventNameContainsKeywordsPredicate) other).descriptionKeywords)
-                && zoomLinkKeywords.equals(((EventNameContainsKeywordsPredicate) other).zoomLinkKeywords)
-                && tagKeywords.equals(((EventNameContainsKeywordsPredicate) other).tagKeywords)); // state check
+                || (other instanceof EventContainsKeywordsPredicate // instanceof handles nulls
+                && nameKeywords.equals(((EventContainsKeywordsPredicate) other).nameKeywords)
+                && startDateTimeKeywords.equals(((EventContainsKeywordsPredicate) other).startDateTimeKeywords)
+                && endDateTimeKeywords.equals(((EventContainsKeywordsPredicate) other).endDateTimeKeywords)
+                && addressKeywords.equals(((EventContainsKeywordsPredicate) other).addressKeywords)
+                && descriptionKeywords.equals(((EventContainsKeywordsPredicate) other).descriptionKeywords)
+                && zoomLinkKeywords.equals(((EventContainsKeywordsPredicate) other).zoomLinkKeywords)
+                && tagKeywords.equals(((EventContainsKeywordsPredicate) other).tagKeywords)); // state check
     }
 }
 

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.event.EFindCommand;
-import seedu.address.model.event.EventNameContainsKeywordsPredicate;
+import seedu.address.model.event.EventContainsKeywordsPredicate;
 
 public class EFindCommandParserTest {
 
@@ -24,7 +24,7 @@ public class EFindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         EFindCommand expectedEFindCommand =
-            new EFindCommand(new EventNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+            new EFindCommand(new EventContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice Bob", expectedEFindCommand);
 
         // multiple whitespaces between keywords

@@ -121,10 +121,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        contactListPanel = new ContactListPanel(logic.getFilteredContactList(), this);
+        contactListPanel = new ContactListPanel(logic.getFilteredContactList(), this, logic::getContactDisplaySetting);
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList(), this);
+        eventListPanel = new EventListPanel(logic.getFilteredEventList(), this, logic::getEventDisplaySetting);
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
