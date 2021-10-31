@@ -11,6 +11,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
@@ -144,6 +145,15 @@ public class UniqueEventList implements Iterable<Event> {
         });
         internalList.removeAll(internalUnmodifiableList); //removes all event from the list
         internalList.addAll(markedEventsFirst); //adds in list in correct order
+    }
+
+    /**
+     * Update the UUID map in events.
+     */
+    public void updateEventMap() {
+        for (Event event : internalList) {
+            Event.addToMap(event);
+        }
     }
 
     /**

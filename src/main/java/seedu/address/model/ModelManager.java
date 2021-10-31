@@ -109,6 +109,7 @@ public class ModelManager implements Model {
     public void undoAddressBook() {
         addressBook.undo();
         addressBook.resetData(getAddressBook());
+        addressBook.updateDataMaps();
         resetDisplayAllFilteredList();
     }
 

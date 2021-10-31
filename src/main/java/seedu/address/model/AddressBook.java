@@ -330,6 +330,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         return updatedContact;
     }
 
+    /**
+     * Update the list of contacts and list of events in their respective UUID map.
+     */
+    public void updateDataMaps() {
+        contacts.updateContactMap();
+        events.updateEventMap();
+    }
+
     //// util methods
 
     @Override
