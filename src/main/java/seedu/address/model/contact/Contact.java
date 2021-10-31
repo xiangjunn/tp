@@ -275,9 +275,13 @@ public class Contact {
     /**
      * Links the event to the contact object that calls this method.
      * @param event The event to be linked with.
+     * @return The contact that has link to the event passed in as parameter.
      */
-    public void linkTo(Event event) {
-        this.linkedEvents.add(event.getUuid());
+    public Contact linkTo(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.add(event.getUuid());
+        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isBookMarked);
     }
 
     /**
@@ -303,16 +307,22 @@ public class Contact {
     /**
      * Removes the link between the event and the contact object that calls this method.
      * @param event The event to be unlinked.
+     * @return The contact that has no link to the event passed in as parameter.
      */
-    public void unlink(Event event) {
-        this.linkedEvents.remove(event.getUuid());
+    public Contact unlink(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.remove(event.getUuid());
+        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isBookMarked);
     }
 
     /**
      * Removes all links to the contact object that calls this method.
+     * @return The contact that has no link to any contacts.
      */
-    public void clearAllLinks() {
-        this.linkedEvents.clear();
+    public Contact clearAllLinks() {
+        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, new HashSet<>(), isBookMarked);
     }
 
     @Override

@@ -274,10 +274,14 @@ public class Event {
 
     /**
      * Links the contact to the event object that calls this method.
-     * @param contact The event to be linked with.
+     * @param contact The contact to be linked with.
+     * @return The event that has link to the contact passed in as parameter.
      */
-    public void linkTo(Contact contact) {
-        this.linkedContacts.add(contact.getUuid());
+    public Event linkTo(Contact contact) {
+        Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
+        updatedLinkedContacts.add(contact.getUuid());
+        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, updatedLinkedContacts, isBookMarked);
     }
 
     /**
@@ -303,16 +307,22 @@ public class Event {
     /**
      * Removes the link between the contact and the event object that calls this method.
      * @param contact The contact to be unlinked.
+     * @return The event that has link to the contact passed in as parameter.
      */
-    public void unlink(Contact contact) {
-        this.linkedContacts.remove(contact.getUuid());
+    public Event unlink(Contact contact) {
+        Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
+        updatedLinkedContacts.remove(contact.getUuid());
+        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, updatedLinkedContacts, isBookMarked);
     }
 
     /**
-     * Removes all links to the contact object that calls this method.
+     * Removes all links to the event object that calls this method.
+     * @return The event that has no link to any contacts.
      */
-    public void clearAllLinks() {
-        this.linkedContacts.clear();
+    public Event clearAllLinks() {
+        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, new HashSet<>(), isBookMarked);
     }
 
     @Override

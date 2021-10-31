@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -159,6 +161,17 @@ public class ModelManager implements Model {
 
     @Override
     public void resetContacts() {
+        // all links should be removed first
+        List<Event> eventList = filteredEvents.stream()
+            .map(Event::clearAllLinks)
+            .collect(Collectors.toList());
+        filteredEvents.setAll(eventList);
+        // not necessary to remove from contacts since they will be deleted, but just to be defensive
+        List<Contact> contactList = filteredContacts.stream()
+            .map(Contact::clearAllLinks)
+            .collect(Collectors.toList());
+        filteredContacts.setAll(contactList);
+
         this.addressBook.resetContacts();
     }
 
@@ -189,6 +202,17 @@ public class ModelManager implements Model {
 
     @Override
     public void resetEvents() {
+        // all links should be removed first
+        List<Contact> contactList = filteredContacts.stream()
+            .map(Contact::clearAllLinks)
+            .collect(Collectors.toList());
+        filteredContacts.setAll(contactList);
+        // not necessary to remove from events since they will be deleted, but just to be defensive
+        List<Event> eventList = filteredEvents.stream()
+            .map(Event::clearAllLinks)
+            .collect(Collectors.toList());
+        filteredEvents.setAll(eventList);
+
         this.addressBook.resetEvents();
     }
 
@@ -322,14 +346,16 @@ public class ModelManager implements Model {
 
     @Override
     public void linkEventAndContact(Event event, Contact contact) {
-        event.linkTo(contact);
-        contact.linkTo(event);
+        requireAllNonNull(event, contact);
+
+        addressBook.linkEventAndContact(event, contact);
     }
 
     @Override
     public void unlinkEventAndContact(Event event, Contact contact) {
-        event.unlink(contact);
-        contact.unlink(event);
+        requireAllNonNull(event, contact);
+
+        addressBook.unlinkEventAndContact(event, contact);
     }
 
     @Override
