@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,9 +39,10 @@ class ELinkCommandTest {
 
     @Test
     public void execute_singleLink_success() {
+        // first index of event list and first index of contact list
         ELinkCommand eLinkCommand = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_FIRST_PERSON));
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST));
         Event eventToLink = typicalModel.getFilteredEventList().get(0);
         Contact contactToLink = typicalModel.getFilteredContactList().get(0);
         Model newModel = new ModelManager(typicalAddressBook, new UserPrefs());
@@ -57,9 +56,10 @@ class ELinkCommandTest {
 
     @Test
     public void execute_multiLink_success() {
+        // first index of event list and set of first and second indexes of contact list
         ELinkCommand eLinkCommand = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON));
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST, INDEX_SECOND));
         Event eventToLink = typicalModel.getFilteredEventList().get(0);
         Contact contact1ToLink = typicalModel.getFilteredContactList().get(0);
         Contact contact2ToLink = typicalModel.getFilteredContactList().get(1);
@@ -79,25 +79,33 @@ class ELinkCommandTest {
     public void execute_invalidIndex_failure() {
         ELinkCommand eLinkCommand = new ELinkCommand(
             Index.fromZeroBased(100),
-            Set.of(INDEX_SECOND_PERSON));
+            Set.of(INDEX_SECOND));
         assertCommandFailure(eLinkCommand, typicalModel, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         ELinkCommand eLinkCommand2 = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_SECOND_PERSON, Index.fromZeroBased(101)));
+            INDEX_FIRST,
+            Set.of(INDEX_SECOND, Index.fromZeroBased(101)));
         assertCommandFailure(eLinkCommand2, typicalModel, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
     public void testEquals() {
-        ELinkCommand eLinkCommand1 = new ELinkCommand(INDEX_FIRST_EVENT, Set.of(INDEX_FIRST_PERSON));
-        Set<Index> set = new HashSet<>();
-        set.add(INDEX_FIRST_PERSON);
-        set.add(INDEX_SECOND_PERSON);
-        ELinkCommand eLinkCommand2 = new ELinkCommand(INDEX_FIRST_EVENT, set);
+        // first index of event list and first index of contact list
+        ELinkCommand eLinkCommand1 = new ELinkCommand(INDEX_FIRST, Set.of(INDEX_FIRST));
+        Set<Index> setOfContactIndexes = new HashSet<>();
+        setOfContactIndexes.add(INDEX_FIRST);
+        setOfContactIndexes.add(INDEX_SECOND);
+
+        // first index of event list and the set of contact list indexes
+        ELinkCommand eLinkCommand2 = new ELinkCommand(INDEX_FIRST, setOfContactIndexes);
+
+        // first index of event list and set of first and second indexes of contact list
         ELinkCommand eLinkCommand3 = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON));
-        ELinkCommand eLinkCommand4 = new ELinkCommand(INDEX_SECOND_EVENT, set);
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST, INDEX_SECOND));
+
+        // second index of event list and the set of contact list indexes
+        ELinkCommand eLinkCommand4 = new ELinkCommand(INDEX_SECOND, setOfContactIndexes);
+
         assertEquals(eLinkCommand1, eLinkCommand1);
         assertNotEquals(eLinkCommand1, eLinkCommand2);
         assertEquals(eLinkCommand2, eLinkCommand3);

@@ -31,9 +31,9 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_EXA
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -117,7 +117,7 @@ class EEditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_EVENT;
+        Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + START_DATE_TIME_DESC_TUTORIAL
                 + END_DATE_TIME_DESC_TUTORIAL + ADDRESS_DESC_TUTORIAL + NAME_DESC_TUTORIAL + TAG_DESC_COOL;
 
@@ -131,7 +131,7 @@ class EEditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_EVENT;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + START_DATE_TIME_DESC_EXAM + END_DATE_TIME_DESC_TUTORIAL;
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withStartDateTime(VALID_START_DATE_TIME_EXAM)
@@ -144,7 +144,7 @@ class EEditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_EVENT;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + NAME_DESC_TUTORIAL;
         EditEventDescriptor descriptor =
                 new EditEventDescriptorBuilder().withName(VALID_NAME_TUTORIAL).build();
@@ -178,7 +178,7 @@ class EEditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_EVENT;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + START_DATE_TIME_DESC_TUTORIAL + ADDRESS_DESC_TUTORIAL
                 + END_DATE_TIME_DESC_TUTORIAL + TAG_DESC_COOL + START_DATE_TIME_DESC_TUTORIAL + ADDRESS_DESC_TUTORIAL
                 + END_DATE_TIME_DESC_TUTORIAL + TAG_DESC_COOL + START_DATE_TIME_DESC_EXAM + ADDRESS_DESC_EXAM
@@ -195,7 +195,7 @@ class EEditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_EVENT;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + INVALID_START_DATE_TIME_DESC + START_DATE_TIME_DESC_EXAM;
         EditEventDescriptor descriptor =
                 new EditEventDescriptorBuilder().withStartDateTime(VALID_START_DATE_TIME_EXAM).build();
@@ -213,7 +213,7 @@ class EEditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_EVENT;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + TAG_DESC_DELETEALL;
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
@@ -225,7 +225,7 @@ class EEditCommandParserTest {
 
     @Test
     public void parse_resetTagsThenAddTags_success() {
-        Index targetIndex = INDEX_THIRD_EVENT;
+        Index targetIndex = INDEX_THIRD;
         // user types delete all tags before adding new tag
         String userInput = targetIndex.getOneBased() + TAG_DESC_DELETEALL + TAG_DESC_EXAMS;
         // user types add new tag before deleting all tag
@@ -241,7 +241,7 @@ class EEditCommandParserTest {
 
     @Test
     public void parse_deleteTags_success() {
-        Index targetIndex = INDEX_SECOND_EVENT;
+        Index targetIndex = INDEX_SECOND;
         // user deletes cool tag
         String userDeleteOneTag = targetIndex.getOneBased() + DELETE_TAG_DESC_COOL;
         // user deletes cool tag, then deletes exams tag

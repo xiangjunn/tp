@@ -12,8 +12,8 @@ import static seedu.address.logic.commands.general.CommandTestUtil.assertCommand
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.util.List;
 import java.util.Set;
@@ -46,7 +46,7 @@ class EEditCommandTest {
         Event editedEvent = new EventBuilder().build();
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent,
                 null, true).build();
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST_EVENT, descriptor);
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, descriptor);
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
@@ -83,8 +83,8 @@ class EEditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST_EVENT, new EditEventDescriptor());
-        Event editedEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, new EditEventDescriptor());
+        Event editedEvent = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
@@ -96,11 +96,11 @@ class EEditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showEventAtIndex(model, INDEX_FIRST_EVENT);
+        showEventAtIndex(model, INDEX_FIRST);
 
-        Event eventInFilteredList = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Event eventInFilteredList = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         Event editedEvent = new EventBuilder(eventInFilteredList).withName(VALID_NAME_EXAM).build();
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST_EVENT,
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST,
                 new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM).build());
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
@@ -115,21 +115,21 @@ class EEditCommandTest {
 
     @Test
     public void execute_duplicateEventUnfilteredList_failure() {
-        Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
+        Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(firstEvent, Set.of(),
                 false).build();
-        EEditCommand eEditCommand = new EEditCommand(INDEX_SECOND_EVENT, descriptor);
+        EEditCommand eEditCommand = new EEditCommand(INDEX_SECOND, descriptor);
 
         assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_DUPLICATE_EVENT);
     }
 
     @Test
     public void execute_duplicateEventFilteredList_failure() {
-        showEventAtIndex(model, INDEX_FIRST_EVENT);
+        showEventAtIndex(model, INDEX_FIRST);
 
         // edit event in filtered list into a duplicate in address book
-        Event eventInList = model.getAddressBook().getEventList().get(INDEX_SECOND_EVENT.getZeroBased());
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST_EVENT,
+        Event eventInList = model.getAddressBook().getEventList().get(INDEX_SECOND.getZeroBased());
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST,
                 new EditEventDescriptorBuilder(eventInList, Set.of(), false).build());
 
         assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_DUPLICATE_EVENT);
@@ -151,8 +151,8 @@ class EEditCommandTest {
      */
     @Test
     public void execute_invalidEventIndexFilteredList_failure() {
-        showEventAtIndex(model, INDEX_FIRST_EVENT);
-        Index outOfBoundIndex = INDEX_SECOND_EVENT;
+        showEventAtIndex(model, INDEX_FIRST);
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getEventList().size());
 
@@ -164,18 +164,18 @@ class EEditCommandTest {
 
     @Test
     public void execute_invalidDateTimeRangeEvent_failure() {
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST_EVENT, new EditEventDescriptorBuilder()
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, new EditEventDescriptorBuilder()
                 .withStartDateTime("20-10-2021 20:00").withEndDateTime("20-10-2021 18:00").build());
         assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_INVALID_DATE_TIME_RANGE);
     }
 
     @Test
     public void equals() {
-        final EEditCommand standardCommand = new EEditCommand(INDEX_FIRST_EVENT, DESC_TUTORIAL);
+        final EEditCommand standardCommand = new EEditCommand(INDEX_FIRST, DESC_TUTORIAL);
 
         // same values -> returns true
         EditEventDescriptor copyDescriptor = new EditEventDescriptor(DESC_TUTORIAL);
-        EEditCommand commandWithSameValues = new EEditCommand(INDEX_FIRST_EVENT, copyDescriptor);
+        EEditCommand commandWithSameValues = new EEditCommand(INDEX_FIRST, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -188,9 +188,9 @@ class EEditCommandTest {
         assertFalse(standardCommand.equals(new EClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EEditCommand(INDEX_SECOND_EVENT, DESC_TUTORIAL)));
+        assertFalse(standardCommand.equals(new EEditCommand(INDEX_SECOND, DESC_TUTORIAL)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EEditCommand(INDEX_FIRST_EVENT, DESC_EXAM)));
+        assertFalse(standardCommand.equals(new EEditCommand(INDEX_FIRST, DESC_EXAM)));
     }
 }

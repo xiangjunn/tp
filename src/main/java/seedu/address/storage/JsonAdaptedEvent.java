@@ -120,6 +120,9 @@ class JsonAdaptedEvent {
         }
         final EndDateTime modelEndDateTime = endDateTime == null ? null : new EndDateTime(endDateTime);
 
+        if (description != null && !Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
         final Description modelDescription = description == null ? null : new Description(description);
 
         if (address != null && !Address.isValidAddress(address)) {

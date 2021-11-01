@@ -34,7 +34,7 @@ class JsonSerializableAddressBook {
      * Constructs a {@code JsonSerializableAddressBook} with the given contacts and events.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedContact> contacts,
+    public JsonSerializableAddressBook(@JsonProperty("contacts") List<JsonAdaptedContact> contacts,
                                        @JsonProperty("events") List<JsonAdaptedEvent> events) {
         if (contacts != null) {
             this.contacts.addAll(contacts);
