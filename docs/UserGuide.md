@@ -113,7 +113,7 @@ This section details all the features and commands available in SoConnect that c
 * [Editing a contact](#editing-a-contact-cedit)
 * [Finding contacts](#finding-contacts-cfind)
 * [Listing all contacts](#listing-all-contacts-clist)
-* [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)
+* [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)
 * [Viewing a contact](#viewing-a-contact-cview)
 
 
@@ -136,12 +136,11 @@ A contact can have any number of tags (including 0)
 
 Bookmarks the specified contact(s).
 
-**Format:** `cmark INDEX1 [INDEX]...`
+**Format:** `cmark INDEX`
 
 ![image](images/demo-screenshots/BookmarkContact.png)
 
-* Bookmarks the contact at `INDEX1` and pins it at the top of the contact list.
-* You may bookmark **more than one contact at a time** by specifying multiple indexes `cmark 1 2`.
+* Bookmarks the contact at `INDEX` and pins it at the top of the contact list.
 * `INDEX` refers to the index number shown in the displayed contact list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -151,9 +150,8 @@ Bookmarks the specified contact(s).
 
 **Examples:**
 * `cmark 2` bookmarks the second contact in SoConnect.
-* `cmark 2 4` bookmarks the second and fourth contacts in SoConnect.
 
-_See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)_
+_See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
 
 
 
@@ -281,14 +279,13 @@ Do not add extraneous values after each optional field you specify.
 * `clist e/ p/` shows all contacts in SoConnect with only their names, email addresses and phone numbers (if available).
 
 
-### Removing bookmark of a contact: `cumark`
+### Removing bookmark of a contact: `cunmark`
 
-Remove bookmark(s) of the specified contact(s).
+Removes bookmark(s) of the specified contact(s).
 
-**Format:** `cumark INDEX1 [INDEX]...`
+**Format:** `cunmark INDEX`
 
-* Removes the bookmark of the contact at `INDEX1`.  
-* You may remove bookmarks of **more than one contact at a time** by specifying multiple indexes, eg `cumark 1 2`
+* Removes the bookmark of the contact at `INDEX`.
 * `INDEX` refers to the index number shown in the displayed contact list.
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
@@ -298,8 +295,7 @@ Remove bookmark(s) of the specified contact(s).
 </div>
 
 **Examples:**
-* `cumark 1` removes the bookmark of the first contact in SoConnect.
-* `cumark 2 3` removes the bookmarks of the second and third contact in SoConnect.
+* `cunmark 2` removes the bookmark of the first contact in SoConnect.
 
 _See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
@@ -334,7 +330,7 @@ This section details all the features and commands available in SoConnect that c
 * [Finding events](#finding-events-efind)
 * [Linking an event to contacts](#linking-an-event-to-contacts-elink)
 * [Listing all events](#listing-all-events-elist)
-* [Removing bookmark of an event](#removing-bookmark-of-an-event-eumark)
+* [Removing bookmark of an event](#removing-bookmark-of-an-event-eunmark)
 * [Sorting events](#sorting-events-esort)
 * [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)
 * [Viewing an event](#viewing-an-event-eview)
@@ -367,12 +363,11 @@ An event can have any number of tags (including 0)
 
 Bookmarks the specified event(s).
 
-**Format:** `emark INDEX1 [INDEX]…`
+**Format:** `emark INDEX`
 
 ![image](images/demo-screenshots/BookmarkEvents.png)
 
-* Bookmarks the event at `INDEX1` and pins it to the top of the event list.
-* You may bookmark **more than one event at a time** by specifying multiple indexes, eg `emark 1 2`
+* Bookmarks the event at `INDEX` and pins it to the top of the event list.
 * `INDEX` refers to the index number shown in the displayed event list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -382,9 +377,8 @@ Bookmarks the specified event(s).
 
 **Examples:**
 * `emark 2` bookmarks the second event in SoConnect.
-* `emark 2 4` bookmarks the second and fourth event in SoConnect.
 
-_See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cumark)_
+_See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
 
 
 ### Clearing all events: `eclear`
@@ -529,14 +523,13 @@ Do not add extraneous values after each optional field you specify.
 * `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
 
 
-### Removing bookmark of an event: `eumark`
+### Removing bookmark of an event: `eunmark`
 
 Removes bookmark of the specified event(s).
 
-**Format:** `eumark INDEX1 [INDEX]...`
+**Format:** `eunmark INDEX`
 
-* Removes bookmark of the event at `INDEX1`.
-* You may **remove bookmarks of more than one event** by specifying multiple indexes, eg `eumark 1 2`
+* Removes bookmark of the event at `INDEX`.
 * `INDEX` refers to the index number shown in the displayed event list.
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
@@ -546,8 +539,7 @@ Removes bookmark of the specified event(s).
 </div>
 
 **Examples:**
-* `eumark 1` removes the bookmark of the first event in SoConnect.
-* `eumark 2 4` removes the bookmark of the second and fourth event in SoConnect.
+* `eunmark 2` removes the bookmark of the first event in SoConnect.
 
 _See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
@@ -628,7 +620,7 @@ Doing so might result in a crash and your data may be lost.
 
 ### Exiting SoConnect: `exit`
 
-Exits and Closes SoConnect.
+Exits and closes SoConnect.
 
 **Format:** `exit`
 
@@ -644,7 +636,7 @@ Displays a summary of all commands in SoConnect User Guide.
 
 ### Undo a command: `undo`
 
-Restore SoConnect to its previous state from its history.
+Restores SoConnect to its previous state from its history.
 
 **Format:** `undo`
 
@@ -730,7 +722,9 @@ For instance, you can link your professor to the lecture.
 or Command Prompt (For [Windows](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)).
 
 2. Navigate to the folder containing `soconnect.jar`. 
-See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/), [MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html) (Linux uses the same command for navigating folders).
+See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/), 
+[MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html) 
+(Linux uses the same command for navigating folders).
 
 3. Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
 
@@ -752,13 +746,13 @@ again and make sure it is version 11.
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-a-contact-cadd)** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/James Ho p/22224444 e/hohohojames@u.nus.edu a/123, Clementi Rd, 1234665 t/Professor`
-**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX [INDEX]…`<br> e.g. `cmark 1 4`
+**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX`<br> e.g. `cmark 1`
 **[Clear](#clearing-all-contacts-cclear)** | `cclear`
 **[Delete](#deleting-a-contact-cdelete)** | `cdelete INDEX1[-INDEX2]`<br> e.g. `cdelete 3` <br> e.g. `cdelete 1-5`
 **[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g. `cedit 3 dt/*`
 **[Find](#finding-contacts-cfind)** | `cfind [KEYWORD]… [e/KEYWORD…] [p/KEYWORD…] [a/KEYWORD…] [th/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`<br> e.g. `cfind James Jake p/12345678`
 **[List](#listing-all-contacts-clist)** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g. `clist` <br> e.g. `clist e/ p/`
-**[Remove Bookmark](#removing-bookmark-of-a-contact-cumark)** | `cumark INDEX [INDEX]…`<br> e.g. `cumark 1 3 4`
+**[Remove Bookmark](#removing-bookmark-of-a-contact-cunmark)** | `cunmark INDEX`<br> e.g. `cunmark 4`
 **[View](#viewing-a-contact-cview)** | `cview INDEX`<br> e.g. `cview 3`
 
 **Event Management**
@@ -766,14 +760,14 @@ Action | Format, Examples
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-an-event-eadd)** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-**[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX [INDEX]…`<br> e.g. `emark 1 4`
+**[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX`<br> e.g. `emark 1`
 **[Clear](#clearing-all-events-eclear)** | `eclear`
 **[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
 **[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind CS2103T t/hard`
 **[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2 c/3`
 **[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
-**[Remove Bookmark](#removing-bookmark-of-an-event-eumark)** | `eumark INDEX [INDEX]…`<br> e.g. `eumark 1 3 4`
+**[Remove Bookmark](#removing-bookmark-of-an-event-eunmark)** | `eunmark INDEX`<br> e.g. `eunmark 4`
 **[Sort](#sorting-events-esort)** | `esort`
 **[Unlink](#unlinking-an-event-from-contacts-eunlink)** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1 c/2` <br> e.g., `eunlink 3 c/*`
 **[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
