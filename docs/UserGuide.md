@@ -70,7 +70,7 @@ full range of features it offers.
 
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-   If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-command-prompt) to start it too.
+   If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
 
 5. Type the command in the command box and press Enter to execute it. 
    e.g. typing `help` and pressing Enter will open the help window.<br>
@@ -604,7 +604,6 @@ This section details all other the features and commands available in SoConnect 
 * [Calendar Window](#calendar-window-calendar)
 * [Exiting SoConnect](#exiting-soconnect-exit)
 * [Help Window](#help-window-help)
-* [Redo a command](#redo-a-command-redo)
 * [Undo a command](#undo-a-command-undo)
 
 ### Calendar Window: `calendar`
@@ -643,18 +642,6 @@ Displays a summary of all commands in SoConnect User Guide.
 ![help message](images/demo-screenshots/helpMessage.png)
 
 
-### Redo a command: `redo`
-
-Restores SoConnect to a previously undone state from its history.
-
-**Format:** `redo`
-
-**Examples:**
-* `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
-
-_See Also: [Undo a command](#undo-a-command-undo)_
-
-
 ### Undo a command: `undo`
 
 Restore SoConnect to its previous state from its history.
@@ -665,8 +652,6 @@ Restore SoConnect to its previous state from its history.
 * `edelete 1` followed by `undo` restores the deleted event in the event list.
 * `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
 * `eview 1` followed by `undo` will display the full event list.
-
-_See Also: [Redo a command](#redo-a-command-redo)_
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -741,15 +726,20 @@ For instance, you can link your professor to the lecture.
 
 ### How to start SoConnect using Terminal
 
-Open the terminal (For [MacOS](https://support.apple.com/en-sg/guide/terminal/welcome/mac) or Linux) or Command Prompt (For [Windows](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)).
+1. Open the terminal (For [MacOS](https://support.apple.com/en-sg/guide/terminal/welcome/mac) or Linux) 
+or Command Prompt (For [Windows](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)).
 
-Navigate to the folder containing `soconnect.jar`. See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/), [MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html) (Linux uses the same command for navigating folders).
+2. Navigate to the folder containing `soconnect.jar`. 
+See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/), [MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html) (Linux uses the same command for navigating folders).
 
-Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
+3. Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-If you are still unable to open the file, [check your Java version](https://www.java.com/en/download/help/version_manual.html) again and make sure it is version 11. [Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
+If you are still unable to open the file, 
+[check your Java version](https://www.java.com/en/download/help/version_manual.html) 
+again and make sure it is version 11. 
+[Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
 </div>
 
 
@@ -795,7 +785,6 @@ Action | Format, Examples
 **[Calendar](#calendar-window-calendar)** | `calendar`
 **[Exit](#exiting-soconnect-exit)** | `exit`
 **[Help](#help-window-help)** | `help`
-**[Redo](#redo-a-command-redo)** | `redo`
 **[Undo](#undo-a-command-undo)** | `undo`
 
 ________________________________________________________________________________________________________________
