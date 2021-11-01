@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 /**
  * Tests that a {@code Contact} contains any of the keywords given.
  */
-public class ContactNameContainsKeywordsPredicate implements Predicate<Contact> {
+public class ContactContainsKeywordsPredicate implements Predicate<Contact> {
     private final List<String> nameKeywords;
     private List<String> phoneKeywords = new ArrayList<>();
     private List<String> emailKeywords = new ArrayList<>();
@@ -19,19 +19,17 @@ public class ContactNameContainsKeywordsPredicate implements Predicate<Contact> 
     private List<String> tagKeywords = new ArrayList<>();
 
     /**
-     * Class constructor
-     *
-     * @param nameKeywords
+     * Creates a {@code ContactContainsKeywordsPredicate} object with the name keywords.
      */
-    public ContactNameContainsKeywordsPredicate(List<String> nameKeywords) {
+    public ContactContainsKeywordsPredicate(List<String> nameKeywords) {
         requireNonNull(nameKeywords);
         this.nameKeywords = nameKeywords;
     }
 
     /**
-     * empty class constructor if nameKeywords are not provided.
+     * Creates a {@code ContactContainsKeywordsPredicate} object with no keywords.
      */
-    public ContactNameContainsKeywordsPredicate() {
+    public ContactContainsKeywordsPredicate() {
         nameKeywords = new ArrayList<>();
     }
 
@@ -39,29 +37,34 @@ public class ContactNameContainsKeywordsPredicate implements Predicate<Contact> 
         requireNonNull(phoneKeywords);
         this.phoneKeywords = phoneKeywords;
     }
+
     public void setEmailKeywords(List<String> emailKeywords) {
         requireNonNull(emailKeywords);
         this.emailKeywords = emailKeywords;
     }
+
     public void setAddressKeywords(List<String> addressKeywords) {
         requireNonNull(addressKeywords);
         this.addressKeywords = addressKeywords;
     }
+
     public void setTelegramHandleKeyword(List<String> telegramHandleKeywords) {
         requireNonNull(telegramHandleKeywords);
         this.telegramHandleKeywords = telegramHandleKeywords;
     }
+
     public void setZoomLinkKeywords(List<String> zoomLinkKeywords) {
         requireNonNull(zoomLinkKeywords);
         this.zoomLinkKeywords = zoomLinkKeywords;
     }
+
     public void setTagKeywords(List<String> tagKeywords) {
         requireNonNull(tagKeywords);
         this.tagKeywords = tagKeywords;
     }
 
     @Override
-    public boolean test(Contact contact) { // applied Law of Demeter, dont access contact fields' strings
+    public boolean test(Contact contact) { // applied Law of Demeter, don't access contact fields' strings
         requireNonNull(contact);
         return contact.nameAnyMatch(nameKeywords) || contact.phoneAnyMatch(phoneKeywords)
                 || contact.emailAnyMatch(emailKeywords) || contact.addressAnyMatch(addressKeywords)
@@ -72,14 +75,14 @@ public class ContactNameContainsKeywordsPredicate implements Predicate<Contact> 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ContactNameContainsKeywordsPredicate // instanceof handles nulls
-                && nameKeywords.equals(((ContactNameContainsKeywordsPredicate) other).nameKeywords)
-                && phoneKeywords.equals(((ContactNameContainsKeywordsPredicate) other).phoneKeywords)
-                && emailKeywords.equals(((ContactNameContainsKeywordsPredicate) other).emailKeywords)
-                && addressKeywords.equals(((ContactNameContainsKeywordsPredicate) other).addressKeywords)
-                && telegramHandleKeywords.equals(((ContactNameContainsKeywordsPredicate) other).telegramHandleKeywords)
-                && zoomLinkKeywords.equals(((ContactNameContainsKeywordsPredicate) other).zoomLinkKeywords)
-                && tagKeywords.equals(((ContactNameContainsKeywordsPredicate) other).tagKeywords)); // state check
+                || (other instanceof ContactContainsKeywordsPredicate // instanceof handles nulls
+                && nameKeywords.equals(((ContactContainsKeywordsPredicate) other).nameKeywords)
+                && phoneKeywords.equals(((ContactContainsKeywordsPredicate) other).phoneKeywords)
+                && emailKeywords.equals(((ContactContainsKeywordsPredicate) other).emailKeywords)
+                && addressKeywords.equals(((ContactContainsKeywordsPredicate) other).addressKeywords)
+                && telegramHandleKeywords.equals(((ContactContainsKeywordsPredicate) other).telegramHandleKeywords)
+                && zoomLinkKeywords.equals(((ContactContainsKeywordsPredicate) other).zoomLinkKeywords)
+                && tagKeywords.equals(((ContactContainsKeywordsPredicate) other).tagKeywords)); // state check
     }
 }
 

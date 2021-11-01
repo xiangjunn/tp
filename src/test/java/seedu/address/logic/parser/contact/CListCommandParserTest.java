@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.contact;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.general.CommandTestUtil.EMPTY_PREFIX_ADDRESS;
 import static seedu.address.logic.commands.general.CommandTestUtil.EMPTY_PREFIX_EMAIL;
@@ -12,23 +11,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.model.contact.ContactDisplaySetting.DEFAULT_SETTING;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.contact.CListCommand;
-import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 
 public class CListCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT = String.format(
         MESSAGE_INVALID_COMMAND_FORMAT,
         CListCommand.MESSAGE_USAGE);
-    private static final CListCommand C_LIST_COMMAND = new CListCommand(); // same for all
 
     private final CListCommandParser parser = new CListCommandParser();
-
-    static {
-        Contact.setAllDisplayToTrue();
-    }
 
     @Test
     public void parse_invalidArguments_failure() {
@@ -52,67 +47,32 @@ public class CListCommandParserTest {
 
     @Test
     public void parse_noArguments_success() {
-        assertParseSuccess(parser, "", C_LIST_COMMAND);
-        assertTrue(Contact.isWillDisplayAddress()
-            && Contact.isWillDisplayEmail()
-            && Contact.isWillDisplayPhone()
-            && Contact.isWillDisplayTelegramHandle()
-            && Contact.isWillDisplayZoomLink()
-            && Contact.isWillDisplayTags());
+        assertParseSuccess(parser, "", new CListCommand(DEFAULT_SETTING));
     }
 
     @Test
     public void parse_validArguments_success() {
-        assertParseSuccess(parser, EMPTY_PREFIX_PHONE, C_LIST_COMMAND);
-        assertTrue(!Contact.isWillDisplayAddress()
-            && !Contact.isWillDisplayEmail()
-            && Contact.isWillDisplayPhone()
-            && !Contact.isWillDisplayTelegramHandle()
-            && !Contact.isWillDisplayZoomLink()
-            && !Contact.isWillDisplayTags());
-        assertParseSuccess(parser, EMPTY_PREFIX_EMAIL, C_LIST_COMMAND);
-        assertTrue(!Contact.isWillDisplayAddress()
-            && Contact.isWillDisplayEmail()
-            && !Contact.isWillDisplayPhone()
-            && !Contact.isWillDisplayTelegramHandle()
-            && !Contact.isWillDisplayZoomLink()
-            && !Contact.isWillDisplayTags());
-        assertParseSuccess(parser, EMPTY_PREFIX_ADDRESS, C_LIST_COMMAND);
-        assertTrue(Contact.isWillDisplayAddress()
-            && !Contact.isWillDisplayEmail()
-            && !Contact.isWillDisplayPhone()
-            && !Contact.isWillDisplayTelegramHandle()
-            && !Contact.isWillDisplayZoomLink()
-            && !Contact.isWillDisplayTags());
-        assertParseSuccess(parser, EMPTY_PREFIX_TELEGRAM, C_LIST_COMMAND);
-        assertTrue(!Contact.isWillDisplayAddress()
-            && !Contact.isWillDisplayEmail()
-            && !Contact.isWillDisplayPhone()
-            && Contact.isWillDisplayTelegramHandle()
-            && !Contact.isWillDisplayZoomLink()
-            && !Contact.isWillDisplayTags());
-        assertParseSuccess(parser, EMPTY_PREFIX_ZOOM, C_LIST_COMMAND);
-        assertTrue(!Contact.isWillDisplayAddress()
-            && !Contact.isWillDisplayEmail()
-            && !Contact.isWillDisplayPhone()
-            && !Contact.isWillDisplayTelegramHandle()
-            && Contact.isWillDisplayZoomLink()
-            && !Contact.isWillDisplayTags());
-        assertParseSuccess(parser, EMPTY_PREFIX_TAG, C_LIST_COMMAND);
-        assertTrue(!Contact.isWillDisplayAddress()
-            && !Contact.isWillDisplayEmail()
-            && !Contact.isWillDisplayPhone()
-            && !Contact.isWillDisplayTelegramHandle()
-            && !Contact.isWillDisplayZoomLink()
-            && Contact.isWillDisplayTags());
+        // Only display phone
+        ContactDisplaySetting c1 = new ContactDisplaySetting(true, false, false, false, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_PHONE, new CListCommand(c1));
+        // Only display email
+        ContactDisplaySetting c2 = new ContactDisplaySetting(false, true, false, false, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_EMAIL, new CListCommand(c2));
+        // Only display address
+        ContactDisplaySetting c3 = new ContactDisplaySetting(false, false, false, true, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_ADDRESS, new CListCommand(c3));
+        // Only display telegram
+        ContactDisplaySetting c4 = new ContactDisplaySetting(false, false, true, false, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_TELEGRAM, new CListCommand(c4));
+        // Only display zoom
+        ContactDisplaySetting c5 = new ContactDisplaySetting(false, false, false, false, true, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_ZOOM, new CListCommand(c5));
+        // Only display tags
+        ContactDisplaySetting c6 = new ContactDisplaySetting(false, false, false, false, false, true);
+        assertParseSuccess(parser, EMPTY_PREFIX_TAG, new CListCommand(c6));
 
         // Multiple filters
-        assertParseSuccess(parser, EMPTY_PREFIX_TAG + EMPTY_PREFIX_PHONE, C_LIST_COMMAND);
-        assertTrue(!Contact.isWillDisplayAddress()
-            && !Contact.isWillDisplayEmail()
-            && Contact.isWillDisplayPhone()
-            && !Contact.isWillDisplayTelegramHandle()
-            && !Contact.isWillDisplayZoomLink()
-            && Contact.isWillDisplayTags());
+        ContactDisplaySetting c7 = new ContactDisplaySetting(true, false, false, false, false, true);
+        assertParseSuccess(parser, EMPTY_PREFIX_TAG + EMPTY_PREFIX_PHONE, new CListCommand(c7));
     }
 }

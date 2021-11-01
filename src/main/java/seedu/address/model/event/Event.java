@@ -22,14 +22,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Event {
     // stores references to all events, accessible by their unique UUIDs
-    private static HashMap<UUID, Event> map = new HashMap<>();
-    private static boolean willDisplayStartDateTime = true;
-    private static boolean willDisplayEndDateTime = true;
-    private static boolean willDisplayDescription = true;
-    private static boolean willDisplayAddress = true;
-    private static boolean willDisplayZoomLink = true;
-    private static boolean willDisplayTags = true;
-    private static boolean viewingMode = false;
+    private static final HashMap<UUID, Event> map = new HashMap<>();
 
     // Identity fields
     private final Name name;
@@ -131,79 +124,6 @@ public class Event {
         return Collections.unmodifiableSet(linkedContacts);
     }
 
-    public static boolean isWillDisplayStartDateTime() {
-        return willDisplayStartDateTime;
-    }
-
-    public static void setWillDisplayStartDateTime(boolean willDisplayStartDateTime) {
-        Event.willDisplayStartDateTime = willDisplayStartDateTime;
-    }
-
-    public static boolean isWillDisplayEndDateTime() {
-        return willDisplayEndDateTime;
-    }
-
-    public static void setWillDisplayEndDateTime(boolean willDisplayEndDateTime) {
-        Event.willDisplayEndDateTime = willDisplayEndDateTime;
-    }
-
-    public static boolean isWillDisplayDescription() {
-        return willDisplayDescription;
-    }
-
-    public static void setWillDisplayDescription(boolean willDisplayDescription) {
-        Event.willDisplayDescription = willDisplayDescription;
-    }
-
-    public static boolean isWillDisplayZoomLink() {
-        return willDisplayZoomLink;
-    }
-
-    public static void setWillDisplayZoomLink(boolean willDisplayZoomLink) {
-        Event.willDisplayZoomLink = willDisplayZoomLink;
-    }
-
-    public static boolean isWillDisplayAddress() {
-        return willDisplayAddress;
-    }
-
-    public static void setWillDisplayAddress(boolean willDisplayAddress) {
-        Event.willDisplayAddress = willDisplayAddress;
-    }
-
-    public static boolean isWillDisplayTags() {
-        return willDisplayTags;
-    }
-
-    public static void setWillDisplayTags(boolean willDisplayTags) {
-        Event.willDisplayTags = willDisplayTags;
-    }
-
-    public static void setAllDisplayToTrue() {
-        willDisplayStartDateTime = true;
-        willDisplayEndDateTime = true;
-        willDisplayDescription = true;
-        willDisplayZoomLink = true;
-        willDisplayAddress = true;
-        willDisplayTags = true;
-    }
-
-    public static void setAllDisplayToFalse() {
-        willDisplayStartDateTime = false;
-        willDisplayEndDateTime = false;
-        willDisplayDescription = false;
-        willDisplayZoomLink = false;
-        willDisplayAddress = false;
-        willDisplayTags = false;
-    }
-
-    public static boolean isViewingMode() {
-        return viewingMode;
-    }
-
-    public static void setViewingMode(boolean viewingMode) {
-        Event.viewingMode = viewingMode;
-    }
     public boolean getIsBookMarked() {
         return isBookMarked;
     }

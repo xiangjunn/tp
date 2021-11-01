@@ -51,7 +51,7 @@ public class EventBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code eventToCopy}.
+     * Initializes the EventBuilder with the data of {@code eventToCopy}.
      */
     public EventBuilder(Event eventToCopy) {
         name = eventToCopy.getName();
