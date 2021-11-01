@@ -72,7 +72,14 @@ full range of features it offers.
    ![Ui](images/Ui.png)
    If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
 
-5. Type the command in the command box and press Enter to execute it. 
+5. Type the command in the _command box_ and press Enter to execute it. 
+
+    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+    Not sure where is the _command box_? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different 
+    sections you can find in SoConnect!
+    </div>
+
    e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -87,6 +94,57 @@ full range of features it offers.
    * `exit` : Exits SoConnect.
 
 6. Refer to the [Features](#features) below for details of each command.
+
+
+## Overview of SoConnect
+
+![Labelled SoConnect](images/demo-screenshots/labelledSoconnectOverview.png)
+
+_See also: [Icons in Contact List](#icons-in-contact-list) and [Icons in Event List](#icons-in-events-list)
+
+
+## Icons in Contact List
+
+You can always find these 2 information of each contact displayed in SoConnect Contact List:
+1. Contact Index
+2. Contact Name
+
+Here are the icons you might see under each contact:
+
+Icon | Field
+--------|------------------
+**![Bookmark Icon](images/demo-screenshots/bookmarkIcon.png)** | Bookmark*
+**![Email Icon](images/demo-screenshots/emailIcon.png)** | Email Address
+**![Phone Number Icon](images/demo-screenshots/phoneNumberIcon.png)** | Phone Number
+**![Address Icon](images/demo-screenshots/addressIcon.png)** | Address
+**![Telegram Icon](images/demo-screenshots/telegramIcon.png)** | Telegram Handle
+**![Website Icon](images/demo-screenshots/websiteIcon.png)** | Links/ Websites
+**![Event Icon](images/demo-screenshots/eventIcon.png)** | Linked Events
+**![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
+
+*Bookmark icon is only visible when the contact has been bookmarked
+
+
+## Icons in Events List
+
+You can always find these 2 information of each contact displayed in SoConnect Event List:
+1. Event Index
+2. Event Name
+
+Here are the icons you might see under each event:
+
+Icon | Field
+--------|------------------
+**![Bookmark Icon](images/demo-screenshots/bookmarkIcon.png)** | Bookmark*
+**![Start Time Icon](images/demo-screenshots/startTimeIcon.png)** | Start Time
+**![End Time Icon](images/demo-screenshots/endTimeIcon.png)** | End Time
+**![Website Icon](images/demo-screenshots/websiteIcon.png)** | Links/ Websites
+**![Description Icon](images/demo-screenshots/descriptionIcon.png)** | Description
+**![Contact Icon](images/demo-screenshots/contactsIcon.png)** | Linked Contacts
+**![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
+
+*Bookmark icon is only visible when the event has been bookmarked
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -604,6 +662,12 @@ Shows a calendar of all the events.
 
 **Format:** `calendar`
 
+* You can view the calendar in 4 different views:
+  * Daily 
+  * Weekly
+  * Monthly
+  * Yearly
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 Alternatively, you can view the calendar using the top menu via `File -> Calendar` or press `F2`.
@@ -678,11 +742,11 @@ empty data file SoConnect creates on the other Computer.
 
 #### Copying Details and Opening Links
 
-![clickable links](images/clickableLinkExample.png)
+![clickable links](images/demo-screenshots/clickableLinkExample.png)
 
 **Q**: How do I copy the email address of a contact?<br>
 **A**: You can copy any specific details of a contact or an event just by clicking on that detail! <br>
-As shown on the image above, clicking on the `telegram handle` of `Bernice Yu` will copy her Telegram handle.
+As shown on the image above, clicking on the `email` of `Charlotte Oliveiro` will copy her Email Address.
 
 **Q**: Can SoConnect automatically open a link on my browser?<br>
 **A**: YES! You can open any links that you have included in a contact or in an event.<br>
@@ -692,7 +756,7 @@ As shown on the image above, clicking on the `telegram handle` of `Bernice Yu` w
 Clickable links are underlined in blue
 </div>
 
-Referring back to the same image, if you click on the `zoom` link saved under `Bernice Yu`, 
+Referring back to the same image, if you click on the `zoom` link saved under `Charlotte Oliveiro`, 
 SoConnect will help you open the link on your browser automatically.
 
 
