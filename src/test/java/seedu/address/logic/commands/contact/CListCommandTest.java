@@ -1,9 +1,12 @@
 package seedu.address.logic.commands.contact;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.general.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.general.CommandTestUtil.showContactAtIndex;
+import static seedu.address.model.contact.ContactDisplaySetting.DEFAULT_SETTING;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,8 +38,18 @@ public class CListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new CListCommand(ContactDisplaySetting.DEFAULT_SETTING),
             model, CListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equal() {
+        CListCommand standardCommand = new CListCommand(DEFAULT_SETTING);
+        assertTrue(standardCommand.equals(standardCommand));
+        assertTrue(standardCommand.equals(new CListCommand(DEFAULT_SETTING)));
+        assertFalse(standardCommand.equals(new CListCommand(new ContactDisplaySetting(false, false,
+            false, true, true, true))));
+        assertFalse(standardCommand.equals(new CClearCommand()));
     }
 }

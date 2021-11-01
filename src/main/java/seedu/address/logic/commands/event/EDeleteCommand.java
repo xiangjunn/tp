@@ -27,16 +27,12 @@ public class EDeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed SoConnect.\n"
             + "Parameters: " + PARAMETERS + " (both indexes must be a positive integer)\n"
-            + "Example 1: " + COMMAND_WORD + " 1"
+            + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
     private final Range targetRange;
-
-    public EDeleteCommand(Index targetIndex) {
-        this.targetRange = new Range(targetIndex, targetIndex);
-    }
 
     public EDeleteCommand(Range targetRange) {
         this.targetRange = targetRange;
@@ -52,9 +48,6 @@ public class EDeleteCommand extends Command {
         int end = endIndex.getZeroBased();
         if (end >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        }
-        if (startIndex.isMoreThan(endIndex)) {
-            throw new CommandException(Messages.MESSAGE_START_MORE_THAN_END_INDEX);
         }
 
         String commandResult = "";

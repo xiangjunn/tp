@@ -78,7 +78,7 @@ public class TypicalEvents {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Event event : getTypicalEvents()) {
-            ab.addEvent(event);
+            ab.addEvent(new EventBuilder(event).build());
         }
         return ab;
     }
