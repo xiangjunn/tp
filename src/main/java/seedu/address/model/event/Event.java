@@ -193,6 +193,14 @@ public class Event {
     }
 
     /**
+     * Checks if the event is linked to a particular contact.
+     */
+    public boolean hasLinkTo(Contact contact) {
+        UUID contactUuid = contact.getUuid();
+        return linkedContacts.contains(contactUuid);
+    }
+
+    /**
      * Links the contact to the event object that calls this method.
      * @param contact The contact to be linked with.
      * @return The event that has link to the contact passed in as parameter.
