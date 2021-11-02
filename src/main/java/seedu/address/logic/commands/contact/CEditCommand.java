@@ -61,6 +61,8 @@ public class CEditCommand extends Command {
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
+    public static final String MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL =
+            "The contact does not have %s tag in the first place.";
 
     private final Index index;
     private final EditContactDescriptor editContactDescriptor;
@@ -81,7 +83,8 @@ public class CEditCommand extends Command {
      * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
      * edited with {@code editContactDescriptor}.
      */
-    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor) {
+    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor)
+            throws CommandException {
         assert contactToEdit != null;
 
         Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
@@ -107,8 +110,14 @@ public class CEditCommand extends Command {
      * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
      * tags in {@code toRemove} will be excluded.
      */
-    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original)
+            throws CommandException {
         Set<Tag> updatedTags = new HashSet<>(original);
+        for (Tag tag : toRemove) {
+            if (!updatedTags.remove(tag)) { // if the tag to delete is not in the origin tags
+                throw new CommandException(String.format(MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, tag));
+            }
+        }
         toRemove.forEach(updatedTags::remove);
         updatedTags.addAll(toAdd);
         return updatedTags;
