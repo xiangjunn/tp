@@ -76,21 +76,18 @@ public class ELinkCommand extends Command {
     private CommandResult linkEventAndContacts(Model model, List<Event> lastShownEventList,
             List<Contact> lastShownContactList) {
         String commandResult = "";
-        int count = 0;
         for (Index contactIndex : contactIndexes) {
-            // have to get the event from the list again because a new event replaces the index
-            // whenever a link occurs, hence cannot use the old reference of event.
+            // have to get the event from the list again because a new event replaces the index whenever
+            // a link occurs, hence cannot use the old reference of event.
             Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
             Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
             if (contactToLink.hasLinkTo(eventToLink)) {
-                assert eventToLink.hasLinkTo(contactToLink); // bidirectional relationship
+                assert eventToLink.hasLinkTo(contactToLink) : "Both should have links to each other";
                 commandResult += String.format(MESSAGE_ALREADY_LINKED, eventToLink.getName(), contactToLink.getName());
-                count++;
                 continue;
             }
             model.linkEventAndContact(eventToLink, contactToLink);
             commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(), contactToLink.getName());
-            count++;
         }
         return new CommandResult(commandResult);
     }

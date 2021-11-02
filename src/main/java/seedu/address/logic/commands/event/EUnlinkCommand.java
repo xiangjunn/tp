@@ -31,8 +31,9 @@ public class EUnlinkCommand extends Command {
         + "eunlink 1 c/1\n"
         + "eunlink 3 c/1 c/2 c/3 c/4 c/5\n"
         + "eunlink 2 c/*";
-    public static final String MESSAGE_SUCCESS = "Successfully unlinked the event %s from the contact%s %s";
+    public static final String MESSAGE_SUCCESS = "Successfully unlinked the event %s from the contact %s\n";
     public static final String MESSAGE_SUCCESS_CLEAR_ALL = "Successfully unlinked the event %s from all contacts.";
+    public static final String MESSAGE_NOT_LINKED = "Event %s is not linked to the contact %s in the first place.\n";
 
     private final Index eventIndex;
     private final Set<Index> contactIndexes;
@@ -64,9 +65,9 @@ public class EUnlinkCommand extends Command {
         CommandResult commandResult;
         Event eventToUnlink = lastShownEventList.get(eventIndex.getZeroBased());
         if (!isClearAllLinks) {
-            commandResult = unlinkEventAndContacts(model, eventToUnlink, lastShownContactList);
+            commandResult = unlinkEventAndContacts(model, lastShownEventList, lastShownContactList);
         } else {
-            commandResult = unlinkEventAndAllContacts(eventToUnlink, model);
+            commandResult = unlinkEventAndAllContacts(lastShownEventList, model);
         }
 
         // rerender UI to show the links between event and each of the contacts
@@ -88,29 +89,30 @@ public class EUnlinkCommand extends Command {
         }
     }
 
-    private CommandResult unlinkEventAndContacts(Model model, Event eventToUnlink, List<Contact> lastShownContactList) {
+    private CommandResult unlinkEventAndContacts(Model model, List<Event> lastShownEventList,
+            List<Contact> lastShownContactList) {
         String commandResult = "";
         int count = 0;
         for (Index contactIndex : contactIndexes) {
+            // have to get the event from the list again because a new event replaces the index whenever
+            // an unlink occurs, hence cannot use the old reference of event.
+            Event eventToUnlink = lastShownEventList.get(eventIndex.getZeroBased());
             Contact contactToUnlink = lastShownContactList.get(contactIndex.getZeroBased());
+            if (!contactToUnlink.hasLinkTo(eventToUnlink)) {
+                assert eventToUnlink.hasLinkTo(contactToUnlink) : "Both should not have links to each other";
+                commandResult += String.format(MESSAGE_NOT_LINKED, eventToUnlink.getName(), contactToUnlink.getName());
+                count++;
+                continue;
+            }
             model.unlinkEventAndContact(eventToUnlink, contactToUnlink);
-            if (count == 0) {
-                commandResult += String.format(MESSAGE_SUCCESS, eventToUnlink.getName(),
-                    contactIndexes.size() > 1 ? "s" : "", contactToUnlink.getName());
-            } else {
-                commandResult += contactToUnlink.getName();
-            }
-            if (count != contactIndexes.size() - 1) {
-                commandResult += ", ";
-            } else {
-                commandResult += ".";
-            }
+            commandResult += String.format(MESSAGE_SUCCESS, eventToUnlink.getName(), contactToUnlink.getName());
             count++;
         }
         return new CommandResult(commandResult);
     }
 
-    private CommandResult unlinkEventAndAllContacts(Event eventToUnlink, Model model) {
+    private CommandResult unlinkEventAndAllContacts(List<Event> lastShownEventList, Model model) {
+        Event eventToUnlink = lastShownEventList.get(eventIndex.getZeroBased());
         model.unlinkAllContactsFromEvent(eventToUnlink);
         return new CommandResult(String.format(MESSAGE_SUCCESS_CLEAR_ALL, eventToUnlink.getName()));
     }

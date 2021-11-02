@@ -58,15 +58,15 @@ class EUnlinkCommandTest {
             model.getFilteredContactList().get(1));
     }
 
-    private String generateStringFromSet(Set<Contact> set) {
+    private String generateCommandResult(Event eventToUnlink, Set<Contact> set) {
         assert !set.isEmpty();
         StringBuilder result = new StringBuilder();
         for (Contact contact : set) {
-            result.append(contact.getName());
-            result.append(", ");
+            String resultForEachUnlink = String.format(EUnlinkCommand.MESSAGE_SUCCESS,
+                eventToUnlink.getName(), contact.getName());
+            result.append(resultForEachUnlink);
         }
-        result.replace(result.length() - 2, result.length(), "");
-        return result.append(".").toString();
+        return result.toString();
     }
 
     @Test
@@ -81,7 +81,7 @@ class EUnlinkCommandTest {
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
         String commandSuccessMessage = String.format(EUnlinkCommand.MESSAGE_SUCCESS,
-            eventToUnlink.getName(), "", contactToUnlink.getName() + ".");
+            eventToUnlink.getName(), contactToUnlink.getName());
         assertCommandSuccess(eUnlinkCommand, typicalModel, commandSuccessMessage, newModel);
     }
 
@@ -100,8 +100,7 @@ class EUnlinkCommandTest {
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(1));
-        String commandSuccessMessage = String.format(EUnlinkCommand.MESSAGE_SUCCESS,
-            eventToUnlink.getName(), "s", generateStringFromSet(setOfContacts));
+        String commandSuccessMessage = generateCommandResult(eventToUnlink, setOfContacts);
         assertCommandSuccess(eUnlinkCommand, typicalModel, commandSuccessMessage, newModel);
     }
 

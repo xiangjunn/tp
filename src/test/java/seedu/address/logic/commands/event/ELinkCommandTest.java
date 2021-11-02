@@ -26,15 +26,15 @@ class ELinkCommandTest {
     private final AddressBook typicalAddressBook = TypicalAddressBook.getTypicalAddressBook();
     private final Model typicalModel = new ModelManager(typicalAddressBook, new UserPrefs());
 
-    private String generateStringFromSet(Set<Contact> set) {
+    private String generateCommandResult(Event eventToLink, Set<Contact> set) {
         assert !set.isEmpty();
         StringBuilder result = new StringBuilder();
         for (Contact contact : set) {
-            result.append(contact.getName());
-            result.append(", ");
+            String resultForEachLink = String.format(ELinkCommand.MESSAGE_SUCCESS,
+                    eventToLink.getName(), contact.getName());
+            result.append(resultForEachLink);
         }
-        result.replace(result.length() - 2, result.length(), "");
-        return result.append(".").toString();
+        return result.toString();
     }
 
     @Test
@@ -50,8 +50,7 @@ class ELinkCommandTest {
             newModel.getFilteredEventList().get(0),
             newModel.getFilteredContactList().get(0));
         assertCommandSuccess(
-            eLinkCommand, typicalModel, String.format(ELinkCommand.MESSAGE_SUCCESS, eventToLink.getName(), "",
-                generateStringFromSet(Set.of(contactToLink))), newModel);
+            eLinkCommand, typicalModel, generateCommandResult(eventToLink, Set.of(contactToLink)), newModel);
     }
 
     @Test
@@ -63,6 +62,7 @@ class ELinkCommandTest {
         Event eventToLink = typicalModel.getFilteredEventList().get(0);
         Contact contact1ToLink = typicalModel.getFilteredContactList().get(0);
         Contact contact2ToLink = typicalModel.getFilteredContactList().get(1);
+        Set<Contact> setOfContacts = Set.of(contact1ToLink, contact2ToLink);
         Model newModel = new ModelManager(typicalAddressBook, new UserPrefs());
         newModel.linkEventAndContact(
             newModel.getFilteredEventList().get(0),
@@ -71,8 +71,8 @@ class ELinkCommandTest {
             newModel.getFilteredEventList().get(0),
             newModel.getFilteredContactList().get(1));
         assertCommandSuccess(
-            eLinkCommand, typicalModel, String.format(ELinkCommand.MESSAGE_SUCCESS, eventToLink.getName(), "s",
-                generateStringFromSet(Set.of(contact1ToLink, contact2ToLink))), newModel);
+            eLinkCommand, typicalModel, generateCommandResult(eventToLink, setOfContacts),
+            newModel);
     }
 
     @Test
