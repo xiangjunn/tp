@@ -261,4 +261,9 @@ public class ModelStub implements Model {
     public void unmarkEventIndexedAt(Index index) {
         throw new AssertionError(ERROR_MESSAGE);
     }
+
+    @Override
+    public void removeAllLinks() {
+        throw new AssertionError(ERROR_MESSAGE);
+    }
 }
