@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
-public class EBookmarkCommand extends Command {
+public class EMarkCommand extends Command {
 
     public static final String COMMAND_WORD = "emark";
 
@@ -32,7 +32,7 @@ public class EBookmarkCommand extends Command {
     /**
      * Class constryctor, takes in a list of {@code index}
      */
-    public EBookmarkCommand(List<Index> indexes) {
+    public EMarkCommand(List<Index> indexes) {
         requireNonNull(indexes);
         this.indexesToMark = indexes;
     }
@@ -63,7 +63,7 @@ public class EBookmarkCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EBookmarkCommand // instanceof handles nulls
-                && indexesToMark.equals(((EBookmarkCommand) other).indexesToMark)); // state check
+                || (other instanceof EMarkCommand // instanceof handles nulls
+                && indexesToMark.equals(((EMarkCommand) other).indexesToMark)); // state check
     }
 }

@@ -18,7 +18,7 @@ public class CUnmarkCommandParser implements Parser<CUnmarkCommand> {
      */
     public CUnmarkCommand parse(String args) throws ParseException {
         try {
-            List<Index> indexes = ParserUtil.parseBookmarkIndexes(args);
+            List<Index> indexes = ParserUtil.parseMarkIndexes(args);
             return new CUnmarkCommand(indexes);
         } catch (ParseException pe) {
             throw new ParseException(

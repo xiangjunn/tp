@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,7 @@ public class ParserUtilTest {
     private static final String INVALID_TELEGRAM = "my%Telegram";
     private static final String INVALID_ZOOM_LINK = "my_zoom_link/tutorial.nus.edu";
     private static final String INVALID_DELETE_ARGUMENT = "abc";
+    private static final String INVALID_INDEX = "-1";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -50,6 +52,9 @@ public class ParserUtilTest {
     private static final String VALID_DESCRIPTION = "This is a description!";
     private static final String VALID_INDEX = "1";
     private static final String VALID_RANGE = "1-2";
+    private static final String VALID_TWO_DIGIT_INDEX = "11";
+    private static final String VALID_THREE_DIGIT_INDEX = "111";
+    private static final String INDEX_WITH_ZERO_INFRONT = "01";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -303,6 +308,20 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseIndex_validArguementWithWhiteSpace_returnsIndex() throws Exception {
+        Index expectedIndex = Index.fromOneBased(1);
+        String indexWithWhiteSpace = WHITESPACE + VALID_INDEX + WHITESPACE;
+        String indexWithZero = WHITESPACE + INDEX_WITH_ZERO_INFRONT;
+        assertEquals(expectedIndex, ParserUtil.parseIndex(indexWithWhiteSpace));
+        assertEquals(expectedIndex, ParserUtil.parseIndex(indexWithZero));
+    }
+
+    @Test
+    public void parseIndex_invalidValue_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIndex(INVALID_INDEX));
+    }
+
+    @Test
     public void parseDeleteArgument_validValueWithWhitespace_returnsRange() throws Exception {
         String indexWithWhitespace = WHITESPACE + VALID_INDEX + WHITESPACE;
         Range expectedRangeFromIndex = Range.convertFromIndex(Index.fromOneBased(1));
@@ -317,4 +336,18 @@ public class ParserUtilTest {
     public void parseDeleteArgument_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDeleteArgument(INVALID_DELETE_ARGUMENT));
     }
+
+    @Test
+    public void parseMarkIndexes_validValueWithWhiteSpace_returnsListOfIndex() throws Exception {
+        String indexWithWhiteSpace = WHITESPACE + VALID_INDEX + WHITESPACE + WHITESPACE + VALID_TWO_DIGIT_INDEX
+                + WHITESPACE + VALID_THREE_DIGIT_INDEX + WHITESPACE;
+        List<Index> expectedIndexes = List.of(Index.fromOneBased(1), Index.fromOneBased(11), Index.fromOneBased(111));
+        assertEquals(expectedIndexes, ParserUtil.parseMarkIndexes(indexWithWhiteSpace));
+    }
+
+    @Test
+    public void parseMarkIndexes_invalidValueWithWhiteSpace_returnsListOfIndex() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDeleteArgument(INVALID_DELETE_ARGUMENT));
+    }
+
 }

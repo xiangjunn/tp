@@ -18,7 +18,7 @@ public class EUnmarkCommandParser implements Parser<EUnmarkCommand> {
      */
     public EUnmarkCommand parse(String args) throws ParseException {
         try {
-            List<Index> indexes = ParserUtil.parseBookmarkIndexes(args);
+            List<Index> indexes = ParserUtil.parseMarkIndexes(args);
             return new EUnmarkCommand(indexes);
         } catch (ParseException pe) {
             throw new ParseException(

@@ -5,13 +5,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.event.EAddCommand;
-import seedu.address.logic.commands.event.EBookmarkCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
 import seedu.address.logic.commands.event.EEditCommand;
 import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
+import seedu.address.logic.commands.event.EMarkCommand;
 import seedu.address.logic.commands.event.ESortCommand;
 import seedu.address.logic.commands.event.EUnlinkCommand;
 import seedu.address.logic.commands.event.EUnmarkCommand;
@@ -96,7 +96,7 @@ public class EventCommandSummary {
     public static ObservableList<EventCommandSummary> getEventCommandSummary() {
         return FXCollections.observableArrayList(
                 new EventCommandSummary(ADD, EAddCommand.SYNTAX),
-                new EventCommandSummary(BOOKMARK, EBookmarkCommand.SYNTAX),
+                new EventCommandSummary(BOOKMARK, EMarkCommand.SYNTAX),
                 new EventCommandSummary(CLEAR, EClearCommand.SYNTAX),
                 new EventCommandSummary(DELETE, EDeleteCommand.SYNTAX),
                 new EventCommandSummary(EDIT, EEditCommand.SYNTAX),

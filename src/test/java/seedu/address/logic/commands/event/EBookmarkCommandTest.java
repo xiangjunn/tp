@@ -51,21 +51,21 @@ class EBookmarkCommandTest {
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EBookmarkCommand(null));
+        assertThrows(NullPointerException.class, () -> new EMarkCommand(null));
     }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        String expectedMessage = String.format(EBookmarkCommand.MESSAGE_SUCCESS, TEAM_MEETING) + "\n";
+        String expectedMessage = String.format(EMarkCommand.MESSAGE_SUCCESS, TEAM_MEETING) + "\n";
         List<Index> indexes = List.of(Index.fromOneBased(5));
-        EBookmarkCommand eBookmarkCommand = new EBookmarkCommand(indexes);
+        EMarkCommand eBookmarkCommand = new EMarkCommand(indexes);
         assertCommandSuccess(eBookmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         List<Index> outOfBoundIndex = List.of(Index.fromOneBased(model.getFilteredEventList().size() + 1));
-        EBookmarkCommand ebookmarkCommand = new EBookmarkCommand(outOfBoundIndex);
+        EMarkCommand ebookmarkCommand = new EMarkCommand(outOfBoundIndex);
 
         assertCommandFailure(ebookmarkCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
@@ -74,8 +74,8 @@ class EBookmarkCommandTest {
     public void execute_eventAlreadyMarked() {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         model = expectedModel;
-        EBookmarkCommand ebookmarkCommand = new EBookmarkCommand(indexes);
-        String expectedMessage = String.format(EBookmarkCommand.MESSAGE_ALREADY_MARKED, TEAM_MEETING) + "\n";
+        EMarkCommand ebookmarkCommand = new EMarkCommand(indexes);
+        String expectedMessage = String.format(EMarkCommand.MESSAGE_ALREADY_MARKED, TEAM_MEETING) + "\n";
         assertCommandSuccess(ebookmarkCommand, model, expectedMessage, expectedModel);
     }
 
@@ -88,14 +88,14 @@ class EBookmarkCommandTest {
         firstIndexes.add(first);
         List<Index> secondIndexes = new ArrayList<>();
         secondIndexes.add(second);
-        EBookmarkCommand bookmarkFirstCommand = new EBookmarkCommand(firstIndexes);
-        EBookmarkCommand bookmarkSecondCommand = new EBookmarkCommand(secondIndexes);
+        EMarkCommand bookmarkFirstCommand = new EMarkCommand(firstIndexes);
+        EMarkCommand bookmarkSecondCommand = new EMarkCommand(secondIndexes);
 
         // same object -> returns true
         assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommand));
 
         // same values -> returns true
-        EBookmarkCommand bookmarkFirstCommandCopy = new EBookmarkCommand(firstIndexes);
+        EMarkCommand bookmarkFirstCommandCopy = new EMarkCommand(firstIndexes);
         ;
         assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommandCopy));
 

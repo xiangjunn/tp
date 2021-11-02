@@ -14,7 +14,7 @@ import seedu.address.model.event.Event;
 
 public class EUnmarkCommand extends Command {
 
-    public static final String COMMAND_WORD = "eumark";
+    public static final String COMMAND_WORD = "eunmark";
 
     public static final String PARAMETERS = "INDEX [INDEX]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;

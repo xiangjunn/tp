@@ -49,21 +49,21 @@ class CBookmarkCommandTest {
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CBookmarkCommand(null));
+        assertThrows(NullPointerException.class, () -> new CMarkCommand(null));
     }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        String expectedMessage = String.format(CBookmarkCommand.MESSAGE_SUCCESS, ELLE) + "\n";
+        String expectedMessage = String.format(CMarkCommand.MESSAGE_SUCCESS, ELLE) + "\n";
         List<Index> indexes = List.of(Index.fromOneBased(5));
-        CBookmarkCommand cBookmarkCommand = new CBookmarkCommand(indexes);
+        CMarkCommand cBookmarkCommand = new CMarkCommand(indexes);
         assertCommandSuccess(cBookmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         List<Index> outOfBoundIndex = List.of(Index.fromOneBased(model.getFilteredContactList().size() + 1));
-        CBookmarkCommand cbookmarkCommand = new CBookmarkCommand(outOfBoundIndex);
+        CMarkCommand cbookmarkCommand = new CMarkCommand(outOfBoundIndex);
 
         assertCommandFailure(cbookmarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
@@ -72,8 +72,8 @@ class CBookmarkCommandTest {
     public void execute_contactAlreadyMarked() {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         model = expectedModel;
-        CBookmarkCommand cbookmarkCommand = new CBookmarkCommand(indexes);
-        String expectedMessage = String.format(CBookmarkCommand.MESSAGE_ALREADY_MARKED, ELLE) + "\n";
+        CMarkCommand cbookmarkCommand = new CMarkCommand(indexes);
+        String expectedMessage = String.format(CMarkCommand.MESSAGE_ALREADY_MARKED, ELLE) + "\n";
         assertCommandSuccess(cbookmarkCommand, model, expectedMessage, expectedModel);
     }
 
@@ -86,14 +86,14 @@ class CBookmarkCommandTest {
         firstIndexes.add(first);
         List<Index> secondIndexes = new ArrayList<>();
         secondIndexes.add(second);
-        CBookmarkCommand bookmarkFirstCommand = new CBookmarkCommand(firstIndexes);
-        CBookmarkCommand bookmarkSecondCommand = new CBookmarkCommand(secondIndexes);
+        CMarkCommand bookmarkFirstCommand = new CMarkCommand(firstIndexes);
+        CMarkCommand bookmarkSecondCommand = new CMarkCommand(secondIndexes);
 
         // same object -> returns true
         assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommand));
 
         // same values -> returns true
-        CBookmarkCommand bookmarkFirstCommandCopy = new CBookmarkCommand(firstIndexes);
+        CMarkCommand bookmarkFirstCommandCopy = new CMarkCommand(firstIndexes);
         ;
         assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommandCopy));
 

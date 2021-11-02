@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
-public class CBookmarkCommand extends Command {
+public class CMarkCommand extends Command {
     public static final String COMMAND_WORD = "cmark";
 
     public static final String PARAMETERS = "INDEX [INDEX]...\n";
@@ -31,7 +31,7 @@ public class CBookmarkCommand extends Command {
     /**
      * Class constructor, takes in a list of {@code index}
      */
-    public CBookmarkCommand(List<Index> indexes) {
+    public CMarkCommand(List<Index> indexes) {
         requireNonNull(indexes);
         this.indexesToMark = indexes;
     }
@@ -62,7 +62,7 @@ public class CBookmarkCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CBookmarkCommand // instanceof handles nulls
-                && indexesToMark.equals(((CBookmarkCommand) other).indexesToMark)); // state check
+                || (other instanceof CMarkCommand // instanceof handles nulls
+                && indexesToMark.equals(((CMarkCommand) other).indexesToMark)); // state check
     }
 }

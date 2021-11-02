@@ -5,12 +5,12 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.contact.CAddCommand;
-import seedu.address.logic.commands.contact.CBookmarkCommand;
 import seedu.address.logic.commands.contact.CClearCommand;
 import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.contact.CMarkCommand;
 import seedu.address.logic.commands.contact.CUnmarkCommand;
 import seedu.address.logic.commands.contact.CViewCommand;
 
@@ -88,7 +88,7 @@ public class ContactCommandSummary {
     public static ObservableList<ContactCommandSummary> getContactCommandSummary() {
         return FXCollections.observableArrayList(
                 new ContactCommandSummary(ADD, CAddCommand.SYNTAX),
-                new ContactCommandSummary(BOOKMARK, CBookmarkCommand.SYNTAX),
+                new ContactCommandSummary(BOOKMARK, CMarkCommand.SYNTAX),
                 new ContactCommandSummary(CLEAR, CClearCommand.SYNTAX),
                 new ContactCommandSummary(DELETE, CDeleteCommand.SYNTAX),
                 new ContactCommandSummary(EDIT, CEditCommand.SYNTAX),

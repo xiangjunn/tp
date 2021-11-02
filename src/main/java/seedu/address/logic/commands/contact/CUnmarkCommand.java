@@ -14,7 +14,7 @@ import seedu.address.model.contact.Contact;
 
 public class CUnmarkCommand extends Command {
 
-    public static final String COMMAND_WORD = "cumark";
+    public static final String COMMAND_WORD = "cunmark";
 
     public static final String PARAMETERS = "INDEX [INDEX]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
