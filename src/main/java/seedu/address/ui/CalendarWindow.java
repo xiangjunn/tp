@@ -114,7 +114,7 @@ public class CalendarWindow extends UiPart<Stage> {
     /** Updates the calendar according the the events being changed. */
     public void updateCalendar(List<EventChanger> eventChangerList) {
         for (EventChanger eventChanger : eventChangerList) {
-            if (eventChanger.isClear()) {
+            if (eventChanger.isClearing()) {
                 clearCalendar();
                 return;
             }
