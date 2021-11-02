@@ -3,14 +3,32 @@ layout: page
 title: Developer Guide
 ---
 
+SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants,
+as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having
+the benefits of a _Graphical User Interface (GUI)_.
+
+This developer guide is targeted at current and potential developers and testers of the SoConnect project. The purpose of this guide is to outline the architecture and some implementation details of SoConnect, so that developers and testers are aware of how to navigate this project.
+
 * Table of Contents
 {:toc}
+
+-------------------
+
+## **How to use the Developer Guide**
+
+* You can click on the titles in the Table of Contents to jump the section that you are interested in.
+* You will find these icons in this developer guide:
+    * **:bulb: Tip** provides additional information that might be useful to you.
+    * **:information_source: Note** provides supplementary information that helps you to understand this Developer Guide.
+    * **:exclamation: Caution** cautions you against certain actions that will lead to undesirable consequences.
+* You can find explanations of _italicised_ words in the [Glossary](#glossary).
+
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* The Calendar UI is inspired by another team project - [AY2122S1 CS2103T-F13-3](https://ay2122s1-cs2103t-f13-3.github.io/tp/). However, the implementation of the calendar UI is largely our own, other than a few instances of code reuse from the [CalendarFX Quick Start](https://dlsc.com/wp-content/html/calendarfx/manual.html#_quick_start) page.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -26,6 +44,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
+
+This section will cover the design considerations and implementations of the various components of SoConnect, and how each component is related to other components.
 
 ### Architecture
 
@@ -72,22 +92,24 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
+Here's a (partial) class diagram of the `UI` component:
+
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ContactListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of several `UiPart` components, such as `ContactListPanel`, `EventListPanel`, `CalendarWindow` and the different components within `Other UI components`. The `Other UI components` contain the following classes: `HelpWindow`, `CommandBox`, `StatusBarFooter` and `ResultDisplay`. These classes are not drawn in the diagram for brevity.
 
 The `UI` component uses the JavaFx UI framework. Only the `CalendarWindow` component uses the [CalendarFX](https://github.com/dlsc-software-consulting-gmbh/CalendarFX) dependency. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](hhttps://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/resources/view/HelpWindow.fxml)
 
 The `UI` component,
 
-* executes user commands using the `Logic` component.
+* passes the user commands to the `Logic` component to be executed.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Contact` and `Event` objects residing in the `Model`.
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
+The **API** of this component is specified in [`Logic.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -99,11 +121,11 @@ How the `Logic` component works:
 1. The command can communicate with the `Model` when it is executed (e.g. to add a contact).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("edelete 1-3")` API call.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `edelete 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -115,13 +137,16 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `CAddCommandParser`, `EDeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
+
+The **API** of this component is specified in [`Model.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
+
 ![SoConnect Model Component](images/ModelClassDiagram.png)
 
 The `Model` component,
 
 * stores the SoConnect data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object) and all `Event` objects (which are contained in a `UniqueEventList` object).
 * stores the currently 'selected' `Contact` and `Event` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the lists change.
+* stores a `ContactDisplaySetting` and an `EventDisplaySetting` object (not shown in the diagram). These settings will affect how the contacts and events will be displayed to the user.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -132,7 +157,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
+The **API** of this component is specified in [`Storage.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -143,7 +168,9 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+The **API** of this component is specified in [`Storage.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/commons)
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package. For example, the `Range` class, specified in [`Range.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/commons/core/range/Range.java) encapsulates a range of indexes that are used by the `EDeleteCommand` and `CDeleteCommand` classes in logic.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -152,11 +179,10 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 ### Delete Events feature
+
 This section details how an `Event` or multiple `Event` objects are deleted using the `edelete` command.
 
-The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect.
-Users needs to specify either an `Index` or a `Range` of event(s) to be deleted.
-The deleted event(s) would be removed from the display of SoConnect GUI.
+The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect. The user needs to specify either an `Index` or a `Range` of event(s) to be deleted. Such event(s) would be removed from the `EventListPanel` in the GUI.
 
 #### Implementation
 
@@ -166,24 +192,24 @@ The sequence diagram below shows how the execution of the example command flows:
 
 ![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
-How `edelete` works:
+Given below is one example usage scenario and explains how the `edelete` feature behaves at each step.
 
-Step 1: `LogicManager` executes user's input. `AddressBookParser` is used to realise it is a `edelete` command, creating a new `EDeleteCommandParser` object.
+Step 1: The user enters the command `edelete 1-3` to delete the events at indexes 1, 2 and 3.
 
-Step 2: `EDeleteCommandParser` object parses the input arguments and creates a `Range` object.
+Step 2: The user input argument is passed to the `EDeleteCommandParser` object, which parses the input arguments and creates a `Range` object for the range .
 
-Step 3: `Range` object is used to construct a new `EDeleteCommand` object. `EDeleteCommand` object is then returned to `LogicManager`.
+Step 3: This `Range` object is used to construct a new `EDeleteCommand` object. `EDeleteCommand` object is then returned to `LogicManager` to be executed.
 
-Step 4: `LogicManager` calls `execute` method of `EDeleteCommand`, which repeatedly deletes event from the most updated event list with index `1` for `3` times.
+Step 4: During the execution, the `EDeleteCommand` object repeatedly deletes each event from the most updated event list through the `Model#deleteEvent` method. At the same time, a new list of `EventChanger` objects containing all the events to be deleted will be created. The [Calendar UI implementation](#calendar-ui-feature) will discuss the use of this list.
 
-The event list will be updated to a new list after each delete. Deleting an inclusive range of events is done by repeatedly deleting the event from the start `Index` for `endIndex - startIndex + 1` times.
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** If the user only specifies one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
+</div>
 
-If the user only specified one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
-
-#### Design considerations:
+#### Design considerations
 
 **Aspect: Type of user inputs:**
 
@@ -197,56 +223,43 @@ If the user only specified one `Index` for `edelete`, a `Range` object is create
 
 ### List Events feature
 
-The EList feature is facilitated by `EListCommand`, `EListCommandParser` and `model`.
+This section details how the `elist` command is implemented. This command allows the user to view all events, with the added feature of allowing the user to specify which _field_ to display. By default, all fields will be displayed.
 
-#### EList Command
+#### Implementation
 
-`EList Command` class extends the `Command` abstract class. `EListCommand` class is tasked to list specific field(s) of
-all events and creating a new `CommandResult` to be displayed to the user in the user interface.
+As outlined in the [Logic component section](#logic-component), both `EListCommandParser` and `EListCommand` classes are involved in the execution of the `elist` command.
 
-`EListCommandParser`
-`EListCommandParser` class extends `Parser` interface.
-`EListCommandParser` class is tasked with parsing the user inputs and generate a new `EListCommand`.
-The main logic of the elist feature is encapsulated here.
+The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es). It then creates a new immutable `EventDisplaySetting` object that will encapsulate the visibility of the various fields for all events in the _GUI_.
 
-The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es) and set which field(s) to be displayed based on the prefix(es) provided.
-* If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed.
+* If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. This is the default setting.
 * If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed,
   sets the rest of the fields to be hidden.
 
-`EListCommandParser#parse` method will then return an `EListCommand`
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** If values of prefixes given are not empty, `EListCommandParser#parse` throws a ParseException.
+</div>
 
-* If values of prefixes given are not empty, `EListCommandParser#parse` throws a ParseException.
+`EListCommandParser#parse` method will then return an `EListCommand` with the given `EventDisplaySetting` object.
 
--------------------------------------------------------
-Given below is one example usage scenario and explains how the elist feature behaves at each step.
+Given below is one example usage scenario and explains how the `elist` feature behaves at each step. You may also refer to the sequence diagram below.
 
-Example 1: List start and end times of all events.
+Step 1. The user enters `elist at/ end/` to display only the start and end timings of events. The arguments `at/ end/` are passed to the `EListCommandParser` through the `parse` method call.
 
-Step 1. The user enters `elist at/ end/`.
+Step 2. The user input `at/ end/` will be subjected to checks by methods from [`ArgumentMultimap`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/logic/parser/ArgumentMultimap.java) to ensure that there are no incorrect arguments in the command. Examples of incorrect arguments include `1` or `at/3`.
 
-Step 2. The command word `elist` is extracted out in `AddressBookBookParser`, and matches the `COMMAND_WORD` for `EListCommand` class.
+Step 3. A `EventDisplaySetting` object is created based on the input arguments.
+   * If there are no inputs, then the default `EventDisplaySetting.DEFAULT_SETTING` object is created.
+   * Since there are inputs for this example, an `EventDisplaySetting` with the `willDisplay` fields for `startDateTime` and `endDateTime` will be set to true. All other fields will be set to false (hidden). `isViewingFull` will be set to false, since this is not a `view` command.
 
-Step 3. The remaining user input is the given to the `EListCommandParser` to determine if the user input contains the valid fields.
+Step 4. A new `EListCommand` object is returned to the `LogicManager`.
 
-Step 4. Inside `EListCommandParser#parse()` method, the remaining user input `at/ end/`, will be subjected to checks by `EListCommandParser#anyPrefixValueNotEmpty()` and `argMultimap#getPreamble()#isEmpty()` methods.
-* `EListCommandParser#anyPrefixValueNotEmpty()` returns true if the values of any prefix is not empty, returns false otherwise.
-* `argMultimap#getPreamble()#isEmpty()` returns true if there is any input between the command word and the first prefix, returns false otherwise.
+Step 5. During the execution of the command, the `EListCommand` object will set update the `EventDisplaySetting` of the `Model` to the object created in step 3. Thereafter, the event cards are re-rendered, which will cause the `EventListPanel` in the UI component to update all the `EventCard` elements to display the events based on the new display settings.
 
-
-Step 5. The `EListCommandParser#parse()` method then proceeds to set `startDateTime` and `endDateTime` fields to be displayed as their prefix(es) `at/` and `end/` are provided. The other fields are set to be hidden.
-`EListCommandParser` then creates and calls an `EListCommand` object.
-
-Step 6. The `EListCommand#execute()` first checks if the `model` provided is not null.
-
-Step 7. The `EListCommand#execute()` is then called by the `LogicManager`. In this method, it first hides all the
-`Events` before showing each `Events` with only the event `name`, `start` and `end` timings displayed.
-
-Step 8. A `CommandResult` with all events listed will be displayed to the user.
+Step 6. A `CommandResult` with all events listed is returned and will be displayed to the user.
 
 #### Sequence Diagram
 
-The following sequence diagram shows how the `elist` feature works for Example 1:
+The following sequence diagram shows how the `elist` feature works for the example:
 
 ![EListSequenceDiagram](images/EListSequenceDiagram.png)
 
@@ -256,30 +269,40 @@ The following activity diagram summarizes what happens when the `elist` feature 
 
 ![EListActivityDiagram](images/EListActivityDiagram.png)
 
-#### Design Consideration
+#### Design Considerations
 
-#### Aspect: Allowing inputs for EListCommand.
+**Aspect: Whether to allow hiding of specific fields:**
 
-* **Alternative (current implementation): EListCommand displays all fields.**
+* **Alternative implementation 1:** EListCommand displays all fields.
     * Pros: No need to check for valid prefixes.
-    * Cons: User maybe interested in one field, but has to look through all the fields.
+    * Cons: User may be interested in one field, but has to look through all the fields.
+* **Alternative implementation 2 (current choice):** EListCommand allows users to choose which fields to display.
+  * Pros: User can choose to hide long details about the event and focus on the details important to them.
+  * Cons: There is more room for mistakes, since it is more difficult to parse the user input correctly.
+
+**Aspect: Changing the display settings of events:**
+
+* **Alternative implementation 1:** Keep the settings directly in static fields in the `Event` class.
+  * Pros: Easy to implement and it is possible to change the settings even in the parser.
+  * Cons: It is difficult to test static variables since other tests may interfere with the state of the variables. Moreover, it will be impossible to implement a feature such as undo if the static fields are changed. This is unlike having a separate object like `EventDisplaySetting`, which is immutable and can be stored in history. In general, [manipulating global static variables is a bad idea](https://stackoverflow.com/questions/7026507/why-are-static-variables-considered-evil).
+
+* **Alternative implementation 2 (current choice):** Encapsulate the settings in a `EventDisplaySetting` class and update it in the `ModelManager`.
+  * Pros: The settings are immutable so the implementation is less prone to errors.
+  * Cons: More code will have to be written in order to facilitate the change in display settings.
 
 ### Link Event feature
 
+This section details how the `elink` command is implemented. This command allows the user to link a single event to any number of contacts. This link is bi-directional and will be displayed to the user.
+
 #### Implementation
 
-The elink mechanism is facilitated by `ELinkCommandParser` which implements `Parser`, as well as `ELinkCommand`
-which extends `Command`. `ELinkCommandParser` is responsible for parsing user inputs and ensuring that
-the inputs are valid. `ELinkCommand` is responsible for the execution of elink  mechanism to link the event to the 
-target contact.
-
-The following operations are the main operations for elink mechanism.
+The following operations are the main operations for `elink`.
 
 - `ELinkCommandParser#parse` - Parse the user inputs and create a `ELinkCommand` to return.
 
 - `ELinkCommand#execute` - Links the event to the target contact.
 
-The following sequence diagram shows how the elink operation works:
+The following sequence diagram shows how the `elink` operation works:
 
 ![ELinkSequenceDiagram](images/ELinkSequenceDiagram.png)
 
@@ -346,7 +369,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 <img src="images/CommitActivityDiagram.png" width="250" />
 
-#### Design considerations:
+#### Design considerations
 
 **Aspect: How undo & redo executes:**
 
@@ -372,13 +395,13 @@ The `CalendarWindow` class extends from `UiPart`, just like the other UI compone
 The sequence of how a calendar window is generated is shown in the UML sequence diagram above. The following are the textual descriptions of the diagram:
 
 1. The user intends to open the calendar. The `MainWindow` object captures this intention and calls the constructor of `CalendarWindow` and passes the list of events into it.
-2. The `Calendar` and `CalendarView` objects are created and stored. A hashmap of `Event` objects to `Entry` objects is created. (Not shown)
+2. The `Calendar` and `CalendarView` objects are created and stored. A _hashmap_ of `Event` objects to `Entry` objects is created. (Not shown)
 3. A time thread is created to constantly update the current time of the calendar every 10 seconds.
-4. The `Calendar` object is populated with the entries of events from Step 1. The hashmap is also concurrently being updated with the events and the associated entries. (Not shown)
+4. The `Calendar` object is populated with the entries of events from Step 1. The _hashmap_ is also concurrently being updated with the events and the associated entries. (Not shown)
 5. The `CalendarView` object is updated to include the `Calendar` object, and also to change some configurations to simplify the interface and prevent edits directly on the calendar.
-6. The `StackPane` (see `CalendarWindow.fxml`) is updated to include the new `CalendarView` interface. The `CalendarWindow` object is now created and returned to `MainWindow`.
+6. The `StackPane` (see [`CalendarWindow.fxml`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/resources/view/CalendarWindow.fxml)) is updated to include the new `CalendarView` interface. The `CalendarWindow` object is now created and returned to `MainWindow`.
 
-#### Updating the calendar
+#### Design considerations
 
 The user may leave the calendar window open and type in a new command to add, delete, edit or clear the events. In that case, there is a need to constantly update the calendar to reflect the new changes the user has made. This section discusses the implementation of the update and how the updates are optimized.
 
@@ -392,11 +415,11 @@ The user may leave the calendar window open and type in a new command to add, de
 :information_source: **Note:** It is important to discuss the `EventChanger` class from `Model` since the implementation of the update feature depends heavily on this class.
 </div>
 
-The `EventChanger` class contains references to up to 2 `Event` objects - an `oldEvent` and a `newEvent`. It also contains a boolean that is true if the user intends to clear all events. Creating the `EventChanger` object to be passed to the `CalendarWindow` to update the entries is simple, as it can be easily constructed using one of the factory methods: `addEventChanger`, `clearEventChanger`, `deleteEventChanger` and `editEventChanger`. See the class diagram below for a summary of the `EventChanger` class.
+The `EventChanger` class contains references to up to 2 `Event` objects - an `oldEvent` and a `newEvent`. It also contains a boolean that is true if the user intends to clear all events. Creating the `EventChanger` object to be passed to the `CalendarWindow` to update the entries is simple, as it can be easily constructed using one of the _factory methods_: `addEventChanger`, `clearEventChanger`, `deleteEventChanger` and `editEventChanger`. See the class diagram below for a summary of the `EventChanger` class.
 
 ![Class Diagram of EventChanger](images/EventChangerClassDiagram.png)
 
-Upon the execution of any command, the list of event changers is returned in the `CommandResult`. The list is usually empty, except for the 4 types of commands listed above. The `updateCalendar` method of `CalendarWindow` is then called, which will update the `Calendar` object to remove the `oldEvent` and add the `newEvent` entries. The `Calendar` is cleared if the `EventChanger` is the `clearEventChanger`. This is when the hashmap becomes useful, since the `Entry` objects in the calendar are unique and having the same `Event` associated to the `Entry` does not make the `Entry` objects equal. This will allow deletion of the `Entry` from the calendar.
+Upon the execution of any command, the list of event changers is returned in the `CommandResult`. The list is usually empty, except for the 4 types of commands listed above. The `updateCalendar` method of `CalendarWindow` is then called, which will update the `Calendar` object to remove the `oldEvent` and add the `newEvent` entries. The `Calendar` is cleared if the `EventChanger` is the `clearEventChanger`. This is when the _hashmap_ becomes useful, since the `Entry` objects in the calendar are unique and having the same `Event` associated to the `Entry` does not make the `Entry` objects equal. This will allow deletion of the `Entry` from the calendar.
 
 * **Alternative 2:** Create a new Calendar with all the events for each command executed.
     * Pros: Easy to implement, less code is needed.
@@ -428,7 +451,7 @@ This alternative implementation will cause the `MainWindow` class to constantly 
 * Are reasonably comfortable using *CLI* apps
 
 **Value proposition**: Manage contacts of peers, *Profs* and events such as classes and Co-Curricular Activities in
-a single system faster than a typical mouse/ *GUI* driven app while maintaining user-friendliness
+a single system faster than a typical mouse/*GUI* driven app while maintaining user-friendliness
 
 ### User stories
 
@@ -439,7 +462,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *` | hardworking student | add contact of my *TA*/*Profs* | save their contacts and ask them questions on my modules. |
-| `* * *` | careless student | edit the contact of my *TA*/*Profs* | correct mistakes while adding contacts or update my TA contact details |
+| `* * *` | careless student | edit the contact of my *TA*/*Profs* | correct mistakes while adding contacts or update my *TA* contact details |
 | `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
 | `* * *` | SoC student | view the contact of my *TA*/*Profs* | |
 | `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
@@ -465,6 +488,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
 | `* *` | SoC student with busy schedule | see a weekly calendar | easily visualize my schedule for the week |
 | `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
+| `* *` | SoC student with many events and contacts to manage | link some contacts to some events | view the details of the participants/*TAs* in my events or lessons. |
 | `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | synchronize my events across my calendars |
 | `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |
 | `*` | SoC student with many commitments | have a reminder of upcoming events | |
@@ -854,6 +878,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Contact information**: Name and email of the contact. Phone number, address, telegram handle, video conferencing meeting link, and tag(s) are optional.
 
+
+* **Field**: A particular detail of an event or contact. Examples of fields include the name of a contact, the description of an event or the tags of an event.
+
+
+* **Hashmap**: A data structure that stores a table of keys and their corresponding values. In the implementation of Calendar UI, a hashmap is used to store the `Event` objects as keys and the `Entry` object as values.
+
+
+* **Factory method**: A method to create an object without specifying the exact class, based on the creational design pattern. In the context of `EventChanger`, the factory methods create instances of subclasses of `EventChanger`, as seen in [`EventChanger.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/java/seedu/address/model/event/EventChanger.java).
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -880,8 +913,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Deleting an event
 
 1. Deleting an event while all events are being shown
@@ -894,7 +925,7 @@ testers are expected to do more *exploratory* testing.
    3. Test case: `edelete 0`<br>
       Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
 
-   4. Other incorrect delete commands to try: `edelete`, `edelete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `edelete`, `edelete x` (where x is larger than the list size), `edelete a` <br>
       Expected: Similar to previous.
 
    5. Test case: `edelete 1-2`<br>
@@ -906,19 +937,28 @@ testers are expected to do more *exploratory* testing.
    7. Test case: `edelete 1-x` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-2. _{ more test cases …​ }_
-
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   Prerequisite: There should be a valid `soconnect.json` file saved in the data folder.
+
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** If there is no json file, start `soconnect.jar`, perform some changes to the default list of contacts or events (see [User Guide](../UserGuide.html)). A folder `data` with a file `soconnect.json` should be created.
+</div>
+
+   1. Test case: Edit the json file in order to corrupt it. For example, add an additional `{` to create some syntax error. Then, start `soconnect.jar`. <br>
+   Expected: The event and contact list is empty.
+
+   2. Test case: Delete the json file and start `soconnect.jar`. <br>
+   Expected: The default event and contact list is loaded (see [User Guide](../UserGuide.html#quick-start) for an example).
+      
 
 ### Listing all events
 
 1. Listing all event with certain fields shown.
 
-    1. Prerequisites: At least one event in the list.
+    Prerequisites: At least one event in the list.
 
     1. Test case: `elist at/`<br>
        Expected: All events listed with only address displayed. All events listed shown in the status message.  
@@ -927,5 +967,3 @@ testers are expected to do more *exploratory* testing.
 
     1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
        Expected: No change in display. Error message shown in status bar.
-
-1. _{ more test cases …​ }_
