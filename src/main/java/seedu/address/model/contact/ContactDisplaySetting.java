@@ -46,15 +46,15 @@ public class ContactDisplaySetting {
         this.isViewingFull = isViewingFull;
     }
 
-    public boolean isWillDisplayAddress() {
+    public boolean willDisplayAddress() {
         return willDisplayAddress;
     }
 
-    public boolean isWillDisplayZoomLink() {
+    public boolean willDisplayZoomLink() {
         return willDisplayZoomLink;
     }
 
-    public boolean isWillDisplayTags() {
+    public boolean willDisplayTags() {
         return willDisplayTags;
     }
 
@@ -62,15 +62,15 @@ public class ContactDisplaySetting {
         return isViewingFull;
     }
 
-    public boolean isWillDisplayPhone() {
+    public boolean willDisplayPhone() {
         return willDisplayPhone;
     }
 
-    public boolean isWillDisplayEmail() {
+    public boolean willDisplayEmail() {
         return willDisplayEmail;
     }
 
-    public boolean isWillDisplayTelegramHandle() {
+    public boolean willDisplayTelegramHandle() {
         return willDisplayTelegramHandle;
     }
 
@@ -83,18 +83,19 @@ public class ContactDisplaySetting {
             return false;
         }
         ContactDisplaySetting that = (ContactDisplaySetting) o;
-        return isWillDisplayPhone() == that.isWillDisplayPhone() && isWillDisplayEmail() == that.isWillDisplayEmail()
-            && isWillDisplayTelegramHandle() == that.isWillDisplayTelegramHandle()
-            && isWillDisplayAddress() == that.isWillDisplayAddress()
-            && isWillDisplayZoomLink() == that.isWillDisplayZoomLink()
-            && isWillDisplayTags() == that.isWillDisplayTags()
+        return willDisplayPhone() == that.willDisplayPhone() && willDisplayEmail() == that.willDisplayEmail()
+            && willDisplayTelegramHandle() == that.willDisplayTelegramHandle()
+            && willDisplayAddress() == that.willDisplayAddress()
+            && willDisplayZoomLink() == that.willDisplayZoomLink()
+            && willDisplayTags() == that.willDisplayTags()
             && isViewingFull() == that.isViewingFull();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isWillDisplayPhone(), isWillDisplayEmail(), isWillDisplayTelegramHandle(),
-            isWillDisplayAddress(), isWillDisplayZoomLink(), isWillDisplayTags(), isViewingFull());
+        return Objects.hash(
+            willDisplayPhone(), willDisplayEmail(), willDisplayTelegramHandle(),
+            willDisplayAddress(), willDisplayZoomLink(), willDisplayTags(), isViewingFull());
     }
 
     /** For debugging/logging purposes. */
