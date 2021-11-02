@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 
-SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants,
+SoConnect is a **desktop app for SoC students to manage contacts of _Professors_ and _Teaching Assistants_,
 as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having
 the benefits of a _Graphical User Interface (GUI)_.
 
@@ -182,7 +182,7 @@ This section describes some noteworthy details on how certain features are imple
 
 This section details how an `Event` or multiple `Event` objects are deleted using the `edelete` command.
 
-The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect. The user needs to specify either an `Index` or a `Range` of event(s) to be deleted. Such event(s) would be removed from the `EventListPanel` in the GUI.
+The `edelete` command allows users to delete a single or an inclusive range of consecutive events from the current event list shown on SoConnect. The user needs to specify either an `Index` or a `Range` of event(s) to be deleted. Such event(s) would be removed from the `EventListPanel` in the _GUI_.
 
 #### Implementation
 
@@ -232,7 +232,7 @@ As outlined in the [Logic component section](#logic-component), both `EListComma
 The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es). It then creates a new immutable `EventDisplaySetting` object that will encapsulate the visibility of the various fields for all events in the _GUI_.
 
 * If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. This is the default setting.
-* If one or more prefix(es) is / are provided, `parse` will set the corresponding field(s) to be displayed,
+* If one or more prefix(es) is / are provided, `parse` will set the corresponding _field_(s) to be displayed,
   sets the rest of the fields to be hidden.
 
 <div markdown="span" class="alert alert-primary">
@@ -275,7 +275,7 @@ The following activity diagram summarizes what happens when the `elist` feature 
 
 * **Alternative implementation 1:** EListCommand displays all fields.
     * Pros: No need to check for valid prefixes.
-    * Cons: User may be interested in one field, but has to look through all the fields.
+    * Cons: User may be interested in one _field_, but has to look through all the fields.
 * **Alternative implementation 2 (current choice):** EListCommand allows users to choose which fields to display.
   * Pros: User can choose to hide long details about the event and focus on the details important to them.
   * Cons: There is more room for mistakes, since it is more difficult to parse the user input correctly.
@@ -653,15 +653,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:** List of events to be sorted is displayed.
 
-**Guarantees:** The displayed list of events is sorted lexicographically according to the specified field, if the given field is valid.
+**Guarantees:** The displayed list of events is sorted lexicographically according to the specified _field_, if the given _field_ is valid.
 
 ***MSS***
 
-1. User decides on a field to sort by.
+1. User decides on a _field_ to sort by.
 
-2. User inputs the specific field.
+2. User inputs the specific _field_.
    
-3. SAS sorts the list of events by the specified field provided in step 2.
+3. SAS sorts the list of events by the specified _field_ provided in step 2.
    
 4. SAS displays the sorted list of events.
 
@@ -669,20 +669,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. SAS detects that the input is an invalid field. 
+* 2a. SAS detects that the input is an invalid _field_. 
     
     * 2a1. SAS requests for a correct input.
   
     * 2a2. User enters a new input.
       
-    Steps 2a1-2a2 are repeated until user enters a valid field.
+    Steps 2a1-2a2 are repeated until user enters a valid _field_.
 
     Use case resumes from step 3.
 
 
-* 2b. SAS detects that the input contains more than one field.
+* 2b. SAS detects that the input contains more than one _field_.
   
-    * 2b1. SAS sorts the list by the first field entered. 
+    * 2b1. SAS sorts the list by the first _field_ entered. 
       
     Use case resumes from step 4.
     
@@ -728,32 +728,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:** There is at least one event in the event list.
 
-**Guarantees:** The displayed list only contains the field(s) of interest, if the given field(s) is / are valid.
+**Guarantees:** The displayed list only contains the _field_(s) of interest, if the given _field_(s) is / are valid.
 
 ***MSS***
 
-1. User decides on a field(s) to be listed.
+1. User decides on a _field_(s) to be listed.
 
-2. User inputs the specific field(s).
+2. User inputs the specific _field_(s).
 
-3. SAS displays the list of events with only the field(s) specified shown.
+3. SAS displays the list of events with only the _field_(s) specified shown.
 
    Use case ends
 
 **Extensions**
 
-* 2a. SAS detects that the input is an invalid field.
+* 2a. SAS detects that the input is an invalid _field_.
 
     * 2a1. SAS requests for a correct input.
 
     * 2a2. User enters a new input.
 
-  Steps 2a1-2a2 are repeated until user enters a valid field.
+  Steps 2a1-2a2 are repeated until user enters a valid _field_.
 
   Use case resumes from step 3.
 
 
-* 2b. SAS detects that the user did not provide a field.
+* 2b. SAS detects that the user did not provide a _field_.
 
     * 2b1. SAS displays the default list containing all the fields of the events.
 
@@ -904,7 +904,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the _GUI_ with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
