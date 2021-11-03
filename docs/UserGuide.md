@@ -42,7 +42,7 @@ There are only 3 different parts of inputs within each command:
 1. **COMMAND**
 
 Command is the word that you need to specify when you need SoConnect to perform some actions for you! 
-Else, SoConnect does not know how she can help you!
+Else, SoConnect does not know how it can help you!
 
 For example, specifying `cedit` in the command above will tell SoConnect that you want to edit a contact.
 
@@ -50,7 +50,7 @@ For example, specifying `cedit` in the command above will tell SoConnect that yo
 
 _Parameter_ is the related information that you need to specify to SoConnect for the action you want to do.
 
-For example, after telling SoConnect to edit a contact, you will need to tell her which contact to edit
+For example, after telling SoConnect to edit a contact, you will need to tell SoConnect which contact to edit
 and provide the information for the edit.
 
 Specifying `2` tells SoConnect to edit contact at **index 2** 
@@ -100,7 +100,7 @@ Here are some information that can help you in understanding the formats at the 
 * If a _parameter_ is expected only once in the command, but you specified it multiple times, **only the last occurrence** of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help` and `exit`) will be **ignored**.<br>
+* Extraneous _parameters_ for commands that do not take in _parameters_ (such as `help` and `exit`) will be **ignored**.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * Date and time must follow **dd-MM-yyyy HH:mm** format.
@@ -108,6 +108,28 @@ Here are some information that can help you in understanding the formats at the 
 
 </div>
 
+# What happens if my command is invalid?
+
+After you specified a command to be done on SoConnect, a success message will be shown on the message box of SoConnect.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Not sure where is the **message box**? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different 
+sections you can find in SoConnect!
+</div>
+
+For example, after you specified [`clist`](#listing-all-contacts-clist):
+![Success Message](images/demo-screenshots/successMessage.png)
+SoConnect will tell you that it has successfully listed all contacts!
+
+However, when the command you entered does not fulfill the _Command Syntax_ format specified in [Features](#features),
+an **error message** will be shown on the message box instead.
+
+For example, after you specified [`cview`](#viewing-a-contact-cview) **without** specifying which contact to view:
+![Error Message](images/demo-screenshots/invalidCommand.png)
+SoConnect will tell you that the _Command Syntax_ format is invalid!
+
+--------------------------------------------------------------------------------------------------------------------
 ## Quick start
 
 1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
@@ -119,34 +141,37 @@ Here are some information that can help you in understanding the formats at the 
 
 2. Download the latest `soconnect.jar` from [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect app.
+3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start SoConnect. This is how SoConnect looks like:<br>
+   SoConnect comes with some sample contacts and events upon installing too!
    ![Ui](images/Ui.png)
    If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
 
-5. Type the command in the _command box_ and press Enter to execute it. 
+5. Type the _command_ in the command box and press Enter to execute it. 
 
     <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-    Not sure where is the _command box_? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different 
+    Not sure where is the **command box**? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different 
     sections you can find in SoConnect!
     </div>
 
-   e.g. typing `help` and pressing Enter will open the help window.<br>
+   e.g. typing `help` and **pressing Enter** will open the [help window](#help-window-help).<br>
    Some example commands you can try:
 
-   * `elist`: Lists all events.
+   * `elist`: [Lists all events](#listing-all-events-elist).
 
-   * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to SoConnect.
+   * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: [Adds a contact](#adding-a-contact-cadd) named `John Doe` to SoConnect.
 
-   * `cdelete 3` : Deletes the third contact shown in SoConnect.
+   * `cdelete 3` : [Deletes the third contact](#deleting-a-contact-cdelete) shown in SoConnect.
 
-   * `eclear` : Deletes all entries of events from SoConnect.
+   * `eclear` : [Clears all entries of events](#clearing-all-events-eclear) from SoConnect.
 
-   * `exit` : Exits SoConnect.
+   * `exit` : [Exits](#exiting-soconnect-exit) SoConnect.
 
 6. Refer to the [Features](#features) below for details of each command.
+
+_See also: [What happens if my command is invalid](#what-happens-if-my-command-is-invalid)_
 
 
 ## Overview of SoConnect
@@ -157,17 +182,16 @@ This is what you will see when you open SoConnect!
 _See also: [Icons in Contact List](#icons-in-contact-list) and [Icons in Event List](#icons-in-events-list)_
 
 
-## Icons in Contact List
+### Icons in Contact List
 
 ![Contact Card](images/demo-screenshots/contactCard.png)
-
 You can always find these 2 information of each contact displayed in SoConnect Contact List:
 1. Contact Index
 2. Contact Name
 
 Here are the icons you might see under each contact:
 
-Icon | Field
+Icon | _Field_
 --------|------------------
 **![Bookmark Icon](images/demo-screenshots/bookmarkIcon.png)** | Bookmark*
 **![Email Icon](images/demo-screenshots/emailIcon.png)** | Email Address
@@ -182,17 +206,16 @@ Icon | Field
 _See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
 
-## Icons in Events List
+### Icons in Events List
 
 ![Event Card](images/demo-screenshots/eventCard.png)
-
 You can always find these 2 information of each contact displayed in SoConnect Event List:
 1. Event Index
 2. Event Name
 
 Here are the icons you might see under each event:
 
-Icon | Field
+Icon | _Field_
 --------|------------------
 **![Bookmark Icon](images/demo-screenshots/bookmarkIcon.png)** | Bookmark*
 **![Start Time Icon](images/demo-screenshots/startTimeIcon.png)** | Start Time
@@ -202,7 +225,7 @@ Icon | Field
 **![Contact Icon](images/demo-screenshots/contactsIcon.png)** | Linked Contacts
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*Bookmark icon is only visible when the event has been bookmarked
+*Bookmark icon is only visible when the event has been bookmarked.
 _See also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
 --------------------------------------------------------------------------------------------------------------------
@@ -342,7 +365,7 @@ Finds all contacts that contain any of the given keywords based on your search t
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 There are two types of contact searches you can do in SoConnect:
-1. If you **do not specify any optional fields before your keywords**, e.g. `cfind KEYWORD1 KEYWORD2`,
+1. If you **do not specify any optional _fields_ before your keywords**, e.g. `cfind KEYWORD1 KEYWORD2`,
 
    You will only search the names of the contacts based on the keywords you provide.
 
@@ -352,8 +375,8 @@ There are two types of contact searches you can do in SoConnect:
 </div>
 
 * You need to provide **at least one keyword**.
-* You can provide multiple keywords without specifying any optional fields.
-* You can only **specify each optional field once**.
+* You can provide multiple keywords without specifying any optional _fields_.
+* You can only **specify each optional _field_ once**.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Partial words can be matched e.g. `Han` will match `Hans`.
 * Contact matching at least one keyword will be returned (i.e. _`OR` search_).
@@ -380,15 +403,15 @@ Shows all contacts in the SoConnect, with all details by default.
 **Format:** `clist [e/] [p/] [a/] [th/] [z/] [t/]`
 
 * Names of contacts are always shown.
-* When no optional fields are provided, e.g `clist`, all available details of each contact will be shown.
-* When optional fields are provided, it will only show the names and the corresponding specified fields for each contact.
-* You can provide more than one optional field.
-* The order of the optional fields does not matter. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
-* Fields of a contact that have no value will not appear.
+* When no optional _fields_ are provided, e.g `clist`, all available details of each contact will be shown.
+* When optional _fields_ are provided, it will only show the names and the corresponding specified _fields_ for each contact.
+* You can provide more than one optional _field_.
+* The order of the optional _fields_ does not matter. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
+* _Fields_ of a contact that have no value will not appear.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Do not add extraneous values after each optional field you specify.
+Do not add extraneous values after each optional _field_ you specify.
 </div>
 
 **Examples:**
@@ -466,7 +489,7 @@ An event can have any number of tags (including 0)
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
 
-* Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+* Start time and End Time should be of format **dd-MM-yyyy HH:m** (date-MONTH-year HOUR:minute in 24-hour format).
 * Ensure the End Time you enter is **chronologically after** the Start Time.
 </div>
 
@@ -539,7 +562,7 @@ Edits an existing event in SoConnect.
 
 * Edits the event at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed event list.
-* You must provide **at least one** of the optional fields.
+* You must provide **at least one** of the optional _fields_.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
 * You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
@@ -549,7 +572,7 @@ Edits an existing event in SoConnect.
 <div markdown="block" class="alert alert-info">:information_source: **Note:** 
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
-* Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+* Start time and End Time should be of format **dd-MM-yyyy HH:mm** (date-MONTH-year HOUR:minute in 24-hour format).
 </div>
 
 **Examples:**
@@ -568,18 +591,18 @@ Finds all events that contain any of the given keywords based on your search typ
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 There are two types of event searches you can do in SoConnect:
-1. If you **do not specify any optional fields before your keywords**, e.g. `efind KEYWORD1 KEYWORD2`,
+1. If you **do not specify any optional _fields_ before your keywords**, e.g. `efind KEYWORD1 KEYWORD2`,
 
    You will only search the names of the events based on the keywords you provide.
 
-2. If you specified optional fields before your keyword, e.g. `efind a/KEYWORD1 d/KEYWORD2`,
+2. If you specified optional _fields_ before your keyword, e.g. `efind a/KEYWORD1 d/KEYWORD2`,
 
    You will search the addresses and descriptions of the events based on `KEYWORD1` and `KEYWORD2` respectively.
 </div>
 
 * You need to provide **at least one keyword**.
-* You can provide multiple keywords without specifying any optional fields.
-* You can only **specify each optional field once**.
+* You can provide multiple keywords without specifying any optional _fields_.
+* You can only **specify each optional _field_ once**.
 * Partial words can be matched e.g. `Exa` will match `CS2103T Exam` .
 * Events matching at least one keyword will be returned (i.e. _`OR` search_).
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
@@ -624,15 +647,15 @@ Shows all events in SoConnect, with all details by default.
 **Format:** `elist [at/] [end/] [d/] [a/] [z/] [t/]`
 
 * Names of events are always shown.
-* When no optional fields are provided, e.g. `elist` , all available details of each event will be shown.
-* When optional fields are provided, it will only show the names and the corresponding specified fields for each event.
-* You can provide more than one optional field.
-* The order of the optional fields does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
-* Fields of an event that have no value will no appear.
+* When no optional _fields_ are provided, e.g. `elist` , all available details of each event will be shown.
+* When optional _fields_ are provided, it will only show the names and the corresponding specified _fields_ for each event.
+* You can provide more than one optional _field_.
+* The order of the optional _fields_ does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
+* _Fields_ of an event that have no value will no appear.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Do not add extraneous values after each optional field you specify.
+Do not add extraneous values after each optional _field_ you specify.
 </div>
 
 **Examples:**
@@ -666,6 +689,9 @@ _See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 Sorts all events by start time and displays all upcoming or ongoing events.
 
 **Format:** `esort`
+
+**Examples:**
+![Sort example](images/demo-screenshots/sortResult.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
@@ -795,7 +821,7 @@ SoConnect will discard all data and start with an empty data file at the next ru
 ### FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install SoConnect in the other computer and copy over the contents from your previous SoConnect JSON file to the
+**A**: Install SoConnect in the other computer and copy over the contents from your previous SoConnect _JSON file_ to the
 empty data file SoConnect creates on the other Computer.
 
 
@@ -936,4 +962,15 @@ Action | Format, Examples
 ________________________________________________________________________________________________________________
 
 ## Glossary
-{to be added}
+
+Word | Explanation
+--------|------------------
+**Command Line Interface (CLI)** | Text-based user interface.
+**Command Syntax** |
+**Field(s)** |
+**Graphical User Interface (GUI)** |
+**Hard Disk** |
+**Home Folder** |
+**JSON File** |
+**OR Search** |
+**Parameter(s)** |
