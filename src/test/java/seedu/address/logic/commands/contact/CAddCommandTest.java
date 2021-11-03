@@ -117,10 +117,6 @@ public class CAddCommandTest {
             return new AddressBook();
         }
 
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
     }
 
 }

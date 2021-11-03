@@ -125,11 +125,6 @@ class EAddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-
-        @Override
         public void commitHistory() {}
     }
 }

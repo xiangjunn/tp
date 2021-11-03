@@ -21,10 +21,6 @@ public class ModelStub implements Model {
     public static final String ERROR_MESSAGE = "This method should not be called.";
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError(ERROR_MESSAGE);
     }
@@ -244,6 +240,11 @@ public class ModelStub implements Model {
 
     @Override
     public void unmarkEventIndexedAt(Index index) {
+        throw new AssertionError(ERROR_MESSAGE);
+    }
+
+    @Override
+    public void removeCommit() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 }

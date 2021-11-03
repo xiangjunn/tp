@@ -61,22 +61,6 @@ public class ModelDisplaySetting {
         return eventDisplayPredicate;
     }
 
-//    public void setContactDisplaySetting(ContactDisplaySetting contactDisplaySetting) {
-//        this.contactDisplaySetting = contactDisplaySetting;
-//    }
-//
-//    public void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting) {
-//        this.eventDisplaySetting = eventDisplaySetting;
-//    }
-//
-//    public void setContactDisplayPredicate(Predicate<? super Contact> contactDisplayPredicate) {
-//        this.contactDisplayPredicate = contactDisplayPredicate;
-//    }
-//
-//    public void setEventDisplayPredicate(Predicate<? super Event> eventDisplayPredicate) {
-//        this.eventDisplayPredicate = eventDisplayPredicate;
-//    }
-
     /**
      * Create a copy of the current model display setting
      * @return a copy of model display setting
@@ -85,17 +69,6 @@ public class ModelDisplaySetting {
         return new ModelDisplaySetting(contactDisplaySetting, eventDisplaySetting, contactDisplayPredicate,
                 eventDisplayPredicate);
     }
-
-//    /**
-//     * Change the current setting to a new setting
-//     * @param toReset model display setting to be updated to
-//     */
-//    public void resetSetting(ModelDisplaySetting toReset) {
-//        setContactDisplaySetting(toReset.getContactDisplaySetting());
-//        setEventDisplaySetting(toReset.getEventDisplaySetting());
-//        setContactDisplayPredicate(toReset.getContactDisplayPredicate());
-//        setEventDisplayPredicate(toReset.getEventDisplayPredicate());
-//    }
 
     @Override
     public boolean equals(Object obj) {
@@ -114,21 +87,37 @@ public class ModelDisplaySetting {
                 && contactDisplayPredicate.equals(other.contactDisplayPredicate);
     }
 
+    /**
+     * Returns a new {@code ModelDisplaySetting} object with the same properties,
+     * except for the {@code ContactDisplaySetting}.
+     */
     public ModelDisplaySetting differentContactDisplaySetting(ContactDisplaySetting displaySetting) {
         return new ModelDisplaySetting(displaySetting, eventDisplaySetting,
             contactDisplayPredicate, eventDisplayPredicate);
     }
 
+    /**
+     * Returns a new {@code ModelDisplaySetting} object with the same properties,
+     * except for the {@code EventDisplaySetting}.
+     */
     public ModelDisplaySetting differentEventDisplaySetting(EventDisplaySetting displaySetting) {
         return new ModelDisplaySetting(contactDisplaySetting, displaySetting,
             contactDisplayPredicate, eventDisplayPredicate);
     }
 
+    /**
+     * Returns a new {@code ModelDisplaySetting} object with the same properties,
+     * except for the {@code predicate} for contacts.
+     */
     public ModelDisplaySetting differentContactDisplayPredicate(Predicate<? super Contact> predicate) {
         return new ModelDisplaySetting(contactDisplaySetting, eventDisplaySetting,
             predicate, eventDisplayPredicate);
     }
 
+    /**
+     * Returns a new {@code ModelDisplaySetting} object with the same properties,
+     * except for the {@code predicate} for events.
+     */
     public ModelDisplaySetting differentEventDisplayPredicate(Predicate<? super Event> predicate) {
         return new ModelDisplaySetting(contactDisplaySetting, eventDisplaySetting,
             contactDisplayPredicate, predicate);
