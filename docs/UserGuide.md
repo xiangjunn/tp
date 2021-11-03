@@ -100,7 +100,7 @@ full range of features it offers.
 
 ![Labelled SoConnect](images/demo-screenshots/labelledSoconnectOverview.png)
 
-_See also: [Icons in Contact List](#icons-in-contact-list) and [Icons in Event List](#icons-in-events-list)
+_See also: [Icons in Contact List](#icons-in-contact-list) and [Icons in Event List](#icons-in-events-list)_
 
 
 ## Icons in Contact List
@@ -309,7 +309,7 @@ The search by `cfind` is case-insensitive. e.g. `hans` will match `Hans`.
 * `cfind John` returns `john` and `Johnathon Doe`.
 * `cfind alex david` returns `Alex Yeoh` and `David Li`.
 * `cfind p/123 e/gmail` returns 
-   contacts with phone numbers that contain `123` and with emails that contain `gmail.com`.
+   contacts with phone numbers that contain `123` and with emails that contain `gmail`.
 * `cfind alex david p/123 456` returns `Alex Yeoh`, `David Li` and 
    contacts with phone numbers that contain `123` and `456`.
 
@@ -413,7 +413,7 @@ An event can have any number of tags (including 0)
 
 **Examples:**
 * `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-* `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/18:00
+* `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/10-09-2021 18:00
   z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDHk t/lecture`
 
 
