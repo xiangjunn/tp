@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIn
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import java.util.List;
 import java.util.Set;
@@ -23,15 +24,22 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.event.EEditCommand.EditEventDescriptor;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventChanger;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.TypicalContacts;
+import seedu.address.testutil.TypicalEvents;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EEditCommand.
@@ -171,18 +179,20 @@ class EEditCommandTest {
     }
 
     @Test
-    public void execute_tagToDeleteNotInOriginalEvent_failure() {
-        Tag toDelete1 = new Tag("inOriginal");
-        Tag toDelete2 = new Tag("notInOriginal");
-        Event editedEvent = new EventBuilder().withTags("inOriginal").build();
-        Event oldEvent = model.getFilteredEventList().get(0);
-        model.setEvent(oldEvent, editedEvent);
+    public void execute_tagToDeleteNotInOriginalEvent_success() {
+        Tag toDelete = new Tag("notInOriginal");
+        Event editedEvent = new EventBuilder().build();
         EEditCommand.EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent,
-            Set.of(toDelete1, toDelete2), false).build();
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, descriptor);
-
-        assertCommandFailure(eEditCommand, model,
-            String.format(EEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete2));
+            Set.of(toDelete), false).build();
+        // the index must not have any tags initially (check TypicalEvents)
+        EEditCommand eEditCommand = new EEditCommand(Index.fromZeroBased(3), descriptor);
+        String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent)
+            + "\nNote:\n" + String.format(EEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete);
+        EventChanger eventChanger = EventChanger.editEventChanger(model.getFilteredEventList().get(3), editedEvent);
+        Model expectedModel = new ModelManager(new AddressBook(TypicalEvents.getTypicalAddressBook()), new UserPrefs());
+        expectedModel.setEvent(model.getFilteredEventList().get(3), editedEvent);
+        assertCommandSuccess(eEditCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
+                expectedModel);
     }
 
     @Test
