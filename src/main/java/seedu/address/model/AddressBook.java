@@ -18,7 +18,7 @@ import seedu.address.model.event.UniqueEventList;
  * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
-    private static ArrayList<AddressBook> addressBookStateList = new ArrayList<>();
+    private static final ArrayList<AddressBook> addressBookStateList = new ArrayList<>();
     private static int currentPointer = 0;
 
     private final UniqueContactList contacts;

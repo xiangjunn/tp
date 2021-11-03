@@ -39,6 +39,14 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getCurrentAddressBook() {
+        // empty addressBook
+        AddressBook addressBook1 = AddressBook.getCurrentAddressBook();
+        assertEquals(Collections.emptyList(), addressBook1.getContactList());
+        assertEquals(Collections.emptyList(), addressBook1.getEventList());
+    }
+
+    @Test
     public void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
     }
