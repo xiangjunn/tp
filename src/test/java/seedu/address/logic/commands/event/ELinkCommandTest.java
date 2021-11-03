@@ -26,12 +26,23 @@ class ELinkCommandTest {
     private final AddressBook typicalAddressBook = TypicalAddressBook.getTypicalAddressBook();
     private final Model typicalModel = new ModelManager(typicalAddressBook, new UserPrefs());
 
-    private String generateCommandResult(Event eventToLink, Set<Contact> set) {
+    private String generateSuccessfulLink(Event eventToLink, Set<Contact> set) {
         assert !set.isEmpty();
         StringBuilder result = new StringBuilder();
         for (Contact contact : set) {
             String resultForEachLink = String.format(ELinkCommand.MESSAGE_SUCCESS,
                     eventToLink.getName(), contact.getName());
+            result.append(resultForEachLink);
+        }
+        return result.toString();
+    }
+
+    private String generateAlreadyLinked(Event eventToLink, Set<Contact> set) {
+        assert !set.isEmpty();
+        StringBuilder result = new StringBuilder();
+        for (Contact contact : set) {
+            String resultForEachLink = String.format(ELinkCommand.MESSAGE_ALREADY_LINKED,
+                eventToLink.getName(), contact.getName());
             result.append(resultForEachLink);
         }
         return result.toString();
@@ -50,7 +61,7 @@ class ELinkCommandTest {
             newModel.getFilteredEventList().get(0),
             newModel.getFilteredContactList().get(0));
         assertCommandSuccess(
-            eLinkCommand, typicalModel, generateCommandResult(eventToLink, Set.of(contactToLink)), newModel);
+            eLinkCommand, typicalModel, generateSuccessfulLink(eventToLink, Set.of(contactToLink)), newModel);
     }
 
     @Test
@@ -71,8 +82,25 @@ class ELinkCommandTest {
             newModel.getFilteredEventList().get(0),
             newModel.getFilteredContactList().get(1));
         assertCommandSuccess(
-            eLinkCommand, typicalModel, generateCommandResult(eventToLink, setOfContacts),
+            eLinkCommand, typicalModel, generateSuccessfulLink(eventToLink, setOfContacts),
             newModel);
+    }
+
+    @Test
+    public void execute_alreadyLinked_successWithErrorMessage() {
+        // first index of event list and first index of contact list
+        ELinkCommand eLinkCommand = new ELinkCommand(
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST));
+        Event eventToLink = typicalModel.getFilteredEventList().get(0);
+        Contact contactToLink = typicalModel.getFilteredContactList().get(0);
+        typicalModel.linkEventAndContact(eventToLink, contactToLink);
+        Model newModel = new ModelManager(typicalAddressBook, new UserPrefs());
+        newModel.linkEventAndContact(
+            newModel.getFilteredEventList().get(0),
+            newModel.getFilteredContactList().get(0));
+        assertCommandSuccess(
+            eLinkCommand, typicalModel, generateAlreadyLinked(eventToLink, Set.of(contactToLink)), newModel);
     }
 
     @Test

@@ -26,6 +26,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
@@ -146,6 +147,21 @@ public class CEditCommandTest {
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(cEditCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_tagToDeleteNotInOriginalContact_failure() {
+        Tag toDelete1 = new Tag("inOriginal");
+        Tag toDelete2 = new Tag("notInOriginal");
+        Contact editedContact = new ContactBuilder().withTags("inOriginal").build();
+        Contact oldContact = model.getFilteredContactList().get(0);
+        model.setContact(oldContact, editedContact);
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact,
+            Set.of(toDelete1, toDelete2), false).build();
+        CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST, descriptor);
+
+        assertCommandFailure(cEditCommand, model,
+                String.format(CEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete2));
     }
 
     @Test

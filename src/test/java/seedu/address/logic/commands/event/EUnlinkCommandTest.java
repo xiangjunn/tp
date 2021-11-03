@@ -125,6 +125,22 @@ class EUnlinkCommandTest {
     }
 
     @Test
+    public void execute_alreadyUnlinked_successWithErrorMessage() {
+        EUnlinkCommand eUnlinkCommand = new EUnlinkCommand(
+            INDEX_SECOND,
+            Set.of(INDEX_SECOND), false);
+        Event eventToUnlink = typicalModel.getFilteredEventList().get(1);
+        Contact contactToUnlink = typicalModel.getFilteredContactList().get(1);
+        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
+        setUp(newModel);
+        newModel.unlinkEventAndContact(
+            newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
+        String commandSuccessMessage = String.format(EUnlinkCommand.MESSAGE_NOT_LINKED,
+            eventToUnlink.getName(), contactToUnlink.getName());
+        assertCommandSuccess(eUnlinkCommand, typicalModel, commandSuccessMessage, newModel);
+    }
+
+    @Test
     public void execute_invalidIndex_failure() {
         EUnlinkCommand eUnlinkCommand = new EUnlinkCommand(
             Index.fromZeroBased(100),

@@ -33,6 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_START_DATE_TIME = "20/11/2021 11:00";
     private static final String INVALID_END_DATE_TIME = "20/11/2021 15:00";
+    private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_TELEGRAM = "my%Telegram";
     private static final String INVALID_ZOOM_LINK = "my_zoom_link/tutorial.nus.edu";
     private static final String INVALID_DELETE_ARGUMENT = "abc";
@@ -287,6 +288,11 @@ public class ParserUtilTest {
     @Test
     public void parseDescription_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
+    }
+
+    @Test
+    public void parseDescription_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
     }
 
     @Test

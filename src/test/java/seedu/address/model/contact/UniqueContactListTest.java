@@ -167,4 +167,11 @@ public class UniqueContactListTest {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueContactList.asUnmodifiableObservableList().remove(0));
     }
+
+    @Test
+    public void test_updateContactMap() {
+        uniqueContactList.add(ALICE);
+        uniqueContactList.updateContactMap();
+        assertEquals(ALICE, Contact.findByUuid(ALICE.getUuid()));
+    }
 }

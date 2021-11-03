@@ -29,6 +29,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventChanger;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
 
@@ -167,6 +168,21 @@ class EEditCommandTest {
         EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, new EditEventDescriptorBuilder()
                 .withStartDateTime("20-10-2021 20:00").withEndDateTime("20-10-2021 18:00").build());
         assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_INVALID_DATE_TIME_RANGE);
+    }
+
+    @Test
+    public void execute_tagToDeleteNotInOriginalEvent_failure() {
+        Tag toDelete1 = new Tag("inOriginal");
+        Tag toDelete2 = new Tag("notInOriginal");
+        Event editedEvent = new EventBuilder().withTags("inOriginal").build();
+        Event oldEvent = model.getFilteredEventList().get(0);
+        model.setEvent(oldEvent, editedEvent);
+        EEditCommand.EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent,
+            Set.of(toDelete1, toDelete2), false).build();
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, descriptor);
+
+        assertCommandFailure(eEditCommand, model,
+            String.format(EEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete2));
     }
 
     @Test
