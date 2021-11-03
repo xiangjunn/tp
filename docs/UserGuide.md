@@ -6,7 +6,7 @@ title: SoConnect User Guide
 SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, 
 as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having 
 the benefits of a _Graphical User Interface (GUI)_. If you can type fast, SoConnect can get your contact management tasks
-done faster than traditional GUI apps. 
+done faster than traditional _GUI_ apps. 
 
 This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the 
 full range of features it offers.
@@ -27,33 +27,86 @@ full range of features it offers.
 * You can find explanations of _italicised_ words in the [Glossary](#glossary).
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
 
+
+## How to read commands in SoConnect
+
+You will see commands throughout this User Guide and each of them have their own _Command Syntax_ format.
+
+But not to worry! We will teach you how to read them now!
+
+This is one example of a command: 
+
+![Command Example](images/demo-screenshots/commandSyntax.png)
+
+There are only 3 different parts of inputs within each command:
+1. **COMMAND**
+
+Command is the word that you need to specify when you need SoConnect to perform some actions for you! 
+Else, SoConnect does not know how she can help you!
+
+For example, specifying `cedit` in the command above will tell SoConnect that you want to edit a contact.
+
+2. **_PARAMETER_**
+
+_Parameter_ is the related information that you need to specify to SoConnect for the action you want to do.
+
+For example, after telling SoConnect to edit a contact, you will need to tell her which contact to edit
+and provide the information for the edit.
+
+Specifying `2` tells SoConnect to edit contact at **index 2** 
+and `Betsy Crower` is the **new name** you want to change the specified contact to.
+
+3. **_PREFIX_**
+
+You can help SoConnect in separating the type of _parameters_ when you input information.
+
+Each prefix always ends with one `/`. 
+Jump to [List of Prefixes](#list-of-prefixes) to see all prefixes you can use in SoConnect.
+
+For example, _prefix_ `n/` would help SoConnect to identify the _parameter_ that you specify after `n/` 
+refers to **name** of the contact.
+
+
+Thus, the command above will tell SoConnect to **edit the name of the contact at index 2 to Betsy Crower**.
+
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
+
+* Read more on _Command Syntax_ format below, or
+* See more commands that you can type in SoConnect [here](#Features)! 
+</div>
+
+
 <div markdown="block" class="alert alert-info">
 
-**:information_source: About the _Command Syntax_ format:**<br>
+**About the _Command Syntax_ format**
+
+We will teach you how to perform certain actions on SoConnect for each [feature](#Features) 
+you can find in SoConnect.
+
+Here are some information that can help you in understanding the formats at the later section!
 
 * Words in `UPPER_CASE` are the _parameters_ that you will provide.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add n/NAME`, `NAME` is a _parameter_ which can be used as `add n/John Doe`.
 
-* _Fields_ in square brackets are optional.<br>
+* _Fields_ in **square brackets** are **optional**.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Fields with `…`​ after them can be used multiple times including zero times.<br>
+* _Fields_ with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
 
-* Parameters can be in any order.<br>
+* Each pair of _Prefix_ and _Parameter_ can be in any order.<br>
   e.g. if the command specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command, but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a _parameter_ is expected only once in the command, but you specified it multiple times, **only the last occurrence** of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help` and `exit`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help` and `exit`) will be **ignored**.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* Date and time must follow dd-MM-yyyy HH:mm format.
+* Date and time must follow **dd-MM-yyyy HH:mm** format.
   e.g. if the date and time is 1 May 2021 6.30pm, you should specify it as `01-05-2021 18:30`
 
 </div>
-
 
 ## Quick start
 
@@ -98,12 +151,15 @@ full range of features it offers.
 
 ## Overview of SoConnect
 
+This is what you will see when you open SoConnect!
 ![Labelled SoConnect](images/demo-screenshots/labelledSoconnectOverview.png)
 
 _See also: [Icons in Contact List](#icons-in-contact-list) and [Icons in Event List](#icons-in-events-list)_
 
 
 ## Icons in Contact List
+
+![Contact Card](images/demo-screenshots/contactCard.png)
 
 You can always find these 2 information of each contact displayed in SoConnect Contact List:
 1. Contact Index
@@ -122,10 +178,13 @@ Icon | Field
 **![Event Icon](images/demo-screenshots/eventIcon.png)** | Linked Events
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*Bookmark icon is only visible when the contact has been bookmarked
+*Bookmark icon is only visible when the contact has been bookmarked. 
+_See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
 
 ## Icons in Events List
+
+![Event Card](images/demo-screenshots/eventCard.png)
 
 You can always find these 2 information of each contact displayed in SoConnect Event List:
 1. Event Index
@@ -144,7 +203,7 @@ Icon | Field
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
 *Bookmark icon is only visible when the event has been bookmarked
-
+_See also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -792,16 +851,45 @@ See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-di
 
 3. Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-If you are still unable to open the file, 
+* If you are still unable to open the file, 
 [check your Java version](https://www.java.com/en/download/help/version_manual.html) 
 again and make sure it is version 11. 
-[Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
+* [Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
 </div>
 
 
 --------------------------------------------------------------------------------------------------------------------
+## List of Prefixes
+
+**Contact Management**
+
+_Prefix_ | _Parameter_ Type
+--------|------------------
+**`a/`** | Address
+**`dt/`** | Tag to be deleted
+**`e/`** | Email Address
+**`n/`** | Name
+**`p/`** | Phone Number
+**`t/`** | Tag
+**`th/`** | Telegram Handle
+**`z/`** | Links/ Websites
+
+**Event Management**
+
+_Prefix_ | _Parameter_ Type
+--------|------------------
+**`a/`** | Address
+**`at/`** | Start Date and Time
+**`c/`** | Contact index
+**`d/`** | Description
+**`dt/`** | Tag to be deleted
+**`end/`** | End Date and Time
+**`n/`** | Name
+**`t/`** | Tag
+**`z/`** | Links/ Websites
+
 
 ## Command Summary
 
