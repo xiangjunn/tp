@@ -265,14 +265,10 @@ public class Event {
         builder.append(getName())
                 .append("; Start: ")
                 .append(getStartDateAndTime())
-                .append("; End: ")
-                .append(getEndDateAndTime())
-                .append("; Description: ")
-                .append(getDescription())
-                .append("; Address: ")
-                .append(getAddress())
-                .append("; ZoomLink: ")
-                .append(getZoomLink());
+                .append(getEndDateAndTime() != null ? "; End: " + getEndDateAndTime() : "") // optional
+                .append(getDescription() != null ? "; Description: " + getDescription() : "") // optional
+                .append(getAddress() != null ? "; Address: " + getAddress() : "") // optional
+                .append(getZoomLink() != null ? "; Zoom Link: " + getZoomLink() : ""); // optional
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

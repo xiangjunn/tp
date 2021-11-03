@@ -263,16 +263,12 @@ public class Contact {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("; Phone: ")
-                .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress())
-                .append("; Zoom Link: ")
-                .append(getZoomLink())
-                .append("; Telegram: ")
-                .append(getTelegramHandle());
+                .append(getPhone() != null ? "; Phone: " + getPhone() : "") // optional
+                .append(getAddress() != null ? "; Address: " + getAddress() : "") // optional
+                .append(getZoomLink() != null ? "; Zoom Link: " + getZoomLink() : "") // optional
+                .append(getTelegramHandle() != null ? "; Telegram: " + getTelegramHandle() : ""); // optional
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
