@@ -26,7 +26,7 @@ class EventChangerTest {
         assertNotEquals(clearEventChanger, deleteEventChanger);
         assertNull(clearEventChanger.getNewEvent());
         assertNull(clearEventChanger.getOldEvent());
-        assertTrue(clearEventChanger.isClear());
+        assertTrue(clearEventChanger.isClearing());
     }
 
     @Test
@@ -35,7 +35,7 @@ class EventChangerTest {
         assertNotEquals(deleteEventChanger, editEventChanger);
         assertNull(deleteEventChanger.getNewEvent());
         assertEquals(deleteEventChanger.getOldEvent(), TypicalEvents.CS2101_MEETING);
-        assertFalse(deleteEventChanger.isClear());
+        assertFalse(deleteEventChanger.isClearing());
     }
 
     @Test
@@ -46,7 +46,7 @@ class EventChangerTest {
         assertNotEquals(editEventChanger, addEventChanger);
         assertEquals(editEventChanger.getNewEvent(), TypicalEvents.TEAM_MEETING);
         assertEquals(editEventChanger.getOldEvent(), TypicalEvents.CS2101_MEETING);
-        assertFalse(editEventChanger.isClear());
+        assertFalse(editEventChanger.isClearing());
     }
 
     @Test
@@ -55,7 +55,7 @@ class EventChangerTest {
         assertNotEquals(addEventChanger, clearEventChanger);
         assertNull(addEventChanger.getOldEvent());
         assertEquals(addEventChanger.getNewEvent(), TypicalEvents.CS2101_MEETING);
-        assertFalse(addEventChanger.isClear());
+        assertFalse(addEventChanger.isClearing());
     }
 
     @Test
