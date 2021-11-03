@@ -166,6 +166,21 @@ public class CEditCommandTest {
     }
 
     @Test
+    public void execute_tagToAddAlreadyInOriginalContact_success() {
+        Tag toAdd = new Tag("friends");
+        Contact editedContact = new ContactBuilder().withTags("friends").build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact,
+            null, false).build();
+        // the index must contain [friends] tag initially (check TypicalContacts)
+        CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST, descriptor);
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact)
+            + "\nNote:\n" + String.format(CEditCommand.MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL, toAdd);
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
+        expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
+        assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void equals() {
         final CEditCommand standardCommand = new CEditCommand(INDEX_FIRST, DESC_AMY);
 
