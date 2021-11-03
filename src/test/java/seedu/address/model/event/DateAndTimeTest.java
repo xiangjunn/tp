@@ -59,11 +59,15 @@ class DateAndTimeTest {
         assertFalse(DateAndTime.isValidDateTime("%01-13-2012 10:15")); // include invalid symbol '%'
         assertFalse(DateAndTime.isValidDateTime("01-13-2012 11:15pm")); // invalid time format
         assertFalse(DateAndTime.isValidDateTime("1-13-2012 11:15")); // missing leading 0
+        assertFalse(DateAndTime.isValidDateTime("01-12-20001 11:00")); // year can only take in 4-digit numbers
+        assertFalse(DateAndTime.isValidDateTime("31-02-2000 11:00")); // 31 Feb is not a valid date
+        assertFalse(DateAndTime.isValidDateTime("01-5-2021 10:00")); // missing leading 0 for month input
 
         // valid DateAndTime
-        assertTrue(DateAndTime.isValidDateTime("01-12-2012 11:00"));
-        assertTrue(DateAndTime.isValidDateTime("01-12-2012 10:05"));
-        assertTrue(DateAndTime.isValidDateTime("01-12-2012 11:22"));
+        assertTrue(DateAndTime.isValidDateTime("01-12-2021 11:00"));
+        assertTrue(DateAndTime.isValidDateTime("31-12-1090 10:05"));
+        assertTrue(DateAndTime.isValidDateTime("01-02-2012 11:22"));
+        assertTrue(DateAndTime.isValidDateTime("01-12-9000 11:00")); // year can take in any 4 digits number
     }
 
     @Test

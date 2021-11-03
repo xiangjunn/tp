@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
 
 import seedu.address.commons.util.StringUtil;
@@ -17,9 +18,15 @@ import seedu.address.commons.util.StringUtil;
 
 public class DateAndTime implements Comparable<DateAndTime> {
     public static final String MESSAGE_CONSTRAINTS =
-            "Event date and time should be in  dd-MM-yyyy HH:mm format and start time should not be blank";
+            "Event date and time should be in  dd-MM-yyyy HH:mm format and should meet the following requirements: \n"
+            + "1. Start time should not be blank. \n"
+            + "2. Date input should be between 01 and 31, month input should be between 01 and 12, and year input"
+            + "can be any 4 digit numbers \n"
+            + "3. Any single-digit input should start with a leading 0"
+            + "Example: 02-10-2021, 13-05-1999 are valid date inputs but 2-10-2021, 13-5-1999 are invalid. \n";
 
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-uuuu HH:mm").withResolverStyle(ResolverStyle.STRICT);
     public final LocalDateTime time;
 
     /**
