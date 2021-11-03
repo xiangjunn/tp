@@ -58,6 +58,7 @@ public class CViewCommand extends Command {
         }
 
         // instanceof handles nulls
-        return other instanceof CViewCommand;
+        return other instanceof CViewCommand
+                && ((CViewCommand) other).index.equals(index);
     }
 }

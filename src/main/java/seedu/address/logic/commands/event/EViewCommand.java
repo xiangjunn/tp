@@ -58,7 +58,8 @@ public class EViewCommand extends Command {
         }
 
         // instanceof handles nulls
-        return other instanceof EViewCommand;
+        return other instanceof EViewCommand
+                && ((EViewCommand) other).index.equals(index);
     }
 }
 
