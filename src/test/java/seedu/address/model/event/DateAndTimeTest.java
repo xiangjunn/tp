@@ -49,25 +49,35 @@ class DateAndTimeTest {
         assertFalse(DateAndTime.isValidDateTime("11-10 12:10")); // missing year
         assertFalse(DateAndTime.isValidDateTime("11-10")); // missing year and time
 
-        // invalid parts
+        // invalid date
         assertFalse(DateAndTime.isValidDateTime("2010/12/21 12:10")); // invalid connector
-        assertFalse(DateAndTime.isValidDateTime("2012-12-20 12:10")); // wrong order
-        assertFalse(DateAndTime.isValidDateTime("01-13-2012")); // wrong order of date and month
-        assertFalse(DateAndTime.isValidDateTime(" 01-13-2012 12:05")); // leading space
-        assertFalse(DateAndTime.isValidDateTime("01-13-2012 12:05 ")); // trailing space
+        assertFalse(DateAndTime.isValidDateTime(" 01-12-2012 12:05")); // leading space
+        assertFalse(DateAndTime.isValidDateTime("01-12-2012 12:05 ")); // trailing space
         assertFalse(DateAndTime.isValidDateTime("2021 Oct 2 12:10")); // wrong date format
         assertFalse(DateAndTime.isValidDateTime("%01-13-2012 10:15")); // include invalid symbol '%'
-        assertFalse(DateAndTime.isValidDateTime("01-13-2012 11:15pm")); // invalid time format
         assertFalse(DateAndTime.isValidDateTime("1-13-2012 11:15")); // missing leading 0
         assertFalse(DateAndTime.isValidDateTime("01-12-20001 11:00")); // year can only take in 4-digit numbers
+        assertFalse(DateAndTime.isValidDateTime("00-12-2021 11:00")); // date must start from 0
         assertFalse(DateAndTime.isValidDateTime("31-02-2000 11:00")); // 31 Feb is not a valid date
-        assertFalse(DateAndTime.isValidDateTime("01-5-2021 10:00")); // missing leading 0 for month input
+        assertFalse(DateAndTime.isValidDateTime("29-02-2021 11:11")); // invalid date 29th feb for non-leap year
+
+        // invalid time
+        assertFalse(DateAndTime.isValidDateTime("01-12-2012 11:15pm")); // invalid time format
+        assertFalse(DateAndTime.isValidDateTime("01-12-2021 24:00")); // time must be between 00:00 and 23:59
+        assertFalse(DateAndTime.isValidDateTime("01-12-2021 15:60"));// time must be between 00:00 and 23:59
+        assertFalse(DateAndTime.isValidDateTime("01-12-2021 3:16")); // missing leading 0 for hour input
+
+
 
         // valid DateAndTime
-        assertTrue(DateAndTime.isValidDateTime("01-12-2021 11:00"));
+        assertTrue(DateAndTime.isValidDateTime("01-01-2021 11:00"));
         assertTrue(DateAndTime.isValidDateTime("31-12-1090 10:05"));
-        assertTrue(DateAndTime.isValidDateTime("01-02-2012 11:22"));
+        assertTrue(DateAndTime.isValidDateTime("31-03-2012 11:22"));
         assertTrue(DateAndTime.isValidDateTime("01-12-9000 11:00")); // year can take in any 4 digits number
+        assertTrue(DateAndTime.isValidDateTime("29-02-2024 11:11")); // leap year allows 29th feb
+        assertTrue(DateAndTime.isValidDateTime("20-10-2021 00:00"));
+        assertTrue(DateAndTime.isValidDateTime("20-10-2021 23:59"));
+
     }
 
     @Test
