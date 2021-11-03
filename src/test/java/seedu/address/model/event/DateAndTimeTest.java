@@ -64,7 +64,7 @@ class DateAndTimeTest {
         // invalid time
         assertFalse(DateAndTime.isValidDateTime("01-12-2012 11:15pm")); // invalid time format
         assertFalse(DateAndTime.isValidDateTime("01-12-2021 24:00")); // time must be between 00:00 and 23:59
-        assertFalse(DateAndTime.isValidDateTime("01-12-2021 15:60"));// time must be between 00:00 and 23:59
+        assertFalse(DateAndTime.isValidDateTime("01-12-2021 15:60")); // time must be between 00:00 and 23:59
         assertFalse(DateAndTime.isValidDateTime("01-12-2021 3:16")); // missing leading 0 for hour input
 
 
