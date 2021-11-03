@@ -38,13 +38,13 @@ public class AddressBookTest {
         assertEquals(Collections.emptyList(), addressBook.getEventList());
     }
 
-    @Test
-    public void getCurrentAddressBook() {
-        // empty addressBook
-        AddressBook addressBook1 = AddressBook.getCurrentAddressBook();
-        assertEquals(Collections.emptyList(), addressBook1.getContactList());
-        assertEquals(Collections.emptyList(), addressBook1.getEventList());
-    }
+//    @Test
+//    public void getCurrentAddressBook() {
+//        // empty addressBook
+//        AddressBook addressBook1 = AddressBook.getCurrentAddressBook();
+//        assertEquals(Collections.emptyList(), addressBook1.getContactList());
+//        assertEquals(Collections.emptyList(), addressBook1.getEventList());
+//    }
 
     @Test
     public void resetData_null_throwsNullPointerException() {

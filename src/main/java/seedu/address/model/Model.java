@@ -79,14 +79,11 @@ public interface Model {
     /** Returns the current AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns initial version of AddressBook */
-    ReadOnlyAddressBook getInitialAddressBook();
-
     /** Adds new state of AddressBook to its history list */
-    void commitAddressBook();
+    void commitHistory();
 
     /** Restores the previous addressBook state from its history */
-    void undoAddressBook();
+    void undoHistory();
 
     /** Check if the current state of addressBook is undoable */
     boolean isUndoable();
@@ -253,4 +250,8 @@ public interface Model {
      */
     void unmarkEventIndexedAt(Index index);
 
+    /**
+     * Removes the latest commit while keeping the model unchanged.
+     */
+    void removeCommit();
 }

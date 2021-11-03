@@ -52,7 +52,6 @@ public class EFindCommand extends Command {
         requireNonNull(model);
         model.setEventDisplaySetting(EventDisplaySetting.DEFAULT_SETTING);
         model.updateFilteredEventList(predicate);
-        model.commitAddressBook();
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }

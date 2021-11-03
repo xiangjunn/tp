@@ -47,7 +47,6 @@ public class EViewCommand extends Command {
         }
         model.setEventDisplaySetting(new EventDisplaySetting(true));
         model.updateEventListByIndex(viewIndex);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.get(0)));
     }
 

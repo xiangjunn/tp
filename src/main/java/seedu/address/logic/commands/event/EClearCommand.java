@@ -27,7 +27,6 @@ public class EClearCommand extends Command {
         model.resetEvents();
         // rerender UI to remove all links
         model.rerenderContactCards();
-        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS, List.of(EventChanger.clearEventChanger()));
     }
 }

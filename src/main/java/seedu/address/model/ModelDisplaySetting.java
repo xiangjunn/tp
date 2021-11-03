@@ -14,10 +14,10 @@ import seedu.address.model.event.EventDisplaySetting;
  * Keep track of display setting of each model
  */
 public class ModelDisplaySetting {
-    private ContactDisplaySetting contactDisplaySetting;
-    private EventDisplaySetting eventDisplaySetting;
-    private Predicate<? super Contact> contactDisplayPredicate;
-    private Predicate<? super Event> eventDisplayPredicate;
+    private final ContactDisplaySetting contactDisplaySetting;
+    private final EventDisplaySetting eventDisplaySetting;
+    private final Predicate<? super Contact> contactDisplayPredicate;
+    private final Predicate<? super Event> eventDisplayPredicate;
 
     /**
      * Constructor of a default model display setting that shows all fields and all contacts and events
@@ -61,21 +61,21 @@ public class ModelDisplaySetting {
         return eventDisplayPredicate;
     }
 
-    public void setContactDisplaySetting(ContactDisplaySetting contactDisplaySetting) {
-        this.contactDisplaySetting = contactDisplaySetting;
-    }
-
-    public void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting) {
-        this.eventDisplaySetting = eventDisplaySetting;
-    }
-
-    public void setContactDisplayPredicate(Predicate<? super Contact> contactDisplayPredicate) {
-        this.contactDisplayPredicate = contactDisplayPredicate;
-    }
-
-    public void setEventDisplayPredicate(Predicate<? super Event> eventDisplayPredicate) {
-        this.eventDisplayPredicate = eventDisplayPredicate;
-    }
+//    public void setContactDisplaySetting(ContactDisplaySetting contactDisplaySetting) {
+//        this.contactDisplaySetting = contactDisplaySetting;
+//    }
+//
+//    public void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting) {
+//        this.eventDisplaySetting = eventDisplaySetting;
+//    }
+//
+//    public void setContactDisplayPredicate(Predicate<? super Contact> contactDisplayPredicate) {
+//        this.contactDisplayPredicate = contactDisplayPredicate;
+//    }
+//
+//    public void setEventDisplayPredicate(Predicate<? super Event> eventDisplayPredicate) {
+//        this.eventDisplayPredicate = eventDisplayPredicate;
+//    }
 
     /**
      * Create a copy of the current model display setting
@@ -86,16 +86,16 @@ public class ModelDisplaySetting {
                 eventDisplayPredicate);
     }
 
-    /**
-     * Change the current setting to a new setting
-     * @param toReset model display setting to be updated to
-     */
-    public void resetSetting(ModelDisplaySetting toReset) {
-        setContactDisplaySetting(toReset.getContactDisplaySetting());
-        setEventDisplaySetting(toReset.getEventDisplaySetting());
-        setContactDisplayPredicate(toReset.getContactDisplayPredicate());
-        setEventDisplayPredicate(toReset.getEventDisplayPredicate());
-    }
+//    /**
+//     * Change the current setting to a new setting
+//     * @param toReset model display setting to be updated to
+//     */
+//    public void resetSetting(ModelDisplaySetting toReset) {
+//        setContactDisplaySetting(toReset.getContactDisplaySetting());
+//        setEventDisplaySetting(toReset.getEventDisplaySetting());
+//        setContactDisplayPredicate(toReset.getContactDisplayPredicate());
+//        setEventDisplayPredicate(toReset.getEventDisplayPredicate());
+//    }
 
     @Override
     public boolean equals(Object obj) {
@@ -112,5 +112,25 @@ public class ModelDisplaySetting {
                 && contactDisplaySetting.equals(other.contactDisplaySetting)
                 && eventDisplayPredicate.equals(other.eventDisplayPredicate)
                 && contactDisplayPredicate.equals(other.contactDisplayPredicate);
+    }
+
+    public ModelDisplaySetting differentContactDisplaySetting(ContactDisplaySetting displaySetting) {
+        return new ModelDisplaySetting(displaySetting, eventDisplaySetting,
+            contactDisplayPredicate, eventDisplayPredicate);
+    }
+
+    public ModelDisplaySetting differentEventDisplaySetting(EventDisplaySetting displaySetting) {
+        return new ModelDisplaySetting(contactDisplaySetting, displaySetting,
+            contactDisplayPredicate, eventDisplayPredicate);
+    }
+
+    public ModelDisplaySetting differentContactDisplayPredicate(Predicate<? super Contact> predicate) {
+        return new ModelDisplaySetting(contactDisplaySetting, eventDisplaySetting,
+            predicate, eventDisplayPredicate);
+    }
+
+    public ModelDisplaySetting differentEventDisplayPredicate(Predicate<? super Event> predicate) {
+        return new ModelDisplaySetting(contactDisplaySetting, eventDisplaySetting,
+            contactDisplayPredicate, predicate);
     }
 }

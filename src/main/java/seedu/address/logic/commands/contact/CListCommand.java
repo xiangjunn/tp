@@ -49,7 +49,6 @@ public class CListCommand extends Command {
         requireNonNull(model);
         model.setContactDisplaySetting(displaySetting);
         model.rerenderContactCards();
-        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

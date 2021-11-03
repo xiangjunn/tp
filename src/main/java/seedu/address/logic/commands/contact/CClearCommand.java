@@ -24,7 +24,6 @@ public class CClearCommand extends Command {
         model.resetContacts();
         // re-render UI to remove all links
         model.rerenderEventCards();
-        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

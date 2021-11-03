@@ -62,7 +62,7 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         ModelManager.clearHistory();
-        AddressBook addressBook = AddressBook.getCurrentAddressBook();
+        AddressBook addressBook = new AddressBook();
         for (JsonAdaptedContact jsonAdaptedContact : contacts) {
             Contact contact = jsonAdaptedContact.toModelType();
             if (addressBook.hasContact(contact)) {

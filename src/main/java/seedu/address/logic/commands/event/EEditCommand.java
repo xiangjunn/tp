@@ -142,7 +142,6 @@ public class EEditCommand extends Command {
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         // rerender UI to show latest change for contacts with links to edited event
         model.rerenderContactCards();
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent),
             List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
     }

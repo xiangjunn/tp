@@ -47,7 +47,6 @@ public class CViewCommand extends Command {
         }
         model.setContactDisplaySetting(new ContactDisplaySetting(true));
         model.updateContactListByIndex(viewIndex);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.get(0)));
     }
 

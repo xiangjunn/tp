@@ -52,7 +52,6 @@ public class CFindCommand extends Command {
         requireNonNull(model);
         model.setContactDisplaySetting(ContactDisplaySetting.DEFAULT_SETTING);
         model.updateFilteredContactList(predicate);
-        model.commitAddressBook();
         return new CommandResult(
                 String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getFilteredContactList().size()));
     }

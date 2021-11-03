@@ -21,7 +21,7 @@ public class ModelStub implements Model {
     public static final String ERROR_MESSAGE = "This method should not be called.";
 
     @Override
-    public ReadOnlyAddressBook getInitialAddressBook() {
+    public ReadOnlyAddressBook getAddressBook() {
         throw new AssertionError(ERROR_MESSAGE);
     }
     @Override
@@ -86,12 +86,12 @@ public class ModelStub implements Model {
 
     // manage versioned addressBook
     @Override
-    public void commitAddressBook() {
+    public void commitHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
@@ -201,7 +201,7 @@ public class ModelStub implements Model {
 
     public void updateEventListByIndex(Index index) {
         throw new AssertionError(ERROR_MESSAGE);
-    };
+    }
 
     @Override
     public void linkEventAndContact(Event event, Contact contact) {

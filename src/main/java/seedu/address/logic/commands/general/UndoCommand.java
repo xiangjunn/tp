@@ -24,7 +24,7 @@ public class UndoCommand extends Command {
         if (!model.isUndoable()) {
             throw new CommandException(MESSAGE_FAIL_TO_UNDO);
         }
-        model.undoAddressBook();
+        model.undoHistory();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

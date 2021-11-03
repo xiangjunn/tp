@@ -50,7 +50,6 @@ public class EListCommand extends Command {
         requireNonNull(model);
         model.setEventDisplaySetting(displaySetting);
         model.rerenderEventCards();
-        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

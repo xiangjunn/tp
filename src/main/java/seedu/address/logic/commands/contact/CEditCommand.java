@@ -134,7 +134,6 @@ public class CEditCommand extends Command {
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         // rerender UI to show latest change for events with links to edited contact
         model.rerenderEventCards();
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
     }
 

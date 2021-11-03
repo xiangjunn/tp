@@ -34,7 +34,7 @@ import seedu.address.model.event.EventChanger;
 public class EDeleteCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
