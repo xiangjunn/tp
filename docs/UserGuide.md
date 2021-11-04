@@ -28,43 +28,40 @@ full range of features it offers.
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
 
 
-## How to read commands in SoConnect
+### How to read commands in SoConnect
 
 You will see commands throughout this User Guide and each of them have their own _Command Syntax_ format.
-
-But not to worry! We will teach you how to read them now!
 
 This is one example of a command: 
 
 ![Command Example](images/demo-screenshots/commandSyntax.png)
 
 There are only 3 different parts of inputs within each command:
-1. **COMMAND**
+1. **COMMAND WORD**
 
-Command is the word that you need to specify when you need SoConnect to perform some actions for you! 
-Else, SoConnect does not know how it can help you!
+    Command word is the word that you need to specify when you need SoConnect to perform some actions for you. 
+    Else, SoConnect does not know how it can help you!
 
-For example, specifying `cedit` in the command above will tell SoConnect that you want to edit a contact.
+    For example, specifying `cedit` in the command above will tell SoConnect that you want to edit a contact.
 
 2. **_PARAMETER_**
 
-_Parameter_ is the related information that you need to specify to SoConnect for the action you want to do.
+    _Parameter_ is the related information that you need to specify to SoConnect for the action you want to do.
 
-For example, after telling SoConnect to edit a contact, you will need to tell SoConnect which contact to edit
+    Using the same example, after telling SoConnect to edit a contact, you will need to tell SoConnect which contact to edit
 and provide the information for the edit.
 
-Specifying `2` tells SoConnect to edit contact at **index 2** 
-and `Betsy Crower` is the **new name** you want to change the specified contact to.
+    Specifying `2` tells SoConnect to edit contact at **index 2** and `Betsy Crower` 
+is the **new name** you want to change the specified contact to.
 
 3. **_PREFIX_**
 
-You can help SoConnect in separating the type of _parameters_ when you input information.
+    You can help SoConnect in separating the type of _parameters_ when you input information.
 
-Each prefix always ends with one `/`. 
-Jump to [List of Prefixes](#list-of-prefixes) to see all prefixes you can use in SoConnect.
+    Each prefix always ends with one `/`. Jump to [List of Prefixes](#list-of-prefixes) to see all prefixes you can use in SoConnect.
 
-For example, _prefix_ `n/` would help SoConnect to identify the _parameter_ that you specify after `n/` 
-refers to **name** of the contact.
+    For example, information that you specified after _prefix_ `n/` would help SoConnect to identify the _parameter_ 
+is referring to **name** of the contact.
 
 
 Thus, the command above will tell SoConnect to **edit the name of the contact at index 2 to Betsy Crower**.
@@ -108,7 +105,7 @@ Here are some information that can help you in understanding the formats at the 
 
 </div>
 
-# What happens if my command is invalid?
+### What happens if my command is invalid?
 
 After you specified a command to be done on SoConnect, a success message will be shown on the message box of SoConnect.
 
@@ -121,6 +118,8 @@ sections you can find in SoConnect!
 For example, after you specified [`clist`](#listing-all-contacts-clist):
 ![Success Message](images/demo-screenshots/successMessage.png)
 SoConnect will tell you that it has successfully listed all contacts!
+
+<br>
 
 However, when the command you entered does not fulfill the _Command Syntax_ format specified in [Features](#features),
 an **error message** will be shown on the message box instead.
@@ -144,11 +143,16 @@ SoConnect will tell you that the _Command Syntax_ format is invalid!
 3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect.
 
 4. Double-click the file to start SoConnect. This is how SoConnect looks like:<br>
-   SoConnect comes with some sample contacts and events upon installing too!
-   ![Ui](images/Ui.png)
-   If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
 
-5. Type the _command_ in the command box and press Enter to execute it. 
+    <div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+    SoConnect comes with some sample contacts and events upon installation!
+    </div>
+
+    ![Ui](images/Ui.png)
+    If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
+
+5. **Type the _command_ in the command box and press Enter** to execute it. 
 
     <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
@@ -179,7 +183,51 @@ _See also: [What happens if my command is invalid](#what-happens-if-my-command-i
 This is what you will see when you open SoConnect!
 ![Labelled SoConnect](images/demo-screenshots/labelledSoconnectOverview.png)
 
-_See also: [Icons in Contact List](#icons-in-contact-list) and [Icons in Event List](#icons-in-events-list)_
+1. **Menu Bar**
+
+    Menu Bar consists if 2 tabs: `File` and `Help`.
+    
+    Upon clicking `File`, you can choose to:
+   1. **Exit** SoConnect
+   2. Open **Calendar** of SoConnect
+
+    ![File Tab](images/demo-screenshots/fileTab.png)
+   
+    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+    Checkout how to [exit SoConnect](#exiting-soconnect-exit) and open [Calendar](#calendar-window-calendar) of SoConnect using commands!
+    </div> <br>
+
+    Upon clicking `Help`, you can choose to open **Help Window** of SoConnect.
+    ![Help Tab](images/demo-screenshots/helpTab.png)
+
+    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+   Checkout how to open [Help Window](#help-window-help) of SoConnect using commands!
+    </div>
+     
+2. **Command Box**
+
+    This is where you can type all your commands to use the [features of SoConnect](#features).
+
+3. **Message Box**
+
+    Displays the message from SoConnect **after** you have executed one command.
+
+    See Also: [What happens if my command is invalid?](#what-happens-if-my-command-is-invalid) 
+
+5. **Contact List**
+    
+    Displays information of the contacts you saved in SoConnect. 
+
+    Refer to [Icons in Contact List](#icons-in-contact-list) to see the different _fields_ that each icon represents in Contact List.
+
+6. **Event list**
+
+    Displays information of the events you saved in SoConnect.
+
+    Refer to [Icons in Event List](#icons-in-events-list) to see the different _fields_ that each icon represents in Event List.
+
 
 
 ### Icons in Contact List
@@ -695,7 +743,7 @@ Sorts all events by start time and displays all upcoming or ongoing events.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Events that have ended will not be shown after you execute `esort`
+Events that have ended **will not be shown** after you execute `esort`
 </div>
 
 
@@ -739,6 +787,7 @@ This section details all other the features and commands available in SoConnect 
 * [Calendar Window](#calendar-window-calendar)
 * [Exiting SoConnect](#exiting-soconnect-exit)
 * [Help Window](#help-window-help)
+* [Redo a command](#redo-a-command-redo)
 * [Undo a command](#undo-a-command-undo)
 
 ### Calendar Window: `calendar`
@@ -752,10 +801,12 @@ Shows a calendar of all the events.
   * Weekly
   * Monthly
   * Yearly
+![calendar](images/demo-screenshots/Calendar.png)
+
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-Alternatively, you can view the calendar using the top menu via `File -> Calendar` or press `F2`.
+Alternatively, you can view the calendar using the top menu bar via `File -> Calendar` or press `F2`.
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -764,7 +815,6 @@ Do not attempt to add new events using the calendar window.
 Doing so might result in a crash and your data may be lost.
 </div>
 
-![calendar](images/demo-screenshots/Calendar.png)
 
 
 ### Exiting SoConnect: `exit`
@@ -772,6 +822,11 @@ Doing so might result in a crash and your data may be lost.
 Exits and closes SoConnect.
 
 **Format:** `exit`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Alternatively, you can exit SoConnect using the top menu bar via `File -> Exit`.
+</div>
 
 
 ### Help Window: `help`
@@ -781,6 +836,23 @@ Displays a summary of all commands in SoConnect User Guide.
 **Format:** `help`
 
 ![help message](images/demo-screenshots/helpMessage.png)
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Alternatively, you can view the help window using the top menu bar via `Help -> Help` or press `F1`.
+</div>
+
+
+### Redo a command: `redo`
+
+Restores SoConnect to a previously undone state from its history.
+
+**Format:** `redo`
+
+**Examples:**
+* `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
+
+_See Also: [Undo a command](#undo-a-command-undo)_
 
 
 ### Undo a command: `undo`
@@ -793,6 +865,8 @@ Restores SoConnect to its previous state from its history.
 * `edelete 1` followed by `undo` restores the deleted event in the event list.
 * `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
 * `eview 1` followed by `undo` will display the full event list.
+
+_See Also: [Redo a command](#redo-a-command-redo)_
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -957,6 +1031,7 @@ Action | Format, Examples
 **[Calendar](#calendar-window-calendar)** | `calendar`
 **[Exit](#exiting-soconnect-exit)** | `exit`
 **[Help](#help-window-help)** | `help`
+**[Redo](#redo-a-command-redo)** | `redo`
 **[Undo](#undo-a-command-undo)** | `undo`
 
 ________________________________________________________________________________________________________________
@@ -965,12 +1040,12 @@ ________________________________________________________________________________
 
 Word | Explanation
 --------|------------------
-**Command Line Interface (CLI)** | Text-based user interface.
-**Command Syntax** |
-**Field(s)** |
-**Graphical User Interface (GUI)** |
-**Hard Disk** |
-**Home Folder** |
-**JSON File** |
-**OR Search** |
-**Parameter(s)** |
+**Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**
+**Command Syntax** | The structure that a command must abide by for it to be executed 
+**Field(s)** | The information type within each contact or event <br> For example, **Name** and **Address** of a contact are _fields_ of a contact.
+**Graphical User Interface (GUI)** | Graphical representation of the application that the user sees
+**Hard Disk** | Device in computer that is used to save files of the computer
+**Home Folder** | Folder which the application file is saved in the computer
+**JavaScript Object Notation (JSON) File** | The file that is used by the application to load its data and to save data of the application in a human-readable format.
+**OR Search** | 
+**Parameter(s)** | Information supplied by the user to the application when executing certain commands 
