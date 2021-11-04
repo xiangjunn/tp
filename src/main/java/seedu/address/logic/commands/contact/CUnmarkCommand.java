@@ -56,7 +56,6 @@ public class CUnmarkCommand extends Command implements Undoable {
             }
         }
         model.rearrangeContactsInOrder(indexesToUnmark, false);
-        model.commitHistory();
         return new CommandResult(commandResult);
     }
 

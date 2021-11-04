@@ -55,7 +55,6 @@ public class EMarkCommand extends Command implements Undoable {
             model.setEvent(event, createMarkedEvent(event));
         }
         model.rearrangeEventsInOrder(indexesToMark, true);
-        model.commitHistory();
         return new CommandResult(commandResult);
     }
 

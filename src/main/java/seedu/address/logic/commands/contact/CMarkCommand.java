@@ -54,7 +54,6 @@ public class CMarkCommand extends Command implements Undoable {
             model.setContact(contact, createMarkedContact(contact));
         }
         model.rearrangeContactsInOrder(indexesToMark, true);
-        model.commitHistory();
         return new CommandResult(commandResult);
     }
 

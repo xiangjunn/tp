@@ -56,7 +56,6 @@ public class EUnmarkCommand extends Command implements Undoable {
             }
         }
         model.rearrangeEventsInOrder(indexesToUnmark, false);
-        model.commitHistory();
         return new CommandResult(commandResult);
     }
 
