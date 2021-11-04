@@ -11,12 +11,14 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
-public class EUnlinkCommand extends Command {
+/** Unlinks an event from a list of contacts. */
+public class EUnlinkCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "eunlink";
 
     public static final String PARAMETERS = "EVENT_INDEX "

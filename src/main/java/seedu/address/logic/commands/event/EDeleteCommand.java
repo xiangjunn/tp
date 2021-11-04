@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -18,7 +19,7 @@ import seedu.address.model.event.EventChanger;
 /**
  * Deletes an event identified using its displayed index from the SoConnect.
  */
-public class EDeleteCommand extends Command {
+public class EDeleteCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "edelete";
     public static final String PARAMETERS = "INDEX1[-INDEX2]";
@@ -64,7 +65,6 @@ public class EDeleteCommand extends Command {
         }
         // rerender UI to update the links for contacts with links to deleted event
         model.rerenderContactCards();
-        model.commitAddressBook();
         return new CommandResult(commandResult, eventChangerList);
     }
 

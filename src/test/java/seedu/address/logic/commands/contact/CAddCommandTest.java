@@ -108,7 +108,7 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitHistory() {
             // TODO: 10/27/2021 add check for commit
         }
 
@@ -117,10 +117,6 @@ public class CAddCommandTest {
             return new AddressBook();
         }
 
-        @Override
-        public ReadOnlyAddressBook getInitialAddressBook() {
-            return new AddressBook();
-        }
     }
 
 }
