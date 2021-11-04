@@ -19,7 +19,7 @@ import seedu.address.commons.util.StringUtil;
 public class DateAndTime implements Comparable<DateAndTime> {
     public static final String MESSAGE_CONSTRAINTS =
             "Event date and time should be in  dd-MM-yyyy HH:mm format and should meet the following requirements: \n"
-            + "1. Start dateTime should not be empty."
+            + "1. Start dateTime should not be empty.\n"
             + "2. Input should not contain any leading or trailing white space.\n"
             + "3. Year input can be any 4 digits number. Month input ranges from 01 to 12. "
             + "Date input ranges from 01 to 31 but the range may vary according to the month input. \n"
