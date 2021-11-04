@@ -7,7 +7,7 @@ import seedu.address.model.event.Event;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code AddressBook ab = new AddressBookBuilder().withContact("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
@@ -18,13 +18,13 @@ public class AddressBookBuilder {
     }
 
     public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+        this.addressBook = addressBook.copy();
     }
 
     /**
      * Adds a new {@code Contact} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withPerson(Contact contact) {
+    public AddressBookBuilder withContact(Contact contact) {
         addressBook.addContact(contact);
         return this;
     }

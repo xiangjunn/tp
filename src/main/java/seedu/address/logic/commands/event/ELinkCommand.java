@@ -10,21 +10,27 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
-public class ELinkCommand extends Command {
+/** Links an event to a list of contacts. */
+public class ELinkCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "elink";
+    public static final String PARAMETERS = "EVENT_INDEX "
+            + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Links an event to a contact. "
         + "Parameters: "
-        + "EVENT_INDEX "
-        + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n"
+        + PARAMETERS
         + "Examples:\n"
         + "elink 1 c/1\n"
         + "elink 3 c/1 c/2 c/3 c/4 c/5";
-    public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact%s %s";
+    public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact %s.\n";
+    public static final String MESSAGE_ALREADY_LINKED = "Event %s is already linked to the contact %s.\n";
 
     private final Index eventIndex;
     private final Set<Index> contactIndexes;
@@ -48,8 +54,7 @@ public class ELinkCommand extends Command {
         checkCommandValidity(lastShownEventList, lastShownContactList);
 
         // execution of command
-        Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
-        CommandResult commandResult = linkEventAndContacts(model, eventToLink, lastShownContactList);
+        CommandResult commandResult = linkEventAndContacts(model, lastShownEventList, lastShownContactList);
 
         // rerender UI to show the links between event and each of the contacts
         model.rerenderAllCards();
@@ -69,24 +74,21 @@ public class ELinkCommand extends Command {
         }
     }
 
-    private CommandResult linkEventAndContacts(Model model, Event eventToLink, List<Contact> lastShownContactList) {
+    private CommandResult linkEventAndContacts(Model model, List<Event> lastShownEventList,
+            List<Contact> lastShownContactList) {
         String commandResult = "";
-        int count = 0;
         for (Index contactIndex : contactIndexes) {
+            // have to get the event from the list again because a new event replaces the index whenever
+            // a link occurs, hence cannot use the old reference of event.
+            Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
             Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
+            if (contactToLink.hasLinkTo(eventToLink)) {
+                assert eventToLink.hasLinkTo(contactToLink) : "Both should have links to each other";
+                commandResult += String.format(MESSAGE_ALREADY_LINKED, eventToLink.getName(), contactToLink.getName());
+                continue;
+            }
             model.linkEventAndContact(eventToLink, contactToLink);
-            if (count == 0) {
-                commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(),
-                    contactIndexes.size() > 1 ? "s" : "", contactToLink.getName());
-            } else {
-                commandResult += contactToLink.getName();
-            }
-            if (count != contactIndexes.size() - 1) {
-                commandResult += ", ";
-            } else {
-                commandResult += ".";
-            }
-            count++;
+            commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(), contactToLink.getName());
         }
         return new CommandResult(commandResult);
     }

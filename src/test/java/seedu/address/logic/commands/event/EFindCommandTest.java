@@ -19,21 +19,21 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.event.EventNameContainsKeywordsPredicate;
+import seedu.address.model.event.EventContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code EFindCommand}.
  */
 public class EFindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
-        EventNameContainsKeywordsPredicate firstPredicate =
-                new EventNameContainsKeywordsPredicate(Collections.singletonList("first"));
-        EventNameContainsKeywordsPredicate secondPredicate =
-                new EventNameContainsKeywordsPredicate(Collections.singletonList("second"));
+        EventContainsKeywordsPredicate firstPredicate =
+                new EventContainsKeywordsPredicate(Collections.singletonList("first"));
+        EventContainsKeywordsPredicate secondPredicate =
+                new EventContainsKeywordsPredicate(Collections.singletonList("second"));
 
         EFindCommand findFirstCommand = new EFindCommand(firstPredicate);
         EFindCommand findSecondCommand = new EFindCommand(secondPredicate);
@@ -58,7 +58,7 @@ public class EFindCommandTest {
     @Test
     public void execute_zeroKeywords_noEventsFound() {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
-        EventNameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        EventContainsKeywordsPredicate predicate = preparePredicate(" ");
         EFindCommand command = new EFindCommand(predicate);
         expectedModel.updateFilteredEventList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class EFindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleEventsFound() {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 4);
-        EventNameContainsKeywordsPredicate predicate = preparePredicate("2103 foot MEeT");
+        EventContainsKeywordsPredicate predicate = preparePredicate("2103 foot MEeT");
         EFindCommand command = new EFindCommand(predicate);
         expectedModel.updateFilteredEventList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,10 +77,10 @@ public class EFindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code EventNameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code EventContainsKeywordsPredicate}.
      */
-    private EventNameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new EventNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private EventContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new EventContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
 

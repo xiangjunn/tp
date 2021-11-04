@@ -23,13 +23,6 @@ import seedu.address.model.tag.Tag;
 public class Contact {
     // stores references to all contacts, accessible by their unique UUIDs
     private static HashMap<UUID, Contact> map = new HashMap<>();
-    private static boolean willDisplayPhone = true;
-    private static boolean willDisplayEmail = true;
-    private static boolean willDisplayTelegramHandle = true;
-    private static boolean willDisplayAddress = true;
-    private static boolean willDisplayZoomLink = true;
-    private static boolean willDisplayTags = true;
-    private static boolean viewingMode = false;
 
     // Identity fields
     private final Name name;
@@ -43,6 +36,7 @@ public class Contact {
     private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedEvents = new HashSet<>();
+    private boolean isBookMarked;
 
     /**
      * Name, email and tags must be present and not null.
@@ -59,6 +53,7 @@ public class Contact {
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
         this.uuid = UUID.randomUUID(); // to generate a uuid to uniquely identify contact
+        this.isBookMarked = false;
     }
 
     /**
@@ -69,8 +64,8 @@ public class Contact {
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents) {
-        requireAllNonNull(name, email, tags);
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isBookMarked) {
+        requireAllNonNull(name, email, tags, isBookMarked);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -80,6 +75,8 @@ public class Contact {
         this.zoomLink = zoomLink;
         this.uuid = uuid;
         this.linkedEvents.addAll(linkedEvents);
+        this.isBookMarked = isBookMarked;
+
     }
 
     public Name getName() {
@@ -126,78 +123,12 @@ public class Contact {
         return Collections.unmodifiableSet(linkedEvents);
     }
 
-    public static boolean isWillDisplayPhone() {
-        return willDisplayPhone;
+    public boolean getIsBookMarked() {
+        return isBookMarked;
     }
 
-    public static void setWillDisplayPhone(boolean willDisplayPhone) {
-        Contact.willDisplayPhone = willDisplayPhone;
-    }
-
-    public static boolean isWillDisplayEmail() {
-        return willDisplayEmail;
-    }
-
-    public static void setWillDisplayEmail(boolean willDisplayEmail) {
-        Contact.willDisplayEmail = willDisplayEmail;
-    }
-
-    public static boolean isWillDisplayTelegramHandle() {
-        return willDisplayTelegramHandle;
-    }
-
-    public static void setWillDisplayTelegramHandle(boolean willDisplayTelegramHandle) {
-        Contact.willDisplayTelegramHandle = willDisplayTelegramHandle;
-    }
-
-    public static boolean isWillDisplayZoomLink() {
-        return willDisplayZoomLink;
-    }
-
-    public static void setWillDisplayZoomLink(boolean willDisplayZoomLink) {
-        Contact.willDisplayZoomLink = willDisplayZoomLink;
-    }
-
-    public static boolean isWillDisplayAddress() {
-        return willDisplayAddress;
-    }
-
-    public static void setWillDisplayAddress(boolean willDisplayAddress) {
-        Contact.willDisplayAddress = willDisplayAddress;
-    }
-
-    public static boolean isWillDisplayTags() {
-        return willDisplayTags;
-    }
-
-    public static void setWillDisplayTags(boolean willDisplayTags) {
-        Contact.willDisplayTags = willDisplayTags;
-    }
-
-    public static void setAllDisplayToTrue() {
-        willDisplayPhone = true;
-        willDisplayEmail = true;
-        willDisplayTelegramHandle = true;
-        willDisplayZoomLink = true;
-        willDisplayAddress = true;
-        willDisplayTags = true;
-    }
-
-    public static void setAllDisplayToFalse() {
-        willDisplayPhone = false;
-        willDisplayEmail = false;
-        willDisplayTelegramHandle = false;
-        willDisplayZoomLink = false;
-        willDisplayAddress = false;
-        willDisplayTags = false;
-    }
-
-    public static boolean isViewingMode() {
-        return viewingMode;
-    }
-
-    public static void setViewingMode(boolean viewingMode) {
-        Contact.viewingMode = viewingMode;
+    public void setBookMarked(boolean bookMarked) {
+        isBookMarked = bookMarked;
     }
 
     /**
@@ -262,11 +193,25 @@ public class Contact {
     }
 
     /**
+     * Checks if the contact is linked to a particular event.
+     */
+    public boolean hasLinkTo(Event event) {
+        UUID eventUuid = event.getUuid();
+        return linkedEvents.contains(eventUuid);
+    }
+
+    /**
      * Links the event to the contact object that calls this method.
      * @param event The event to be linked with.
+     * @return The contact that has link to the event passed in as parameter.
      */
-    public void linkTo(Event event) {
-        this.linkedEvents.add(event.getUuid());
+    public Contact linkTo(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.add(event.getUuid());
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isBookMarked);
+        addToMap(updatedContact); // must update the map to represent the latest changes
+        return updatedContact;
     }
 
     /**
@@ -292,32 +237,38 @@ public class Contact {
     /**
      * Removes the link between the event and the contact object that calls this method.
      * @param event The event to be unlinked.
+     * @return The contact that has no link to the event passed in as parameter.
      */
-    public void unlink(Event event) {
-        this.linkedEvents.remove(event.getUuid());
+    public Contact unlink(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.remove(event.getUuid());
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isBookMarked);
+        addToMap(updatedContact);
+        return updatedContact;
     }
 
     /**
      * Removes all links to the contact object that calls this method.
+     * @return The contact that has no link to any contacts.
      */
-    public void clearAllLinks() {
-        this.linkedEvents.clear();
+    public Contact clearAllLinks() {
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, new HashSet<>(), isBookMarked);
+        addToMap(updatedContact);
+        return updatedContact;
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("; Phone: ")
-                .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress())
-                .append("; Zoom Link: ")
-                .append(getZoomLink())
-                .append("; Telegram: ")
-                .append(getTelegramHandle());
+                .append(getPhone() != null ? "; Phone: " + getPhone() : "") // optional
+                .append(getAddress() != null ? "; Address: " + getAddress() : "") // optional
+                .append(getZoomLink() != null ? "; Zoom Link: " + getZoomLink() : "") // optional
+                .append(getTelegramHandle() != null ? "; Telegram: " + getTelegramHandle() : ""); // optional
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
@@ -346,7 +297,8 @@ public class Contact {
             && Objects.equals(getTelegramHandle(), contact.getTelegramHandle())
             && Objects.equals(getZoomLink(), contact.getZoomLink())
             && Objects.equals(getAddress(), contact.getAddress())
-            && Objects.equals(getTags(), contact.getTags());
+            && Objects.equals(getTags(), contact.getTags())
+            && Objects.equals(getIsBookMarked(), contact.getIsBookMarked());
     }
 
     @Override

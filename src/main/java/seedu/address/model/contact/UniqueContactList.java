@@ -3,6 +3,7 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,6 +104,43 @@ public class UniqueContactList implements Iterable<Contact> {
      */
     public void resetContacts() {
         internalList.clear();
+    }
+
+    /**
+     * Moves bookmarked contacts to the top of the list.
+     */
+    public void reshuffleContactsInOrder() {
+        ObservableList<Contact> markedContactsFirst = FXCollections.observableArrayList();
+        internalList.forEach(contact -> {
+            if (contact.getIsBookMarked()) {
+                markedContactsFirst.add(contact);
+            }
+        });
+        internalList.forEach(contact -> {
+            if (!contact.getIsBookMarked()) {
+                markedContactsFirst.add(contact);
+            }
+        });
+        internalList.removeAll(internalUnmodifiableList); //removes all contact from the list
+        internalList.addAll(markedContactsFirst); //adds in list in correct order
+    }
+
+    /**
+     * Update the UUID map in contacts.
+     */
+    public void updateContactMap() {
+        for (Contact contact : internalList) {
+            Contact.addToMap(contact);
+        }
+    }
+
+    /**
+     * Get a copy of uniqueContactList
+     * @return a copy of a UniqueContactList
+     */
+    public ObservableList<Contact> copy() {
+        List<Contact> contactList = new ArrayList<>(internalList);
+        return FXCollections.observableArrayList(contactList);
     }
 
     /**

@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.general.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.general.CommandTestUtil.showContactAtIndex;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 import static seedu.address.testutil.TypicalRanges.RANGE_FIRST_TO_FIRST;
 import static seedu.address.testutil.TypicalRanges.RANGE_FIRST_TO_THIRD;
 
@@ -30,14 +30,16 @@ public class CDeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         CDeleteCommand cDeleteCommand = new CDeleteCommand(RANGE_FIRST_TO_FIRST);
 
-        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
+        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         assertCommandSuccess(cDeleteCommand, model, expectedMessage, expectedModel);
@@ -54,25 +56,24 @@ public class CDeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST);
 
-        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         CDeleteCommand cDeleteCommand = new CDeleteCommand(RANGE_FIRST_TO_FIRST);
 
-        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
+        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
-        showNoPerson(expectedModel);
+        showNoContact(expectedModel);
 
         assertCommandSuccess(cDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
         Range rangeOfIndexes = Range.convertFromIndex(outOfBoundIndex);
@@ -84,18 +85,17 @@ public class CDeleteCommandTest {
 
     @Test
     public void execute_validRangeUnfilteredList_success() {
-        Contact firstContactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Contact secondContactToDelete = model.getFilteredContactList().get(INDEX_SECOND_PERSON.getZeroBased());
-        Contact thirdContactToDelete = model.getFilteredContactList().get(INDEX_THIRD_PERSON.getZeroBased());
+        Contact firstContactToDelete = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
+        Contact secondContactToDelete = model.getFilteredContactList().get(INDEX_SECOND.getZeroBased());
+        Contact thirdContactToDelete = model.getFilteredContactList().get(INDEX_THIRD.getZeroBased());
         CDeleteCommand cDeleteCommand = new CDeleteCommand(RANGE_FIRST_TO_THIRD);
 
-        String expectedMessage = String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, firstContactToDelete)
+        String expectedMessage = String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, firstContactToDelete)
                 + "\n"
-                + String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, secondContactToDelete)
+                + String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, secondContactToDelete)
                 + "\n"
-                + String.format(cDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, thirdContactToDelete);
+                + String.format(CDeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, thirdContactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteContact(firstContactToDelete);
         expectedModel.deleteContact(secondContactToDelete);
         expectedModel.deleteContact(thirdContactToDelete);
@@ -105,8 +105,8 @@ public class CDeleteCommandTest {
 
     @Test
     public void equals() {
-        Range fromIndexOneToTwo = new Range(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
-        Range fromIndexOneToThree = new Range(INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
+        Range fromIndexOneToTwo = new Range(INDEX_FIRST, INDEX_SECOND);
+        Range fromIndexOneToThree = new Range(INDEX_FIRST, INDEX_THIRD);
         CDeleteCommand deleteFirstCommand = new CDeleteCommand(fromIndexOneToTwo);
         CDeleteCommand deleteSecondCommand = new CDeleteCommand(fromIndexOneToThree);
 
@@ -130,7 +130,7 @@ public class CDeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoContact(Model model) {
         model.updateFilteredContactList(p -> false);
 
         assertTrue(model.getFilteredContactList().isEmpty());

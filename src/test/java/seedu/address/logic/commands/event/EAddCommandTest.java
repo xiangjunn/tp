@@ -6,23 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.testutil.EventBuilder;
 
@@ -55,6 +48,18 @@ class EAddCommandTest {
     }
 
     @Test
+    public void execute_invalidDateTimeRange_throwsCommandException() {
+        Event event = new EventBuilder().withName("Outing").withStartDateAndTime("20-10-2021 20:00")
+                .withEndDateAndTime("20-10-2021 18:00").build();
+        ModelStub modelStub = new ModelStubAcceptingEventAdded();
+
+        EAddCommand command = new EAddCommand(event);
+
+        assertThrows(CommandException.class, EAddCommand.MESSAGE_INVALID_DATE_TIME_RANGE, () ->
+                command.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Event lecture = new EventBuilder().withName("Lecture").build();
         Event exam = new EventBuilder().withName("Exam").build();
@@ -76,165 +81,6 @@ class EAddCommandTest {
 
         // different event -> returns false
         assertFalse(addLectureCommand.equals(addExamCommand));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-
-        //settings
-
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        //contacts
-
-        @Override
-        public void addContact(Contact contact) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasContact(Contact contact) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteContact(Contact target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setContact(Contact target, Contact editedContact) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetContacts() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Contact> getFilteredContactList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredContactList(Predicate<Contact> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateContactListByIndex(Index index) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        // events
-
-        @Override
-        public void addEvent(Event event) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-
-        @Override
-        public boolean hasEvent(Event event) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-
-        @Override
-        public void deleteEvent(Event target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setEvent(Event target, Event editedEvent) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Event> getFilteredEventList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetEvents() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredEventList(Predicate<? super Event> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortUpcomingFilteredEventList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateEventListByIndex(Index index) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void linkEventAndContact(Event event, Contact contact) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void rerenderContactCards() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void rerenderEventCards() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void rerenderAllCards() {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
@@ -277,5 +123,8 @@ class EAddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public void commitHistory() {}
     }
 }

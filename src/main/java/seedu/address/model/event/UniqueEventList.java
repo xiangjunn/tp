@@ -3,14 +3,17 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -46,6 +49,11 @@ public class UniqueEventList implements Iterable<Event> {
         if (contains(toAdd)) {
             throw new DuplicateEventException();
         }
+
+        if (toAdd.getEndDateAndTime() != null && toAdd.getEndDateAndTime().isBefore(toAdd.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
+        }
+
         internalList.add(toAdd);
     }
 
@@ -64,6 +72,11 @@ public class UniqueEventList implements Iterable<Event> {
 
         if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
             throw new DuplicateEventException();
+        }
+
+        if (target.getEndDateAndTime() != null
+            && target.getEndDateAndTime().isBefore(target.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
         }
 
         internalList.set(index, editedEvent);
@@ -104,6 +117,59 @@ public class UniqueEventList implements Iterable<Event> {
 
     public void resetEvents() {
         internalList.clear();
+    }
+
+    /**
+     * Bookmarks the event indexed at {@code index}.
+     */
+    public void bookmarkEvent(Index index) {
+        Event eventToMark = internalUnmodifiableList.get(index.getZeroBased());
+        eventToMark.setBookMarked(true);
+    }
+
+    /**
+     * Moves bookmarked events to the top of the list.
+     */
+    public void reshuffleEventsInOrder() {
+        ObservableList<Event> markedEventsFirst = FXCollections.observableArrayList();
+        internalList.forEach(event -> {
+            if (event.getIsBookMarked()) {
+                markedEventsFirst.add(event);
+            }
+        });
+        internalList.forEach(event -> {
+            if (!event.getIsBookMarked()) {
+                markedEventsFirst.add(event);
+            }
+        });
+        internalList.removeAll(internalUnmodifiableList); //removes all event from the list
+        internalList.addAll(markedEventsFirst); //adds in list in correct order
+    }
+
+    /**
+     * Update the UUID map in events.
+     */
+    public void updateEventMap() {
+        for (Event event : internalList) {
+            Event.addToMap(event);
+        }
+    }
+
+    /**
+     * Unmarks the event indexed at {@code index}.
+     */
+    public void unmarkEvent(Index index) {
+        Event eventToMark = internalUnmodifiableList.get(index.getZeroBased());
+        eventToMark.setBookMarked(false);
+    }
+
+    /**
+     * Create a copy of a uniqueEventList
+     * @return
+     */
+    public ObservableList<Event> copy() {
+        List<Event> eventList = new ArrayList<>(internalList);
+        return FXCollections.observableArrayList(eventList);
     }
 
     /**

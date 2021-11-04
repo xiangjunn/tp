@@ -24,16 +24,18 @@ public class EAddCommandIntegrationTest {
 
     private Model model;
 
+    private Model expectedModel;
+
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newEvent_success() {
         Event validEvent = new EventBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addEvent(validEvent);
 
         EventChanger eventChanger = EventChanger.addEventChanger(validEvent);

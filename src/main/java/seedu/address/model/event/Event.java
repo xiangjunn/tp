@@ -22,14 +22,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Event {
     // stores references to all events, accessible by their unique UUIDs
-    private static HashMap<UUID, Event> map = new HashMap<>();
-    private static boolean willDisplayStartDateTime = true;
-    private static boolean willDisplayEndDateTime = true;
-    private static boolean willDisplayDescription = true;
-    private static boolean willDisplayAddress = true;
-    private static boolean willDisplayZoomLink = true;
-    private static boolean willDisplayTags = true;
-    private static boolean viewingMode = false;
+    private static final HashMap<UUID, Event> map = new HashMap<>();
 
     // Identity fields
     private final Name name;
@@ -44,6 +37,7 @@ public class Event {
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedContacts = new HashSet<>();
+    private boolean isBookMarked;
 
     /**
      * Name, startDateTime and tags must be present and not null.
@@ -59,7 +53,9 @@ public class Event {
         this.zoomLink = zoomLink;
         this.tags.addAll(tags);
         this.uuid = UUID.randomUUID();
+        this.isBookMarked = false;
     }
+
 
     /**
      * This constructor is for creating event stored in storage. The event stored in storage contains information
@@ -69,7 +65,8 @@ public class Event {
      */
     public Event(
             Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
-            Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts) {
+            Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts,
+            boolean isBookMarked) {
         requireAllNonNull(name, startDateAndTime, tags);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
@@ -80,6 +77,7 @@ public class Event {
         this.tags.addAll(tags);
         this.uuid = uuid;
         this.linkedContacts.addAll(linkedContacts);
+        this.isBookMarked = isBookMarked;
     }
 
     public Name getName() {
@@ -126,78 +124,12 @@ public class Event {
         return Collections.unmodifiableSet(linkedContacts);
     }
 
-    public static boolean isWillDisplayStartDateTime() {
-        return willDisplayStartDateTime;
+    public boolean getIsBookMarked() {
+        return isBookMarked;
     }
 
-    public static void setWillDisplayStartDateTime(boolean willDisplayStartDateTime) {
-        Event.willDisplayStartDateTime = willDisplayStartDateTime;
-    }
-
-    public static boolean isWillDisplayEndDateTime() {
-        return willDisplayEndDateTime;
-    }
-
-    public static void setWillDisplayEndDateTime(boolean willDisplayEndDateTime) {
-        Event.willDisplayEndDateTime = willDisplayEndDateTime;
-    }
-
-    public static boolean isWillDisplayDescription() {
-        return willDisplayDescription;
-    }
-
-    public static void setWillDisplayDescription(boolean willDisplayDescription) {
-        Event.willDisplayDescription = willDisplayDescription;
-    }
-
-    public static boolean isWillDisplayZoomLink() {
-        return willDisplayZoomLink;
-    }
-
-    public static void setWillDisplayZoomLink(boolean willDisplayZoomLink) {
-        Event.willDisplayZoomLink = willDisplayZoomLink;
-    }
-
-    public static boolean isWillDisplayAddress() {
-        return willDisplayAddress;
-    }
-
-    public static void setWillDisplayAddress(boolean willDisplayAddress) {
-        Event.willDisplayAddress = willDisplayAddress;
-    }
-
-    public static boolean isWillDisplayTags() {
-        return willDisplayTags;
-    }
-
-    public static void setWillDisplayTags(boolean willDisplayTags) {
-        Event.willDisplayTags = willDisplayTags;
-    }
-
-    public static void setAllDisplayToTrue() {
-        willDisplayStartDateTime = true;
-        willDisplayEndDateTime = true;
-        willDisplayDescription = true;
-        willDisplayZoomLink = true;
-        willDisplayAddress = true;
-        willDisplayTags = true;
-    }
-
-    public static void setAllDisplayToFalse() {
-        willDisplayStartDateTime = false;
-        willDisplayEndDateTime = false;
-        willDisplayDescription = false;
-        willDisplayZoomLink = false;
-        willDisplayAddress = false;
-        willDisplayTags = false;
-    }
-
-    public static boolean isViewingMode() {
-        return viewingMode;
-    }
-
-    public static void setViewingMode(boolean viewingMode) {
-        Event.viewingMode = viewingMode;
+    public void setBookMarked(boolean bookMarked) {
+        isBookMarked = bookMarked;
     }
     /**
      * Checks if this {@code name} contains any keywords in {code strings}
@@ -261,11 +193,25 @@ public class Event {
     }
 
     /**
-     * Links the contact to the event object that calls this method.
-     * @param contact The event to be linked with.
+     * Checks if the event is linked to a particular contact.
      */
-    public void linkTo(Contact contact) {
-        this.linkedContacts.add(contact.getUuid());
+    public boolean hasLinkTo(Contact contact) {
+        UUID contactUuid = contact.getUuid();
+        return linkedContacts.contains(contactUuid);
+    }
+
+    /**
+     * Links the contact to the event object that calls this method.
+     * @param contact The contact to be linked with.
+     * @return The event that has link to the contact passed in as parameter.
+     */
+    public Event linkTo(Contact contact) {
+        Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
+        updatedLinkedContacts.add(contact.getUuid());
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, updatedLinkedContacts, isBookMarked);
+        addToMap(updatedEvent); // must update the map to represent the latest changes
+        return updatedEvent;
     }
 
     /**
@@ -291,16 +237,26 @@ public class Event {
     /**
      * Removes the link between the contact and the event object that calls this method.
      * @param contact The contact to be unlinked.
+     * @return The event that has link to the contact passed in as parameter.
      */
-    public void unlink(Contact contact) {
-        this.linkedContacts.remove(contact.getUuid());
+    public Event unlink(Contact contact) {
+        Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
+        updatedLinkedContacts.remove(contact.getUuid());
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, updatedLinkedContacts, isBookMarked);
+        addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     /**
-     * Removes all links to the contact object that calls this method.
+     * Removes all links to the event object that calls this method.
+     * @return The event that has no link to any contacts.
      */
-    public void clearAllLinks() {
-        this.linkedContacts.clear();
+    public Event clearAllLinks() {
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, new HashSet<>(), isBookMarked);
+        addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     @Override
@@ -309,14 +265,10 @@ public class Event {
         builder.append(getName())
                 .append("; Start: ")
                 .append(getStartDateAndTime())
-                .append("; End: ")
-                .append(getEndDateAndTime())
-                .append("; Description: ")
-                .append(getDescription())
-                .append("; Address: ")
-                .append(getAddress())
-                .append("; ZoomLink: ")
-                .append(getZoomLink());
+                .append(getEndDateAndTime() != null ? "; End: " + getEndDateAndTime() : "") // optional
+                .append(getDescription() != null ? "; Description: " + getDescription() : "") // optional
+                .append(getAddress() != null ? "; Address: " + getAddress() : "") // optional
+                .append(getZoomLink() != null ? "; Zoom Link: " + getZoomLink() : ""); // optional
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
@@ -345,7 +297,8 @@ public class Event {
                 && Objects.equals(getDescription(), event.getDescription())
                 && Objects.equals(getAddress(), event.getAddress())
                 && Objects.equals(getZoomLink(), event.getZoomLink())
-                && Objects.equals(getTags(), event.getTags());
+                && Objects.equals(getTags(), event.getTags())
+                && Objects.equals(getIsBookMarked(), event.getIsBookMarked());
     }
 
     @Override

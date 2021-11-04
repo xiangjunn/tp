@@ -18,6 +18,29 @@ class DescriptionTest {
     }
 
     @Test
+    public void constructor_invalidDescription_throwsIllegalArgumentException() {
+        String invalidDescription = "";
+        assertThrows(IllegalArgumentException.class, () -> new Description(invalidDescription));
+    }
+
+    @Test
+    public void isValidDescription() {
+        // null description
+        assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
+
+        // invalid descriptions
+        assertFalse(Description.isValidDescription("")); // empty string
+        assertFalse(Description.isValidDescription(" ")); // spaces only
+
+        // valid descriptions
+        assertTrue(Description.isValidDescription("This is a description."));
+        assertTrue(Description.isValidDescription("This description contains %,?,()"));
+        assertTrue(Description.isValidDescription("-")); // one character
+        assertTrue(Description.isValidDescription("This is a very long description that serves no purpose except"
+            + " to test if long description is possible.")); // long description
+    }
+
+    @Test
     public void containsString() {
         Description description = new Description("description 123");
 
