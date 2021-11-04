@@ -36,7 +36,6 @@ public class ParserUtilTest {
     private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_TELEGRAM = "my%Telegram";
     private static final String INVALID_ZOOM_LINK = "";
-    private static final String INVALID_DESCRIPTION = "";
     private static final String INVALID_DELETE_ARGUMENT = "abc";
 
     private static final String VALID_NAME = "Rachel Walker";
