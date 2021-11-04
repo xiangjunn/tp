@@ -32,7 +32,7 @@ public class PersonBuilder {
     private TelegramHandle telegramHandle;
     private ZoomLink zoomLink;
     private Set<Tag> tags;
-    private boolean isBookmarked;
+    private boolean isMarked;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -46,7 +46,7 @@ public class PersonBuilder {
         telegramHandle = new TelegramHandle(DEFAULT_TELEGRAM_HANDLE);
         zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
         tags = new HashSet<>();
-        isBookmarked = false;
+        isMarked = false;
     }
 
     /**
@@ -60,7 +60,7 @@ public class PersonBuilder {
         telegramHandle = contactToCopy.getTelegramHandle();
         zoomLink = contactToCopy.getZoomLink();
         tags = new HashSet<>(contactToCopy.getTags());
-        isBookmarked = contactToCopy.getIsBookMarked();
+        isMarked = contactToCopy.getIsMarked();
     }
 
     /**
@@ -120,10 +120,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code isBookmarked} of the {@code Contact} that we are building to true.
+     * Sets the {@code isMarked} of the {@code Contact} that we are building to true.
      */
-    public PersonBuilder withBookmarked() {
-        this.isBookmarked = true;
+    public PersonBuilder withMarked() {
+        this.isMarked = true;
         return this;
     }
 
@@ -132,10 +132,9 @@ public class PersonBuilder {
      */
     public Contact build() {
         Contact contact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags);
-        if (isBookmarked) {
-            contact.setBookMarked(true);
+        if (isMarked) {
+            contact.setMarked(true);
         }
         return contact;
     }
-
 }

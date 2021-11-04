@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -194,17 +195,7 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void bookmarkContactIndexedAt(Index index) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void reshuffleContactsInOrder() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void unmarkContactIndexedAt(Index index) {
+        public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -290,19 +281,10 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void bookmarkEventIndexedAt(Index index) {
+        public void rearrangeEventsInOrder(List<Index> indexes, boolean isMarked) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void reshuffleEventsInOrder() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void unmarkEventIndexedAt(Index index) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**

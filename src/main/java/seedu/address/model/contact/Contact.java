@@ -43,7 +43,7 @@ public class Contact {
     private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedEvents = new HashSet<>();
-    private boolean isBookMarked;
+    private boolean isMarked;
 
     /**
      * Name, email and tags must be present and not null.
@@ -60,7 +60,7 @@ public class Contact {
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
         this.uuid = UUID.randomUUID(); // to generate a uuid to uniquely identify contact
-        this.isBookMarked = false;
+        this.isMarked = false;
     }
 
     /**
@@ -71,8 +71,8 @@ public class Contact {
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isBookMarked) {
-        requireAllNonNull(name, email, tags, isBookMarked);
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isMarked) {
+        requireAllNonNull(name, email, tags, isMarked);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -82,8 +82,7 @@ public class Contact {
         this.zoomLink = zoomLink;
         this.uuid = uuid;
         this.linkedEvents.addAll(linkedEvents);
-        this.isBookMarked = isBookMarked;
-
+        this.isMarked = isMarked;
     }
 
     public Name getName() {
@@ -203,12 +202,12 @@ public class Contact {
     public static void setViewingMode(boolean viewingMode) {
         Contact.viewingMode = viewingMode;
     }
-    public boolean getIsBookMarked() {
-        return isBookMarked;
+    public boolean getIsMarked() {
+        return isMarked;
     }
 
-    public void setBookMarked(boolean bookMarked) {
-        isBookMarked = bookMarked;
+    public void setMarked(boolean marked) {
+        isMarked = marked;
     }
 
     /**
@@ -358,7 +357,7 @@ public class Contact {
             && Objects.equals(getZoomLink(), contact.getZoomLink())
             && Objects.equals(getAddress(), contact.getAddress())
             && Objects.equals(getTags(), contact.getTags())
-            && Objects.equals(getIsBookMarked(), contact.getIsBookMarked());
+            && Objects.equals(getIsMarked(), contact.getIsMarked());
     }
 
     @Override

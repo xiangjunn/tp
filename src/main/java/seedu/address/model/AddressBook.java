@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.event.Event;
@@ -174,10 +175,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Places bookmarked {@code contacts} at the top of the list.
+     * Places marked {@code contacts} at the top of the list.
+     * Places the newly marked contacts or replaces newly unmarked contacts
+     * in the order specified in {code indexes} if specified.
      */
-    public void reshuffleContactsInOrder() {
-        contacts.reshuffleContactsInOrder();
+    public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
+        contacts.rearrangeContactsInOrder(indexes, isMarked);
     }
 
     //// event-level operations
@@ -251,10 +254,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Places bookmarked {@code events} at the top of the list.
+     * Places marked {@code events} at the top of the list.
+     * Places the newly marked events or replaces newly unmarked events
+     * in the order specified in {code indexes} if specified.
      */
-    public void reshuffleEventsInOrder() {
-        events.reshuffleEventsInOrder();
+    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
+        events.rearrangeEventsInOrder(indexes, isMark);
     }
 
     //// contact-level operations

@@ -29,14 +29,14 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.testutil.EventBuilder;
 
-class EBookmarkCommandTest {
+class EMarkCommandTest {
 
-    private static final Event TEAM_MEETING_BOOKMARKED = new EventBuilder(TEAM_MEETING).withBookmarked().build();
+    private static final Event TEAM_MEETING_BOOKMARKED = new EventBuilder(TEAM_MEETING).withMarked().build();
 
-    private Model expectedModel = new ModelManager(getAddressBookWith(getListWithBookmarkEvent()), new UserPrefs());
+    private Model expectedModel = new ModelManager(getAddressBookWith(getListWithMarkEvent()), new UserPrefs());
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private List<Event> getListWithBookmarkEvent() {
+    private List<Event> getListWithMarkEvent() {
         return new ArrayList<>(Arrays.asList(TEAM_MEETING_BOOKMARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
                 CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
     }
@@ -65,18 +65,18 @@ class EBookmarkCommandTest {
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         List<Index> outOfBoundIndex = List.of(Index.fromOneBased(model.getFilteredEventList().size() + 1));
-        EMarkCommand ebookmarkCommand = new EMarkCommand(outOfBoundIndex);
+        EMarkCommand eMarkCommand = new EMarkCommand(outOfBoundIndex);
 
-        assertCommandFailure(ebookmarkCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        assertCommandFailure(eMarkCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_eventAlreadyMarked() {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         model = expectedModel;
-        EMarkCommand ebookmarkCommand = new EMarkCommand(indexes);
-        String expectedMessage = String.format(EMarkCommand.MESSAGE_ALREADY_MARKED, TEAM_MEETING) + "\n";
-        assertCommandSuccess(ebookmarkCommand, model, expectedMessage, expectedModel);
+        EMarkCommand eMarkCommand = new EMarkCommand(indexes);
+        String expectedMessage = String.format(EMarkCommand.MESSAGE_ALREADY_MARKED, TEAM_MEETING_BOOKMARKED) + "\n";
+        assertCommandSuccess(eMarkCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -88,25 +88,25 @@ class EBookmarkCommandTest {
         firstIndexes.add(first);
         List<Index> secondIndexes = new ArrayList<>();
         secondIndexes.add(second);
-        EMarkCommand bookmarkFirstCommand = new EMarkCommand(firstIndexes);
-        EMarkCommand bookmarkSecondCommand = new EMarkCommand(secondIndexes);
+        EMarkCommand markFirstCommand = new EMarkCommand(firstIndexes);
+        EMarkCommand markSecondCommand = new EMarkCommand(secondIndexes);
 
         // same object -> returns true
-        assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommand));
+        assertTrue(markFirstCommand.equals(markFirstCommand));
 
         // same values -> returns true
-        EMarkCommand bookmarkFirstCommandCopy = new EMarkCommand(firstIndexes);
+        EMarkCommand markFirstCommandCopy = new EMarkCommand(firstIndexes);
         ;
-        assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommandCopy));
+        assertTrue(markFirstCommand.equals(markFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(bookmarkFirstCommand.equals(1));
+        assertFalse(markFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(bookmarkFirstCommand.equals(null));
+        assertFalse(markFirstCommand.equals(null));
 
         // different Index -> returns false
-        assertFalse(bookmarkFirstCommand.equals(bookmarkSecondCommand));
+        assertFalse(markFirstCommand.equals(markSecondCommand));
     }
 
 

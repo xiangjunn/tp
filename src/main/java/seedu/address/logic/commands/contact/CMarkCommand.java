@@ -2,6 +2,7 @@ package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -13,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
 public class CMarkCommand extends Command {
+
     public static final String COMMAND_WORD = "cmark";
 
     public static final String PARAMETERS = "INDEX [INDEX]...\n";
@@ -23,8 +25,8 @@ public class CMarkCommand extends Command {
             + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Bookmarked Contact: %1$s";
-    public static final String MESSAGE_ALREADY_MARKED = "Contact %1$s is already bookmarked!";
+    public static final String MESSAGE_SUCCESS = "Marked Contact: %1$s";
+    public static final String MESSAGE_ALREADY_MARKED = "Contact Already Marked: %1$s";
 
     private final List<Index> indexesToMark;
 
@@ -41,22 +43,38 @@ public class CMarkCommand extends Command {
         requireNonNull(model);
         String commandResult = "";
         List<Contact> lastShownList = model.getFilteredContactList();
+        Collections.reverse(indexesToMark);
         for (Index index : indexesToMark) {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
             }
-            Contact contactToMark = lastShownList.get(index.getZeroBased());
-            if (contactToMark.getIsBookMarked()) {
-                commandResult += String.format(MESSAGE_ALREADY_MARKED, contactToMark);
-                commandResult += "\n";
-                continue;
-            }
-            commandResult += String.format(MESSAGE_SUCCESS, contactToMark);
-            commandResult += "\n";
-            model.bookmarkContactIndexedAt(index);
+            Contact contact = lastShownList.get(index.getZeroBased());
+            commandResult += String.format("%s", generateCommandResultMessage(contact, contact.getIsMarked()));
+            model.setContact(contact, createMarkedContact(contact));
         }
-        model.reshuffleContactsInOrder();
+        model.rearrangeContactsInOrder(indexesToMark, true);
+        model.commitAddressBook();
         return new CommandResult(commandResult);
+    }
+
+    /**
+     * Creates and returns a marked {@code Contact} with the details of {@code contactToMark}
+     */
+    private static Contact createMarkedContact(Contact contactToMark) {
+        return new Contact(contactToMark.getName(), contactToMark.getPhone(), contactToMark.getEmail(),
+                contactToMark.getAddress(), contactToMark.getZoomLink(), contactToMark.getTelegramHandle(),
+                contactToMark.getTags(), contactToMark.getUuid(), contactToMark.getLinkedEvents(), true);
+    }
+
+    private String generateCommandResultMessage(Contact contact,
+                                              boolean isAlreadyMarked) {
+        String message;
+        if (isAlreadyMarked) {
+            message = String.format(MESSAGE_ALREADY_MARKED, contact);
+        } else {
+            message = String.format(MESSAGE_SUCCESS, contact);
+        }
+        return message += "\n";
     }
 
     @Override

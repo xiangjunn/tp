@@ -2,6 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -25,7 +26,7 @@ public class EUnmarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Unmarked Event: %1$s";
-    public static final String MESSAGE_NOT_MARKED = "Event %1$s is not bookmarked!";
+    public static final String MESSAGE_NOT_MARKED = "Event %1$s is not mrked!";
 
     private final List<Index> indexesToUnmark;
 
@@ -42,22 +43,40 @@ public class EUnmarkCommand extends Command {
         requireNonNull(model);
         String commandResult = "";
         List<Event> lastShownList = model.getFilteredEventList();
+        Collections.reverse(indexesToUnmark);
         for (Index index : indexesToUnmark) {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
             }
-            Event eventToMark = lastShownList.get(index.getZeroBased());
-            if (!eventToMark.getIsBookMarked()) {
-                commandResult += String.format(MESSAGE_NOT_MARKED, eventToMark);
-                commandResult += "\n";
-                continue;
+            Event event = lastShownList.get(index.getZeroBased());
+            commandResult += String.format("%s", generateCommandResultMessage(event, event.getIsMarked()));
+            if (event.getIsMarked()) {
+                model.setEvent(event, createUnmarkedEvent(event));
             }
-            commandResult += String.format(MESSAGE_SUCCESS, eventToMark);
-            commandResult += "\n";
-            model.unmarkEventIndexedAt(index);
         }
-        model.reshuffleEventsInOrder();
+        model.rearrangeEventsInOrder(indexesToUnmark, false);
+        model.commitAddressBook();
         return new CommandResult(commandResult);
+    }
+
+    /**
+     * Creates and returns an unmarked {@code Event} with the details of {@code eventToMark}
+     */
+    private static Event createUnmarkedEvent(Event eventToUnmark) {
+        return new Event(eventToUnmark.getName(), eventToUnmark.getStartDateAndTime(),
+                eventToUnmark.getEndDateAndTime(), eventToUnmark.getDescription(), eventToUnmark.getAddress(),
+                eventToUnmark.getZoomLink(), eventToUnmark.getTags(), eventToUnmark.getUuid(),
+                eventToUnmark.getLinkedContacts(), false);
+    }
+
+    private String generateCommandResultMessage(Event event, boolean isAlreadyMarked) {
+        String message;
+        if (!isAlreadyMarked) {
+            message = String.format(MESSAGE_NOT_MARKED, event);
+        } else {
+            message = String.format(MESSAGE_SUCCESS, event);
+        }
+        return message += "\n";
     }
 
     @Override

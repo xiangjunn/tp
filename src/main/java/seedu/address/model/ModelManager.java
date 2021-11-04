@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -233,21 +234,10 @@ public class ModelManager implements Model {
         Contact targetContact = filteredContacts.get(index.getZeroBased());
         filteredContacts.setPredicate(curr -> curr.isSameContact(targetContact));
     }
-    @Override
-    public void bookmarkContactIndexedAt(Index index) {
-        assert index != null : "index should not be null";
-        filteredContacts.get(index.getZeroBased()).setBookMarked(true);
-    }
 
     @Override
-    public void reshuffleContactsInOrder() {
-        addressBook.reshuffleContactsInOrder();
-    }
-
-    @Override
-    public void unmarkContactIndexedAt(Index index) {
-        assert index != null : "index should not be null";
-        filteredContacts.get(index.getZeroBased()).setBookMarked(false);
+    public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
+        addressBook.rearrangeContactsInOrder(indexes, isMarked);
     }
 
     //=========== Filtered Event List Accessors =======================
@@ -291,13 +281,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void bookmarkEventIndexedAt(Index index) {
-        assert index != null : "index should not be null";
-        filteredEvents.get(index.getZeroBased()).setBookMarked(true);
-    }
-    @Override
-    public void reshuffleEventsInOrder() {
-        addressBook.reshuffleEventsInOrder();
+    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
+        addressBook.rearrangeEventsInOrder(indexes, isMark);
     }
 
     @Override
@@ -355,10 +340,5 @@ public class ModelManager implements Model {
         rerenderEventCards();
     }
 
-    @Override
-    public void unmarkEventIndexedAt(Index index) {
-        assert index != null : "index should not be null";
-        filteredEvents.get(index.getZeroBased()).setBookMarked(false);
-    }
 
 }

@@ -2,6 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -24,8 +25,8 @@ public class EMarkCommand extends Command {
             + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Bookmarked Event: %1$s";
-    public static final String MESSAGE_ALREADY_MARKED = "Event %1$s is already bookmarked!";
+    public static final String MESSAGE_SUCCESS = "Marked Event: %1$s";
+    public static final String MESSAGE_ALREADY_MARKED = "Event Already Marked: %1$s";
 
     private final List<Index> indexesToMark;
 
@@ -42,22 +43,38 @@ public class EMarkCommand extends Command {
         requireNonNull(model);
         String commandResult = "";
         List<Event> lastShownList = model.getFilteredEventList();
+        Collections.reverse(indexesToMark);
         for (Index index : indexesToMark) {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
             }
-            Event eventToMark = lastShownList.get(index.getZeroBased());
-            if (eventToMark.getIsBookMarked()) {
-                commandResult += String.format(MESSAGE_ALREADY_MARKED, eventToMark);
-                commandResult += "\n";
-                continue;
-            }
-            commandResult += String.format(MESSAGE_SUCCESS, eventToMark);
-            commandResult += "\n";
-            model.bookmarkEventIndexedAt(index);
+            Event event = lastShownList.get(index.getZeroBased());
+            commandResult += String.format("%s", generateCommandResultMessage(event, event.getIsMarked()));
+            model.setEvent(event, createMarkedEvent(event));
         }
-        model.reshuffleEventsInOrder();
+        model.rearrangeEventsInOrder(indexesToMark, true);
+        model.commitAddressBook();
         return new CommandResult(commandResult);
+    }
+
+    /**
+     * Creates and returns a marked {@code Event} with the details of {@code eventToMark}
+     */
+    private static Event createMarkedEvent(Event eventToMark) {
+        return new Event(eventToMark.getName(), eventToMark.getStartDateAndTime(), eventToMark.getEndDateAndTime(),
+                eventToMark.getDescription(), eventToMark.getAddress(), eventToMark.getZoomLink(),
+                eventToMark.getTags(), eventToMark.getUuid(), eventToMark.getLinkedContacts(), true);
+    }
+
+    private String generateCommandResultMessage(Event event,
+                                              boolean isAlreadyMarked) {
+        String message;
+        if (isAlreadyMarked) {
+            message = String.format(MESSAGE_ALREADY_MARKED, event);
+        } else {
+            message = String.format(MESSAGE_SUCCESS, event);
+        }
+        return message += "\n";
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.contact;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -32,7 +34,7 @@ import seedu.address.testutil.PersonBuilder;
 
 class CUnmarkCommandTest {
 
-    private static final Contact ELLE_BOOKMARKED = new PersonBuilder(ELLE).withBookmarked().build();
+    private static final Contact ELLE_BOOKMARKED = new PersonBuilder(ELLE).withMarked().build();
 
     private Model expectedModel;
     private Model model;
@@ -67,15 +69,14 @@ class CUnmarkCommandTest {
         assertThrows(NullPointerException.class, () -> new CUnmarkCommand(null));
     }
 
-    //@Test
-    //public void execute_validIndexUnfilteredList_success() {
-    //        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_SUCCESS, ELLE_BOOKMARKED) + "\n";
-    //        List<Index> indexes = List.of(Index.fromOneBased(1));
-    //        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
-    //        assertCommandSuccess(cunmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
-    //
-    //        //TODO test with at least one marked contact remaining
-    //}
+    @Test
+    public void execute_validIndexUnfilteredList_success() {
+        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_SUCCESS, ELLE_BOOKMARKED) + "\n";
+        List<Index> indexes = List.of(Index.fromOneBased(1));
+        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
+        assertCommandSuccess(cunmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
+        //TODO test with at least one marked contact remaining
+    }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
@@ -85,14 +86,14 @@ class CUnmarkCommandTest {
         assertCommandFailure(cunmarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
-    //@Test
-    //public void execute_contactNotMarked() {
-    //        List<Index> indexes = List.of(Index.fromOneBased(1));
-    //
-    //        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
-    //        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_NOT_MARKED, ELLE) + "\n";
-    //        assertCommandSuccess(cunmarkCommand, model, expectedMessage, expectedModel);
-    //}
+    @Test
+    public void execute_contactNotMarked() {
+        model = new ModelManager(getAddressBookWith(getListAfterUnmark()), new UserPrefs());
+        List<Index> indexes = List.of(Index.fromOneBased(1));
+        CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
+        String expectedMessage = String.format(CUnmarkCommand.MESSAGE_NOT_MARKED, ELLE) + "\n";
+        assertCommandSuccess(cunmarkCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void equals() {

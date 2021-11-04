@@ -84,7 +84,7 @@ class JsonAdaptedEvent {
         linkedContacts.addAll(source.getLinkedContacts().stream()
             .map(UUID::toString)
             .collect(Collectors.toList()));
-        isBookmarked = source.getIsBookMarked();
+        isBookmarked = source.getIsMarked();
     }
 
     /**
