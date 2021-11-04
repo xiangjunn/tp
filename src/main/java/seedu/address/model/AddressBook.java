@@ -76,8 +76,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets the existing data of contacts of this {@code AddressBook}.
      */
     public void resetContacts() {
-        this.events.iterator().forEachRemaining(Event::clearAllLinks);
-        this.contacts.iterator().forEachRemaining(Contact::clearAllLinks);
         this.contacts.resetContacts();
     }
 
@@ -142,29 +140,49 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEvent(Event key) {
         // unlink all the contacts linked to event before removing event
-        unlinkContactsFromEvent(key);
-        events.remove(key);
+        Event updatedEvent = unlinkContactsFromEvent(key);
+        events.remove(updatedEvent);
+    }
+
+    /**
+     * Creates a link between the event and contact.
+     */
+    public void linkEventAndContact(Event event, Contact contact) {
+        Event updatedEvent = event.linkTo(contact);
+        Contact updatedContact = contact.linkTo(event);
+        setEvent(event, updatedEvent);
+        setContact(contact, updatedContact);
+    }
+
+    /**
+     * Removes the link between the event and contact.
+     */
+    public void unlinkEventAndContact(Event event, Contact contact) {
+        Event updatedEvent = event.unlink(contact);
+        Contact updatedContact = contact.unlink(event);
+        setEvent(event, updatedEvent);
+        setContact(contact, updatedContact);
     }
 
     /**
      * Unlink all the contacts linked to the given event {@code e}, but does not remove the stored links in the event.
      */
-    public void unlinkContactsFromEvent(Event e) {
+    public Event unlinkContactsFromEvent(Event e) {
         Set<UUID> contactsUuid = e.getLinkedContacts();
         contactsUuid.iterator()
             .forEachRemaining(contactUuid -> {
                 Contact linkedContact = Contact.findByUuid(contactUuid);
-                linkedContact.unlink(e);
+                setContact(linkedContact, linkedContact.unlink(e));
             });
-        e.clearAllLinks();
+        Event updatedEvent = e.clearAllLinks();
+        setEvent(e, updatedEvent);
+        return updatedEvent;
     }
 
     /**
      * Resets the existing data of events of this {@code AddressBook}.
      */
     public void resetEvents() {
-        this.contacts.iterator().forEachRemaining(Contact::clearAllLinks);
-        this.events.iterator().forEachRemaining(Event::clearAllLinks);
         this.events.resetEvents();
     }
 
@@ -211,21 +229,31 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         // unlink all the events linked to contact before removing contact
-        unlinkEventsFromContact(key);
-        contacts.remove(key);
+        Contact updatedContact = unlinkEventsFromContact(key);
+        contacts.remove(updatedContact);
     }
 
     /**
      * Unlink all the events linked to the given contact {@code c}, but does not remove the stored links in the contact.
      */
-    public void unlinkEventsFromContact(Contact c) {
+    public Contact unlinkEventsFromContact(Contact c) {
         Set<UUID> eventsUuid = c.getLinkedEvents();
         eventsUuid.iterator()
             .forEachRemaining(eventUuid -> {
                 Event linkedEvent = Event.findByUuid(eventUuid);
-                linkedEvent.unlink(c);
+                setEvent(linkedEvent, linkedEvent.unlink(c));
             });
-        c.clearAllLinks();
+        Contact updatedContact = c.clearAllLinks();
+        setContact(c, updatedContact);
+        return updatedContact;
+    }
+
+    /**
+     * Update the list of contacts and list of events in their respective UUID map.
+     */
+    public void updateDataMaps() {
+        contacts.updateContactMap();
+        events.updateEventMap();
     }
 
     //// util methods

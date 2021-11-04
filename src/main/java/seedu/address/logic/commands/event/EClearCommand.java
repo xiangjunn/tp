@@ -27,7 +27,7 @@ public class EClearCommand extends Command implements Undoable {
         requireNonNull(model);
         model.resetEvents();
         // rerender UI to remove all links
-        model.rerenderContactCards();
+        model.rerenderContactCards(true);
         return new CommandResult(MESSAGE_SUCCESS, List.of(EventChanger.clearEventChanger()));
     }
 }

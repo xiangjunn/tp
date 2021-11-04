@@ -24,7 +24,7 @@ public class CClearCommand extends Command implements Undoable {
         requireNonNull(model);
         model.resetContacts();
         // re-render UI to remove all links
-        model.rerenderEventCards();
+        model.rerenderEventCards(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
