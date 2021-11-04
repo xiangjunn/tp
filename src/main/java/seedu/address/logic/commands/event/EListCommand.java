@@ -13,13 +13,14 @@ import java.util.Objects;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.model.Model;
 import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * Lists all events in the address book to the user.
  */
-public class EListCommand extends Command {
+public class EListCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "elist";
     public static final String PARAMETERS = "[" + PREFIX_START_TIME + "] "

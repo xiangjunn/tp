@@ -1,12 +1,13 @@
 package seedu.address.logic.commands.general;
 
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
  * Represents the command to open a calendar window showing all events.
  */
-public class CalendarCommand extends GeneralCommand {
+public class CalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "calendar";
 

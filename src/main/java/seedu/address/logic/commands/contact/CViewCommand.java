@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -17,7 +18,7 @@ import seedu.address.model.contact.ContactDisplaySetting;
 /**
  *  Views one person in full detail in the SoConnect to the user.
  */
-public class CViewCommand extends Command {
+public class CViewCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "cview";
 
     public static final String SYNTAX = COMMAND_WORD + " INDEX";

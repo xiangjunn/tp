@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.model.Model;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactDisplaySetting;
@@ -19,7 +20,7 @@ import seedu.address.model.contact.ContactDisplaySetting;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class CFindCommand extends Command {
+public class CFindCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "cfind";
     public static final String PARAMETERS = "[KEYWORD]… "

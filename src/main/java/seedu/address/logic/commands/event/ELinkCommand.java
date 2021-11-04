@@ -10,12 +10,14 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
-public class ELinkCommand extends Command {
+/** Links an event to a list of contacts. */
+public class ELinkCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "elink";
     public static final String PARAMETERS = "EVENT_INDEX "
             + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n";

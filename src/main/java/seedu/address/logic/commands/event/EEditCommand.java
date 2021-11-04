@@ -22,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.Address;
@@ -37,7 +38,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing event in the address book.
  */
-public class EEditCommand extends Command {
+public class EEditCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "eedit";
     public static final String PARAMETERS = "INDEX "

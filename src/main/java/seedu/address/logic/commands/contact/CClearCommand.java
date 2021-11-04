@@ -4,12 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.model.Model;
 
 /**
  * Clears all entries of contacts from SoConnect.
  */
-public class CClearCommand extends Command {
+public class CClearCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "cclear";
 

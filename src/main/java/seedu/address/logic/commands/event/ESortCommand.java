@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.model.Model;
 
-public class ESortCommand extends Command {
+/** Sorts the address book and show only the upcoming and ongoing events. */
+public class ESortCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "esort";
 

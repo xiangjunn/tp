@@ -22,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.Address;
@@ -36,7 +37,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing contact in the address book.
  */
-public class CEditCommand extends Command {
+public class CEditCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "cedit";
     public static final String PARAMETERS = "[" + PREFIX_NAME + "NAME] "
