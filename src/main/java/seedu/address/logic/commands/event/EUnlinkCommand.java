@@ -74,7 +74,6 @@ public class EUnlinkCommand extends Command implements Undoable {
 
         // rerender UI to show the links between event and each of the contacts
         model.rerenderAllCards();
-        model.commitAddressBook();
 
         return commandResult;
     }

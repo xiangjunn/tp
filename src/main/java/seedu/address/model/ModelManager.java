@@ -141,6 +141,7 @@ public class ModelManager implements Model {
     public void undoHistory() {
         ModelHistory.HistoryInstance instance = modelHistory.undo();
         addressBook.resetData(instance.getAddressBook());
+        addressBook.updateDataMaps();
         modelDisplaySetting = instance.getDisplaySetting();
         filteredContacts.setPredicate(modelDisplaySetting.getContactDisplayPredicate());
         filteredEvents.setPredicate(modelDisplaySetting.getEventDisplayPredicate());
@@ -151,6 +152,7 @@ public class ModelManager implements Model {
     public void redoHistory() {
         ModelHistory.HistoryInstance instance = modelHistory.redo();
         addressBook.resetData(instance.getAddressBook());
+        addressBook.updateDataMaps();
         modelDisplaySetting = instance.getDisplaySetting();
         filteredContacts.setPredicate(modelDisplaySetting.getContactDisplayPredicate());
         filteredEvents.setPredicate(modelDisplaySetting.getEventDisplayPredicate());

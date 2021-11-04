@@ -131,7 +131,7 @@ class EUnlinkCommandTest {
             Set.of(INDEX_SECOND), false);
         Event eventToUnlink = typicalModel.getFilteredEventList().get(1);
         Contact contactToUnlink = typicalModel.getFilteredContactList().get(1);
-        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
+        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
         setUp(newModel);
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
