@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -19,8 +18,6 @@ import seedu.address.model.event.UniqueEventList;
  * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
-    private static ArrayList<AddressBook> addressBookStateList = new ArrayList<>();
-    private static int currentPointer = 0;
 
     private final UniqueContactList contacts;
     private final UniqueEventList events;
@@ -45,68 +42,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
-    }
-
-    //// manage addressBookStates
-
-    /**
-     * Gets the current version of AddressBook
-     * @return current version of AddressBook
-     */
-    public static AddressBook getCurrentAddressBook() {
-        if (addressBookStateList.isEmpty()) {
-            currentPointer = 0;
-            addressBookStateList.add(new AddressBook());
-        }
-        assert !addressBookStateList.isEmpty() : "addressBookStateList should have been initialised here";
-        assert currentPointer >= 0 && currentPointer <= addressBookStateList.size() - 1;
-        return addressBookStateList.get(currentPointer);
-    }
-
-    /**
-     * Clear history of addressBook when exit the app
-     */
-    public static void clearHistory() {
-        addressBookStateList.clear();
-        currentPointer = 0;
-    }
-
-    /**
-     * Save the current state of address book to the addressBookStateList
-     */
-    public void commit() {
-        if (addressBookStateList.isEmpty()) {
-            getCurrentAddressBook();
-        }
-        assert !addressBookStateList.isEmpty();
-        assert currentPointer >= 0 && currentPointer < addressBookStateList.size();
-
-        AddressBook currentAddressBook = this.copy();
-        if (currentPointer < addressBookStateList.size() - 1) {
-            addressBookStateList.set(currentPointer + 1, currentAddressBook);
-            for (int i = currentPointer + 2; i < addressBookStateList.size(); i++) {
-                addressBookStateList.set(i, null);
-            }
-        } else {
-            addressBookStateList.add(currentAddressBook);
-        }
-        currentPointer++;
-    }
-
-    /**
-     * Check if the current version of addressBook is undoable
-     * @return false if addressBook is already at its original state or if currentIndex is out of range
-     */
-    public boolean isUndoable() {
-        return currentPointer > 0 && currentPointer < addressBookStateList.size();
-    }
-
-    /**
-     * Restore the previous address book state from the addressBookStateList
-     */
-    public void undo() {
-        assert isUndoable() : "AddressBook should be undoable when this method is called.";
-        currentPointer--;
     }
 
     /**

@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -16,7 +17,7 @@ import seedu.address.model.contact.Contact;
 /**
  * Deletes a contact identified using it's displayed index from the address book.
  */
-public class CDeleteCommand extends Command {
+public class CDeleteCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "cdelete";
     public static final String PARAMETERS = "INDEX[-INDEX]\n";
@@ -65,7 +66,6 @@ public class CDeleteCommand extends Command {
         }
         // rerender UI to update the links for events with links to deleted contact
         model.rerenderEventCards();
-        model.commitAddressBook();
         return new CommandResult(commandResult);
     }
 

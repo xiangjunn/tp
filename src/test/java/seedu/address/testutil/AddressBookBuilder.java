@@ -18,7 +18,7 @@ public class AddressBookBuilder {
     }
 
     public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+        this.addressBook = addressBook.copy();
     }
 
     /**

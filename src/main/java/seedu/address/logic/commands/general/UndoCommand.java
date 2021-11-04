@@ -7,6 +7,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Represents the command to undo command changes.
+ */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
@@ -24,7 +27,7 @@ public class UndoCommand extends Command {
         if (!model.isUndoable()) {
             throw new CommandException(MESSAGE_FAIL_TO_UNDO);
         }
-        model.undoAddressBook();
+        model.undoHistory();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

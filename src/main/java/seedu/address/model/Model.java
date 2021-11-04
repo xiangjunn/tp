@@ -80,17 +80,20 @@ public interface Model {
     /** Returns the current AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns initial version of AddressBook */
-    ReadOnlyAddressBook getInitialAddressBook();
-
     /** Adds new state of AddressBook to its history list */
-    void commitAddressBook();
+    void commitHistory();
 
     /** Restores the previous addressBook state from its history */
-    void undoAddressBook();
+    void undoHistory();
 
-    /** Check if the current state of addressBook is undoable */
+    /** Restores the previously undone state from its history */
+    void redoHistory();
+
+    /** Checks if the current state of addressBook is undoable */
     boolean isUndoable();
+
+    /** Check if the current state of addressBook is redoable */
+    boolean isRedoable();
 
     //=========== Contact Management =============================================================
 
