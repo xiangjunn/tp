@@ -107,8 +107,12 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.setAll(events);
     }
 
+    /**
+     * Sorts the events based on whether they are {@code isMarked} and {@code startDateTime}
+     */
     public void sortEvents() {
         internalList.sort(Comparator.comparing(Event::getStartDateAndTime));
+        internalList.sort(Comparator.comparing(Event::getIsMarked, Comparator.reverseOrder()));
     }
 
     public void resetEvents() {

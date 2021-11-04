@@ -66,8 +66,11 @@ class CMarkCommandTest {
     public void execute_invalidIndex_throwsCommandException() {
         List<Index> outOfBoundIndex = List.of(Index.fromOneBased(model.getFilteredContactList().size() + 1));
         CMarkCommand cMarkCommand = new CMarkCommand(outOfBoundIndex);
-
         assertCommandFailure(cMarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+
+        List<Index> veryLargeNumberWithDuplicateDigit= List.of(Index.fromOneBased(1111111111));
+        CMarkCommand secondMarkCommand = new CMarkCommand(veryLargeNumberWithDuplicateDigit);
+        assertCommandFailure(secondMarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
