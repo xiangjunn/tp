@@ -9,7 +9,7 @@ SoConnect is a **desktop app for SoC students to manage contacts of Professors a
 as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having
 the benefits of a _Graphical User Interface (GUI)_. This project is part of the [CS2103T](https://nus-cs2103-ay2122s1.github.io/website/) team project requirements for AY2021/2022 Semester 1.
 
-The non-exhaustive list given below are my contributions to the project.
+The non-exhaustive list given below are my contributions to the project. All features come with their respective unit tests.
 
 * **New Feature**: Changed fields to `Contact` model (Previously known as `Person`).
   * What it does: allows the user to save details about the telegram handle and zoom meeting link of the saved contact, and allowing the user to omit certain details about the contact.
@@ -44,6 +44,7 @@ The non-exhaustive list given below are my contributions to the project.
 
 * **Community**:
   * Notable PRs reviewed (with non-trivial review comments): [\#147](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/147), [\#135](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/135), [\#94](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/94). See others [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/pulls?page=1&q=is%3Apr+is%3Aclosed+reviewed-by%3Achunweii).
+  * Contributed ideas and code to improve code quality for undo/redo feature and bug fix: [\#219](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/219)
   * Contributed to forum discussions (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/190#issuecomment-913172698), [2](https://github.com/nus-cs2103-AY2122S1/forum/issues/267#issuecomment-925130845))
   * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/AY2122S1-CS2103T-T12-4/tp/issues/159), [2](https://github.com/AY2122S1-CS2103T-T12-4/tp/issues/163))
 
