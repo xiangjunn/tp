@@ -159,7 +159,7 @@ public class EEditCommand extends Command implements Undoable {
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         // rerender UI to show latest change for contacts with links to edited event
-        model.rerenderContactCards();
+        model.rerenderContactCards(true);
         String result = String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent) + infoMessage;
         return new CommandResult(result, List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
     }

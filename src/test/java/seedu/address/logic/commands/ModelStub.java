@@ -225,11 +225,11 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void rerenderContactCards() {
+    public void rerenderContactCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
     }
     @Override
-    public void rerenderEventCards() {
+    public void rerenderEventCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 

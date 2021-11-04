@@ -22,10 +22,9 @@ import seedu.address.model.history.ModelHistory;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
-    private static final ModelHistory modelHistory = ModelHistory.getHistory();
-
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final ModelHistory modelHistory = new ModelHistory();
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
@@ -46,10 +45,15 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
+        modelHistory.commit(addressBook, modelDisplaySetting);
     }
 
+    /**
+     * Initializes a ModelManager with the default addressBook and userPrefs.
+     */
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+        modelHistory.commit(addressBook, modelDisplaySetting);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -81,7 +85,7 @@ public class ModelManager implements Model {
     /**
      * Clear history of all display setting of model
      */
-    public static void clearHistory() {
+    public void clearHistory() {
         modelHistory.clearHistory();
     }
 
@@ -375,23 +379,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void rerenderContactCards() {
-        Predicate<? super Contact> oldPred = modelDisplaySetting.getContactDisplayPredicate();
+    public void rerenderContactCards(boolean useBackSamePredicate) {
+        ModelHistory.HistoryInstance historyInstance = modelHistory.getCurrentHistoryInstance();
+        Predicate<? super Contact> oldPred = historyInstance.getDisplaySetting().getContactDisplayPredicate();
         updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
-        updateFilteredContactList(oldPred);
+        updateFilteredContactList(useBackSamePredicate ? oldPred : PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     @Override
-    public void rerenderEventCards() {
-        Predicate<? super Event> oldPred = modelDisplaySetting.getEventDisplayPredicate();
+    public void rerenderEventCards(boolean useBackSamePredicate) {
+        ModelHistory.HistoryInstance historyInstance = modelHistory.getCurrentHistoryInstance();
+        Predicate<? super Event> oldPred = historyInstance.getDisplaySetting().getEventDisplayPredicate();
         updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
-        updateFilteredEventList(oldPred);
+        updateFilteredEventList(useBackSamePredicate ? oldPred : PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
     public void rerenderAllCards() {
-        rerenderContactCards();
-        rerenderEventCards();
+        rerenderContactCards(true);
+        rerenderEventCards(true);
     }
 
     @Override

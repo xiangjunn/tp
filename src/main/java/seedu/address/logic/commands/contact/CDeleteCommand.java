@@ -65,7 +65,7 @@ public class CDeleteCommand extends Command implements Undoable {
             }
         }
         // rerender UI to update the links for events with links to deleted contact
-        model.rerenderEventCards();
+        model.rerenderEventCards(true);
         return new CommandResult(commandResult);
     }
 

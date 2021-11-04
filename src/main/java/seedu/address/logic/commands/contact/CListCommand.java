@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.Objects;
 
@@ -50,8 +49,7 @@ public class CListCommand extends Command implements Undoable {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setContactDisplaySetting(displaySetting);
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        model.rerenderContactCards();
+        model.rerenderContactCards(false);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

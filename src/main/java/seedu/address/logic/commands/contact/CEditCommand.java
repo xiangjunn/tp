@@ -152,7 +152,7 @@ public class CEditCommand extends Command implements Undoable {
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         // rerender UI to show latest change for events with links to edited contact
-        model.rerenderEventCards();
+        model.rerenderEventCards(true);
         String result = String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact) + infoMessage;
         return new CommandResult(result);
     }

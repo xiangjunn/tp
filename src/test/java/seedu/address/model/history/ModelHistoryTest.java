@@ -22,16 +22,11 @@ import seedu.address.testutil.TypicalAddressBook;
 
 class ModelHistoryTest {
 
-    private final ModelHistory history = new ModelHistoryStub();
-
-    @Test
-    public void getHistory() {
-        assertEquals(ModelHistory.getHistory(), ModelHistoryStub.getHistory());
-    }
+    private final ModelHistory history = new ModelHistory();
 
     @Test
     public void clearHistory_nonEmpty_success() {
-        ModelHistory anotherHistory = new ModelHistoryStub();
+        ModelHistory anotherHistory = new ModelHistory();
         AddressBook ab = TypicalAddressBook.getTypicalAddressBook();
         anotherHistory.commit(ab, new ModelDisplaySetting());
         anotherHistory.commit(new AddressBookBuilder(ab).withContact(HOON).build(), new ModelDisplaySetting());
@@ -137,12 +132,5 @@ class ModelHistoryTest {
         assertFalse(history.isRedoable());
         history.undo();
         assertTrue(history.isRedoable());
-    }
-
-    public static class ModelHistoryStub extends ModelHistory {
-        // Allows multiple instantiation of ModelHistory
-        public ModelHistoryStub() {
-            super();
-        }
     }
 }
