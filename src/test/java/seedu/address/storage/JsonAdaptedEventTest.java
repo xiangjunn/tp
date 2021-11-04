@@ -29,7 +29,7 @@ class JsonAdaptedEventTest {
     private static final String INVALID_END_DATE_AND_TIME = "2021/12/12";
     private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_ZOOM_LINK = "@bc";
+    private static final String INVALID_ZOOM_LINK = "";
     private static final String INVALID_TAG = "#summer";
 
     private static final String VALID_NAME = CS2103_MIDTERM.getName().toString();

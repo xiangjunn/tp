@@ -53,12 +53,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return current version of AddressBook
      */
     public static AddressBook getCurrentAddressBook() {
-        // TODO: 10/26/2021 add check for invalid current pointer;
         if (addressBookStateList.isEmpty()) {
             currentPointer = 0;
             addressBookStateList.add(new AddressBook());
         }
         assert !addressBookStateList.isEmpty() : "addressBookStateList should have been initialised here";
+        assert currentPointer >= 0 && currentPointer <= addressBookStateList.size() - 1;
         return addressBookStateList.get(currentPointer);
     }
 
@@ -101,28 +101,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Check of current version of addressBook is redoable
-     * @return false if addressBook is already at its latest version or if currentIndex is out of range
-     */
-    public boolean isRedoable() {
-        return currentPointer >= 0 && currentPointer < addressBookStateList.size() - 1;
-    }
-
-    /**
      * Restore the previous address book state from the addressBookStateList
      */
     public void undo() {
         assert isUndoable() : "AddressBook should be undoable when this method is called.";
         currentPointer--;
-    }
-
-
-    /**
-     * Restore the previous undone address book state from its history
-     */
-    public void redo() {
-        assert isRedoable() : "AddressBook should be redoable when this method is called.";
-        currentPointer++;
     }
 
     /**

@@ -96,22 +96,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void redoAddressBook() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void clearHistory() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
     public boolean isUndoable() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public boolean isRedoable() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 

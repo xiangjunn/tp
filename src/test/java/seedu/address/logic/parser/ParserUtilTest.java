@@ -35,7 +35,8 @@ public class ParserUtilTest {
     private static final String INVALID_END_DATE_TIME = "20/11/2021 15:00";
     private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_TELEGRAM = "my%Telegram";
-    private static final String INVALID_ZOOM_LINK = "my_zoom_link/tutorial.nus.edu";
+    private static final String INVALID_ZOOM_LINK = "";
+    private static final String INVALID_DESCRIPTION = "";
     private static final String INVALID_DELETE_ARGUMENT = "abc";
 
     private static final String VALID_NAME = "Rachel Walker";
