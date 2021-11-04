@@ -58,15 +58,15 @@ class EUnlinkCommandTest {
             model.getFilteredContactList().get(1));
     }
 
-    private String generateStringFromSet(Set<Contact> set) {
+    private String generateCommandResult(Event eventToUnlink, Set<Contact> set) {
         assert !set.isEmpty();
         StringBuilder result = new StringBuilder();
         for (Contact contact : set) {
-            result.append(contact.getName());
-            result.append(", ");
+            String resultForEachUnlink = String.format(EUnlinkCommand.MESSAGE_SUCCESS,
+                eventToUnlink.getName(), contact.getName());
+            result.append(resultForEachUnlink);
         }
-        result.replace(result.length() - 2, result.length(), "");
-        return result.append(".").toString();
+        return result.toString();
     }
 
     @Test
@@ -76,12 +76,12 @@ class EUnlinkCommandTest {
             Set.of(TypicalIndexes.INDEX_FIRST), false);
         Event eventToUnlink = typicalModel.getFilteredEventList().get(0);
         Contact contactToUnlink = typicalModel.getFilteredContactList().get(0);
-        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
+        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
         setUp(newModel);
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
         String commandSuccessMessage = String.format(EUnlinkCommand.MESSAGE_SUCCESS,
-            eventToUnlink.getName(), "", contactToUnlink.getName() + ".");
+            eventToUnlink.getName(), contactToUnlink.getName());
         assertCommandSuccess(eUnlinkCommand, typicalModel, commandSuccessMessage, newModel);
     }
 
@@ -94,14 +94,13 @@ class EUnlinkCommandTest {
         Contact contact1ToUnlink = typicalModel.getFilteredContactList().get(0);
         Contact contact2ToUnlink = typicalModel.getFilteredContactList().get(1);
         Set<Contact> setOfContacts = Set.of(contact1ToUnlink, contact2ToUnlink);
-        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
+        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
         setUp(newModel);
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(1));
-        String commandSuccessMessage = String.format(EUnlinkCommand.MESSAGE_SUCCESS,
-            eventToUnlink.getName(), "s", generateStringFromSet(setOfContacts));
+        String commandSuccessMessage = generateCommandResult(eventToUnlink, setOfContacts);
         assertCommandSuccess(eUnlinkCommand, typicalModel, commandSuccessMessage, newModel);
     }
 
@@ -111,7 +110,7 @@ class EUnlinkCommandTest {
             INDEX_FIRST,
             Set.of(), true);
         Event eventToUnlink = typicalModel.getFilteredEventList().get(0);
-        Model newModel = new ModelManager(typicalModel.getInitialAddressBook(), new UserPrefs());
+        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
         setUp(newModel);
         newModel.unlinkEventAndContact(
             newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
@@ -122,6 +121,22 @@ class EUnlinkCommandTest {
         String commandSuccessMessage = String.format(
             EUnlinkCommand.MESSAGE_SUCCESS_CLEAR_ALL,
             eventToUnlink.getName());
+        assertCommandSuccess(eUnlinkCommand, typicalModel, commandSuccessMessage, newModel);
+    }
+
+    @Test
+    public void execute_alreadyUnlinked_successWithErrorMessage() {
+        EUnlinkCommand eUnlinkCommand = new EUnlinkCommand(
+            INDEX_SECOND,
+            Set.of(INDEX_SECOND), false);
+        Event eventToUnlink = typicalModel.getFilteredEventList().get(1);
+        Contact contactToUnlink = typicalModel.getFilteredContactList().get(1);
+        Model newModel = new ModelManager(typicalModel.getAddressBook(), new UserPrefs());
+        setUp(newModel);
+        newModel.unlinkEventAndContact(
+            newModel.getFilteredEventList().get(0), newModel.getFilteredContactList().get(0));
+        String commandSuccessMessage = String.format(EUnlinkCommand.MESSAGE_NOT_LINKED,
+            eventToUnlink.getName(), contactToUnlink.getName());
         assertCommandSuccess(eUnlinkCommand, typicalModel, commandSuccessMessage, newModel);
     }
 

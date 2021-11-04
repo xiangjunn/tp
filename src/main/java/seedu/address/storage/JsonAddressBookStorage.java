@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
@@ -34,7 +33,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
-        AddressBook.clearHistory();
         return readAddressBook(filePath);
     }
 
@@ -67,7 +65,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook, boolean)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
@@ -77,9 +75,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
-        if (isClose) {
-            AddressBook.clearHistory();
-        }
     }
 
 }

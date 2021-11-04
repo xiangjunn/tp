@@ -5,6 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
 
 import seedu.address.commons.util.StringUtil;
@@ -16,22 +18,19 @@ import seedu.address.commons.util.StringUtil;
 
 public class DateAndTime implements Comparable<DateAndTime> {
     public static final String MESSAGE_CONSTRAINTS =
-            "Time format should be in  dd-MM-yyyy HH:mm format and start time should not be blank";
+            "Event date and time should be in  dd-MM-yyyy HH:mm format and should meet the following requirements: \n"
+            + "1. Start dateTime should not be empty.\n"
+            + "2. Input should not contain any leading or trailing white space.\n"
+            + "3. Year input can be any 4 digits number. Month input ranges from 01 to 12. "
+            + "Date input ranges from 01 to 31 but the range may vary according to the month input. \n"
+            + "Example: 31-01-2021 is a valid date, but 31-02-2021 is invalid as February has only 28 or 29 days. \n"
+            + "4. Hour input ranges from 00 to 23. Minute input ranges from 00 to 59. \n"
+            + "5. Any single-digit input should start with a leading 0. \n"
+            + "Example: 02-10-2021 09:00, 13-05-1999 12:05 are valid inputs but 2-10-2021 09:00, "
+            + "13-05-1999 12:5 are invalid. \n";
 
-    public static final String DATE_FORMAT = "(0[1-9]|[12][0-9]|3[01])"; // date range from 1 to 31
-
-    public static final String MONTH_FORMAT = "(0[0-9]|1[0-2])"; // month range from 1 to 12
-
-    public static final String YEAR_FORMAT = "([12][0-9][0-9][0-9])"; // year range from 1000 to 2999
-
-    public static final String HOUR_FORMAT = "(0[0-9]|1[0-9]|2[0-3])"; // hour range from 00 to 23
-
-    public static final String MINUTE_FORMAT = "(0[0-9]|[1-5][0-9])"; // minute range from 00 to 59
-
-    public static final String VALIDATION_REGEX = DATE_FORMAT + "-" + MONTH_FORMAT + "-" + YEAR_FORMAT
-            + " " + HOUR_FORMAT + ":" + MINUTE_FORMAT;
-
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-uuuu HH:mm").withResolverStyle(ResolverStyle.STRICT);
     public final LocalDateTime time;
 
     /**
@@ -49,7 +48,12 @@ public class DateAndTime implements Comparable<DateAndTime> {
      * Returns true if a given string is a valid DateAndTime.
      */
     public static boolean isValidDateTime(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            DATE_TIME_FORMATTER.parse(test);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     /**

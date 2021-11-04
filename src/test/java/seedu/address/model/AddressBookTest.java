@@ -131,6 +131,12 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getEventList().remove(0));
     }
 
+    @Test
+    public void copy_success() {
+        AddressBook copy = addressBook.copy();
+        assertEquals(addressBook, copy);
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose contacts list and event list can violate interface constraints.
      */

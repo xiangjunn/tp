@@ -79,22 +79,16 @@ public interface Model {
     /** Returns the current AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns initial version of AddressBook */
-    ReadOnlyAddressBook getInitialAddressBook();
-
     /** Adds new state of AddressBook to its history list */
-    void commitAddressBook();
+    void commitHistory();
 
     /** Restores the previous addressBook state from its history */
-    void undoAddressBook();
+    void undoHistory();
 
-    /** Restores a previously undone addressBook state from its history */
-    void redoAddressBook();
+    /** Restores the previously undone state from its history */
+    void redoHistory();
 
-    /** Clear all history of versioned addressBook when exit the app */
-    void clearHistory();
-
-    /** Check if the current state of addressBook is undoable */
+    /** Checks if the current state of addressBook is undoable */
     boolean isUndoable();
 
     /** Check if the current state of addressBook is redoable */
@@ -234,13 +228,17 @@ public interface Model {
 
     /**
      * Re-render contact cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
      */
-    void rerenderContactCards();
+    void rerenderContactCards(boolean useBackSamePredicate);
 
     /**
      * Re-render event cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
      */
-    void rerenderEventCards();
+    void rerenderEventCards(boolean useBackSamePredicate);
 
     /**
      * Re-render both contact and event cards in UI to show the most updated version.
@@ -262,4 +260,8 @@ public interface Model {
      */
     void unmarkEventIndexedAt(Index index);
 
+    /**
+     * Removes all links between contacts and events.
+     */
+    void removeAllLinks();
 }

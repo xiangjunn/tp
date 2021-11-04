@@ -21,10 +21,6 @@ public class ModelStub implements Model {
     public static final String ERROR_MESSAGE = "This method should not be called.";
 
     @Override
-    public ReadOnlyAddressBook getInitialAddressBook() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError(ERROR_MESSAGE);
     }
@@ -86,22 +82,17 @@ public class ModelStub implements Model {
 
     // manage versioned addressBook
     @Override
-    public void commitAddressBook() {
+    public void commitHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     @Override
-    public void redoAddressBook() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void clearHistory() {
+    public void redoHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
@@ -216,7 +207,7 @@ public class ModelStub implements Model {
 
     public void updateEventListByIndex(Index index) {
         throw new AssertionError(ERROR_MESSAGE);
-    };
+    }
 
     @Override
     public void linkEventAndContact(Event event, Contact contact) {
@@ -234,11 +225,11 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void rerenderContactCards() {
+    public void rerenderContactCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
     }
     @Override
-    public void rerenderEventCards() {
+    public void rerenderEventCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
@@ -259,6 +250,11 @@ public class ModelStub implements Model {
 
     @Override
     public void unmarkEventIndexedAt(Index index) {
+        throw new AssertionError(ERROR_MESSAGE);
+    }
+
+    @Override
+    public void removeAllLinks() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 }
