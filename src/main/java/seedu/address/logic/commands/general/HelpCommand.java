@@ -1,13 +1,12 @@
 package seedu.address.logic.commands.general;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends Command {
+public class HelpCommand extends GeneralCommand {
 
     public static final String COMMAND_WORD = "help";
 

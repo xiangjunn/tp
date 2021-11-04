@@ -92,7 +92,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void redoHistory() {
+        throw new AssertionError(ERROR_MESSAGE);
+    }
+
+    @Override
     public boolean isUndoable() {
+        throw new AssertionError(ERROR_MESSAGE);
+    }
+
+    @Override
+    public boolean isRedoable() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 

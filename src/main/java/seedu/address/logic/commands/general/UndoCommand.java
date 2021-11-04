@@ -2,12 +2,14 @@ package seedu.address.logic.commands.general;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-public class UndoCommand extends Command {
+/**
+ * Represents the command to undo command changes.
+ */
+public class UndoCommand extends GeneralCommand {
     public static final String COMMAND_WORD = "undo";
 
     public static final String SYNTAX = COMMAND_WORD;

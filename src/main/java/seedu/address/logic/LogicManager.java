@@ -10,10 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.general.CalendarCommand;
-import seedu.address.logic.commands.general.ExitCommand;
-import seedu.address.logic.commands.general.HelpCommand;
-import seedu.address.logic.commands.general.UndoCommand;
+import seedu.address.logic.commands.general.GeneralCommand;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -42,6 +39,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        model.commitHistory();
     }
 
     @Override
@@ -50,17 +48,9 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        if (!(command instanceof UndoCommand || command instanceof CalendarCommand
-                || command instanceof HelpCommand || command instanceof ExitCommand)) {
+        commandResult = command.execute(model);
+        if (!(command instanceof GeneralCommand)) {
             model.commitHistory();
-            try {
-                commandResult = command.execute(model);
-            } catch (CommandException e) {
-                model.removeCommit();
-                throw e;
-            }
-        } else {
-            commandResult = command.execute(model);
         }
 
         try {

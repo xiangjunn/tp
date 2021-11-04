@@ -82,11 +82,22 @@ public interface Model {
     /** Adds new state of AddressBook to its history list */
     void commitHistory();
 
+    /**
+     * Removes the latest commit while keeping the model unchanged.
+     */
+    void removeCommit();
+
     /** Restores the previous addressBook state from its history */
     void undoHistory();
 
-    /** Check if the current state of addressBook is undoable */
+    /** Restores the previously undone state from its history */
+    void redoHistory();
+
+    /** Checks if the current state of addressBook is undoable */
     boolean isUndoable();
+
+    /** Check if the current state of addressBook is redoable */
+    boolean isRedoable();
 
     //=========== Contact Management =============================================================
 
@@ -250,8 +261,4 @@ public interface Model {
      */
     void unmarkEventIndexedAt(Index index);
 
-    /**
-     * Removes the latest commit while keeping the model unchanged.
-     */
-    void removeCommit();
 }

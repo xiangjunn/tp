@@ -138,12 +138,27 @@ public class ModelManager implements Model {
 
     @Override
     public void undoHistory() {
-        addressBook.resetData(modelHistory.getLatestAddressBook());
-        modelDisplaySetting = modelHistory.getLatestModelDisplaySetting();
+        ModelHistory.HistoryInstance instance = modelHistory.undo();
+        addressBook.resetData(instance.getAddressBook());
+        modelDisplaySetting = instance.getDisplaySetting();
         filteredContacts.setPredicate(modelDisplaySetting.getContactDisplayPredicate());
         filteredEvents.setPredicate(modelDisplaySetting.getEventDisplayPredicate());
         rerenderAllCards();
-        modelHistory.undo();
+    }
+
+    @Override
+    public void redoHistory() {
+        ModelHistory.HistoryInstance instance = modelHistory.redo();
+        addressBook.resetData(instance.getAddressBook());
+        modelDisplaySetting = instance.getDisplaySetting();
+        filteredContacts.setPredicate(modelDisplaySetting.getContactDisplayPredicate());
+        filteredEvents.setPredicate(modelDisplaySetting.getEventDisplayPredicate());
+        rerenderAllCards();
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return modelHistory.isUndoable();
     }
 
     @Override
@@ -152,8 +167,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean isUndoable() {
-        return modelHistory.isUndoable();
+    public boolean isRedoable() {
+        return modelHistory.isRedoable();
     }
 
     //=========== Manage Contacts ======================
