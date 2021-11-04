@@ -16,6 +16,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDisplaySetting;
+import seedu.address.model.history.ModelHistory;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -159,11 +160,6 @@ public class ModelManager implements Model {
     @Override
     public boolean isUndoable() {
         return modelHistory.isUndoable();
-    }
-
-    @Override
-    public void removeCommit() {
-        modelHistory.removeCommit();
     }
 
     @Override

@@ -82,11 +82,6 @@ public interface Model {
     /** Adds new state of AddressBook to its history list */
     void commitHistory();
 
-    /**
-     * Removes the latest commit while keeping the model unchanged.
-     */
-    void removeCommit();
-
     /** Restores the previous addressBook state from its history */
     void undoHistory();
 

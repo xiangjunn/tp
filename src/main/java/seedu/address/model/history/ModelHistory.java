@@ -1,9 +1,13 @@
-package seedu.address.model;
+package seedu.address.model.history;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import seedu.address.model.AddressBook;
+import seedu.address.model.ModelDisplaySetting;
 
 /**
  * Stores the past history of the model manager. Meant for the undo and redo commands.
@@ -16,7 +20,7 @@ public class ModelHistory {
     private int maxSize = 0; // The last point of redo
     // maxSize - currentSize = Number of redo commands allowed.
 
-    private ModelHistory() {}
+    ModelHistory() {}
 
     /** Returns the {@code ModelHistory} object. */
     public static ModelHistory getHistory() {
@@ -31,7 +35,7 @@ public class ModelHistory {
 
     /** Adds a commit to the history, with the given {@code AddressBook} and {@code ModelDisplaySetting}. */
     public void commit(AddressBook addressBook, ModelDisplaySetting displaySetting) {
-        allHistory.add(currentSize, new HistoryInstance(displaySetting, addressBook));
+        allHistory.add(currentSize, new HistoryInstance(addressBook, displaySetting));
         currentSize++;
         maxSize = currentSize;
     }
@@ -55,13 +59,6 @@ public class ModelHistory {
         return allHistory.get(currentSize - 1);
     }
 
-    /** Removes the commit, as if nothing happened. This is different from undo because there is no re-doing. */
-    public void removeCommit() {
-        currentSize--;
-        maxSize--;
-        assert maxSize >= currentSize;
-    }
-
     /** Returns true if it is possible to perform an undo operation here. */
     public boolean isUndoable() {
         return currentSize > 1;
@@ -78,7 +75,7 @@ public class ModelHistory {
         private final AddressBook addressBook;
 
         /** Creates a new instance of history. */
-        public HistoryInstance(ModelDisplaySetting displaySetting, AddressBook addressBook) {
+        public HistoryInstance(AddressBook addressBook, ModelDisplaySetting displaySetting) {
             requireAllNonNull(displaySetting, addressBook);
             this.displaySetting = displaySetting;
             this.addressBook = addressBook;
@@ -91,5 +88,36 @@ public class ModelHistory {
         public AddressBook getAddressBook() {
             return addressBook;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof HistoryInstance)) {
+                return false;
+            }
+            HistoryInstance that = (HistoryInstance) o;
+            return getDisplaySetting().equals(that.getDisplaySetting()) && getAddressBook().equals(
+                that.getAddressBook());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getDisplaySetting(), getAddressBook());
+        }
+    }
+
+    //// FOR TESTING (PACKAGE-PRIVATE ACCESS MODIFIER)
+    List<HistoryInstance> getAllHistory() {
+        return allHistory;
+    }
+
+    int getCurrentSize() {
+        return currentSize;
+    }
+
+    int getMaxSize() {
+        return maxSize;
     }
 }
