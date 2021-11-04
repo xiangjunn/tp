@@ -135,24 +135,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void redoAddressBook() {
-        addressBook.redo();
-        addressBook.resetData(getAddressBook());
-    }
-
-    @Override
-    public void clearHistory() {
-        AddressBook.clearHistory();
-    }
-
-    @Override
     public boolean isUndoable() {
         return addressBook.isUndoable();
-    }
-
-    @Override
-    public boolean isRedoable() {
-        return addressBook.isRedoable();
     }
 
     //=========== Manage Contacts ======================
