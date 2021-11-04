@@ -16,19 +16,22 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDisplaySetting;
+import seedu.address.model.history.ModelHistory;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+    private static final ModelHistory modelHistory = ModelHistory.getHistory();
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
     private final FilteredList<Event> filteredEvents;
-    private EventDisplaySetting eventDisplaySetting = EventDisplaySetting.DEFAULT_SETTING;
-    private ContactDisplaySetting contactDisplaySetting = ContactDisplaySetting.DEFAULT_SETTING;
+
+    private ModelDisplaySetting modelDisplaySetting = new ModelDisplaySetting();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -73,25 +76,36 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //=========== AddressBook Display Setting =======================================================================
+
+    /**
+     * Clear history of all display setting of model
+     */
+    public static void clearHistory() {
+        modelHistory.clearHistory();
+    }
+
     public EventDisplaySetting getEventDisplaySetting() {
-        return eventDisplaySetting;
+        return modelDisplaySetting.getEventDisplaySetting();
     }
 
     public void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting) {
         requireNonNull(eventDisplaySetting);
-        this.eventDisplaySetting = eventDisplaySetting;
+        modelDisplaySetting = modelDisplaySetting.differentEventDisplaySetting(eventDisplaySetting);
     }
 
     @Override
     public ContactDisplaySetting getContactDisplaySetting() {
-        return contactDisplaySetting;
+        return modelDisplaySetting.getContactDisplaySetting();
     }
 
     @Override
     public void setContactDisplaySetting(ContactDisplaySetting displaySetting) {
         requireNonNull(displaySetting);
-        this.contactDisplaySetting = displaySetting;
+        modelDisplaySetting = modelDisplaySetting.differentContactDisplaySetting(displaySetting);
     }
+
+    //=========== AddressBook Storage ================================================================================
 
     @Override
     public Path getAddressBookFilePath() {
@@ -113,31 +127,44 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return AddressBook.getCurrentAddressBook();
-    }
-
-    @Override
-    public ReadOnlyAddressBook getInitialAddressBook() {
         return addressBook;
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Versioned AddressBook ================================================================================
+
     @Override
-    public void commitAddressBook() {
-        addressBook.commit();
+    public void commitHistory() {
+        modelHistory.commit(addressBook.copy(), modelDisplaySetting);
     }
 
     @Override
-    public void undoAddressBook() {
-        addressBook.undo();
-        addressBook.resetData(getAddressBook());
-        addressBook.updateDataMaps();
-        resetDisplayAllFilteredList();
+    public void undoHistory() {
+        ModelHistory.HistoryInstance instance = modelHistory.undo();
+        addressBook.resetData(instance.getAddressBook());
+        modelDisplaySetting = instance.getDisplaySetting();
+        filteredContacts.setPredicate(modelDisplaySetting.getContactDisplayPredicate());
+        filteredEvents.setPredicate(modelDisplaySetting.getEventDisplayPredicate());
+        rerenderAllCards();
+    }
+
+    @Override
+    public void redoHistory() {
+        ModelHistory.HistoryInstance instance = modelHistory.redo();
+        addressBook.resetData(instance.getAddressBook());
+        modelDisplaySetting = instance.getDisplaySetting();
+        filteredContacts.setPredicate(modelDisplaySetting.getContactDisplayPredicate());
+        filteredEvents.setPredicate(modelDisplaySetting.getEventDisplayPredicate());
+        rerenderAllCards();
     }
 
     @Override
     public boolean isUndoable() {
-        return addressBook.isUndoable();
+        return modelHistory.isUndoable();
+    }
+
+    @Override
+    public boolean isRedoable() {
+        return modelHistory.isRedoable();
     }
 
     //=========== Manage Contacts ======================
@@ -162,7 +189,6 @@ public class ModelManager implements Model {
     @Override
     public void setContact(Contact target, Contact editedContact) {
         requireAllNonNull(target, editedContact);
-
         addressBook.setContact(target, editedContact);
     }
 
@@ -209,15 +235,6 @@ public class ModelManager implements Model {
         this.addressBook.resetEvents();
     }
 
-    /**
-     * Reset the display to addressBook to display all contacts and events
-     */
-    public void resetDisplayAllFilteredList() {
-        eventDisplaySetting = EventDisplaySetting.DEFAULT_SETTING;
-        contactDisplaySetting = ContactDisplaySetting.DEFAULT_SETTING;
-        rerenderAllCards();
-    }
-
     //=========== Filtered Contact List Accessors =====================
 
     /**
@@ -233,14 +250,18 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<? super Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+        modelDisplaySetting = modelDisplaySetting.differentContactDisplayPredicate(predicate);
     }
 
     @Override
     public void updateContactListByIndex(Index index) {
         requireNonNull(index);
         Contact targetContact = filteredContacts.get(index.getZeroBased());
-        filteredContacts.setPredicate(curr -> curr.isSameContact(targetContact));
+        Predicate<? super Contact> predicate = curr -> curr.isSameContact(targetContact);
+        modelDisplaySetting = modelDisplaySetting.differentContactDisplayPredicate(predicate);
+        filteredContacts.setPredicate(predicate);
     }
+
     @Override
     public void bookmarkContactIndexedAt(Index index) {
         assert index != null : "index should not be null";
@@ -272,6 +293,7 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<? super Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+        modelDisplaySetting = modelDisplaySetting.differentEventDisplayPredicate(predicate);
     }
 
     @Override
@@ -295,7 +317,9 @@ public class ModelManager implements Model {
     public void updateEventListByIndex(Index index) {
         requireNonNull(index);
         Event targetEvent = filteredEvents.get(index.getZeroBased());
-        filteredEvents.setPredicate(curr -> curr.isSameEvent(targetEvent));
+        Predicate<? super Event> predicate = curr -> curr.isSameEvent(targetEvent);
+        filteredEvents.setPredicate(predicate);
+        modelDisplaySetting = modelDisplaySetting.differentEventDisplayPredicate(predicate);
     }
 
     @Override
@@ -326,8 +350,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredContacts.equals(other.filteredContacts)
                 && filteredEvents.equals(other.filteredEvents)
-                && eventDisplaySetting.equals(other.eventDisplaySetting)
-                && contactDisplaySetting.equals(other.contactDisplaySetting);
+                && modelDisplaySetting.equals(other.modelDisplaySetting);
     }
 
     @Override
@@ -351,14 +374,16 @@ public class ModelManager implements Model {
 
     @Override
     public void rerenderContactCards() {
+        Predicate<? super Contact> oldPred = modelDisplaySetting.getContactDisplayPredicate();
         updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
-        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        updateFilteredContactList(oldPred);
     }
 
     @Override
     public void rerenderEventCards() {
+        Predicate<? super Event> oldPred = modelDisplaySetting.getEventDisplayPredicate();
         updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredEventList(oldPred);
     }
 
     @Override

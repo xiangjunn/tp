@@ -36,7 +36,7 @@ public class CAddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateContact_throwsCommandException() {
-        Contact contactInList = model.getInitialAddressBook().getContactList().get(0);
+        Contact contactInList = model.getAddressBook().getContactList().get(0);
         assertCommandFailure(new CAddCommand(contactInList), model,
                 CAddCommand.MESSAGE_DUPLICATE_CONTACT);
     }

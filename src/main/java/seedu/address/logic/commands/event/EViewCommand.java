@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -17,7 +18,7 @@ import seedu.address.model.event.EventDisplaySetting;
 /**
  *  Views one event in full detail in SoConnect to the user.
  */
-public class EViewCommand extends Command {
+public class EViewCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "eview";
 
     public static final String SYNTAX = COMMAND_WORD + " INDEX";
@@ -47,7 +48,6 @@ public class EViewCommand extends Command {
         }
         model.setEventDisplaySetting(new EventDisplaySetting(true));
         model.updateEventListByIndex(viewIndex);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.get(0)));
     }
 
