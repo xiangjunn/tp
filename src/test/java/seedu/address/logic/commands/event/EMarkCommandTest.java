@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.contact.CMarkCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -69,7 +68,7 @@ class EMarkCommandTest {
         EMarkCommand eMarkCommand = new EMarkCommand(outOfBoundIndex);
         assertCommandFailure(eMarkCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 
-        List<Index> veryLargeNumberWithDuplicateDigit= List.of(Index.fromOneBased(1111111111));
+        List<Index> veryLargeNumberWithDuplicateDigit = List.of(Index.fromOneBased(1111111111));
         EMarkCommand secondMarkCommand = new EMarkCommand(veryLargeNumberWithDuplicateDigit);
         assertCommandFailure(secondMarkCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }

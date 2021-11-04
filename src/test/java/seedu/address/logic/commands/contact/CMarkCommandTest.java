@@ -68,7 +68,7 @@ class CMarkCommandTest {
         CMarkCommand cMarkCommand = new CMarkCommand(outOfBoundIndex);
         assertCommandFailure(cMarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
 
-        List<Index> veryLargeNumberWithDuplicateDigit= List.of(Index.fromOneBased(1111111111));
+        List<Index> veryLargeNumberWithDuplicateDigit = List.of(Index.fromOneBased(1111111111));
         CMarkCommand secondMarkCommand = new CMarkCommand(veryLargeNumberWithDuplicateDigit);
         assertCommandFailure(secondMarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
