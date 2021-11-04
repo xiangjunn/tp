@@ -82,9 +82,7 @@ public class ModelDisplaySetting {
 
         ModelDisplaySetting other = (ModelDisplaySetting) obj;
         return eventDisplaySetting.equals(other.eventDisplaySetting)
-                && contactDisplaySetting.equals(other.contactDisplaySetting)
-                && eventDisplayPredicate.equals(other.eventDisplayPredicate)
-                && contactDisplayPredicate.equals(other.contactDisplayPredicate);
+                && contactDisplaySetting.equals(other.contactDisplaySetting);
     }
 
     /**

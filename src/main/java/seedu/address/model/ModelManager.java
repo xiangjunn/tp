@@ -131,14 +131,6 @@ public class ModelManager implements Model {
 
     //=========== Versioned AddressBook ================================================================================
 
-    /**
-     * Get the current display setting of model manager
-     * @return current display setting
-     */
-    public ModelDisplaySetting getCurrentDisplaySetting() {
-        return modelDisplaySetting;
-    }
-
     @Override
     public void commitHistory() {
         modelHistory.commit(addressBook.copy(), modelDisplaySetting);
@@ -361,14 +353,14 @@ public class ModelManager implements Model {
 
     @Override
     public void rerenderContactCards() {
-        Predicate<? super Contact> oldPred = getCurrentDisplaySetting().getContactDisplayPredicate();
+        Predicate<? super Contact> oldPred = modelDisplaySetting.getContactDisplayPredicate();
         updateFilteredContactList(PREDICATE_HIDE_ALL_CONTACTS); // Hide first to update the contact cards.
         updateFilteredContactList(oldPred);
     }
 
     @Override
     public void rerenderEventCards() {
-        Predicate<? super Event> oldPred = getCurrentDisplaySetting().getEventDisplayPredicate();
+        Predicate<? super Event> oldPred = modelDisplaySetting.getEventDisplayPredicate();
         updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS); // Hide first to update the event cards.
         updateFilteredEventList(oldPred);
     }
