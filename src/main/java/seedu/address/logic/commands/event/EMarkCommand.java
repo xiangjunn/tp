@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 
-public class EBookmarkCommand extends Command implements Undoable {
+public class EMarkCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "emark";
 
@@ -55,7 +55,7 @@ public class EBookmarkCommand extends Command implements Undoable {
             model.setEvent(event, createMarkedEvent(event));
         }
         model.rearrangeEventsInOrder(indexesToMark, true);
-        model.commitAddressBook();
+        model.commitHistory();
         return new CommandResult(commandResult);
     }
 

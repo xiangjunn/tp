@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
 
-public class CBookmarkCommand extends Command implements Undoable {
+public class CMarkCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "cmark";
 
     public static final String PARAMETERS = "INDEX [INDEX]...\n";
@@ -54,7 +54,7 @@ public class CBookmarkCommand extends Command implements Undoable {
             model.setContact(contact, createMarkedContact(contact));
         }
         model.rearrangeContactsInOrder(indexesToMark, true);
-        model.commitAddressBook();
+        model.commitHistory();
         return new CommandResult(commandResult);
     }
 

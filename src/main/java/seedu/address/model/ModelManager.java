@@ -254,18 +254,6 @@ public class ModelManager implements Model {
         modelDisplaySetting = modelDisplaySetting.differentContactDisplayPredicate(predicate);
         filteredContacts.setPredicate(predicate);
     }
-
-    @Override
-    public void bookmarkContactIndexedAt(Index index) {
-        assert index != null : "index should not be null";
-        filteredContacts.get(index.getZeroBased()).setBookMarked(true);
-    }
-
-    @Override
-    public void reshuffleContactsInOrder() {
-        addressBook.reshuffleContactsInOrder();
-    }
-
     @Override
     public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
         addressBook.rearrangeContactsInOrder(indexes, isMarked);
@@ -376,6 +364,5 @@ public class ModelManager implements Model {
         rerenderContactCards();
         rerenderEventCards();
     }
-
 
 }
