@@ -8,7 +8,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * The API of the Model component.
@@ -41,6 +43,26 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Returns the display settings of the events.
+     */
+    EventDisplaySetting getEventDisplaySetting();
+
+    /**
+     * Sets the display settings of the events.
+     */
+    void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting);
+
+    /**
+     * Returns the display settings of the contacts.
+     */
+    ContactDisplaySetting getContactDisplaySetting();
+
+    /**
+     * Sets the display settings of the contacts.
+     */
+    void setContactDisplaySetting(ContactDisplaySetting displaySetting);
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
@@ -67,17 +89,8 @@ public interface Model {
     /** Restores the previous addressBook state from its history */
     void undoAddressBook();
 
-    /** Restores a previously undone addressBook state from its history */
-    void redoAddressBook();
-
-    /** Clear all history of versioned addressBook when exit the app */
-    void clearHistory();
-
     /** Check if the current state of addressBook is undoable */
     boolean isUndoable();
-
-    /** Check if the current state of addressBook is redoable */
-    boolean isRedoable();
 
     //=========== Contact Management =============================================================
 

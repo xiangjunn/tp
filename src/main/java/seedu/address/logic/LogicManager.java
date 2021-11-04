@@ -15,7 +15,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 import seedu.address.storage.Storage;
 
 /**
@@ -78,6 +80,16 @@ public class LogicManager implements Logic {
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
+    }
+
+    @Override
+    public EventDisplaySetting getEventDisplaySetting() {
+        return model.getEventDisplaySetting();
+    }
+
+    @Override
+    public ContactDisplaySetting getContactDisplaySetting() {
+        return model.getContactDisplaySetting();
     }
 
     @Override

@@ -21,6 +21,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
 
 
@@ -94,50 +95,52 @@ public class ContactCard extends UiPart<Region> {
     /**
      * Creates a {@code ContactCard} with the given {@code Contact} and index to display.
      */
-    public ContactCard(Contact contact, int displayedIndex, MainWindow mainWindow) {
+    public ContactCard(
+        Contact contact, int displayedIndex, MainWindow mainWindow,
+        ContactDisplaySetting displaySetting) {
         super(FXML);
         requireAllNonNull(contact, displayedIndex, mainWindow);
         this.mainWindow = mainWindow;
         this.contact = contact;
-        boolean isViewMode = Contact.isViewingMode();
+        boolean isViewMode = displaySetting.isViewingFull();
 
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
         name.setWrapText(isViewMode);
 
         // Compulsory fields
-        if (Contact.isWillDisplayEmail()) {
+        if (displaySetting.willDisplayEmail()) {
             email.setText(contact.getEmail().value);
             email.setManaged(true);
             email.setVisible(true);
             email.setWrapText(isViewMode);
         }
         // Optional fields
-        if (contact.getPhone() != null && Contact.isWillDisplayPhone()) {
+        if (contact.getPhone() != null && displaySetting.willDisplayPhone()) {
             phone.setText(contact.getPhone().value);
             phone.setManaged(true);
             phone.setVisible(true);
             phone.setWrapText(isViewMode);
         }
-        if (contact.getAddress() != null && Contact.isWillDisplayAddress()) {
+        if (contact.getAddress() != null && displaySetting.willDisplayAddress()) {
             address.setText(contact.getAddress().value);
             address.setManaged(true);
             address.setVisible(true);
             address.setWrapText(isViewMode);
         }
-        if (contact.getTelegramHandle() != null && Contact.isWillDisplayTelegramHandle()) {
+        if (contact.getTelegramHandle() != null && displaySetting.willDisplayTelegramHandle()) {
             telegramHandle.setText(contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
             telegramHandle.setVisible(true);
             telegramHandle.setWrapText(isViewMode);
         }
-        if (contact.getZoomLink() != null && Contact.isWillDisplayZoomLink()) {
+        if (contact.getZoomLink() != null && displaySetting.willDisplayZoomLink()) {
             zoom.setText(contact.getZoomLink().link);
             zoom.setManaged(true);
             zoom.setVisible(true);
             zoom.setWrapText(isViewMode);
         }
-        if (Contact.isWillDisplayTags() && !contact.getTags().isEmpty()) {
+        if (displaySetting.willDisplayTags() && !contact.getTags().isEmpty()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
@@ -166,13 +169,11 @@ public class ContactCard extends UiPart<Region> {
 
         linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
 
-
         if (contact.getIsMarked()) {
             favourite.setManaged(true);
             favourite.setVisible(true);
         }
     }
-
 
     private void toggleShowLinks(MouseEvent e) {
         if (isShowLinks) {

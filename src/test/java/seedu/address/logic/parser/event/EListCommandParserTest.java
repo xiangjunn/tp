@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.event;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.general.CommandTestUtil.EMPTY_PREFIX_ADDRESS;
 import static seedu.address.logic.commands.general.CommandTestUtil.EMPTY_PREFIX_DESCRIPTION;
@@ -12,23 +11,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.model.event.EventDisplaySetting.DEFAULT_SETTING;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.event.EListCommand;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 public class EListCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT = String.format(
         MESSAGE_INVALID_COMMAND_FORMAT,
         EListCommand.MESSAGE_USAGE);
-    private static final EListCommand E_LIST_COMMAND = new EListCommand(); // same for all
 
     private final EListCommandParser parser = new EListCommandParser();
-
-    static {
-        Event.setAllDisplayToTrue();
-    }
 
     @Test
     public void parse_invalidArguments_failure() {
@@ -52,79 +47,39 @@ public class EListCommandParserTest {
 
     @Test
     public void parse_noArguments_success() {
-        assertParseSuccess(parser, "", E_LIST_COMMAND);
-        assertTrue(Event.isWillDisplayStartDateTime()
-            && Event.isWillDisplayEndDateTime()
-            && Event.isWillDisplayDescription()
-            && Event.isWillDisplayAddress()
-            && Event.isWillDisplayZoomLink()
-            && Event.isWillDisplayTags());
+        assertParseSuccess(parser, "", new EListCommand(DEFAULT_SETTING));
     }
 
     @Test
     public void parse_validArguments_success() {
 
         // only display start time
-        assertParseSuccess(parser, EMPTY_PREFIX_START_DATE_TIME, E_LIST_COMMAND);
-        assertTrue(Event.isWillDisplayStartDateTime()
-            && !Event.isWillDisplayAddress()
-            && !Event.isWillDisplayEndDateTime()
-            && !Event.isWillDisplayDescription()
-            && !Event.isWillDisplayZoomLink()
-            && !Event.isWillDisplayTags());
+        EventDisplaySetting displaySetting1 = new EventDisplaySetting(true, false, false, false, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_START_DATE_TIME, new EListCommand(displaySetting1));
 
         // only display end time
-        assertParseSuccess(parser, EMPTY_PREFIX_END_DATE_TIME, E_LIST_COMMAND);
-        assertTrue(!Event.isWillDisplayStartDateTime()
-            && Event.isWillDisplayEndDateTime()
-            && !Event.isWillDisplayDescription()
-            && !Event.isWillDisplayAddress()
-            && !Event.isWillDisplayZoomLink()
-            && !Event.isWillDisplayTags());
+        EventDisplaySetting displaySetting2 = new EventDisplaySetting(false, true, false, false, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_END_DATE_TIME, new EListCommand(displaySetting2));
 
         // only display address
-        assertParseSuccess(parser, EMPTY_PREFIX_ADDRESS, E_LIST_COMMAND);
-        assertTrue(!Event.isWillDisplayEndDateTime()
-            && !Event.isWillDisplayStartDateTime()
-            && !Event.isWillDisplayDescription()
-            && Event.isWillDisplayAddress()
-            && !Event.isWillDisplayZoomLink()
-            && !Event.isWillDisplayTags());
+        EventDisplaySetting displaySetting3 = new EventDisplaySetting(false, false, false, true, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_ADDRESS, new EListCommand(displaySetting3));
 
         //only display description
-        assertParseSuccess(parser, EMPTY_PREFIX_DESCRIPTION, E_LIST_COMMAND);
-        assertTrue(!Event.isWillDisplayStartDateTime()
-            && !Event.isWillDisplayEndDateTime()
-            && Event.isWillDisplayDescription()
-            && !Event.isWillDisplayAddress()
-            && !Event.isWillDisplayZoomLink()
-            && !Event.isWillDisplayTags());
+        EventDisplaySetting displaySetting4 = new EventDisplaySetting(false, false, true, false, false, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_DESCRIPTION, new EListCommand(displaySetting4));
 
         //only display zoom link
-        assertParseSuccess(parser, EMPTY_PREFIX_ZOOM, E_LIST_COMMAND);
-        assertTrue(!Event.isWillDisplayStartDateTime()
-            && !Event.isWillDisplayEndDateTime()
-            && !Event.isWillDisplayDescription()
-            && !Event.isWillDisplayAddress()
-            && Event.isWillDisplayZoomLink()
-            && !Event.isWillDisplayTags());
+        EventDisplaySetting displaySetting5 = new EventDisplaySetting(false, false, false, false, true, false);
+        assertParseSuccess(parser, EMPTY_PREFIX_ZOOM, new EListCommand(displaySetting5));
 
         //only display tags
-        assertParseSuccess(parser, EMPTY_PREFIX_TAG, E_LIST_COMMAND);
-        assertTrue(!Event.isWillDisplayAddress()
-            && !Event.isWillDisplayEndDateTime()
-            && !Event.isWillDisplayStartDateTime()
-            && !Event.isWillDisplayDescription()
-            && !Event.isWillDisplayZoomLink()
-            && Event.isWillDisplayTags());
+        EventDisplaySetting displaySetting6 = new EventDisplaySetting(false, false, false, false, false, true);
+        assertParseSuccess(parser, EMPTY_PREFIX_TAG, new EListCommand(displaySetting6));
 
         // display multiple fields
-        assertParseSuccess(parser, EMPTY_PREFIX_TAG + EMPTY_PREFIX_START_DATE_TIME, E_LIST_COMMAND);
-        assertTrue(Event.isWillDisplayStartDateTime()
-            && !Event.isWillDisplayEndDateTime()
-            && !Event.isWillDisplayDescription()
-            && !Event.isWillDisplayAddress()
-            && !Event.isWillDisplayZoomLink()
-            && Event.isWillDisplayTags());
+        EventDisplaySetting displaySetting7 = new EventDisplaySetting(true, false, false, false, false, true);
+        assertParseSuccess(parser, EMPTY_PREFIX_TAG + EMPTY_PREFIX_START_DATE_TIME,
+            new EListCommand(displaySetting7));
     }
 }

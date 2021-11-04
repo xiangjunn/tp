@@ -18,6 +18,19 @@ class DescriptionTest {
     }
 
     @Test
+    public void constructor_invalidDescription_throwsIllegalArgumentException() {
+        String invalidDescription = "";
+        assertThrows(IllegalArgumentException.class, () -> new Description(invalidDescription));
+    }
+
+    @Test
+    public void isValidDescription() {
+        assertTrue(Description.isValidDescription("This is a description."));
+        assertTrue(Description.isValidDescription("This description contains %,?,()"));
+        assertTrue(Description.isValidDescription("A12%912thisIsADescription"));
+    }
+
+    @Test
     public void containsString() {
         Description description = new Description("description 123");
 

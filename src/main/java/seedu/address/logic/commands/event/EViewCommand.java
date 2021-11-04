@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 
 /**
@@ -44,6 +45,7 @@ public class EViewCommand extends Command {
         if (intIndex < 0 || intIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
+        model.setEventDisplaySetting(new EventDisplaySetting(true));
         model.updateEventListByIndex(viewIndex);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.get(0)));
@@ -57,7 +59,8 @@ public class EViewCommand extends Command {
         }
 
         // instanceof handles nulls
-        return other instanceof seedu.address.logic.commands.contact.CViewCommand;
+        return other instanceof EViewCommand
+                && ((EViewCommand) other).index.equals(index);
     }
 }
 
