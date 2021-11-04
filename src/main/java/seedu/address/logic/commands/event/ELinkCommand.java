@@ -29,7 +29,8 @@ public class ELinkCommand extends Command implements Undoable {
         + "Examples:\n"
         + "elink 1 c/1\n"
         + "elink 3 c/1 c/2 c/3 c/4 c/5";
-    public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact%s %s";
+    public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact %s.\n";
+    public static final String MESSAGE_ALREADY_LINKED = "Event %s is already linked to the contact %s.\n";
 
     private final Index eventIndex;
     private final Set<Index> contactIndexes;
@@ -53,8 +54,7 @@ public class ELinkCommand extends Command implements Undoable {
         checkCommandValidity(lastShownEventList, lastShownContactList);
 
         // execution of command
-        Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
-        CommandResult commandResult = linkEventAndContacts(model, eventToLink, lastShownContactList);
+        CommandResult commandResult = linkEventAndContacts(model, lastShownEventList, lastShownContactList);
 
         // rerender UI to show the links between event and each of the contacts
         model.rerenderAllCards();
@@ -74,24 +74,21 @@ public class ELinkCommand extends Command implements Undoable {
         }
     }
 
-    private CommandResult linkEventAndContacts(Model model, Event eventToLink, List<Contact> lastShownContactList) {
+    private CommandResult linkEventAndContacts(Model model, List<Event> lastShownEventList,
+            List<Contact> lastShownContactList) {
         String commandResult = "";
-        int count = 0;
         for (Index contactIndex : contactIndexes) {
+            // have to get the event from the list again because a new event replaces the index whenever
+            // a link occurs, hence cannot use the old reference of event.
+            Event eventToLink = lastShownEventList.get(eventIndex.getZeroBased());
             Contact contactToLink = lastShownContactList.get(contactIndex.getZeroBased());
+            if (contactToLink.hasLinkTo(eventToLink)) {
+                assert eventToLink.hasLinkTo(contactToLink) : "Both should have links to each other";
+                commandResult += String.format(MESSAGE_ALREADY_LINKED, eventToLink.getName(), contactToLink.getName());
+                continue;
+            }
             model.linkEventAndContact(eventToLink, contactToLink);
-            if (count == 0) {
-                commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(),
-                    contactIndexes.size() > 1 ? "s" : "", contactToLink.getName());
-            } else {
-                commandResult += contactToLink.getName();
-            }
-            if (count != contactIndexes.size() - 1) {
-                commandResult += ", ";
-            } else {
-                commandResult += ".";
-            }
-            count++;
+            commandResult += String.format(MESSAGE_SUCCESS, eventToLink.getName(), contactToLink.getName());
         }
         return new CommandResult(commandResult);
     }

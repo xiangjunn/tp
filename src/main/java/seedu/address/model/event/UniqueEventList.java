@@ -147,6 +147,15 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
+     * Update the UUID map in events.
+     */
+    public void updateEventMap() {
+        for (Event event : internalList) {
+            Event.addToMap(event);
+        }
+    }
+
+    /**
      * Unmarks the event indexed at {@code index}.
      */
     public void unmarkEvent(Index index) {

@@ -126,6 +126,15 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
+     * Update the UUID map in contacts.
+     */
+    public void updateContactMap() {
+        for (Contact contact : internalList) {
+            Contact.addToMap(contact);
+        }
+    }
+
+    /**
      * Get a copy of uniqueContactList
      * @return a copy of a UniqueContactList
      */
