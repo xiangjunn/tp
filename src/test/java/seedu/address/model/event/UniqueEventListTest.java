@@ -3,8 +3,7 @@ package seedu.address.model.event;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_TUTORIAL;
-import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.general.CommandTestUtil.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.CS2100_CONSULTATION;
@@ -17,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
 import seedu.address.testutil.EventBuilder;
 
 class UniqueEventListTest {
@@ -56,6 +56,11 @@ class UniqueEventListTest {
     public void add_duplicateEvent_throwsDuplicateEventException() {
         uniqueEventList.add(BIRTHDAY_PARTY);
         assertThrows(DuplicateEventException.class, () -> uniqueEventList.add(BIRTHDAY_PARTY));
+    }
+
+    @Test
+    public void addEvent_invalidDateTimeRange_throwsInvalidDateTimeRangeException() {
+        assertThrows(InvalidDateTimeRangeException.class, () -> uniqueEventList.add(new EventBuilder(BIRTHDAY_PARTY).withEndDateAndTime(VALID_START_DATE_TIME_TUTORIAL).build()));
     }
 
     @Test
@@ -109,6 +114,7 @@ class UniqueEventListTest {
         assertThrows(
                 DuplicateEventException.class, () -> uniqueEventList.setEvent(BIRTHDAY_PARTY, CS2100_CONSULTATION));
     }
+
 
     @Test
     public void remove_nullEvent_throwsNullPointerException() {
