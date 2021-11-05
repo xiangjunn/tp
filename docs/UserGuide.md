@@ -288,7 +288,7 @@ There are three main sections to SoConnect Features:
 For each feature, you are provided with:
 * Function and Description of the feature
 * Format of _Command Syntax_ of the feature
-* Examples of some usages of the feature
+* Examples of some usages of the feature (All examples assumes SoConnect has the **inital sample** contacts and events)
 
 
 ## Contact Management
@@ -331,10 +331,8 @@ Bookmarks the specified contact(s).
 
 **Format:** `cmark INDEX`
 
-![image](images/demo-screenshots/BookmarkContact.png)
-
-* Bookmarks the contact at `INDEX` and pins it at the top of the contact list.
-* `INDEX` refers to the index number shown in the displayed contact list.
+* Bookmarks the contact at `INDEX` and **pins it at the top** of the contact list.
+* `INDEX` refers to the index number shown in the **currently displayed** contact list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
@@ -344,8 +342,8 @@ Bookmarks the specified contact(s).
 **Examples:**
 
 Input | Expected Output
-------|------------------
-`cmark 2` | Bookmarks the second contact of **currently displayed** contact list in SoConnect. 
+--------|------------------
+`cmark 2` | Bookmarks the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Bookmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` **pinned to the top** of your contact list with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx.png) 
 
 
 _See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
@@ -380,9 +378,12 @@ Deletes the specified contact(s) from SoConnect.
 </div>
 
 **Examples:**
-* `clist` followed by `cdelete 2` deletes the second contact from SoConnect.
-* `cfind Betsy` followed by `cdelete 1` deletes the first contact from the results of the `cfind` command.
-* `cdelete 3-5` deletes contacts from index 3 to 5 from the currently displayed contacts.
+
+Input | Expected Output
+--------|------------------
+[`clist`](#listing-all-contacts-clist) followed by `cdelete 2` | Deletes the second contact from SoConnect. <br><br> You should see these messages in the message box: <br> 1. After `clist`: `Listed all contacts` <br> 2. After `cdelete 2`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
+[`cfind Bernice`](#finding-contacts-cfind) followed by `cdelete 1` | Deletes the first contact from the **results of the `cfind` command**. <br><br> You should see these messages in the message box: <br> 1. After `cfind Bernice`: `1 contacts listed!` <br> 2. After `cdelete 1`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
+[`cdelete 3-5`](#deleting-a-contact-cdelete) | Deletes contacts from index 3 to 5 from the **currently displayed** contact list. <br><br> You should see these messages in the message box:<br>`Deleted Contact: Charlotte Oliveiro; Email: charlotte@example.com` <br> `Deleted Contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br> `Deleted Contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates]`
 
 
 ### Editing a contact: `cedit`
@@ -406,11 +407,11 @@ Edits an existing contact in SoConnect.
 </div>
 
 **Examples:**
-* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the second contact of SoConnect to be `91234567` and `agentX@thehightable.com` respectively.
-* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the second contact from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
-* `cedit 3 dt/TA`  deletes the `TA` tag from the third contact.
-* `cedit 4 dt/*` deletes all tags from the fourth contact.
-* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag to the fifth contact.
+
+Input | Expected Output
+--------|------------------
+`cedit 2 p/91234567 e/agentX@thehightable.com` | Edits the **phone number** and **email address** of the second contact of **currently displayed** contact list to be `91234567` and `agentX@thehightable.com` respectively. <br> <br>You should see this message in the message box:<br> `Edited Contact: Bernice Yu; Email: agentX@thehightable.com; Phone: 91234567; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should also see these changes: ![Edit Contact 1](images/demo-screenshots/ceditEx1.png)
+`cedit 1 n/Betsy Crower dt/*` | Edits the **name** of the first contact of **currently displayed** contact list to be `Betsy Crower` and **clears all existing tags**. <br><br>You should see this message in your message box: `Edited Contact: Betsy Crower; Email: alexyeoh@example.com; Phone: 87438807; Address: Blk 30 Geylang Street 29, #06-40; Telegram: yeoh_alex` <br><br> You should also see these changes: ![Edit Contact 2](images/demo-screenshots/ceditEx2.png)
 
 
 ### Finding contacts: `cfind`
@@ -436,7 +437,7 @@ There are two types of contact searches you can do in SoConnect:
 * You can only **specify each optional _field_ once**.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Partial words can be matched e.g. `Han` will match `Hans`.
-* Contact matching at least one keyword will be returned (i.e. _`OR` search_).
+* Contact matching at least one keyword will be returned.
   e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -445,12 +446,11 @@ The search by `cfind` is case-insensitive. e.g. `hans` will match `Hans`.
 </div>
 
 **Examples:**
-* `cfind John` returns `john` and `Johnathon Doe`.
-* `cfind alex david` returns `Alex Yeoh` and `David Li`.
-* `cfind p/123 e/gmail` returns 
-   contacts with phone numbers that contain `123` and with emails that contain `gmail`.
-* `cfind alex david p/123 456` returns `Alex Yeoh`, `David Li` and 
-   contacts with phone numbers that contain `123` and `456`.
+
+Input | Expected Output
+--------|------------------
+`cfind alex david` | Returns contacts of `Alex Yeoh` and `David Li`. <br><br>You should see this message in the message box:<br>`2 contacts listed!`<br><br> You should also see only these **2 contacts**: ![Find Contact 1](images/demo-screenshots/cfindEx1.png)
+`cfind p/926 441 e/nus.edu` | Returns contacts with phone numbers that contain `926` and with emails that contain `nus.edu`.<br><br>You should see this message in the message box:<br>`2 contacts listed!`<br><br> You should also see only these **2 contacts**: ![Find Contact 2](images/demo-screenshots/cfindEx2.png)
 
 
 ### Listing all contacts: `clist`
@@ -472,8 +472,11 @@ Do not add extraneous values after each optional _field_ you specify.
 </div>
 
 **Examples:**
-* `clist` shows all contacts in SoConnect with all available details for each contact.
-* `clist e/ p/` shows all contacts in SoConnect with only their names, email addresses and phone numbers (if available).
+
+Input | Expected Output
+--------|------------------
+`clist` | Shows **all contacts** in SoConnect with **all available details** for each contact. <br><br> You should see this message in the message box:<br> `Listed all contacts`
+`clist e/ p/` | Shows **all contacts** in SoConnect with **only their names, email addresses and phone numbers** (if available). <br><br> You should see this message in the message box:<br> `Listed all contacts` <br><br> You should also see the contacts list displays **only the specified _fields_**: ![List Contact 1](images/demo-screenshots/clistEx.png)
 
 
 ### Removing bookmark of a contact: `cunmark`
@@ -492,7 +495,10 @@ Removes bookmark(s) of the specified contact(s).
 </div>
 
 **Examples:**
-* `cunmark 2` removes the bookmark of the first contact in SoConnect.
+
+Input | Expected Output
+--------|------------------
+`cunmark 2` | Removes bookmark of the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` moved to the **bottom of your bookmarked contact list** without the **Bookmark Icon**
 
 _See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
@@ -512,8 +518,10 @@ Views a contact with all details fully shown.
 </div>
 
 **Examples:**
-* `cview 2` shows all details of the second contact in SoConnect fully.
-* `cfind alex david` followed by `cview 1` shows all details of the first contact from the result of the `cfind`.
+
+Input | Expected Output
+--------|------------------
+`cview 2` | Shows all details of the second contact of **currently displayed** in SoConnect **fully**. <br> You should see this message in the message box:<br> `Viewing Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see this change of your **viewed** contact: ![View Contact](images/demo-screenshots/cviewEx.png)
 
 
 ## Event Management
