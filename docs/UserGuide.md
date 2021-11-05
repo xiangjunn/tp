@@ -559,18 +559,18 @@ An event can have any number of tags (including 0)
 </div>
 
 **Examples:**
-* `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-* `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/10-09-2021 18:00
-  z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDHk t/lecture`
 
+Input | Expected Output
+--------|------------------
+`eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun` | You should see this message in the message box:<br> `New event added: Summer Party; Start: 12-12-2021 15:12; Address: 123, Clementi Rd, 1234665; Tags: [fun]` <br><br> You should also see `Summer Party` **at the end** of your event list: ![New Event](images/demo-screenshots/eaddEx.png)
+
+*Index of the newly added event will depend on your previous number of events.
 
 ### Bookmarking an event: `emark`
 
 Bookmarks the specified event(s).
 
 **Format:** `emark INDEX`
-
-![image](images/demo-screenshots/BookmarkEvents.png)
 
 * Bookmarks the event at `INDEX` and pins it to the top of the event list.
 * `INDEX` refers to the index number shown in the displayed event list.
@@ -581,9 +581,12 @@ Bookmarks the specified event(s).
 </div>
 
 **Examples:**
-* `emark 2` bookmarks the second event in SoConnect.
 
-_See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
+Input | Expected Output
+--------|------------------
+`emark 2` | Bookmarks the second event of **currently displayed** event list in SoConnect. <br><br> _The expected display is similar to [Bookmarking a contact](#bookmarking-a-contact-cmark)_
+
+_See Also: [Removing bookmark of an event](#removing-bookmark-of-an-event-eunmark)_
 
 
 ### Clearing all events: `eclear`
@@ -614,9 +617,12 @@ Deletes the specified event from SoConnect.
 </div>
 
 **Examples:**
-* `elist` followed by `edelete 2` deletes the second event from SoConnect.
-* `efind Exam` followed by `edelete 1` deletes the first event from the results of the `efind` command.
-* `edelete 3-5` deletes events from index 3 to 5 from SoConnect.
+
+Input | Expected Output
+--------|------------------
+[`elist`](#deleting-an-event-edelete) followed by `edelete 2` | Deletes the second event from SoConnect. <br><br> You should see these messages in the message box: <br>1. After `elist`: `Listed all events` <br>2. After `edelete 2`: `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
+[`efind Class`](#finding-events-efind) followed by `edelete 1` | Deletes the first event from the **results of the `efind` command**.<br><br> You should see these messages in the message box: <br>1. After `efind class`: `1 events listed!` <br>2. After `edelete 1`: `Deleted Event: Dance class; Start: 13-11-2021 20:00; End: 13-11-2021 22:00; Description: Dancing is my passion. I like pole dancing.; Address: NUS UTown; Tags: [CCA][Recurring]`
+`edelete 1-2` | Deletes events from index 1 to 2 from the **currently displayed** event list. <br><br> You should see these messages in the message box: <br> `Deleted Event: CS2103T project meeting; Start: 10-10-2021 21:00; End: 10-10-2021 22:00; Zoom Link: nus-sg.zoom.us/j/21342513543; Tags: [Recurring][CS2103T]` <br> `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
 
 
 ### Editing an event: `eedit`
@@ -641,11 +647,11 @@ Edits an existing event in SoConnect.
 </div>
 
 **Examples:**
-* `elist` followed by `eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams`
-  first changes the name of the second event to `CS2103T Exam`, deletes the tag `Easy_exams` and
-  adds the tag `Hard_exams`.
-* `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the second event from the results of the `efind` command to be `Betsy’s Wedding`.
-* `eedit 4 dt/*` deletes all existing tags from the fourth event.
+
+Input | Expected Output
+--------|------------------
+`eedit 2 n/CS2103T Exam dt/CCA t/Hard` | Changes the name of the second event from **currently displayed** event list to `CS2103T Exam`, deletes the tag `CCA` and adds the tag `Hard`. <br><br> You should see this message in the message box: <br> `Edited Event: CS2103T Exam; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [Recurring][Hard]` <br><br> You should also see these changes: ![Edit Event](images/demo-screenshots/eeditEx.png)
+
 
 
 ### Finding Events: `efind`
@@ -678,9 +684,11 @@ The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 </div>
 
 **Examples:**
-* `efind ex` returns `exams` and `Examinations`
-* `efind CS Exam` returns `CS2100 Exam`,  `CS2101`
-* `efind CS EXAM t/hard easy` returns `CS2100 Exam`, `CS2101` and events with tags that contain `hard` and `easy`
+
+Input | Expected Output
+--------|------------------
+`efind meet` | Returns `CS2103 project meeting`. <br><br> You should see this message in the message box:<br> `1 events listed!` <br><br> You should also see only this **1 event**: ![Find Event 1](images/demo-screenshots/efindEx1.png)
+`efind t/CS2103T Intern` | Returns events with tags that contain `CS2103T` and `Intern`.<br><br> You should see this message in the message box:<br> `2 events listed!` <br><br> You should also see only these **2 events**: ![Find Event 2](images/demo-screenshots/efindEx2.png)
 
 
 ### Linking an event to contacts: `elink`
@@ -699,8 +707,10 @@ Links the specified event to one or more contacts.
 </div>
 
 **Examples:**
-* `elink 1 c/1` links the first event in the displayed event list to the first contact in the displayed contact list.
-* `elink 2 c/1 c/2 c/3` links the second event in the displayed event list to the first, second and third contact in the displayed contact list.
+
+Input | Expected Output
+--------|------------------
+`elink 2 c/1 c/2` | Links the second event in the from the **currently displayed** event list to contacts with index **1 and 2** in the **currently displayed** contact list. <br><br>You should see this in your SoConnect: ![Link](images/demo-screenshots/elinkEx.png)
 
 _See Also: [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)_
 
@@ -724,8 +734,11 @@ Do not add extraneous values after each optional _field_ you specify.
 </div>
 
 **Examples:**
-* `elist` shows all events in SoConnect with all available details for each event.
-* `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
+
+Input | Expected Output
+--------|------------------
+`elist` | Shows **all events** in SoConnect with **all available details** for each event. <br><br> You should see this message in the message box: <br>`Listed all events`
+`elist d/ at/` | Shows **all events** in SoConnect with **only their names, start date and time and description** (if available). You should see this message in the message box: <br>`Listed all events` <br><br> You should also see the event list displays **only the specified _fields_**: ![List Events](images/demo-screenshots/elistEx.png)
 
 
 ### Removing bookmark of an event: `eunmark`
@@ -744,7 +757,10 @@ Removes bookmark of the specified event(s).
 </div>
 
 **Examples:**
-* `eunmark 2` removes the bookmark of the first event in SoConnect.
+
+Input | Expected Output
+--------|------------------
+`eunmark 2` | Removes bookmark of the second event of **currently displayed** event list in SoConnect.<br><br> _The expected display is similar to [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
 
 _See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
@@ -771,9 +787,9 @@ Events that have ended **will not be shown** after you execute `esort`
 Unlinks the specified event and the specified contact(s).
 
 **Examples:**
-* `eunlink 1 c/1` unlinks the first event in the displayed event list from the first contact in the displayed contact list.
-* `eunlink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
-* `eunlink 3 c/*` unlinks the third event in the displayed event list from all contacts that are linked to it.
+Input | Expected Output
+--------|------------------
+`eunlink 1 c/1` | Unlinks the first event in the **currently displayed** event list from the first contact in the **currently displayed** contact list. Yous should see this message in the message box: `Successfully unlinked the event CS2103T project meeting from the contact Alex Yeoh`
 
 _See Also: [Linking an event to contacts](#linking-an-event-to-contacts-elink)_
 
@@ -794,8 +810,10 @@ Views an event with all details fully shown.
 </div>
 
 **Examples:**
-* `eview 1` shows all details of the first event in SoConnect fully.
-* `efind exam` followed by `eview 4` shows all details of the fourth event from the result of the `cfind`.
+
+Input | Expected Output
+--------|------------------
+`eview 1` | Shows all details of the first event in the **currently displayed** event list **fully**. <br><br> _The expected display is similar to [Viewing a contact](#viewing-a-contact-cview)_
 
 
 ## General
@@ -867,7 +885,10 @@ Restores SoConnect to a previously undone state from its history.
 **Format:** `redo`
 
 **Examples:**
-* `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
+
+Input | Expected Output
+--------|------------------
+[`edelete 1`](#deleting-an-event-edelete) followed by [`undo`](#undo-a-command-undo) then `redo` | First **restores the deleted event** in the event list. <br>Then `redo` will **delete the same event again**.
 
 _See Also: [Undo a command](#undo-a-command-undo)_
 
@@ -879,9 +900,10 @@ Restores SoConnect to its previous state from its history.
 **Format:** `undo`
 
 **Examples:**
-* `edelete 1` followed by `undo` restores the deleted event in the event list.
-* `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
-* `eview 1` followed by `undo` will display the full event list.
+
+Input | Expected Output
+--------|------------------
+[`cadd n/John Doe e/john@gmail.com`](#adding-a-contact-cadd) followed by `undo` | **Removes the added** contact from contact list.
 
 _See Also: [Redo a command](#redo-a-command-redo)_
 
