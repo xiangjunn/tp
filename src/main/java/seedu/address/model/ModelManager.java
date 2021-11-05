@@ -318,7 +318,9 @@ public class ModelManager implements Model {
 
     @Override
     public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
+        Predicate<? super Event> currentPredicate = filteredEvents.getPredicate();
         addressBook.rearrangeEventsInOrder(indexes, isMark);
+        updateFilteredEventList(currentPredicate);
     }
 
     @Override

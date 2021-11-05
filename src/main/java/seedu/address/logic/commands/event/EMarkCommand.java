@@ -45,11 +45,11 @@ public class EMarkCommand extends Command implements Undoable {
         requireNonNull(model);
         String commandResult = "";
         List<Event> lastShownList = model.getFilteredEventList();
+        if (indexesToMark.stream().anyMatch(index -> index.getZeroBased() > lastShownList.size())) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
         Collections.reverse(indexesToMark);
         for (Index index : indexesToMark) {
-            if (index.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-            }
             Event event = lastShownList.get(index.getZeroBased());
             commandResult += String.format("%s", generateCommandResultMessage(event, event.getIsMarked()));
             model.setEvent(event, createMarkedEvent(event));
