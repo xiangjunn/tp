@@ -26,8 +26,8 @@ public class CMarkCommand extends Command implements Undoable {
             + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Marked Contact: %1$s";
-    public static final String MESSAGE_ALREADY_MARKED = "Contact already Marked: %1$s";
+    public static final String MESSAGE_SUCCESS = "Marked contact: %1$s";
+    public static final String MESSAGE_ALREADY_MARKED = "Contact already marked: %1$s";
 
     private final List<Index> indexesToMark;
 

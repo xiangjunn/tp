@@ -26,7 +26,7 @@ public class CUnmarkCommand extends Command implements Undoable {
             + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Unmarked Contact: %1$s";
+    public static final String MESSAGE_SUCCESS = "Unmarked contact: %1$s";
     public static final String MESSAGE_NOT_MARKED = "Contact not marked: %1$s";
 
     private final List<Index> indexesToUnmark;
