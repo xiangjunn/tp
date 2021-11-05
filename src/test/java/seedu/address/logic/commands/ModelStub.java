@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -143,25 +144,16 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void bookmarkContactIndexedAt(Index index) {
+    public void updateContactListByIndex(Index index) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     @Override
-    public void reshuffleContactsInOrder() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void unmarkContactIndexedAt(Index index) {
+    public void rearrangeContactsInOrder(List<Index> indexes, boolean isMark) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     // manage events
-    @Override
-    public void updateContactListByIndex(Index index) {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
 
     @Override
     public void addEvent(Event event) {
@@ -205,7 +197,13 @@ public class ModelStub implements Model {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
+    @Override
     public void updateEventListByIndex(Index index) {
+        throw new AssertionError(ERROR_MESSAGE);
+    }
+
+    @Override
+    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
@@ -228,6 +226,7 @@ public class ModelStub implements Model {
     public void rerenderContactCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
     }
+
     @Override
     public void rerenderEventCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
@@ -235,21 +234,6 @@ public class ModelStub implements Model {
 
     @Override
     public void rerenderAllCards() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void bookmarkEventIndexedAt(Index index) {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void reshuffleEventsInOrder() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void unmarkEventIndexedAt(Index index) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 

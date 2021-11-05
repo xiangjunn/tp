@@ -15,22 +15,22 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.contact.CAddCommand;
-import seedu.address.logic.commands.contact.CBookmarkCommand;
 import seedu.address.logic.commands.contact.CClearCommand;
 import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.contact.CMarkCommand;
 import seedu.address.logic.commands.contact.CUnmarkCommand;
 import seedu.address.logic.commands.contact.CViewCommand;
 import seedu.address.logic.commands.event.EAddCommand;
-import seedu.address.logic.commands.event.EBookmarkCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
 import seedu.address.logic.commands.event.EEditCommand;
 import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
+import seedu.address.logic.commands.event.EMarkCommand;
 import seedu.address.logic.commands.event.ESortCommand;
 import seedu.address.logic.commands.event.EUnlinkCommand;
 import seedu.address.logic.commands.event.EUnmarkCommand;
@@ -157,11 +157,11 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_cmark() throws Exception {
-        assertTrue(parser.parseCommand(CBookmarkCommand.COMMAND_WORD + " 1") instanceof CBookmarkCommand);
+        assertTrue(parser.parseCommand(CMarkCommand.COMMAND_WORD + " 1") instanceof CMarkCommand);
     }
     @Test
     public void parseCommand_emark() throws Exception {
-        assertTrue(parser.parseCommand(EBookmarkCommand.COMMAND_WORD + " 1") instanceof EBookmarkCommand);
+        assertTrue(parser.parseCommand(EMarkCommand.COMMAND_WORD + " 1") instanceof EMarkCommand);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package seedu.address.model.contact;
 
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 
@@ -107,22 +109,31 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
-     * Moves bookmarked contacts to the top of the list.
+     * Moves marked contacts to the top of the list.
+     * Places the newly marked contacts or replaces newly unmarked contacts
+     * in the order specified in {@code indexes} and
+     * based on {@code isMarked} which signals whether this method is called by
+     * CMarkCommand or otherwise.
      */
-    public void reshuffleContactsInOrder() {
-        ObservableList<Contact> markedContactsFirst = FXCollections.observableArrayList();
-        internalList.forEach(contact -> {
-            if (contact.getIsBookMarked()) {
-                markedContactsFirst.add(contact);
-            }
-        });
-        internalList.forEach(contact -> {
-            if (!contact.getIsBookMarked()) {
-                markedContactsFirst.add(contact);
-            }
-        });
-        internalList.removeAll(internalUnmodifiableList); //removes all contact from the list
-        internalList.addAll(markedContactsFirst); //adds in list in correct order
+    public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
+        ObservableList<Contact> tempList = FXCollections.observableArrayList();
+        if (isMarked) {
+            indexes.forEach(index -> tempList.add(internalList.get(index.getZeroBased())));
+            internalUnmodifiableList.forEach(contact -> {
+                if (!tempList.contains(contact)) {
+                    tempList.add(contact);
+                }
+            });
+            internalList.removeAll(internalUnmodifiableList);
+            internalList.addAll(tempList);
+        } else {
+            internalList.filtered(contact -> contact.getIsMarked()).forEach(contact -> tempList.add(contact));
+            indexes.forEach(index -> tempList.add(internalList.get(index.getZeroBased())));
+            internalList.filtered(contact -> !contact.getIsMarked() && !tempList.contains(contact))
+                    .forEach(contact -> tempList.add(contact));
+            internalList.removeAll(internalUnmodifiableList);
+            internalList.addAll(tempList);
+        }
     }
 
     /**

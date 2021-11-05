@@ -107,7 +107,7 @@ public class EEditCommand extends Command implements Undoable {
                 ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
         Event updatedEvent = new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
             updatedAddress, updatedZoomLink, updatedTags, eventToEdit.getUuid(), eventToEdit.getLinkedContacts(),
-                eventToEdit.getIsBookMarked());
+                eventToEdit.getIsMarked());
         // update the edited event to the hashmap that stores references to all events
         Event.addToMap(updatedEvent);
         return updatedEvent;

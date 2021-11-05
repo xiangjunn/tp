@@ -169,7 +169,7 @@ public class ContactCard extends UiPart<Region> {
 
         linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
 
-        if (contact.getIsBookMarked()) {
+        if (contact.getIsMarked()) {
             favourite.setManaged(true);
             favourite.setVisible(true);
         }

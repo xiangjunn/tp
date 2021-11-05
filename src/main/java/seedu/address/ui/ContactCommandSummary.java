@@ -5,25 +5,25 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.contact.CAddCommand;
-import seedu.address.logic.commands.contact.CBookmarkCommand;
 import seedu.address.logic.commands.contact.CClearCommand;
 import seedu.address.logic.commands.contact.CDeleteCommand;
 import seedu.address.logic.commands.contact.CEditCommand;
 import seedu.address.logic.commands.contact.CFindCommand;
 import seedu.address.logic.commands.contact.CListCommand;
+import seedu.address.logic.commands.contact.CMarkCommand;
 import seedu.address.logic.commands.contact.CUnmarkCommand;
 import seedu.address.logic.commands.contact.CViewCommand;
 
 public class ContactCommandSummary {
 
     public static final String ADD = "Add";
-    public static final String BOOKMARK = "Bookmark";
+    public static final String MARK = "Mark";
     public static final String CLEAR = "Clear";
     public static final String DELETE = "Delete";
     public static final String EDIT = "Edit";
     public static final String FIND = "Find\n(at least one keyword must be present)";
     public static final String LIST = "List";
-    public static final String REMOVE_BOOKMARK = "Remove Bookmark";
+    public static final String REMOVE_MARK = "Remove mark";
     public static final String VIEW = "View";
 
     /** Description of what the command does. */
@@ -88,13 +88,13 @@ public class ContactCommandSummary {
     public static ObservableList<ContactCommandSummary> getContactCommandSummary() {
         return FXCollections.observableArrayList(
                 new ContactCommandSummary(ADD, CAddCommand.SYNTAX),
-                new ContactCommandSummary(BOOKMARK, CBookmarkCommand.SYNTAX),
+                new ContactCommandSummary(MARK, CMarkCommand.SYNTAX),
                 new ContactCommandSummary(CLEAR, CClearCommand.SYNTAX),
                 new ContactCommandSummary(DELETE, CDeleteCommand.SYNTAX),
                 new ContactCommandSummary(EDIT, CEditCommand.SYNTAX),
                 new ContactCommandSummary(FIND, CFindCommand.SYNTAX),
                 new ContactCommandSummary(LIST, CListCommand.SYNTAX),
-                new ContactCommandSummary(REMOVE_BOOKMARK, CUnmarkCommand.SYNTAX),
+                new ContactCommandSummary(REMOVE_MARK, CUnmarkCommand.SYNTAX),
                 new ContactCommandSummary(VIEW, CViewCommand.SYNTAX));
     }
 }

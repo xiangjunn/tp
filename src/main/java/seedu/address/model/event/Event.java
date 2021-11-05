@@ -37,7 +37,7 @@ public class Event {
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedContacts = new HashSet<>();
-    private boolean isBookMarked;
+    private final boolean isMarked;
 
     /**
      * Name, startDateTime and tags must be present and not null.
@@ -53,7 +53,7 @@ public class Event {
         this.zoomLink = zoomLink;
         this.tags.addAll(tags);
         this.uuid = UUID.randomUUID();
-        this.isBookMarked = false;
+        this.isMarked = false;
     }
 
 
@@ -66,7 +66,7 @@ public class Event {
     public Event(
             Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
             Address address, ZoomLink zoomLink, Set<Tag> tags, UUID uuid, Set<UUID> linkedContacts,
-            boolean isBookMarked) {
+            boolean isMarked) {
         requireAllNonNull(name, startDateAndTime, tags);
         this.name = name;
         this.startDateAndTime = startDateAndTime;
@@ -77,7 +77,26 @@ public class Event {
         this.tags.addAll(tags);
         this.uuid = uuid;
         this.linkedContacts.addAll(linkedContacts);
-        this.isBookMarked = isBookMarked;
+        this.isMarked = isMarked;
+    }
+
+    /**
+     * This constructor is for creating event stored in EventBuilder.
+     * This constructor ensures that everytime an event is created in EventBuilder, its marked status is as specified.
+     */
+    public Event(
+            Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
+            Address address, ZoomLink zoomLink, Set<Tag> tags, boolean isMarked) {
+        requireAllNonNull(name, startDateAndTime, this.tags);
+        this.name = name;
+        this.startDateAndTime = startDateAndTime;
+        this.endDateAndTime = endDateAndTime;
+        this.description = description;
+        this.address = address;
+        this.zoomLink = zoomLink;
+        this.tags.addAll(tags);
+        this.uuid = UUID.randomUUID();
+        this.isMarked = isMarked;
     }
 
     public Name getName() {
@@ -124,13 +143,10 @@ public class Event {
         return Collections.unmodifiableSet(linkedContacts);
     }
 
-    public boolean getIsBookMarked() {
-        return isBookMarked;
+    public boolean getIsMarked() {
+        return isMarked;
     }
 
-    public void setBookMarked(boolean bookMarked) {
-        isBookMarked = bookMarked;
-    }
     /**
      * Checks if this {@code name} contains any keywords in {code strings}
      */
@@ -209,7 +225,7 @@ public class Event {
         Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
         updatedLinkedContacts.add(contact.getUuid());
         Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
-            uuid, updatedLinkedContacts, isBookMarked);
+            uuid, updatedLinkedContacts, isMarked);
         addToMap(updatedEvent); // must update the map to represent the latest changes
         return updatedEvent;
     }
@@ -243,7 +259,7 @@ public class Event {
         Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
         updatedLinkedContacts.remove(contact.getUuid());
         Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
-            uuid, updatedLinkedContacts, isBookMarked);
+            uuid, updatedLinkedContacts, isMarked);
         addToMap(updatedEvent);
         return updatedEvent;
     }
@@ -254,7 +270,7 @@ public class Event {
      */
     public Event clearAllLinks() {
         Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
-            uuid, new HashSet<>(), isBookMarked);
+            uuid, new HashSet<>(), isMarked);
         addToMap(updatedEvent);
         return updatedEvent;
     }
@@ -298,7 +314,7 @@ public class Event {
                 && Objects.equals(getAddress(), event.getAddress())
                 && Objects.equals(getZoomLink(), event.getZoomLink())
                 && Objects.equals(getTags(), event.getTags())
-                && Objects.equals(getIsBookMarked(), event.getIsBookMarked());
+                && Objects.equals(getIsMarked(), event.getIsMarked());
     }
 
     @Override

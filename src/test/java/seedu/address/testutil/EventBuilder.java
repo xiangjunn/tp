@@ -34,7 +34,7 @@ public class EventBuilder {
     private Address address;
     private ZoomLink zoomLink;
     private Set<Tag> tags;
-    private boolean isBookmarked;
+    private boolean isMarked;
 
     /**
      * Creates a {@code EventBuilder} with the default details.
@@ -47,7 +47,7 @@ public class EventBuilder {
         address = new Address(DEFAULT_ADDRESS);
         zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
         tags = new HashSet<>();
-        isBookmarked = false;
+        isMarked = false;
     }
 
     /**
@@ -61,7 +61,7 @@ public class EventBuilder {
         address = eventToCopy.getAddress();
         zoomLink = eventToCopy.getZoomLink();
         tags = new HashSet<>(eventToCopy.getTags());
-        isBookmarked = eventToCopy.getIsBookMarked();
+        isMarked = eventToCopy.getIsMarked();
     }
 
     /**
@@ -121,10 +121,10 @@ public class EventBuilder {
     }
 
     /**
-     * Sets the {@code isBookmarked} of the {@code Event} that we are building to true.
+     * Sets the {@code isMarked} of the {@code Event} that we are building to true.
      */
-    public EventBuilder withBookmarked() {
-        this.isBookmarked = true;
+    public EventBuilder withMarked() {
+        this.isMarked = true;
         return this;
     }
 
@@ -132,10 +132,7 @@ public class EventBuilder {
      * Creates an {@code Event} from this {@code Eventbuilder}.
      */
     public Event build() {
-        Event event = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
-        if (isBookmarked) {
-            event.setBookMarked(true);
-        }
-        return event;
+        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags, isMarked);
+
     }
 }

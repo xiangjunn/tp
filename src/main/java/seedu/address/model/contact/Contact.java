@@ -36,7 +36,7 @@ public class Contact {
     private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedEvents = new HashSet<>();
-    private boolean isBookMarked;
+    private final boolean isMarked;
 
     /**
      * Name, email and tags must be present and not null.
@@ -53,7 +53,7 @@ public class Contact {
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
         this.uuid = UUID.randomUUID(); // to generate a uuid to uniquely identify contact
-        this.isBookMarked = false;
+        this.isMarked = false;
     }
 
     /**
@@ -64,8 +64,8 @@ public class Contact {
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isBookMarked) {
-        requireAllNonNull(name, email, tags, isBookMarked);
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isMarked) {
+        requireAllNonNull(name, email, tags, isMarked);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -75,8 +75,26 @@ public class Contact {
         this.zoomLink = zoomLink;
         this.uuid = uuid;
         this.linkedEvents.addAll(linkedEvents);
-        this.isBookMarked = isBookMarked;
+        this.isMarked = isMarked;
+    }
 
+    /**
+     * This constructor is for creating contact stored in ContactBuilder.
+     * This constructor ensures that everytime a contact is created in ContactBuilder, its mark status is as specified.
+     */
+    public Contact(
+            Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
+            TelegramHandle telegramHandle, Set<Tag> tags, boolean isMarked) {
+        requireAllNonNull(name, email, tags, isMarked);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.telegramHandle = telegramHandle;
+        this.zoomLink = zoomLink;
+        this.uuid = UUID.randomUUID();
+        this.isMarked = isMarked;
     }
 
     public Name getName() {
@@ -123,12 +141,8 @@ public class Contact {
         return Collections.unmodifiableSet(linkedEvents);
     }
 
-    public boolean getIsBookMarked() {
-        return isBookMarked;
-    }
-
-    public void setBookMarked(boolean bookMarked) {
-        isBookMarked = bookMarked;
+    public boolean getIsMarked() {
+        return isMarked;
     }
 
     /**
@@ -209,7 +223,7 @@ public class Contact {
         Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
         updatedLinkedEvents.add(event.getUuid());
         Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
-            uuid, updatedLinkedEvents, isBookMarked);
+            uuid, updatedLinkedEvents, isMarked);
         addToMap(updatedContact); // must update the map to represent the latest changes
         return updatedContact;
     }
@@ -243,7 +257,7 @@ public class Contact {
         Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
         updatedLinkedEvents.remove(event.getUuid());
         Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
-            uuid, updatedLinkedEvents, isBookMarked);
+            uuid, updatedLinkedEvents, isMarked);
         addToMap(updatedContact);
         return updatedContact;
     }
@@ -254,7 +268,7 @@ public class Contact {
      */
     public Contact clearAllLinks() {
         Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
-            uuid, new HashSet<>(), isBookMarked);
+            uuid, new HashSet<>(), isMarked);
         addToMap(updatedContact);
         return updatedContact;
     }
@@ -298,7 +312,7 @@ public class Contact {
             && Objects.equals(getZoomLink(), contact.getZoomLink())
             && Objects.equals(getAddress(), contact.getAddress())
             && Objects.equals(getTags(), contact.getTags())
-            && Objects.equals(getIsBookMarked(), contact.getIsBookMarked());
+            && Objects.equals(getIsMarked(), contact.getIsMarked());
     }
 
     @Override
