@@ -30,7 +30,7 @@ full range of features it offers.
 
 ### How to read commands in SoConnect
 
-You will see commands throughout this User Guide and each of them have their own _Command Syntax_ format.
+You will see commands throughout this User Guide and each of them have their own _Command Format_.
 
 This is one example of a command:
 
@@ -54,13 +54,13 @@ There are only 3 different parts of inputs within each command:
    Specifying `2` tells SoConnect to edit contact at **index 2** and `Betsy Crower`
    is the **new name** you want to change the specified contact to.
 
-3. **_PREFIX_**
+3. **PREFIX**
 
    You can help SoConnect in separating the type of _parameters_ when you input information.
 
    Each prefix always ends with one `/`. Jump to [List of Prefixes](#list-of-prefixes) to see all prefixes you can use in SoConnect.
 
-   For example, information that you specified after _prefix_ `n/` would help SoConnect to identify the _parameter_
+   For example, information that you specified after prefix `n/` would help SoConnect to identify the _parameter_
    is referring to **name** of the contact.
 
 
@@ -68,14 +68,14 @@ Thus, the command above will tell SoConnect to **edit the name of the contact at
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-* Read more on _Command Syntax_ format below, or
+* Read more on _Command Format_ below, or
 * See more commands that you can type in SoConnect [here](#Features)!
 </div>
 
 
 <div markdown="block" class="alert alert-info">
 
-**About the _Command Syntax_ format**
+**About the _Command Format_**
 
 We will teach you how to perform certain actions on SoConnect for each [feature](#Features)
 you can find in SoConnect.
@@ -83,7 +83,7 @@ you can find in SoConnect.
 Here are some information that can help you in understanding the formats at the later section!
 
 * Words in `UPPER_CASE` are the _parameters_ that you will provide.<br>
-  e.g. in `add n/NAME`, `NAME` is a _parameter_ which can be used as `add n/John Doe`.
+  e.g. in `cadd n/NAME`, `NAME` is a _parameter_ which can be used as `cadd n/John Doe`.
 
 * _Fields_ in **square brackets** are **optional**.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -91,7 +91,7 @@ Here are some information that can help you in understanding the formats at the 
 * _Fields_ with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
 
-* Each pair of _Prefix_ and _Parameter_ can be in any order.<br>
+* Each pair of prefix and _parameter_ can be in any order.<br>
   e.g. if the command specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
 
 * If a _parameter_ is expected only once in the command, but you specified it multiple times, **only the last occurrence** of the parameter will be taken.<br>
@@ -121,12 +121,12 @@ SoConnect will tell you that it has successfully listed all contacts!
 
 <br>
 
-However, when the command you entered does not fulfill the _Command Syntax_ format specified in [Features](#features),
+However, when the command you entered does not fulfill the _Command Format_ specified in [Features](#features),
 an **error message** will be shown on the message box instead.
 
 For example, after you specified [`cview`](#viewing-a-contact-cview) **without** specifying which contact to view:
 ![Error Message](images/demo-screenshots/invalidCommand.png)
-SoConnect will tell you that the _Command Syntax_ format is invalid!
+SoConnect will tell you that the _Command Format_ is invalid!
 
 --------------------------------------------------------------------------------------------------------------------
 ## Quick start
@@ -287,7 +287,7 @@ There are three main sections to SoConnect Features:
 
 For each feature, you are provided with:
 * Function and Description of the feature
-* Format of _Command Syntax_ of the feature
+* _Command Format_ of the feature
 * Examples of some usages of the feature (All examples assumes SoConnect has the **inital sample** contacts and events)
 
 
@@ -559,18 +559,18 @@ An event can have any number of tags (including 0)
 </div>
 
 **Examples:**
-* `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-* `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/10-09-2021 18:00
-  z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDHk t/lecture`
 
+Input | Expected Output
+--------|------------------
+`eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun` | You should see this message in the message box:<br> `New event added: Summer Party; Start: 12-12-2021 15:12; Address: 123, Clementi Rd, 1234665; Tags: [fun]` <br><br> You should also see `Summer Party` **at the end** of your event list: ![New Event](images/demo-screenshots/eaddEx.png)
+
+*Index of the newly added event will depend on your previous number of events.
 
 ### Bookmarking an event: `emark`
 
 Bookmarks the specified event(s).
 
 **Format:** `emark INDEX`
-
-![image](images/demo-screenshots/BookmarkEvents.png)
 
 * Bookmarks the event at `INDEX` and pins it to the top of the event list.
 * `INDEX` refers to the index number shown in the displayed event list.
@@ -581,9 +581,12 @@ Bookmarks the specified event(s).
 </div>
 
 **Examples:**
-* `emark 2` bookmarks the second event in SoConnect.
 
-_See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
+Input | Expected Output
+--------|------------------
+`emark 2` | Bookmarks the second event of **currently displayed** event list in SoConnect. <br><br> _The expected display is similar to [Bookmarking a contact](#bookmarking-a-contact-cmark)_
+
+_See Also: [Removing bookmark of an event](#removing-bookmark-of-an-event-eunmark)_
 
 
 ### Clearing all events: `eclear`
@@ -614,9 +617,12 @@ Deletes the specified event from SoConnect.
 </div>
 
 **Examples:**
-* `elist` followed by `edelete 2` deletes the second event from SoConnect.
-* `efind Exam` followed by `edelete 1` deletes the first event from the results of the `efind` command.
-* `edelete 3-5` deletes events from index 3 to 5 from SoConnect.
+
+Input | Expected Output
+--------|------------------
+[`elist`](#deleting-an-event-edelete) followed by `edelete 2` | Deletes the second event from SoConnect. <br><br> You should see these messages in the message box: <br>1. After `elist`: `Listed all events` <br>2. After `edelete 2`: `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
+[`efind Class`](#finding-events-efind) followed by `edelete 1` | Deletes the first event from the **results of the `efind` command**.<br><br> You should see these messages in the message box: <br>1. After `efind class`: `1 events listed!` <br>2. After `edelete 1`: `Deleted Event: Dance class; Start: 13-11-2021 20:00; End: 13-11-2021 22:00; Description: Dancing is my passion. I like pole dancing.; Address: NUS UTown; Tags: [CCA][Recurring]`
+`edelete 1-2` | Deletes events from index 1 to 2 from the **currently displayed** event list. <br><br> You should see these messages in the message box: <br> `Deleted Event: CS2103T project meeting; Start: 10-10-2021 21:00; End: 10-10-2021 22:00; Zoom Link: nus-sg.zoom.us/j/21342513543; Tags: [Recurring][CS2103T]` <br> `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
 
 
 ### Editing an event: `eedit`
@@ -641,11 +647,11 @@ Edits an existing event in SoConnect.
 </div>
 
 **Examples:**
-* `elist` followed by `eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams`
-  first changes the name of the second event to `CS2103T Exam`, deletes the tag `Easy_exams` and
-  adds the tag `Hard_exams`.
-* `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the second event from the results of the `efind` command to be `Betsy’s Wedding`.
-* `eedit 4 dt/*` deletes all existing tags from the fourth event.
+
+Input | Expected Output
+--------|------------------
+`eedit 2 n/CS2103T Exam dt/CCA t/Hard` | Changes the name of the second event from **currently displayed** event list to `CS2103T Exam`, deletes the tag `CCA` and adds the tag `Hard`. <br><br> You should see this message in the message box: <br> `Edited Event: CS2103T Exam; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [Recurring][Hard]` <br><br> You should also see these changes: ![Edit Event](images/demo-screenshots/eeditEx.png)
+
 
 
 ### Finding Events: `efind`
@@ -669,7 +675,7 @@ There are two types of event searches you can do in SoConnect:
 * You can provide multiple keywords without specifying any optional _fields_.
 * You can only **specify each optional _field_ once**.
 * Partial words can be matched e.g. `Exa` will match `CS2103T Exam` .
-* Events matching at least one keyword will be returned (i.e. _`OR` search_).
+* Events matching at least one keyword will be returned.
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -678,9 +684,11 @@ The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 </div>
 
 **Examples:**
-* `efind ex` returns `exams` and `Examinations`
-* `efind CS Exam` returns `CS2100 Exam`,  `CS2101`
-* `efind CS EXAM t/hard easy` returns `CS2100 Exam`, `CS2101` and events with tags that contain `hard` and `easy`
+
+Input | Expected Output
+--------|------------------
+`efind meet` | Returns `CS2103 project meeting`. <br><br> You should see this message in the message box:<br> `1 events listed!` <br><br> You should also see only this **1 event**: ![Find Event 1](images/demo-screenshots/efindEx1.png)
+`efind t/CS2103T Intern` | Returns events with tags that contain `CS2103T` and `Intern`.<br><br> You should see this message in the message box:<br> `2 events listed!` <br><br> You should also see only these **2 events**: ![Find Event 2](images/demo-screenshots/efindEx2.png)
 
 
 ### Linking an event to contacts: `elink`
@@ -699,8 +707,10 @@ Links the specified event to one or more contacts.
 </div>
 
 **Examples:**
-* `elink 1 c/1` links the first event in the displayed event list to the first contact in the displayed contact list.
-* `elink 2 c/1 c/2 c/3` links the second event in the displayed event list to the first, second and third contact in the displayed contact list.
+
+Input | Expected Output
+--------|------------------
+`elink 2 c/1 c/2` | Links the second event in the from the **currently displayed** event list to contacts with index **1 and 2** in the **currently displayed** contact list. <br><br>You should see this in your SoConnect: ![Link](images/demo-screenshots/elinkEx.png)
 
 _See Also: [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)_
 
@@ -724,8 +734,11 @@ Do not add extraneous values after each optional _field_ you specify.
 </div>
 
 **Examples:**
-* `elist` shows all events in SoConnect with all available details for each event.
-* `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
+
+Input | Expected Output
+--------|------------------
+`elist` | Shows **all events** in SoConnect with **all available details** for each event. <br><br> You should see this message in the message box: <br>`Listed all events`
+`elist d/ at/` | Shows **all events** in SoConnect with **only their names, start date and time and description** (if available). You should see this message in the message box: <br>`Listed all events` <br><br> You should also see the event list displays **only the specified _fields_**: ![List Events](images/demo-screenshots/elistEx.png)
 
 
 ### Removing bookmark of an event: `eunmark`
@@ -744,7 +757,10 @@ Removes bookmark of the specified event(s).
 </div>
 
 **Examples:**
-* `eunmark 2` removes the bookmark of the first event in SoConnect.
+
+Input | Expected Output
+--------|------------------
+`eunmark 2` | Removes bookmark of the second event of **currently displayed** event list in SoConnect.<br><br> _The expected display is similar to [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
 
 _See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
@@ -771,9 +787,9 @@ Events that have ended **will not be shown** after you execute `esort`
 Unlinks the specified event and the specified contact(s).
 
 **Examples:**
-* `eunlink 1 c/1` unlinks the first event in the displayed event list from the first contact in the displayed contact list.
-* `eunlink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
-* `eunlink 3 c/*` unlinks the third event in the displayed event list from all contacts that are linked to it.
+Input | Expected Output
+--------|------------------
+`eunlink 1 c/1` | Unlinks the first event in the **currently displayed** event list from the first contact in the **currently displayed** contact list. Yous should see this message in the message box: `Successfully unlinked the event CS2103T project meeting from the contact Alex Yeoh`
 
 _See Also: [Linking an event to contacts](#linking-an-event-to-contacts-elink)_
 
@@ -794,8 +810,10 @@ Views an event with all details fully shown.
 </div>
 
 **Examples:**
-* `eview 1` shows all details of the first event in SoConnect fully.
-* `efind exam` followed by `eview 4` shows all details of the fourth event from the result of the `cfind`.
+
+Input | Expected Output
+--------|------------------
+`eview 1` | Shows all details of the first event in the **currently displayed** event list **fully**. <br><br> _The expected display is similar to [Viewing a contact](#viewing-a-contact-cview)_
 
 
 ## General
@@ -867,7 +885,10 @@ Restores SoConnect to a previously undone state from its history.
 **Format:** `redo`
 
 **Examples:**
-* `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
+
+Input | Expected Output
+--------|------------------
+[`edelete 1`](#deleting-an-event-edelete) followed by [`undo`](#undo-a-command-undo) then `redo` | First **restores the deleted event** in the event list. <br>Then `redo` will **delete the same event again**.
 
 _See Also: [Undo a command](#undo-a-command-undo)_
 
@@ -879,9 +900,10 @@ Restores SoConnect to its previous state from its history.
 **Format:** `undo`
 
 **Examples:**
-* `edelete 1` followed by `undo` restores the deleted event in the event list.
-* `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
-* `eview 1` followed by `undo` will display the full event list.
+
+Input | Expected Output
+--------|------------------
+[`cadd n/John Doe e/john@gmail.com`](#adding-a-contact-cadd) followed by `undo` | **Removes the added** contact from contact list.
 
 _See Also: [Redo a command](#redo-a-command-redo)_
 
@@ -982,7 +1004,7 @@ For instance, you can link your professor to the lecture.
 
 **Contact Management**
 
-_Prefix_ | _Parameter_ Type
+Prefix | _Parameter_ Type
 --------|------------------
 **`a/`** | Address
 **`dt/`** | Tag to be deleted
@@ -995,7 +1017,7 @@ _Prefix_ | _Parameter_ Type
 
 **Event Management**
 
-_Prefix_ | _Parameter_ Type
+Prefix | _Parameter_ Type
 --------|------------------
 **`a/`** | Address
 **`at/`** | Start Date and Time
@@ -1058,11 +1080,10 @@ ________________________________________________________________________________
 Word | Explanation
 --------|------------------
 **Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**
-**Command Syntax** | The structure that a command must abide by for it to be executed
+**Command Format** | The structure that a command must abide by for it to be executed
 **Field(s)** | The information type within each contact or event <br> For example, **Name** and **Address** of a contact are _fields_ of a contact.
 **Graphical User Interface (GUI)** | Graphical representation of the application that the user sees
-**Hard Disk** | Device in computer that is used to save files of the computer
+**Hard Disk** | Device in computer that is used to store files of the computer
 **Home Folder** | Folder which the application file is saved in the computer
 **JavaScript Object Notation (JSON) File** | The file that is used by the application to load its data and to save data of the application in a human-readable format.
-**OR Search** |
 **Parameter(s)** | Information supplied by the user to the application when executing certain commands 
