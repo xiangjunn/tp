@@ -54,13 +54,13 @@ and provide the information for the edit.
     Specifying `2` tells SoConnect to edit contact at **index 2** and `Betsy Crower` 
 is the **new name** you want to change the specified contact to.
 
-3. **_PREFIX_**
+3. **PREFIX**
 
     You can help SoConnect in separating the type of _parameters_ when you input information.
 
     Each prefix always ends with one `/`. Jump to [List of Prefixes](#list-of-prefixes) to see all prefixes you can use in SoConnect.
 
-    For example, information that you specified after _prefix_ `n/` would help SoConnect to identify the _parameter_ 
+    For example, information that you specified after prefix `n/` would help SoConnect to identify the _parameter_ 
 is referring to **name** of the contact.
 
 
@@ -91,7 +91,7 @@ Here are some information that can help you in understanding the formats at the 
 * _Fields_ with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
 
-* Each pair of _Prefix_ and _Parameter_ can be in any order.<br>
+* Each pair of prefix and _parameter_ can be in any order.<br>
   e.g. if the command specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
 
 * If a _parameter_ is expected only once in the command, but you specified it multiple times, **only the last occurrence** of the parameter will be taken.<br>
@@ -669,7 +669,7 @@ There are two types of event searches you can do in SoConnect:
 * You can provide multiple keywords without specifying any optional _fields_.
 * You can only **specify each optional _field_ once**.
 * Partial words can be matched e.g. `Exa` will match `CS2103T Exam` .
-* Events matching at least one keyword will be returned (i.e. _`OR` search_).
+* Events matching at least one keyword will be returned.
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -982,7 +982,7 @@ again and make sure it is version 11.
 
 **Contact Management**
 
-_Prefix_ | _Parameter_ Type
+Prefix | _Parameter_ Type
 --------|------------------
 **`a/`** | Address
 **`dt/`** | Tag to be deleted
@@ -995,7 +995,7 @@ _Prefix_ | _Parameter_ Type
 
 **Event Management**
 
-_Prefix_ | _Parameter_ Type
+Prefix | _Parameter_ Type
 --------|------------------
 **`a/`** | Address
 **`at/`** | Start Date and Time
@@ -1061,8 +1061,7 @@ Word | Explanation
 **Command Syntax** | The structure that a command must abide by for it to be executed 
 **Field(s)** | The information type within each contact or event <br> For example, **Name** and **Address** of a contact are _fields_ of a contact.
 **Graphical User Interface (GUI)** | Graphical representation of the application that the user sees
-**Hard Disk** | Device in computer that is used to save files of the computer
+**Hard Disk** | Device in computer that is used to store files of the computer
 **Home Folder** | Folder which the application file is saved in the computer
 **JavaScript Object Notation (JSON) File** | The file that is used by the application to load its data and to save data of the application in a human-readable format.
-**OR Search** | 
 **Parameter(s)** | Information supplied by the user to the application when executing certain commands 
