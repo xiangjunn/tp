@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
@@ -71,4 +72,5 @@ class DescriptionTest {
         assertEquals(description, description);
         assertNotEquals(description, differentDescription);
     }
+
 }
