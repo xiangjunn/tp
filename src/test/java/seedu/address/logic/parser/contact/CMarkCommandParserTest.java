@@ -26,7 +26,9 @@ class CMarkCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, " ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CMarkCommand.MESSAGE_USAGE)); //EP empty argument
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                CMarkCommand.MESSAGE_USAGE));
+                CMarkCommand.MESSAGE_USAGE)); //EP non-integer argument
     }
 }

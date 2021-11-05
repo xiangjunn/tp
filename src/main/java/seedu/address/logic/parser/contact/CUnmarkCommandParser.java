@@ -17,6 +17,9 @@ public class CUnmarkCommandParser implements Parser<CUnmarkCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CUnmarkCommand parse(String args) throws ParseException {
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CUnmarkCommand.MESSAGE_USAGE));
+        }
         try {
             List<Index> indexes = ParserUtil.parseMarkIndexes(args);
             return new CUnmarkCommand(indexes);

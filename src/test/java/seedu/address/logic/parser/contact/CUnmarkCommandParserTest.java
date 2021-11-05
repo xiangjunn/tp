@@ -26,7 +26,9 @@ class CUnmarkCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, " ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CUnmarkCommand.MESSAGE_USAGE)); //EP empty argument
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                CUnmarkCommand.MESSAGE_USAGE));
+                CUnmarkCommand.MESSAGE_USAGE)); //EP non-integer argument
     }
 }
