@@ -43,7 +43,14 @@ public class CFindCommandParserTest {
     }
 
     @Test
-    public void parse_validArgsWithNoPrefixes_returnsCFindCommand() {
+    public void parse_prefixSyntaxButNotAPrefix_returnsCFindCommand() {
+        CFindCommand expectedCFindCommand =
+            new CFindCommand(new ContactContainsKeywordsPredicate(Arrays.asList("w/abc")));
+        assertParseSuccess(parser, " w/abc", expectedCFindCommand);
+    }
+
+    @Test
+    public void parse_validArgsWithNoPrefix_returnsCFindCommand() {
         // no leading and trailing whitespaces
         CFindCommand expectedCFindCommand =
                 new CFindCommand(new ContactContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
@@ -164,5 +171,13 @@ public class CFindCommandParserTest {
         // swapping around the prefixes should work as well
         assertParseSuccess(parser, " a/address p/phone t/tag z/zoomlink e/email th/telegramhandle",
             expectedCFindCommand);
+    }
+
+    @Test
+    public void parse_allPrefixesWithNoWhitespaces_returnsCFindCommand() {
+        ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
+        predicate.setEmailKeywords(List.of("a/p/z/th/t/"));
+        CFindCommand expectedCFindCommand = new CFindCommand(predicate);
+        assertParseSuccess(parser, " e/a/p/z/th/t/", expectedCFindCommand);
     }
 }
