@@ -39,7 +39,6 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
-        model.commitHistory();
     }
 
     @Override
@@ -114,11 +113,11 @@ public class LogicManager implements Logic {
 
     @Override
     public void resetFilterOfContacts() {
-        model.rerenderContactCards();
+        model.rerenderContactCards(true);
     }
 
     @Override
     public void resetFilterOfEvents() {
-        model.rerenderEventCards();
+        model.rerenderEventCards(true);
     }
 }

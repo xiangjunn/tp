@@ -64,9 +64,15 @@ public class EEditCommand extends Command implements Undoable {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book.";
     public static final String MESSAGE_INVALID_DATE_TIME_RANGE = "Event start time cannot be later than end time.";
+    public static final String MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL = "Event already has %s tag.\n";
+    public static final String MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL =
+        "Event does not contain %s tag to delete.\n";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
+    // to be displayed to user if user tries to delete a tag that does not exist
+    // or add a tag that already exists
+    private String infoMessage = "";
 
     /**
      * @param index of the event in the filtered event list to edit
@@ -84,7 +90,7 @@ public class EEditCommand extends Command implements Undoable {
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
+    private Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
@@ -111,9 +117,20 @@ public class EEditCommand extends Command implements Undoable {
      * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
      * tags in {@code toRemove} will be excluded.
      */
-    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+    private Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
         Set<Tag> updatedTags = new HashSet<>(original);
-        toRemove.forEach(updatedTags::remove);
+        String result = "\nNote:\n";
+        for (Tag tag : toAdd) {
+            if (!updatedTags.add(tag)) { // if the tag to delete is not in the original tags
+                result += String.format(MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL, tag);
+            }
+        }
+        for (Tag tag : toRemove) {
+            if (!updatedTags.remove(tag)) { // if the tag to delete is not in the original tags
+                result += String.format(MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, tag);
+            }
+        }
+        infoMessage = !result.equals("\nNote:\n") ? result : "";
         updatedTags.addAll(toAdd);
         return updatedTags;
     }
@@ -142,9 +159,9 @@ public class EEditCommand extends Command implements Undoable {
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         // rerender UI to show latest change for contacts with links to edited event
-        model.rerenderContactCards();
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent),
-            List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
+        model.rerenderContactCards(true);
+        String result = String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent) + infoMessage;
+        return new CommandResult(result, List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
     }
 
     @Override

@@ -221,13 +221,17 @@ public interface Model {
 
     /**
      * Re-render contact cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
      */
-    void rerenderContactCards();
+    void rerenderContactCards(boolean useBackSamePredicate);
 
     /**
      * Re-render event cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
      */
-    void rerenderEventCards();
+    void rerenderEventCards(boolean useBackSamePredicate);
 
     /**
      * Re-render both contact and event cards in UI to show the most updated version.
@@ -241,4 +245,8 @@ public interface Model {
      */
     void rearrangeEventsInOrder(List<Index> indexes, boolean isMark);
 
+    /**
+     * Removes all links between contacts and events.
+     */
+    void removeAllLinks();
 }

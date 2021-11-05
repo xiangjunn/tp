@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.ModelDisplaySetting;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Stores the past history of the model manager. Meant for the undo and redo commands.
@@ -20,7 +20,7 @@ public class ModelHistory {
     private int maxSize = 0; // The last point of redo
     // maxSize - currentSize = Number of redo commands allowed.
 
-    ModelHistory() {}
+    public ModelHistory() {}
 
     /** Returns the {@code ModelHistory} object. */
     public static ModelHistory getHistory() {
@@ -34,7 +34,7 @@ public class ModelHistory {
     }
 
     /** Adds a commit to the history, with the given {@code AddressBook} and {@code ModelDisplaySetting}. */
-    public void commit(AddressBook addressBook, ModelDisplaySetting displaySetting) {
+    public void commit(ReadOnlyAddressBook addressBook, ModelDisplaySetting displaySetting) {
         allHistory.add(currentSize, new HistoryInstance(addressBook, displaySetting));
         currentSize++;
         maxSize = currentSize;
@@ -47,7 +47,7 @@ public class ModelHistory {
         }
         // Moves pointer from the latest commit to the previous commit of the new state.
         currentSize--;
-        return allHistory.get(currentSize - 1);
+        return getCurrentHistoryInstance();
     }
 
     /** Performs a redo operation to move the current pointer forward by one position. */
@@ -56,7 +56,7 @@ public class ModelHistory {
             throw new ModelHistoryException("Trying to redo even though it is impossible.");
         }
         currentSize++;
-        return allHistory.get(currentSize - 1);
+        return getCurrentHistoryInstance();
     }
 
     /** Returns true if it is possible to perform an undo operation here. */
@@ -69,13 +69,17 @@ public class ModelHistory {
         return maxSize > currentSize;
     }
 
+    public HistoryInstance getCurrentHistoryInstance() {
+        return allHistory.get(currentSize - 1);
+    }
+
     /** Encapsulates a point in history, with the address book and model display setting. */
     public static class HistoryInstance {
         private final ModelDisplaySetting displaySetting;
-        private final AddressBook addressBook;
+        private final ReadOnlyAddressBook addressBook;
 
         /** Creates a new instance of history. */
-        public HistoryInstance(AddressBook addressBook, ModelDisplaySetting displaySetting) {
+        public HistoryInstance(ReadOnlyAddressBook addressBook, ModelDisplaySetting displaySetting) {
             requireAllNonNull(displaySetting, addressBook);
             this.displaySetting = displaySetting;
             this.addressBook = addressBook;
@@ -85,7 +89,7 @@ public class ModelHistory {
             return displaySetting;
         }
 
-        public AddressBook getAddressBook() {
+        public ReadOnlyAddressBook getAddressBook() {
             return addressBook;
         }
 

@@ -194,11 +194,25 @@ public class Event {
     }
 
     /**
-     * Links the contact to the event object that calls this method.
-     * @param contact The event to be linked with.
+     * Checks if the event is linked to a particular contact.
      */
-    public void linkTo(Contact contact) {
-        this.linkedContacts.add(contact.getUuid());
+    public boolean hasLinkTo(Contact contact) {
+        UUID contactUuid = contact.getUuid();
+        return linkedContacts.contains(contactUuid);
+    }
+
+    /**
+     * Links the contact to the event object that calls this method.
+     * @param contact The contact to be linked with.
+     * @return The event that has link to the contact passed in as parameter.
+     */
+    public Event linkTo(Contact contact) {
+        Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
+        updatedLinkedContacts.add(contact.getUuid());
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, updatedLinkedContacts, isMarked);
+        addToMap(updatedEvent); // must update the map to represent the latest changes
+        return updatedEvent;
     }
 
     /**
@@ -224,16 +238,26 @@ public class Event {
     /**
      * Removes the link between the contact and the event object that calls this method.
      * @param contact The contact to be unlinked.
+     * @return The event that has link to the contact passed in as parameter.
      */
-    public void unlink(Contact contact) {
-        this.linkedContacts.remove(contact.getUuid());
+    public Event unlink(Contact contact) {
+        Set<UUID> updatedLinkedContacts = new HashSet<>(linkedContacts);
+        updatedLinkedContacts.remove(contact.getUuid());
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, updatedLinkedContacts, isMarked);
+        addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     /**
-     * Removes all links to the contact object that calls this method.
+     * Removes all links to the event object that calls this method.
+     * @return The event that has no link to any contacts.
      */
-    public void clearAllLinks() {
-        this.linkedContacts.clear();
+    public Event clearAllLinks() {
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, new HashSet<>(), isMarked);
+        addToMap(updatedEvent);
+        return updatedEvent;
     }
 
     @Override
@@ -242,14 +266,10 @@ public class Event {
         builder.append(getName())
                 .append("; Start: ")
                 .append(getStartDateAndTime())
-                .append("; End: ")
-                .append(getEndDateAndTime())
-                .append("; Description: ")
-                .append(getDescription())
-                .append("; Address: ")
-                .append(getAddress())
-                .append("; ZoomLink: ")
-                .append(getZoomLink());
+                .append(getEndDateAndTime() != null ? "; End: " + getEndDateAndTime() : "") // optional
+                .append(getDescription() != null ? "; Description: " + getDescription() : "") // optional
+                .append(getAddress() != null ? "; Address: " + getAddress() : "") // optional
+                .append(getZoomLink() != null ? "; Zoom Link: " + getZoomLink() : ""); // optional
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
