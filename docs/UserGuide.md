@@ -30,7 +30,7 @@ full range of features it offers.
 
 ### How to read commands in SoConnect
 
-You will see commands throughout this User Guide and each of them have their own _Command Syntax_ format.
+You will see commands throughout this User Guide and each of them have their own _Command Format_.
 
 This is one example of a command: 
 
@@ -68,14 +68,14 @@ Thus, the command above will tell SoConnect to **edit the name of the contact at
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-* Read more on _Command Syntax_ format below, or
+* Read more on _Command Format_ below, or
 * See more commands that you can type in SoConnect [here](#Features)! 
 </div>
 
 
 <div markdown="block" class="alert alert-info">
 
-**About the _Command Syntax_ format**
+**About the _Command Format_**
 
 We will teach you how to perform certain actions on SoConnect for each [feature](#Features) 
 you can find in SoConnect.
@@ -83,7 +83,7 @@ you can find in SoConnect.
 Here are some information that can help you in understanding the formats at the later section!
 
 * Words in `UPPER_CASE` are the _parameters_ that you will provide.<br>
-  e.g. in `add n/NAME`, `NAME` is a _parameter_ which can be used as `add n/John Doe`.
+  e.g. in `cadd n/NAME`, `NAME` is a _parameter_ which can be used as `cadd n/John Doe`.
 
 * _Fields_ in **square brackets** are **optional**.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -121,12 +121,12 @@ SoConnect will tell you that it has successfully listed all contacts!
 
 <br>
 
-However, when the command you entered does not fulfill the _Command Syntax_ format specified in [Features](#features),
+However, when the command you entered does not fulfill the _Command Format_ specified in [Features](#features),
 an **error message** will be shown on the message box instead.
 
 For example, after you specified [`cview`](#viewing-a-contact-cview) **without** specifying which contact to view:
 ![Error Message](images/demo-screenshots/invalidCommand.png)
-SoConnect will tell you that the _Command Syntax_ format is invalid!
+SoConnect will tell you that the _Command Format_ is invalid!
 
 --------------------------------------------------------------------------------------------------------------------
 ## Quick start
@@ -287,7 +287,7 @@ There are three main sections to SoConnect Features:
 
 For each feature, you are provided with:
 * Function and Description of the feature
-* Format of _Command Syntax_ of the feature
+* _Command Format_ of the feature
 * Examples of some usages of the feature (All examples assumes SoConnect has the **inital sample** contacts and events)
 
 
@@ -1058,7 +1058,7 @@ ________________________________________________________________________________
 Word | Explanation
 --------|------------------
 **Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**
-**Command Syntax** | The structure that a command must abide by for it to be executed 
+**Command Format** | The structure that a command must abide by for it to be executed 
 **Field(s)** | The information type within each contact or event <br> For example, **Name** and **Address** of a contact are _fields_ of a contact.
 **Graphical User Interface (GUI)** | Graphical representation of the application that the user sees
 **Hard Disk** | Device in computer that is used to store files of the computer
