@@ -8,7 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.CS2100_CONSULTATION;
 import static seedu.address.testutil.TypicalEvents.CS2101_MEETING;
-import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM;
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED;
 import static seedu.address.testutil.TypicalEvents.FOOTBALL_PRACTICE;
 import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
 
@@ -31,18 +31,18 @@ import seedu.address.testutil.EventBuilder;
 
 class EUnmarkCommandTest {
 
-    private static final Event TEAM_MEETING_MARKED = new EventBuilder(TEAM_MEETING).withMarked().build();
+    private static final Event TEAM_MEETING_MARKED = new EventBuilder(TEAM_MEETING).withMarked(true).build();
 
     private Model expectedModel;
     private Model model;
 
     private List<Event> getListWithMarkedEvent() {
-        return new ArrayList<>(Arrays.asList(TEAM_MEETING_MARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
+        return new ArrayList<>(Arrays.asList(TEAM_MEETING_MARKED, CS2103_MIDTERM_MARKED, CS2100_CONSULTATION,
                 CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
     }
 
     private List<Event> getListAfterUnmark() {
-        return new ArrayList<>(Arrays.asList(TEAM_MEETING, CS2103_MIDTERM, CS2100_CONSULTATION,
+        return new ArrayList<>(Arrays.asList(CS2103_MIDTERM_MARKED, TEAM_MEETING, CS2100_CONSULTATION,
                 CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
     }
 
@@ -83,7 +83,7 @@ class EUnmarkCommandTest {
 
     @Test
     public void execute_eventNotMarked() {
-        List<Index> indexes = List.of(Index.fromOneBased(1));
+        List<Index> indexes = List.of(Index.fromOneBased(2));
         model = new ModelManager(getAddressBookWith(getListAfterUnmark()), new UserPrefs());
         EUnmarkCommand eunmarkCommand = new EUnmarkCommand(indexes);
         String expectedMessage = String.format(EUnmarkCommand.MESSAGE_NOT_MARKED, TEAM_MEETING) + "\n";

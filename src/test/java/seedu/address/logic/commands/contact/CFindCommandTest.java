@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalContacts.CARL;
 import static seedu.address.testutil.TypicalContacts.ELLE;
 import static seedu.address.testutil.TypicalContacts.FIONA;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,9 +32,9 @@ public class CFindCommandTest {
         String firstSearchPhrase = "first";
         String secondSearchPhrase = "second";
         ContactContainsKeywordsPredicate firstPredicate =
-                new ContactContainsKeywordsPredicate(Collections.singletonList(firstSearchPhrase));
+            new ContactContainsKeywordsPredicate(Collections.singletonList(firstSearchPhrase));
         ContactContainsKeywordsPredicate secondPredicate =
-                new ContactContainsKeywordsPredicate(Collections.singletonList(secondSearchPhrase));
+            new ContactContainsKeywordsPredicate(Collections.singletonList(secondSearchPhrase));
 
         CFindCommand findFirstCommand = new CFindCommand(firstPredicate);
         CFindCommand findSecondCommand = new CFindCommand(secondPredicate);

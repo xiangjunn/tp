@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUS
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showContactAtIndex;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
@@ -153,15 +153,16 @@ public class CEditCommandTest {
     @Test
     public void execute_tagToDeleteNotInOriginalContact_success() {
         Tag toDelete = new Tag("notInOriginal");
-        Contact editedContact = new ContactBuilder().build();
+        Contact defaultContact = new ContactBuilder().withMarked(false).build(); // with friends and unmarked
+        Contact editedContact = new ContactBuilder().withTags().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact,
             Set.of(toDelete), false).build();
         // the index must not have any tags initially (check TypicalContacts)
         CEditCommand cEditCommand = new CEditCommand(INDEX_THIRD, descriptor);
-        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact)
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, defaultContact)
                 + "\nNote:\n" + String.format(CEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete);
         Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
-        expectedModel.setContact(model.getFilteredContactList().get(2), editedContact);
+        expectedModel.setContact(model.getFilteredContactList().get(2), defaultContact);
         assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
     }
 

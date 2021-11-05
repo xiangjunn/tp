@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_NAME_BO
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalContacts.BOB;
 
 import org.junit.jupiter.api.Test;
@@ -26,19 +26,19 @@ public class ContactTest {
     @Test
     public void isSameContact() {
         // same object -> returns true
-        assertTrue(ALICE.isSameContact(ALICE));
+        assertTrue(ALICE_MARKED.isSameContact(ALICE_MARKED));
 
         // null -> returns false
-        assertFalse(ALICE.isSameContact(null));
+        assertFalse(ALICE_MARKED.isSameContact(null));
 
         // same name, all other attributes different -> returns true
-        Contact editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+        Contact editedAlice = new ContactBuilder(ALICE_MARKED).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameContact(editedAlice));
+        assertTrue(ALICE_MARKED.isSameContact(editedAlice));
 
         // different name, all other attributes same -> returns false
-        editedAlice = new ContactBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameContact(editedAlice));
+        editedAlice = new ContactBuilder(ALICE_MARKED).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE_MARKED.isSameContact(editedAlice));
 
         // name differs in case, all other attributes same -> returns false
         Contact editedBob = new ContactBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
@@ -54,39 +54,39 @@ public class ContactTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Contact aliceCopy = new ContactBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Contact aliceCopy = new ContactBuilder(ALICE_MARKED).build();
+        assertTrue(ALICE_MARKED.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(ALICE_MARKED.equals(ALICE_MARKED));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ALICE_MARKED.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(ALICE_MARKED.equals(5));
 
         // different contact -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ALICE_MARKED.equals(BOB));
 
         // different name -> returns false
-        Contact editedAlice = new ContactBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Contact editedAlice = new ContactBuilder(ALICE_MARKED).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE_MARKED.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ContactBuilder(ALICE_MARKED).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE_MARKED.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new ContactBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ContactBuilder(ALICE_MARKED).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE_MARKED.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ContactBuilder(ALICE_MARKED).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ALICE_MARKED.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new ContactBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ContactBuilder(ALICE_MARKED).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(ALICE_MARKED.equals(editedAlice));
     }
 }

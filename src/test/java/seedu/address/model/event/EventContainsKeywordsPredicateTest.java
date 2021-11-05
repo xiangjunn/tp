@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalEvents.CS2100_CONSULTATION;
-import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM;
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,7 +67,7 @@ public class EventContainsKeywordsPredicateTest {
         predicate = new EventContainsKeywordsPredicate();
         predicate.setTagKeywords(Arrays.asList("SCHOOL", "EXAM"));
         // Both predicate test on CS2103T_MIDTERMS and CS2100_CONSULTATION should return true
-        assertEquals(predicate.test(CS2100_CONSULTATION), predicate.test(CS2103_MIDTERM));
+        assertEquals(predicate.test(CS2100_CONSULTATION), predicate.test(CS2103_MIDTERM_MARKED));
     }
 
     @Test

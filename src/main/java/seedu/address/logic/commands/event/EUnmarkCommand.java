@@ -32,7 +32,7 @@ public class EUnmarkCommand extends Command implements Undoable {
     private final List<Index> indexesToUnmark;
 
     /**
-     * Class constryctor, takes in a list of {@code index}
+     * Class constructor, takes in a list of {@code index}
      */
     public EUnmarkCommand(List<Index> indexes) {
         requireNonNull(indexes);

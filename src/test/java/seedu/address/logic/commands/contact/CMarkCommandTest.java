@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalContacts.BENSON;
 import static seedu.address.testutil.TypicalContacts.CARL;
 import static seedu.address.testutil.TypicalContacts.DANIEL;
 import static seedu.address.testutil.TypicalContacts.ELLE;
 import static seedu.address.testutil.TypicalContacts.FIONA;
 import static seedu.address.testutil.TypicalContacts.GEORGE;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,23 +28,28 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.TypicalEvents;
 
 
 class CMarkCommandTest {
 
-    private static final Contact ELLE_MARKED = new ContactBuilder(ELLE).withMarked().build();
+    private static final Contact ELLE_MARKED = new ContactBuilder(ELLE).withMarked(true).build();
     private Model expectedModel = new ModelManager(getAddressBookWith(getListWithMarkContact()), new UserPrefs());
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private List<Contact> getListWithMarkContact() {
-        return new ArrayList<>(Arrays.asList(ELLE_MARKED, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ELLE_MARKED, ALICE_MARKED, BENSON, CARL, DANIEL, FIONA, GEORGE));
     }
 
     public AddressBook getAddressBookWith(List<Contact> contactList) {
         AddressBook ab = new AddressBook();
         for (Contact contact : contactList) {
             ab.addContact(contact);
+        }
+        for (Event event : TypicalEvents.getTypicalEvents()) {
+            ab.addEvent(event);
         }
         return ab;
     }
