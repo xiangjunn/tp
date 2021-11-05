@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -71,6 +73,22 @@ public class ParserUtil {
         } catch (ParseException pe) {
             return parseRange(args);
         }
+    }
+
+    /**
+     * Parses parameter into a list of {@code Index} and returns it. Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if specified argument cannot be parsed into a Index.
+     */
+    public static List<Index> parseMarkIndexes(String args) throws ParseException {
+        String[] stringIndexes = args.split("\\s");
+        List<Index> indexes = new ArrayList<>();
+        for (String index : stringIndexes) {
+            index = index.trim();
+            if (!index.equals("")) { // for whitespaces
+                indexes.add(parseIndex(index));
+            }
+        }
+        return indexes;
     }
 
     /**
@@ -200,10 +218,12 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static Description parseDescription(String description) {
+    public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
         return new Description(trimmedDescription);
     }
 

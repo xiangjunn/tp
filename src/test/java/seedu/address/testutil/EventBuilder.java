@@ -20,7 +20,7 @@ public class EventBuilder {
     public static final String DEFAULT_NAME = "Midterms";
     public static final String DEFAULT_START_DATE_AND_TIME = "13-10-2021 21:00";
     public static final String DEFAULT_END_DATE_AND_TIME = "13-10-2021 23:00";
-    public static final String DEFAULT_DESCRIPTION = "";
+    public static final String DEFAULT_DESCRIPTION = "Important";
     public static final String DEFAULT_ADDRESS = "COM2, SR1, #02-11";
     public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
 
@@ -34,6 +34,7 @@ public class EventBuilder {
     private Address address;
     private ZoomLink zoomLink;
     private Set<Tag> tags;
+    private boolean isMarked;
 
     /**
      * Creates a {@code EventBuilder} with the default details.
@@ -46,10 +47,11 @@ public class EventBuilder {
         address = new Address(DEFAULT_ADDRESS);
         zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
         tags = new HashSet<>();
+        isMarked = false;
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code eventToCopy}.
+     * Initializes the EventBuilder with the data of {@code eventToCopy}.
      */
     public EventBuilder(Event eventToCopy) {
         name = eventToCopy.getName();
@@ -59,6 +61,7 @@ public class EventBuilder {
         address = eventToCopy.getAddress();
         zoomLink = eventToCopy.getZoomLink();
         tags = new HashSet<>(eventToCopy.getTags());
+        isMarked = eventToCopy.getIsMarked();
     }
 
     /**
@@ -117,7 +120,19 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code isMarked} of the {@code Event} that we are building to true.
+     */
+    public EventBuilder withMarked() {
+        this.isMarked = true;
+        return this;
+    }
+
+    /**
+     * Creates an {@code Event} from this {@code Eventbuilder}.
+     */
     public Event build() {
-        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
+        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags, isMarked);
+
     }
 }

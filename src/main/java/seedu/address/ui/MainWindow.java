@@ -16,6 +16,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,18 +31,21 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Stage primaryStage;
     private final Logic logic;
-
+    private final HelpWindow helpWindow;
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
-    private final HelpWindow helpWindow;
+    private CalendarWindow calendarWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem calendarItem;
 
     @FXML
     private StackPane contactListPanelPlaceholder;
@@ -78,6 +83,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(calendarItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -115,10 +121,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        contactListPanel = new ContactListPanel(logic.getFilteredContactList());
+        contactListPanel = new ContactListPanel(logic.getFilteredContactList(), this, logic::getContactDisplaySetting);
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        eventListPanel = new EventListPanel(logic.getFilteredEventList(), this, logic::getEventDisplaySetting);
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -169,6 +175,51 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        if (calendarWindow != null) {
+            calendarWindow.close();
+        }
+    }
+
+    /**
+     * Shows the calendar panel to the user.
+     */
+    @FXML
+    private void handleCalendar() {
+        if (calendarWindow != null && calendarWindow.isShowing()) {
+            calendarWindow.close();
+        }
+        calendarWindow = new CalendarWindow(logic.getAddressBook().getEventList());
+        calendarWindow.show();
+    }
+
+    /**
+     * Display result when user clicks on certain fields
+     *
+     * @param message Message displayed to user
+     */
+    @FXML
+    public void handleClick(String message) {
+        resultDisplay.setFeedbackToUser(message);
+    }
+
+    /** Filters the list of contacts to show the linked contacts of the {@code event}. */
+    public void showLinksOfEvent(Event event) {
+        this.logic.filterContactsWithLinksToEvent(event);
+    }
+
+    /** Filters the list of events to show the linked events of the {@code contact}. */
+    public void showLinksOfContact(Contact contact) {
+        this.logic.filterEventsWithLinkToContact(contact);
+    }
+
+    /** Changes the filter of the events so that all events will be displayed. */
+    public void showAllEvents() {
+        this.logic.resetFilterOfEvents();
+    }
+
+    /** Changes the filter of the contacts so that all contacts will be displayed. */
+    public void showAllContacts() {
+        this.logic.resetFilterOfContacts();
     }
 
     /**
@@ -190,6 +241,13 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isShowCalendar()) {
+                handleCalendar();
+            }
+
+            if (calendarWindow != null) {
+                calendarWindow.updateCalendar(commandResult.getEventChangerList());
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

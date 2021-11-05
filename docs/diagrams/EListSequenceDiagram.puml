@@ -1,0 +1,55 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EListCommand" as eListCommand LOGIC_COLOR
+participant ":EListCommandParser" as eListCommandParser LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute(elist at/ end/)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(elist at/ end/)
+activate AddressBookParser
+
+create eListCommandParser
+AddressBookParser -> eListCommandParser
+activate eListCommandParser
+
+eListCommandParser -> eListCommandParser : parse(at/ end/)
+
+eListCommandParser -> Event : setAllDisplayToFalse() \n setWillDisplayStartDateTime(true) \n setWillDisplayEndDateTime(true)
+
+create eListCommand
+eListCommandParser -> eListCommand
+activate eListCommand
+
+eListCommandParser --> AddressBookParser
+deactivate eListCommandParser
+
+AddressBookParser --> LogicManager : eListCommand
+deactivate AddressBookParser
+
+LogicManager -> eListCommand : execute()
+
+eListCommand -> Model : updateFilteredEventList(PREDICATE_HIDE_ALL_EVENTS) \n updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+activate Model
+
+Model --> eListCommand
+deactivate Model
+
+eListCommand --> LogicManager : result
+deactivate eListCommand
+eListCommand -[hidden]-> LogicManager : result
+destroy eListCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

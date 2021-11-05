@@ -57,4 +57,19 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Checks if a prefix present in this argument multimap has a non-empty value
+     */
+    public boolean anyPrefixValueNotEmpty() {
+        return argMultimap.values().stream().anyMatch(ls -> ls.stream().anyMatch(str -> !str.isBlank()));
+    }
+
+    /**
+     * Returns true if there are no prefixes in the argument multimap.
+     */
+    public boolean noPrefixesPresent() {
+        return argMultimap.entrySet().stream()
+            .allMatch(prefixListEntry -> prefixListEntry.getKey().equals(new Prefix("")));
+    }
 }

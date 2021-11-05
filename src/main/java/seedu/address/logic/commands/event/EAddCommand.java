@@ -9,28 +9,34 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
+import java.util.List;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventChanger;
 
 /**
  * Adds a event to the address book.
  */
-public class EAddCommand extends Command {
+public class EAddCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "eadd";
+    public static final String PARAMETERS = "" + PREFIX_NAME + "NAME "
+            + "" + PREFIX_START_TIME + "START "
+            + "[" + PREFIX_END_TIME + "END] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_ZOOM + "ZOOM] "
+            + "[" + PREFIX_TAG + "TAG]...\n";
+    public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_START_TIME + "START "
-            + PREFIX_END_TIME + "END "
-            + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_ZOOM + "ZOOM "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PARAMETERS
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Summer Party "
             + PREFIX_START_TIME + "12-12-2021 15:12 "
@@ -41,12 +47,13 @@ public class EAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book";
+    public static final String MESSAGE_INVALID_DATE_TIME_RANGE = "Event start time cannot be later than end time.";
 
     private final Event toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
-     * @param event
+     * @param event the specified Event
      */
     public EAddCommand(Event event) {
         requireNonNull(event);
@@ -61,8 +68,12 @@ public class EAddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
+        if (toAdd.getEndDateAndTime() != null && toAdd.getEndDateAndTime().isBefore(toAdd.getStartDateAndTime())) {
+            throw new CommandException(MESSAGE_INVALID_DATE_TIME_RANGE);
+        }
+
         model.addEvent(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), List.of(EventChanger.addEventChanger(toAdd)));
     }
 
     @Override

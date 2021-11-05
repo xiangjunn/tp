@@ -1,12 +1,16 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 
 /**
  * The API of the Model component.
@@ -39,6 +43,26 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Returns the display settings of the events.
+     */
+    EventDisplaySetting getEventDisplaySetting();
+
+    /**
+     * Sets the display settings of the events.
+     */
+    void setEventDisplaySetting(EventDisplaySetting eventDisplaySetting);
+
+    /**
+     * Returns the display settings of the contacts.
+     */
+    ContactDisplaySetting getContactDisplaySetting();
+
+    /**
+     * Sets the display settings of the contacts.
+     */
+    void setContactDisplaySetting(ContactDisplaySetting displaySetting);
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
@@ -53,8 +77,23 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /** Returns the current AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Adds new state of AddressBook to its history list */
+    void commitHistory();
+
+    /** Restores the previous addressBook state from its history */
+    void undoHistory();
+
+    /** Restores the previously undone state from its history */
+    void redoHistory();
+
+    /** Checks if the current state of addressBook is undoable */
+    boolean isUndoable();
+
+    /** Check if the current state of addressBook is redoable */
+    boolean isRedoable();
 
     //=========== Contact Management =============================================================
 
@@ -94,7 +133,20 @@ public interface Model {
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredContactList(Predicate<Contact> predicate);
+    void updateFilteredContactList(Predicate<? super Contact> predicate);
+
+    /**
+     * This will change the order of the filtered list, marked contacts will be placed at the top of the list.
+     * Places the newly marked contacts or replaces unmarked contacts
+     * in the order specified in {@code indexes} and depending on {@code isMark}.
+     */
+    void rearrangeContactsInOrder(List<Index> indexes, boolean isMark);
+
+    /**
+     * Updates the filter of the filtered contact list to show the contact at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateContactListByIndex(Index index);
 
     //=========== Event Management =============================================================
 
@@ -134,5 +186,67 @@ public interface Model {
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEventList(Predicate<Event> predicate);
+    void updateFilteredEventList(Predicate<? super Event> predicate);
+
+    /**
+     * Links an event to a contact. Both the event and contact will have reference to each other.
+     * @param event The event to link to contact.
+     * @param contact The contact to link to event.
+     */
+    void linkEventAndContact(Event event, Contact contact);
+
+    /**
+     * Unlinks an event to a contact. Both references between the contact and the event will be removed.
+     * @param event The event to unlink from contact.
+     * @param contact The contact to unlink from event.
+     */
+    void unlinkEventAndContact(Event event, Contact contact);
+
+    /** Unlinks an {@code event} from all its linked contacts. Both references between the contact and the event
+     *  will be removed.
+     */
+    void unlinkAllContactsFromEvent(Event event);
+
+    /**
+     * Sorts the filtered event list to show all upcoming events. This will change the order of the filtered list
+     * and remove any events which have concluded.
+     */
+    void sortUpcomingFilteredEventList();
+
+    /**
+     * Updates the filter of the filtered event list to show the event at {@code index}.
+     * @throws NullPointerException if {@code index} is null.
+     */
+    void updateEventListByIndex(Index index);
+
+    /**
+     * Re-render contact cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
+     */
+    void rerenderContactCards(boolean useBackSamePredicate);
+
+    /**
+     * Re-render event cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
+     */
+    void rerenderEventCards(boolean useBackSamePredicate);
+
+    /**
+     * Re-render both contact and event cards in UI to show the most updated version.
+     */
+    void rerenderAllCards();
+
+    /**
+     * This will change the order of the filtered list, marked events will be placed at the top of the list.
+     * Places the newly marked events or replaces unmarked events
+     * in the order specified in {@code indexes} and depending on {@code isMark}.
+     */
+    void rearrangeEventsInOrder(List<Index> indexes, boolean isMark);
+
+    /**
+     * Removes all links between contacts and events.
+     */
+    void removeAllLinks();
 }

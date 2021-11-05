@@ -3,13 +3,17 @@ package seedu.address.model.contact;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
 import seedu.address.model.common.ZoomLink;
+import seedu.address.model.event.Event;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,27 +21,25 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Contact {
-
-    private static boolean willDisplayPhone = true;
-    private static boolean willDisplayEmail = true;
-    private static boolean willDisplayTelegramHandle = true;
-    private static boolean willDisplayZoomLink = true;
-    private static boolean willDisplayAddress = true;
-    private static boolean willDisplayTags = true;
+    // stores references to all contacts, accessible by their unique UUIDs
+    private static HashMap<UUID, Contact> map = new HashMap<>();
 
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
     private final TelegramHandle telegramHandle;
+    private final UUID uuid;
 
     // Data fields
-    private final ZoomLink zoomLink;
     private final Address address;
+    private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<UUID> linkedEvents = new HashSet<>();
+    private final boolean isMarked;
 
     /**
-     * Every field, except telegram handle and zoom link must be present and not null.
+     * Name, email and tags must be present and not null.
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
@@ -50,6 +52,49 @@ public class Contact {
         this.tags.addAll(tags);
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
+        this.uuid = UUID.randomUUID(); // to generate a uuid to uniquely identify contact
+        this.isMarked = false;
+    }
+
+    /**
+     * This constructor is for creating contact stored in storage. The contact stored in storage contains information
+     * of uuid and events linked to it, in addition to information about other fields.
+     * This constructor ensures that everytime the application loads the data from storage, the uuid of the contact
+     * stays the same and contains uuid of events that are linked.
+     */
+    public Contact(
+        Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isMarked) {
+        requireAllNonNull(name, email, tags, isMarked);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.telegramHandle = telegramHandle;
+        this.zoomLink = zoomLink;
+        this.uuid = uuid;
+        this.linkedEvents.addAll(linkedEvents);
+        this.isMarked = isMarked;
+    }
+
+    /**
+     * This constructor is for creating contact stored in ContactBuilder.
+     * This constructor ensures that everytime a contact is created in ContactBuilder, its mark status is as specified.
+     */
+    public Contact(
+            Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
+            TelegramHandle telegramHandle, Set<Tag> tags, boolean isMarked) {
+        requireAllNonNull(name, email, tags, isMarked);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.telegramHandle = telegramHandle;
+        this.zoomLink = zoomLink;
+        this.uuid = UUID.randomUUID();
+        this.isMarked = isMarked;
     }
 
     public Name getName() {
@@ -76,6 +121,10 @@ public class Contact {
         return zoomLink;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -84,70 +133,64 @@ public class Contact {
         return Collections.unmodifiableSet(tags);
     }
 
-    public static boolean isWillDisplayPhone() {
-        return willDisplayPhone;
+    /**
+     * Returns a unmodifiable set of UUIDs, each uniquely represents an event, that are linked to the contact object
+     * that calls this method.
+     */
+    public Set<UUID> getLinkedEvents() {
+        return Collections.unmodifiableSet(linkedEvents);
     }
 
-    public static void setWillDisplayPhone(boolean willDisplayPhone) {
-        Contact.willDisplayPhone = willDisplayPhone;
+    public boolean getIsMarked() {
+        return isMarked;
     }
 
-    public static boolean isWillDisplayEmail() {
-        return willDisplayEmail;
+    /**
+     * Checks if this {@code name} contains any keywords in {code strings}
+     */
+    public boolean nameAnyMatch(List<String> strings) {
+        return name.containsString(strings);
     }
 
-    public static void setWillDisplayEmail(boolean willDisplayEmail) {
-        Contact.willDisplayEmail = willDisplayEmail;
+    /**
+     * Checks if this {@code email} contains any keywords in {code strings}
+     */
+    public boolean emailAnyMatch(List<String> strings) {
+        return email.containsString(strings);
     }
 
-    public static boolean isWillDisplayTelegramHandle() {
-        return willDisplayTelegramHandle;
+    /**
+     * Checks if this {@code phone} contains any keywords in {code strings}
+     */
+    public boolean phoneAnyMatch(List<String> strings) {
+        return (phone != null) && phone.containsString(strings);
+    }
+    /**
+     * Checks if this {@code address} contains any keywords in {code strings}
+     */
+    public boolean addressAnyMatch(List<String> strings) {
+        return (address != null) && address.containsString(strings);
     }
 
-    public static void setWillDisplayTelegramHandle(boolean willDisplayTelegramHandle) {
-        Contact.willDisplayTelegramHandle = willDisplayTelegramHandle;
+    /**
+     * Checks if this {@code telegramHandle} contains any keywords in {code strings}
+     */
+    public boolean telegramHandleAnyMatch(List<String> strings) {
+        return (telegramHandle != null) && telegramHandle.containsString(strings);
     }
 
-    public static boolean isWillDisplayZoomLink() {
-        return willDisplayZoomLink;
+    /**
+     * Checks if this {@code zoomLink} contains any keywords in {code strings}
+     */
+    public boolean zoomLinkAnyMatch(List<String> strings) {
+        return (zoomLink != null) && zoomLink.containsString(strings);
     }
 
-    public static void setWillDisplayZoomLink(boolean willDisplayZoomLink) {
-        Contact.willDisplayZoomLink = willDisplayZoomLink;
-    }
-
-    public static boolean isWillDisplayAddress() {
-        return willDisplayAddress;
-    }
-
-    public static void setWillDisplayAddress(boolean willDisplayAddress) {
-        Contact.willDisplayAddress = willDisplayAddress;
-    }
-
-    public static boolean isWillDisplayTags() {
-        return willDisplayTags;
-    }
-
-    public static void setWillDisplayTags(boolean willDisplayTags) {
-        Contact.willDisplayTags = willDisplayTags;
-    }
-
-    public static void setAllDisplayToTrue() {
-        willDisplayPhone = true;
-        willDisplayEmail = true;
-        willDisplayTelegramHandle = true;
-        willDisplayZoomLink = true;
-        willDisplayAddress = true;
-        willDisplayTags = true;
-    }
-
-    public static void setAllDisplayToFalse() {
-        willDisplayPhone = false;
-        willDisplayEmail = false;
-        willDisplayTelegramHandle = false;
-        willDisplayZoomLink = false;
-        willDisplayAddress = false;
-        willDisplayTags = false;
+    /**
+     * Checks if at least one of the {@code tags} contains any keywords in {code strings}
+     */
+    public boolean anyTagsContain(List<String> strings) {
+        return tags.stream().anyMatch(tag -> tag.containsString(strings));
     }
 
     /**
@@ -163,20 +206,83 @@ public class Contact {
                 && otherContact.getName().equals(getName());
     }
 
+    /**
+     * Checks if the contact is linked to a particular event.
+     */
+    public boolean hasLinkTo(Event event) {
+        UUID eventUuid = event.getUuid();
+        return linkedEvents.contains(eventUuid);
+    }
+
+    /**
+     * Links the event to the contact object that calls this method.
+     * @param event The event to be linked with.
+     * @return The contact that has link to the event passed in as parameter.
+     */
+    public Contact linkTo(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.add(event.getUuid());
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isMarked);
+        addToMap(updatedContact); // must update the map to represent the latest changes
+        return updatedContact;
+    }
+
+    /**
+     * Adds the contact to the hashmap that stores references to all contacts.
+     * If the hashmap already contains the UUID of the contact as key, the value associated to the
+     * key will be replaced to the contact passed as parameter to this method.
+     * @param contact The contact to be added.
+     */
+    public static void addToMap(Contact contact) {
+        map.put(contact.getUuid(), contact);
+    }
+
+    /**
+     * Returns a contact with the unique UUID that is passed in to the method.
+     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
+     * @param uuid The unique identifier for a contact in the hashmap.
+     */
+    public static Contact findByUuid(UUID uuid) {
+        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
+        return map.get(uuid);
+    }
+
+    /**
+     * Removes the link between the event and the contact object that calls this method.
+     * @param event The event to be unlinked.
+     * @return The contact that has no link to the event passed in as parameter.
+     */
+    public Contact unlink(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.remove(event.getUuid());
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isMarked);
+        addToMap(updatedContact);
+        return updatedContact;
+    }
+
+    /**
+     * Removes all links to the contact object that calls this method.
+     * @return The contact that has no link to any contacts.
+     */
+    public Contact clearAllLinks() {
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, new HashSet<>(), isMarked);
+        addToMap(updatedContact);
+        return updatedContact;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("; Phone: ")
-                .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress())
-                .append("; Zoom Link: ")
-                .append(getZoomLink())
-                .append("; Telegram: ")
-                .append(getTelegramHandle());
+                .append(getPhone() != null ? "; Phone: " + getPhone() : "") // optional
+                .append(getAddress() != null ? "; Address: " + getAddress() : "") // optional
+                .append(getZoomLink() != null ? "; Zoom Link: " + getZoomLink() : "") // optional
+                .append(getTelegramHandle() != null ? "; Telegram: " + getTelegramHandle() : ""); // optional
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
@@ -186,6 +292,10 @@ public class Contact {
         return builder.toString();
     }
 
+    /**
+     * Returns true if both contacts have the same details.
+     * This defines a stronger notion of equality between two contacts.
+     */
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -201,7 +311,8 @@ public class Contact {
             && Objects.equals(getTelegramHandle(), contact.getTelegramHandle())
             && Objects.equals(getZoomLink(), contact.getZoomLink())
             && Objects.equals(getAddress(), contact.getAddress())
-            && Objects.equals(getTags(), contact.getTags());
+            && Objects.equals(getTags(), contact.getTags())
+            && Objects.equals(getIsMarked(), contact.getIsMarked());
     }
 
     @Override

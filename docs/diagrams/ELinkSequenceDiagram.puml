@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ELinkCommandParser" as ELinkCommandParser LOGIC_COLOR
+participant "e:ELinkCommand" as ELinkCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("elink 1 c/1 c/2 c/3")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("elink 1 c/1 c/2 c/3")
+activate AddressBookParser
+
+create ELinkCommandParser
+AddressBookParser -> ELinkCommandParser
+activate ELinkCommandParser
+
+ELinkCommandParser --> AddressBookParser
+deactivate ELinkCommandParser
+
+AddressBookParser -> ELinkCommandParser : parse("elink 1 c/1 c/2 c/3")
+activate ELinkCommandParser
+
+create ELinkCommand
+ELinkCommandParser -> ELinkCommand
+activate ELinkCommand
+
+ELinkCommand --> ELinkCommandParser : e
+deactivate ELinkCommand
+
+ELinkCommandParser --> AddressBookParser : e
+deactivate ELinkCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ELinkCommandParser -[hidden]-> AddressBookParser
+destroy ELinkCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> ELinkCommand : execute()
+activate ELinkCommand
+
+loop 3 times
+    ELinkCommand -> Model : linkEventAndContact(contact, event)
+    activate Model
+
+    Model --> ELinkCommand
+    deactivate Model
+end
+
+create CommandResult
+ELinkCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ELinkCommand
+deactivate CommandResult
+
+ELinkCommand --> LogicManager : result
+deactivate ELinkCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

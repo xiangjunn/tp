@@ -6,14 +6,13 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          title="SoConnect" minWidth="680" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
@@ -30,6 +29,7 @@
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            <MenuItem fx:id="calendarItem" mnemonicParsing="false" onAction="#handleCalendar" text="Calendar" />
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
@@ -56,7 +56,7 @@
             <padding>
               <Insets right="10" bottom="10" left="10" />
             </padding>
-            <Label fx:id="contact" text="Your contacts" alignment="TOP_CENTER"></Label>
+            <Label fx:id="contact" text="Contacts" alignment="TOP_CENTER"></Label>
             <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
           </VBox>
 
@@ -66,7 +66,7 @@
             <padding>
               <Insets right="10" bottom="10" left="10" />
             </padding>
-            <Label fx:id="event" text="Your events" alignment="TOP_CENTER"></Label>
+            <Label fx:id="event" text="Events" alignment="TOP_CENTER"></Label>
             <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
           </VBox>
         </HBox>

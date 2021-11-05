@@ -3,13 +3,17 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -45,6 +49,9 @@ public class UniqueEventList implements Iterable<Event> {
         if (contains(toAdd)) {
             throw new DuplicateEventException();
         }
+        if (toAdd.getEndDateAndTime() != null && toAdd.getEndDateAndTime().isBefore(toAdd.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
+        }
         internalList.add(toAdd);
     }
 
@@ -60,9 +67,13 @@ public class UniqueEventList implements Iterable<Event> {
         if (index == -1) {
             throw new EventNotFoundException();
         }
-
         if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
             throw new DuplicateEventException();
+        }
+
+        if (target.getEndDateAndTime() != null
+            && target.getEndDateAndTime().isBefore(target.getStartDateAndTime())) {
+            throw new InvalidDateTimeRangeException();
         }
 
         internalList.set(index, editedEvent);
@@ -93,12 +104,65 @@ public class UniqueEventList implements Iterable<Event> {
         if (!eventsAreUnique(events)) {
             throw new DuplicateEventException();
         }
-
         internalList.setAll(events);
+    }
+
+    /**
+     * Sorts the events based on whether they are {@code isMarked} and {@code startDateTime}
+     */
+    public void sortEvents() {
+        internalList.sort(Comparator.comparing(Event::getStartDateAndTime));
+        internalList.sort(Comparator.comparing(Event::getIsMarked, Comparator.reverseOrder()));
     }
 
     public void resetEvents() {
         internalList.clear();
+    }
+
+    /**
+     * Moves marked events to the top of the list.
+     * Places the newly marked events or replaces newly unmarked events
+     * in the order specified in {@code indexes} and
+     * based on {@code isMarked} which signals whether this method is called by
+     * EMarkCommand or otherwise.
+     */
+    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMarked) {
+        ObservableList<Event> tempList = FXCollections.observableArrayList();
+        if (isMarked) {
+            indexes.forEach(index -> tempList.add(internalList.get(index.getZeroBased())));
+            internalUnmodifiableList.forEach(event -> {
+                if (!tempList.contains(event)) {
+                    tempList.add(event);
+                }
+            });
+            internalList.removeAll(internalUnmodifiableList);
+            internalList.addAll(tempList);
+        } else {
+            internalList.filtered(event -> event.getIsMarked()).forEach(event -> tempList.add(event));
+            indexes.forEach(index -> tempList.add(internalList.get(index.getZeroBased())));
+            internalList.filtered(event -> !event.getIsMarked() && !tempList.contains(event))
+                    .forEach(event -> tempList.add(event));
+            internalList.removeAll(internalUnmodifiableList);
+            internalList.addAll(tempList);
+        }
+    }
+
+    /**
+     * Update the UUID map in events.
+     */
+    public void updateEventMap() {
+        for (Event event : internalList) {
+            Event.addToMap(event);
+        }
+    }
+
+    /**
+     * Create a copy of a uniqueEventList
+     * @return
+     */
+    public ObservableList<Event> copy() {
+        List<Event> eventList = new ArrayList<>(internalList);
+        return FXCollections.observableArrayList(eventList);
     }
 
     /**

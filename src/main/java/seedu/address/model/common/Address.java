@@ -3,6 +3,10 @@ package seedu.address.model.common;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents address of an event or contact in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
@@ -31,7 +35,7 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -47,6 +51,16 @@ public class Address {
         return other == this // short circuit if same object
                 || (other instanceof Address // instanceof handles nulls
                 && value.equals(((Address) other).value)); // state check
+    }
+
+    /**
+     * Checks if this {@code value} contains any of {@code strings}
+     */
+    public boolean containsString(List<String> strings) {
+        requireNonNull(strings);
+        assert value != null : "the value should not be null";
+        return strings.stream().anyMatch(string ->
+                StringUtil.containsWordIgnoreCase(value, string));
     }
 
     @Override

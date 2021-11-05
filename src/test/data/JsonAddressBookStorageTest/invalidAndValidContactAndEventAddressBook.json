@@ -1,0 +1,38 @@
+{
+  "contacts": [ {
+    "name": "Valid Contact",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "address": "4th street"
+  }, {
+    "name": "Contact With Invalid Phone Field",
+    "phone": "948asdf2424",
+    "email": "hans@example.com",
+    "address": "4th street"
+  } ],
+  "events": [ {
+    "name": "Valid Event",
+    "start": "2021-03-27 15:30",
+    "end": "2021-03-27 15:30",
+    "description": "blah blah blah",
+    "address": "4th street",
+    "zoom": "a valid zoom link",
+    "tagged": [ ]
+  }, {
+    "name": "Event With Invalid startDateTime Field",
+    "start": "rsvrthbtrdbrbs",
+    "end": "2021-03-27 15:30",
+    "description": "2021-03-27 15:30",
+    "address": "4th street",
+    "zoom": "http://zoomlink.com",
+    "tagged": [ ]
+  }, {
+    "name": "Event With Invalid endDateTime Field",
+    "start": "2021-03-27 15:30",
+    "end": "what time is this",
+    "description": "",
+    "address": "4th street",
+    "zoom": "http://zoomlink.com",
+    "tagged": [ ]
+  }]
+}
