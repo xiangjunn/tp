@@ -13,7 +13,7 @@ full range of features it offers.
 
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -152,7 +152,7 @@ SoConnect will tell you that the _Command Syntax_ format is invalid!
    ![Ui](images/Ui.png)
    If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
 
-5. **Type the _command_ in the command box and press Enter** to execute it.
+5. **Type the command in the command box and press Enter** to execute it.
 
     <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
@@ -316,8 +316,13 @@ A contact can have any number of tags (including 0)
 </div>
 
 **Examples:**
-* `cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor`
-* `cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH`
+
+Input | Expected Output
+------|------------------
+`cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor` | You should see this message in the message box: `New contact added: Alex Doe; Email: e0123456@u.nus.edu; Address: COM1 #99-99; Telegram: johnDoe99; Tags: [Professor]` <br><br> You should also see `Alex Doe` **at the end** of your contact list: ![New Contact 1](images/demo-screenshots/caddEx1.png)
+`cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH` | You should see this message in the message box: `New contact added: Jon Cheng; Email: e7654321@u.nus.edu; Phone: 87654321; Address: COM1-0201; Zoom Link: https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH; Telegram: jonnyjohnny; Tags: [Senior][TA]`<br><br> You should also see `Jon Cheng` **at the end** of your contact list: ![New Contact 2](images/demo-screenshots/caddEx2.png)
+
+*Index of the newly added contact will depend on your previous number of contacts.
 
 
 ### Bookmarking a contact: `cmark`
@@ -337,7 +342,11 @@ Bookmarks the specified contact(s).
 </div>
 
 **Examples:**
-* `cmark 2` bookmarks the second contact in SoConnect.
+
+Input | Expected Output
+------|------------------
+`cmark 2` | Bookmarks the second contact of **currently displayed** contact list in SoConnect.
+
 
 _See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
 
