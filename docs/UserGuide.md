@@ -107,7 +107,7 @@ For each feature, you are provided with:
 
 This section details all the features and commands available in SoConnect that can help you with managing your contacts:
 * [Adding a contact](#adding-a-contact-cadd)
-* [Bookmarking a contact](#ming-a-contact-cmark)
+* [Bookmarking a contact](#bookmarking-a-contact-cmark)
 * [Clearing all contacts](#clearing-all-contacts-cclear)
 * [Deleting a contact](#deleting-a-contact-cdelete)
 * [Editing a contact](#editing-a-contact-cedit)
@@ -549,7 +549,7 @@ Removes bookmark of the specified event(s).
 * `eumark 1` removes the bookmark of the first event in SoConnect.
 * `eumark 2 4` removes the bookmark of the second and fourth event in SoConnect.
 
-_See Also: [Bookmarking an event](#marking-an-event-emark)_
+_See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
 
 ### Sorting events: `esort`
@@ -762,7 +762,7 @@ If you are still unable to open the file, [check your Java version](https://www.
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-a-contact-cadd)** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/James Ho p/22224444 e/hohohojames@u.nus.edu a/123, Clementi Rd, 1234665 t/Professor`
-**[Bookmark](#marking-a-contact-cmark)** | `cmark INDEX [INDEX]…`<br> e.g. `cmark 1 4`
+**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX [INDEX]…`<br> e.g. `cmark 1 4`
 **[Clear](#clearing-all-contacts-cclear)** | `cclear`
 **[Delete](#deleting-a-contact-cdelete)** | `cdelete INDEX1[-INDEX2]`<br> e.g. `cdelete 3` <br> e.g. `cdelete 1-5`
 **[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g. `cedit 3 dt/*`
