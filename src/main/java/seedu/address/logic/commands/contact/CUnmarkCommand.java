@@ -44,7 +44,7 @@ public class CUnmarkCommand extends Command implements Undoable {
         requireNonNull(model);
         String commandResult = "";
         List<Contact> lastShownList = model.getFilteredContactList();
-        if (indexesToUnmark.stream().anyMatch(index -> index.getZeroBased() > lastShownList.size())) {
+        if (indexesToUnmark.stream().anyMatch(index -> index.getZeroBased() >= lastShownList.size())) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
         Collections.reverse(indexesToUnmark);

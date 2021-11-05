@@ -44,7 +44,7 @@ public class EUnmarkCommand extends Command implements Undoable {
         requireNonNull(model);
         String commandResult = "";
         List<Event> lastShownList = model.getFilteredEventList();
-        if (indexesToUnmark.stream().anyMatch(index -> index.getZeroBased() > lastShownList.size())) {
+        if (indexesToUnmark.stream().anyMatch(index -> index.getZeroBased() >= lastShownList.size())) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         Collections.reverse(indexesToUnmark);

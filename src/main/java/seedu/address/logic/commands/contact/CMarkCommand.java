@@ -44,7 +44,7 @@ public class CMarkCommand extends Command implements Undoable {
         requireNonNull(model);
         String commandResult = "";
         List<Contact> lastShownList = model.getFilteredContactList();
-        if (indexesToMark.stream().anyMatch(index -> index.getZeroBased() > lastShownList.size())) {
+        if (indexesToMark.stream().anyMatch(index -> index.getZeroBased() >= lastShownList.size())) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
         Collections.reverse(indexesToMark);
