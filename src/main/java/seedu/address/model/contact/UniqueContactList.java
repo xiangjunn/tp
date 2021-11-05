@@ -5,10 +5,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,7 +111,9 @@ public class UniqueContactList implements Iterable<Contact> {
     /**
      * Moves marked contacts to the top of the list.
      * Places the newly marked contacts or replaces newly unmarked contacts
-     * in the order specified in {@code indexes} if specified.
+     * in the order specified in {@code indexes} and
+     * based on {@code isMarked} which signals whether this method is called by
+     * CMarkCommand or otherwise.
      */
     public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
         ObservableList<Contact> tempList = FXCollections.observableArrayList();
@@ -134,12 +134,6 @@ public class UniqueContactList implements Iterable<Contact> {
             internalList.removeAll(internalUnmodifiableList);
             internalList.addAll(tempList);
         }
-    }
-
-    private void transferElementsToNewList(Predicate<Contact> predicate, ObservableList<Contact> originalList,
-                                           Deque<Contact> newList) {
-        originalList.filtered(predicate).forEach(contact -> newList.add(contact));
-        originalList.filtered(predicate).forEach(contact -> originalList.remove(contact));
     }
 
     /**

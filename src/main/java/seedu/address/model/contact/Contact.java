@@ -36,7 +36,7 @@ public class Contact {
     private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedEvents = new HashSet<>();
-    private boolean isMarked;
+    private final boolean isMarked;
 
     /**
      * Name, email and tags must be present and not null.
@@ -75,6 +75,25 @@ public class Contact {
         this.zoomLink = zoomLink;
         this.uuid = uuid;
         this.linkedEvents.addAll(linkedEvents);
+        this.isMarked = isMarked;
+    }
+
+    /**
+     * This constructor is for creating contact stored in ContactBuilder.
+     * This constructor ensures that everytime a contact is created in ContactBuilder, its mark status is as specified.
+     */
+    public Contact(
+            Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
+            TelegramHandle telegramHandle, Set<Tag> tags, boolean isMarked) {
+        requireAllNonNull(name, email, tags, isMarked);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.telegramHandle = telegramHandle;
+        this.zoomLink = zoomLink;
+        this.uuid = UUID.randomUUID();
         this.isMarked = isMarked;
     }
 
@@ -124,10 +143,6 @@ public class Contact {
 
     public boolean getIsMarked() {
         return isMarked;
-    }
-
-    public void setMarked(boolean marked) {
-        isMarked = marked;
     }
 
     /**

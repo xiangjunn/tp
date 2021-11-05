@@ -17,7 +17,7 @@ class EMarkCommandParserTest {
     private EMarkCommandParser parser = new EMarkCommandParser();
 
     @Test
-    public void parse_validArgs_returnsBookmarkCommand() {
+    public void parse_validArgs_returnsMarkCommand() {
         List<Index> indexes = new ArrayList<>();
         indexes.addAll(Arrays.asList(Index.fromOneBased(1), Index.fromOneBased(2), Index.fromOneBased(8)));
         assertParseSuccess(parser, "1            2 8", new EMarkCommand(indexes));

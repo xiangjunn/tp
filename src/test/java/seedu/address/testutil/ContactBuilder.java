@@ -131,10 +131,6 @@ public class ContactBuilder {
      * Creates an {@code Contact} from this {@code Contactbuilder}.
      */
     public Contact build() {
-        Contact contact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags);
-        if (isMarked) {
-            contact.setMarked(true);
-        }
-        return contact;
+        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, isMarked);
     }
 }

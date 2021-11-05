@@ -33,12 +33,12 @@ import seedu.address.testutil.ContactBuilder;
 
 class CMarkCommandTest {
 
-    private static final Contact ELLE_BOOKMARKED = new ContactBuilder(ELLE).withMarked().build();
-    private Model expectedModel = new ModelManager(getAddressBookWith(getListWithBookmarkContact()), new UserPrefs());
+    private static final Contact ELLE_MARKED = new ContactBuilder(ELLE).withMarked().build();
+    private Model expectedModel = new ModelManager(getAddressBookWith(getListWithMarkContact()), new UserPrefs());
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private List<Contact> getListWithBookmarkContact() {
-        return new ArrayList<>(Arrays.asList(ELLE_BOOKMARKED, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
+    private List<Contact> getListWithMarkContact() {
+        return new ArrayList<>(Arrays.asList(ELLE_MARKED, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
     }
 
     public AddressBook getAddressBookWith(List<Contact> contactList) {

@@ -93,7 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Places marked {@code contacts} at the top of the list.
      * Places the newly marked contacts or replaces newly unmarked contacts
-     * in the order specified in {code indexes} if specified.
+     * in the order specified in {@code indexes} if specified.
      */
     public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
         contacts.rearrangeContactsInOrder(indexes, isMarked);
@@ -192,7 +192,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Places marked {@code events} at the top of the list.
      * Places the newly marked events or replaces newly unmarked events
-     * in the order specified in {code indexes} if specified.
+     * in the order specified in {@code indexes} if specified.
      */
     public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
         events.rearrangeEventsInOrder(indexes, isMark);

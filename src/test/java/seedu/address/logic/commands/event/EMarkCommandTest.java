@@ -31,13 +31,13 @@ import seedu.address.testutil.EventBuilder;
 
 class EMarkCommandTest {
 
-    private static final Event TEAM_MEETING_BOOKMARKED = new EventBuilder(TEAM_MEETING).withMarked().build();
+    private static final Event TEAM_MEETING_MARKED = new EventBuilder(TEAM_MEETING).withMarked().build();
 
     private Model expectedModel = new ModelManager(getAddressBookWith(getListWithMarkEvent()), new UserPrefs());
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private List<Event> getListWithMarkEvent() {
-        return new ArrayList<>(Arrays.asList(TEAM_MEETING_BOOKMARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
+        return new ArrayList<>(Arrays.asList(TEAM_MEETING_MARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
                 CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
     }
 
@@ -58,8 +58,8 @@ class EMarkCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         String expectedMessage = String.format(EMarkCommand.MESSAGE_SUCCESS, TEAM_MEETING) + "\n";
         List<Index> indexes = List.of(Index.fromOneBased(5));
-        EMarkCommand eBookmarkCommand = new EMarkCommand(indexes);
-        assertCommandSuccess(eBookmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
+        EMarkCommand eMarkCommand = new EMarkCommand(indexes);
+        assertCommandSuccess(eMarkCommand, model, new CommandResult(expectedMessage), expectedModel);
     }
 
     @Test
@@ -78,7 +78,7 @@ class EMarkCommandTest {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         model = expectedModel;
         EMarkCommand eMarkCommand = new EMarkCommand(indexes);
-        String expectedMessage = String.format(EMarkCommand.MESSAGE_ALREADY_MARKED, TEAM_MEETING_BOOKMARKED) + "\n";
+        String expectedMessage = String.format(EMarkCommand.MESSAGE_ALREADY_MARKED, TEAM_MEETING_MARKED) + "\n";
         assertCommandSuccess(eMarkCommand, model, expectedMessage, expectedModel);
     }
 

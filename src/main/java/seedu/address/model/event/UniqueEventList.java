@@ -122,7 +122,9 @@ public class UniqueEventList implements Iterable<Event> {
     /**
      * Moves marked events to the top of the list.
      * Places the newly marked events or replaces newly unmarked events
-     * in the order specified in {@code indexes} if specified.
+     * in the order specified in {@code indexes} and
+     * based on {@code isMarked} which signals whether this method is called by
+     * EMarkCommand or otherwise.
      */
     public void rearrangeEventsInOrder(List<Index> indexes, boolean isMarked) {
         ObservableList<Event> tempList = FXCollections.observableArrayList();

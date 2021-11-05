@@ -12,8 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class EMarkCommandParser implements Parser<EMarkCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the EBookmarkCommand
-     * and returns a EBookmarkCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EMarkCommand
+     * and returns a EMarkCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EMarkCommand parse(String args) throws ParseException {

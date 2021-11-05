@@ -132,10 +132,7 @@ public class EventBuilder {
      * Creates an {@code Event} from this {@code Eventbuilder}.
      */
     public Event build() {
-        Event event = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags);
-        if (isMarked) {
-            event.setMarked(true);
-        }
-        return event;
+        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags, isMarked);
+
     }
 }

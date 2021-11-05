@@ -28,7 +28,7 @@ public class EMarkCommand extends Command implements Undoable {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Marked Event: %1$s";
-    public static final String MESSAGE_ALREADY_MARKED = "Event Already Marked: %1$s";
+    public static final String MESSAGE_ALREADY_MARKED = "Event already Marked: %1$s";
 
     private final List<Index> indexesToMark;
 

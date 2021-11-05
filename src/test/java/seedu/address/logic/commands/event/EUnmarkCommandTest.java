@@ -31,13 +31,13 @@ import seedu.address.testutil.EventBuilder;
 
 class EUnmarkCommandTest {
 
-    private static final Event TEAM_MEETING_BOOKMARKED = new EventBuilder(TEAM_MEETING).withMarked().build();
+    private static final Event TEAM_MEETING_MARKED = new EventBuilder(TEAM_MEETING).withMarked().build();
 
     private Model expectedModel;
     private Model model;
 
-    private List<Event> getListWithBookmarkEvent() {
-        return new ArrayList<>(Arrays.asList(TEAM_MEETING_BOOKMARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
+    private List<Event> getListWithMarkedEvent() {
+        return new ArrayList<>(Arrays.asList(TEAM_MEETING_MARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
                 CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
     }
 
@@ -57,7 +57,7 @@ class EUnmarkCommandTest {
     @BeforeEach
     private void setUp() {
         expectedModel = new ModelManager(getAddressBookWith(getListAfterUnmark()), new UserPrefs());
-        model = new ModelManager(getAddressBookWith(getListWithBookmarkEvent()), new UserPrefs());
+        model = new ModelManager(getAddressBookWith(getListWithMarkedEvent()), new UserPrefs());
     }
 
     @Test
@@ -67,7 +67,7 @@ class EUnmarkCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        String expectedMessage = String.format(EUnmarkCommand.MESSAGE_SUCCESS, TEAM_MEETING_BOOKMARKED) + "\n";
+        String expectedMessage = String.format(EUnmarkCommand.MESSAGE_SUCCESS, TEAM_MEETING_MARKED) + "\n";
         List<Index> indexes = List.of(Index.fromOneBased(1));
         EUnmarkCommand eUnmarkCommand = new EUnmarkCommand(indexes);
         assertCommandSuccess(eUnmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
