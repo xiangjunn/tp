@@ -86,16 +86,16 @@ class EventTest {
         assertFalse(FOOTBALL_PRACTICE.equals(editedPractice));
 
         // different start time and date -> returns false
-         editedPractice = new EventBuilder(FOOTBALL_PRACTICE).withStartDateAndTime(VALID_START_DATE_TIME_EXAM).build();
+        editedPractice = new EventBuilder(FOOTBALL_PRACTICE).withStartDateAndTime(VALID_START_DATE_TIME_EXAM).build();
         assertFalse(FOOTBALL_PRACTICE.equals(editedPractice));
 
         // different tags -> returns false
-         editedPractice = new EventBuilder(FOOTBALL_PRACTICE).withTags(VALID_TAG_EXAMS).build();
+        editedPractice = new EventBuilder(FOOTBALL_PRACTICE).withTags(VALID_TAG_EXAMS).build();
         assertFalse(FOOTBALL_PRACTICE.equals(editedPractice));
     }
 
     @Test
-    void testLink_Unlink() {
+    void testLinkAndUnlink() {
         Event midtermCopy = new EventBuilder(CS2103_MIDTERM).build();
         Event expectedEvent = midtermCopy.linkTo(AMY);
 

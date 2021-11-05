@@ -3,7 +3,9 @@ package seedu.address.model.event;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.general.CommandTestUtil.*;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_START_DATE_TIME_TUTORIAL;
+import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.CS2100_CONSULTATION;
@@ -60,7 +62,8 @@ class UniqueEventListTest {
 
     @Test
     public void addEvent_invalidDateTimeRange_throwsInvalidDateTimeRangeException() {
-        assertThrows(InvalidDateTimeRangeException.class, () -> uniqueEventList.add(new EventBuilder(BIRTHDAY_PARTY).withEndDateAndTime(VALID_START_DATE_TIME_TUTORIAL).build()));
+        assertThrows(InvalidDateTimeRangeException.class, () -> uniqueEventList.add(
+                        new EventBuilder(BIRTHDAY_PARTY).withEndDateAndTime(VALID_START_DATE_TIME_TUTORIAL).build()));
     }
 
     @Test
