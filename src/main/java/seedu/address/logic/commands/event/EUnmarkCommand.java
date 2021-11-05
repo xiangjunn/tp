@@ -27,7 +27,7 @@ public class EUnmarkCommand extends Command implements Undoable {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Unmarked Event: %1$s";
-    public static final String MESSAGE_NOT_MARKED = "Event %1$s is not mrked!";
+    public static final String MESSAGE_NOT_MARKED = "Event not marked: %1$s";
 
     private final List<Index> indexesToUnmark;
 
