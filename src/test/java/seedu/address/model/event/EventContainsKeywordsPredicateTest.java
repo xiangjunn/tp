@@ -87,6 +87,7 @@ public class EventContainsKeywordsPredicateTest {
         predicate.setEndDateTimeKeywords(Arrays.asList("21-10-2021"));
         predicate.setAddressKeywords(Arrays.asList("12th"));
         predicate.setDescriptionKeywords(Arrays.asList("DUEEEET"));
+        predicate.setZoomLinkKeywords(Arrays.asList("zoom.com/12345678"));
         assertFalse(predicate.test(new EventBuilder().withName("CS2103T midterms")
                 .withStartDateAndTime("01-10-2021 11:10")
                 .withEndDateAndTime("01-10-2021 12:10")
