@@ -1,6 +1,10 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.general.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -11,24 +15,35 @@ import static seedu.address.logic.commands.general.CommandTestUtil.TELEGRAM_DESC
 import static seedu.address.logic.commands.general.CommandTestUtil.ZOOM_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.AMY;
+import static seedu.address.testutil.TypicalContacts.BOB;
+import static seedu.address.testutil.TypicalEvents.INTERVIEW;
+import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.commands.contact.CListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDisplaySetting;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -42,13 +57,14 @@ public class LogicManagerTest {
 
     private Model model = new ModelManager();
     private Logic logic;
+    private StorageManager storage;
 
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -65,9 +81,15 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = CListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, CListCommand.MESSAGE_SUCCESS, model);
+    public void execute_validUndoableCommand_success() throws Exception {
+        String cListCommand = CListCommand.COMMAND_WORD;
+        assertCommandSuccess(cListCommand, CListCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_validNotUndoableCommand_success() throws Exception {
+        String calendarCommand = CalendarCommand.COMMAND_WORD;
+        assertCommandSuccess(calendarCommand, CalendarCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
@@ -98,6 +120,100 @@ public class LogicManagerTest {
     @Test
     public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEventList().remove(0));
+    }
+
+    @Test
+    public void test_getAddressBook() {
+        Model newModel = new ModelStubWithAddressBook(new AddressBook());
+        Logic newLogic = new LogicManager(newModel, storage);
+        assertEquals(new AddressBook(), newLogic.getAddressBook());
+        AddressBook updatedAddressBook = new AddressBook();
+        updatedAddressBook.addContact(AMY);
+        newModel.setAddressBook(updatedAddressBook);
+        assertEquals(newModel.getAddressBook(), newLogic.getAddressBook());
+    }
+
+    @Test
+    public void test_getAddressBookFilePath() {
+        assertEquals(new UserPrefs().getAddressBookFilePath(), logic.getAddressBookFilePath());
+    }
+
+    @Test
+    public void test_getGuiSettings() {
+        Model newModel = new ModelStubWithGuiSettings(new GuiSettings());
+        Logic newLogic = new LogicManager(newModel, storage);
+        assertEquals(new GuiSettings(), newLogic.getGuiSettings());
+        GuiSettings settings = new GuiSettings(1, 1, 1, 1);
+        newModel.setGuiSettings(settings);
+        assertEquals(newModel.getGuiSettings(), newLogic.getGuiSettings());
+    }
+
+    @Test
+    public void test_getContactDisplaySetting() {
+        assertEquals(ContactDisplaySetting.DEFAULT_SETTING, logic.getContactDisplaySetting());
+        ContactDisplaySetting setting = new ContactDisplaySetting(true, true, true, false, false, false);
+        model.setContactDisplaySetting(setting);
+        assertEquals(setting, logic.getContactDisplaySetting());
+    }
+
+    @Test
+    public void test_getEventDisplaySetting() {
+        assertEquals(EventDisplaySetting.DEFAULT_SETTING, logic.getEventDisplaySetting());
+        EventDisplaySetting setting = new EventDisplaySetting(true, true, true, false, false, false);
+        model.setEventDisplaySetting(setting);
+        assertEquals(setting, logic.getEventDisplaySetting());
+    }
+
+    @Test
+    public void test_setGuiSettings() {
+        GuiSettings guiSettings = new GuiSettings(1, 1, 1, 1);
+        assertNotEquals(guiSettings, logic.getGuiSettings());
+        logic.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, logic.getGuiSettings());
+    }
+
+    @Test
+    public void test_filterContactsWithLinksToEvent() {
+        ModelStubWithPredicate newModel = new ModelStubWithPredicate();
+        Logic newLogic = new LogicManager(newModel, storage);
+        Event event = INTERVIEW.linkTo(AMY);
+        Contact c = AMY.linkTo(INTERVIEW);
+        Predicate<? super Contact> predicate = contact -> contact.getLinkedEvents().contains(event.getUuid());
+        newLogic.filterContactsWithLinksToEvent(event);
+
+        assertNotEquals(predicate.test(c), newModel.contactPredicate.test(BOB));
+        assertEquals(predicate.test(c), newModel.contactPredicate.test(c));
+    }
+
+    @Test
+    public void test_filterEventsWithLinkToContact() {
+        ModelStubWithPredicate newModel = new ModelStubWithPredicate();
+        Logic newLogic = new LogicManager(newModel, storage);
+        Event e = INTERVIEW.linkTo(AMY);
+        Contact contact = AMY.linkTo(INTERVIEW);
+        Predicate<? super Event> predicate = event -> event.getLinkedContacts().contains(contact.getUuid());
+        newLogic.filterEventsWithLinkToContact(contact);
+
+        assertNotEquals(predicate.test(e), newModel.eventPredicate.test(TEAM_MEETING));
+        assertEquals(predicate.test(e), newModel.eventPredicate.test(e));
+    }
+
+    @Test
+    public void test_resetFilterOfContacts() {
+        ModelStubWithBoolean newModel = new ModelStubWithBoolean();
+        Logic newLogic = new LogicManager(newModel, storage);
+        assertFalse(newModel.contactBoolean);
+        newLogic.resetFilterOfContacts();
+        assertTrue(newModel.contactBoolean);
+    }
+
+    @Test
+    public void test_resetFilterOfEvents() {
+        ModelStubWithBoolean newModel = new ModelStubWithBoolean();
+        Logic newLogic = new LogicManager(newModel, storage);
+        assertFalse(newModel.eventBoolean);
+        newLogic.resetFilterOfEvents();
+        assertTrue(newModel.eventBoolean);
     }
 
     /**
@@ -165,6 +281,93 @@ public class LogicManagerTest {
         public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, boolean isClose)
                 throws IOException {
             throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A Model stub that contains an address book.
+     */
+    private class ModelStubWithAddressBook extends ModelStub {
+        private ReadOnlyAddressBook addressBook;
+
+        ModelStubWithAddressBook(AddressBook addressBook) {
+            requireNonNull(addressBook);
+            this.addressBook = addressBook;
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return addressBook;
+        }
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook addressBook) {
+            requireNonNull(addressBook);
+            this.addressBook = addressBook;
+        }
+    }
+
+    /**
+     * A Model stub that contains a GUI settings.
+     */
+    private class ModelStubWithGuiSettings extends ModelStub {
+        private GuiSettings guiSettings;
+
+        ModelStubWithGuiSettings(GuiSettings guiSettings) {
+            requireNonNull(guiSettings);
+            this.guiSettings = guiSettings;
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            return guiSettings;
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            requireNonNull(guiSettings);
+            this.guiSettings = guiSettings;
+        }
+    }
+
+    /**
+     * A Model stub that contains contact and event predicates.
+     */
+    private class ModelStubWithPredicate extends ModelStub {
+        private Predicate<? super Contact> contactPredicate;
+        private Predicate<? super Event> eventPredicate;
+
+        @Override
+        public void updateFilteredContactList(Predicate<? super Contact> predicate) {
+            contactPredicate = predicate;
+        }
+
+        @Override
+        public void updateFilteredEventList(Predicate<? super Event> predicate) {
+            eventPredicate = predicate;
+        }
+    }
+
+    /**
+     * A Model stub that contains two booleans.
+     */
+    private class ModelStubWithBoolean extends ModelStub {
+        private boolean contactBoolean;
+        private boolean eventBoolean;
+
+        public ModelStubWithBoolean() {
+            contactBoolean = false;
+            eventBoolean = false;
+        }
+
+        @Override
+        public void rerenderContactCards(boolean useBackSamePredicate) {
+            contactBoolean = useBackSamePredicate;
+        }
+
+        @Override
+        public void rerenderEventCards(boolean useBackSamePredicate) {
+            eventBoolean = useBackSamePredicate;
         }
     }
 }
