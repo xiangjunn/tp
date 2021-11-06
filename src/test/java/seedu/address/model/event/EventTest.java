@@ -119,8 +119,4 @@ class EventTest {
         assertEquals(expectedEvent, CS2103_MIDTERM);
     }
 
-
-    @Test
-    void testToString() {
-    }
 }
