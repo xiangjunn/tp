@@ -3,7 +3,6 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 

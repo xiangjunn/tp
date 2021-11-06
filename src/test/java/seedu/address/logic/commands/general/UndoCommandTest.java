@@ -14,7 +14,6 @@ import static seedu.address.logic.commands.general.UndoCommand.MESSAGE_SUCCESS;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.LogicStub;
 import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.commands.contact.CListCommand;
@@ -26,8 +25,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.StorageManager;
-import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalAddressBook;
 
 class UndoCommandTest {

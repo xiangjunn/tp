@@ -1,9 +1,5 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.Undoable;
@@ -19,6 +15,7 @@ public class LogicStub extends LogicManager {
     private final Model model;
     private final AddressBookParser addressBookParser;
 
+    /** Creates a simple stub for a logic manager without storage. */
     public LogicStub(Model model) {
         super(model, null);
         addressBookParser = new AddressBookParser();
