@@ -2,6 +2,7 @@ package seedu.address.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_TUTORIAL;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_START_DATE_TIME_TUTORIAL;
@@ -118,6 +119,13 @@ class UniqueEventListTest {
                 DuplicateEventException.class, () -> uniqueEventList.setEvent(BIRTHDAY_PARTY, CS2100_CONSULTATION));
     }
 
+    @Test
+    public void setEvent_editedEventHasInvalidDateTimeRange_throwsInvalidDateTimeRangeException() {
+        uniqueEventList.add(BIRTHDAY_PARTY);
+        assertThrows(InvalidDateTimeRangeException.class, () -> uniqueEventList.setEvent(BIRTHDAY_PARTY,
+                        new EventBuilder(BIRTHDAY_PARTY).withEndDateAndTime(VALID_START_DATE_TIME_TUTORIAL).build()));
+    }
+
 
     @Test
     public void remove_nullEvent_throwsNullPointerException() {
@@ -183,5 +191,28 @@ class UniqueEventListTest {
         uniqueEventList.add(BIRTHDAY_PARTY);
         uniqueEventList.updateEventMap();
         assertEquals(BIRTHDAY_PARTY, Event.findByUuid(BIRTHDAY_PARTY.getUuid()));
+    }
+
+    @Test
+    public void test_hashCode() {
+        UniqueEventList uniqueEventListCopy = new UniqueEventList();
+        assertEquals(uniqueEventList.hashCode(), uniqueEventListCopy.hashCode());
+
+        uniqueEventListCopy.add(BIRTHDAY_PARTY);
+        uniqueEventList.add(BIRTHDAY_PARTY);
+        assertEquals(uniqueEventList.hashCode(), uniqueEventListCopy.hashCode());
+
+        uniqueEventList.add(CS2100_CONSULTATION);
+        assertNotEquals(uniqueEventList.hashCode(), uniqueEventListCopy.hashCode());
+    }
+
+    @Test
+    public void test_iterator() {
+        //empty uniqueEventList
+        assertFalse(uniqueEventList.iterator().hasNext());
+
+        //non-empty uniqueEventList
+        uniqueEventList.add(BIRTHDAY_PARTY);
+        assertTrue(uniqueEventList.iterator().hasNext());
     }
 }
