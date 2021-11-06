@@ -13,7 +13,7 @@ The non-exhaustive list given below are my contributions to the project. All fea
 
 * **New Feature**: Changed fields to `Contact` model (Previously known as `Person`).
   * What it does: allows the user to save details about the telegram handle and zoom meeting link of the saved contact, and allowing the user to omit certain details about the contact.
-  * Justification: Given that the users are mainly School of Computing (SoC) students in NUS, the product would be significantly more relevant if it allows students to save details like telegram handles and zoom meeting links of their friends, professors and tutors. Telegram and Zoom are widely used applications in NUS. Also, since students may not be able to obtain every single detail about a contact they want to save, for example, many tutors do not share their addresses and phone numbers. By making certain fields optional, our product becomes more suitable for SoC students to use.
+  * Justification: Given that the users are mainly School of Computing (SoC) students in NUS, the product would be significantly more relevant if it allows students to save details like telegram handles and Zoom meeting links of their friends, professors and tutors. Telegram and Zoom are widely used applications in NUS. Also, since students may not be able to obtain every single detail about a contact they want to save, for example, many tutors do not share their addresses and phone numbers. By making certain fields optional, our product becomes more suitable for SoC students to use.
   * Highlights: This enhancement affects how certain commands such as add or edit will work, since these commands do not accept optional fields, except for tags, in the original Address Book 3 implementation. 
 
 * **New Feature**: Added the [calendar user interface](../DeveloperGuide.html#calendar-ui-feature).
@@ -32,7 +32,7 @@ The non-exhaustive list given below are my contributions to the project. All fea
 * **Project management**:
   * Set up project dashboard and project milestones on GitHub.
   * Oversaw the entire project as the team leader.
-  * Came up with the [long-lived feature branch workflow](https://github.com/nus-cs2103-AY2122S1/forum/issues/325#issuecomment-946409090) in [v1.2b](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/90) and the feature branch workflow in v1.3 onwards. It serves to improve efficiency of the team contributions while maintaining protection of the master branch.
+  * Adopted the [long-lived feature branch workflow](https://github.com/nus-cs2103-AY2122S1/forum/issues/325#issuecomment-946409090) in [v1.2b](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/90) and the feature branch workflow in v1.3 onwards, to improve efficiency of the team contributions while maintaining protection of the master branch.
 
 * **Documentation**:
   * User Guide:
