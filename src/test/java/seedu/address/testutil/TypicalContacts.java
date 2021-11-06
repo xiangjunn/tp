@@ -60,9 +60,11 @@ public class TypicalContacts {
 
     // Manually added
     public static final Contact HOON = new ContactBuilder().withName("Hoon Meier").withPhone("8482424")
-        .withEmail("stefan@example.com").withAddress("little india").build();
+        .withEmail("stefan@example.com").withAddress("little india").withLinkedEvents().withMarked(false)
+        .withRandomUuid().build();
     public static final Contact IDA = new ContactBuilder().withName("Ida Mueller").withPhone("8482131")
-        .withEmail("hans@example.com").withAddress("chicago ave").build();
+        .withEmail("hans@example.com").withAddress("chicago ave").withLinkedEvents().withMarked(false).withRandomUuid()
+        .build();
 
     // Manually added
     public static final Contact AMY = new ContactBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

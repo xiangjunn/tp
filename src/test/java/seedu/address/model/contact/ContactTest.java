@@ -14,6 +14,8 @@ import static seedu.address.testutil.TypicalContacts.BOB;
 import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.CS2101_MEETING;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.ContactBuilder;
@@ -36,7 +38,7 @@ public class ContactTest {
 
         // same name, all other attributes different -> returns true
         Contact editedAlice = new ContactBuilder(ALICE_MARKED).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE_MARKED.isSameContact(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -80,6 +82,17 @@ public class ContactTest {
 
     }
 
+    @Test
+    public void constructor_invalidInputs() {
+        assertThrows(NullPointerException.class, () -> new ContactBuilder().withUuid(null).build());
+        assertThrows(NullPointerException.class, () -> new ContactBuilder().withName(null).build());
+        assertThrows(NullPointerException.class, () -> new ContactBuilder().withEmail(null).build());
+        assertThrows(NullPointerException.class, () -> new ContactBuilder().withLinkedEvents((UUID[]) null).build());
+        assertThrows(
+            NullPointerException.class, () -> new ContactBuilder().withLinkedEvents(null, UUID.randomUUID()).build());
+        assertThrows(NullPointerException.class, () -> new ContactBuilder().withTags((String[]) null).build());
+        assertThrows(NullPointerException.class, () -> new ContactBuilder().withTags(null, "tag").build());
+    }
 
     @Test
     public void equals() {

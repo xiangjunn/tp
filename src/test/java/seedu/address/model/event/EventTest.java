@@ -14,6 +14,8 @@ import static seedu.address.testutil.TypicalContacts.BOB;
 import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED;
 import static seedu.address.testutil.TypicalEvents.FOOTBALL_PRACTICE;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.EventBuilder;
@@ -26,6 +28,17 @@ class EventTest {
         assertThrows(UnsupportedOperationException.class, () -> event.getTags().remove(0));
     }
 
+    @Test
+    public void constructor_invalidInputs() {
+        assertThrows(NullPointerException.class, () -> new EventBuilder().withName(null).build());
+        assertThrows(NullPointerException.class, () -> new EventBuilder().withStartDateAndTime(null).build());
+        assertThrows(NullPointerException.class, () -> new EventBuilder().withUuid(null).build());
+        assertThrows(NullPointerException.class, () -> new EventBuilder().withLinkedContacts((UUID[]) null).build());
+        assertThrows(
+            NullPointerException.class, () -> new EventBuilder().withLinkedContacts(null, UUID.randomUUID()).build());
+        assertThrows(NullPointerException.class, () -> new EventBuilder().withTags((String[]) null).build());
+        assertThrows(NullPointerException.class, () -> new EventBuilder().withTags(null, "tag").build());
+    }
 
     @Test
     public void testIsSameEvent() {
@@ -37,8 +50,8 @@ class EventTest {
 
         // same name, all other attributes different -> returns true
         Event editedPractice = new EventBuilder(FOOTBALL_PRACTICE).withZoomLink(VALID_ZOOM_EXAM)
-                .withStartDateAndTime(VALID_START_DATE_TIME_EXAM)
-                .withAddress(VALID_ADDRESS_EXAM).withTags(VALID_TAG_EXAMS).build();
+            .withStartDateAndTime(VALID_START_DATE_TIME_EXAM)
+            .withAddress(VALID_ADDRESS_EXAM).withTags(VALID_TAG_EXAMS).build();
         assertTrue(FOOTBALL_PRACTICE.isSameEvent(editedPractice));
 
         // different name, all other attributes same -> returns false

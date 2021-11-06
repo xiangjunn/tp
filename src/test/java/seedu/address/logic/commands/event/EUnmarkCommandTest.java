@@ -71,7 +71,6 @@ class EUnmarkCommandTest {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         EUnmarkCommand eUnmarkCommand = new EUnmarkCommand(indexes);
         assertCommandSuccess(eUnmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
-        //TODO test with at least one marked event remaining
     }
 
     @Test
