@@ -33,6 +33,7 @@ import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.commands.contact.CListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.general.CalendarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -80,9 +81,15 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = CListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, CListCommand.MESSAGE_SUCCESS, model);
+    public void execute_validUndoableCommand_success() throws Exception {
+        String cListCommand = CListCommand.COMMAND_WORD;
+        assertCommandSuccess(cListCommand, CListCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_validNotUndoableCommand_success() throws Exception {
+        String calendarCommand = CalendarCommand.COMMAND_WORD;
+        assertCommandSuccess(calendarCommand, CalendarCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
