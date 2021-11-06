@@ -18,7 +18,7 @@ Given below are my contributions to the project.
     * Justification: This feature improves the product significantly because a user can save events next to the contact list using the same platform. This feature saves the trouble of the students from using multiple platforms to separately store the contacts and events.
     * Highlights: This enhancement affects certain existing commands and how new commands should be implemented, since the model manager will need to take in both `Contact` and `Event`. `Event` and `Contact` also owns different fields, which adds more complexity in how the commands should work.
    
-* **New Feature**: Added the [help window user interface]().
+* **New Feature**: Added the help window user interface
   * What it does: allows the user to view the command summary of SoConnect in a different visual interface. 
   * Justification: This feature improves the product significantly because a user (especially new user) might find it challenging to remember all commands provided by SoConnect.
   * Highlights: This enhancement requires the understanding of a third-party GUI framework.
@@ -36,28 +36,19 @@ Given below are my contributions to the project.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=w15-3&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=zoom&tabAuthor=janjanchen&tabRepo=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&zA=janjanchen&zR=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&zACS=199.78947368421052&zS=2021-09-17&zFS=w15-3&zU=2021-11-06&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)
 
-* **Project management**:
-
-[comment]: <> (    * Managed releases `v1.3` - `v1.5rc` &#40;3 releases&#41; on GitHub)
-
 * **Enhancements to existing features**:
-    * Changed logging and json file name
+    * Changed logging and json file name [\#98](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/98)
     
 * **Documentation**:
     * User Guide:
-        * Added documentation for the features `cadd`, `cedit`, `clist` and `cfind` [\#72]()
-        * Added documentation for the features `cview` and `eview` [\#72]()
-        * Added documentation for the features `help` [\#72]()
-        * Added documentation for `How to use SoConnect User Guide`, `Overview of SoConnect` , `List of Prefixes` and `Glossary`
+        * Added documentation for the features `cadd`, `cedit`, `clist` and `cfind` [\#11](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/11)
+        * Added documentation for the features `cview` and `eview` [\#78](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/78)
+        * Added documentation for the features `help` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/78)
+        * Added documentation for `How to use SoConnect User Guide`, `Overview of SoConnect` , `List of Prefixes` and `Glossary` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/78)
         * Did cosmetic tweaks to the document.
     * Developer Guide:
-        * Added implementation details of the `edelete` feature and `Model`.
+        * Added implementation details of the `edelete` feature and `Model`[\#127](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/127)
 
 * **Community**:
-
-[comment]: <> (    * PRs reviewed &#40;with non-trivial review comments&#41;: [\#12]&#40;&#41;, [\#32]&#40;&#41;, [\#19]&#40;&#41;, [\#42]&#40;&#41;)
-
-[comment]: <> (    * Reported bugs and suggestions for other teams in the class &#40;examples: [1]&#40;&#41;, [2]&#40;&#41;, [3]&#40;&#41;&#41;)
-
-[comment]: <> (    * Some parts of the history feature I added was adopted by several other class mates &#40;[1]&#40;&#41;, [2]&#40;&#41;&#41;)
+    * PRs reviewed (with non-trivial review comments): [\#117](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/117)
 
