@@ -310,6 +310,8 @@ The following sequence diagram shows how the `elink` operation works:
 
 The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `allHistory`, an ArrayList of all `HistoryInstance` of addressBook.
 
+![ModelHistoryDiagram](images/ModelHistory.png)
+
 - `HistoryInstance` is a nested class inside `ModelHistory` which keeps track of the current state of addressBook and its displaySetting.
 - `allHistory` is managed by two pointers `currentSize` and `maxSize`. `currentSize` indicates the current point in history, while `maxSize` indicates the last point of history. Both of these pointers will be initialised to 0 when the modelHistory is empty.
 - `Model History` implements the following operations:
@@ -362,7 +364,7 @@ The `redo` command does the opposite — it calls `Model#redoHistory()`, whi
 
 Step 5.
 
-- If the user decides to redo the previous `undo` command, the pointer `currentSize` will again be shifted forward by one, pointing to the last history instance. The previously undone addressBook state is restored.
+- If the user decides to `redo` the previous `undo` command, the pointer `currentSize` will again be shifted forward by one, pointing to the last history instance. The previously undone addressBook state is restored.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
