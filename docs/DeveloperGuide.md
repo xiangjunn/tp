@@ -308,39 +308,42 @@ The following sequence diagram shows how the `elink` operation works:
 
 ### Undo/redo feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `allHistory`, an ArrayList of all `HistoryInstance` of addressBook.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+- `HistoryInstance` is a nested class inside `ModelHistory` which keeps track of the current state of addressBook and its displaySetting.
+- `allHistory` is managed by two pointers `currentSize` and `maxSize`. `currentSize` indicates the current point in history, while `maxSize` indicates the last point of history. Both of these pointers will be initialised to 0 when the modelHistory is empty.
+- `Model History` implements the following operations:
+  * `commit()` — Saves the current history instance in the history.
+  * `undo()` — Restores the previous history instance book state from its history.
+  * `redo()` — Restores a previously undone history instance from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitHistory()`, `Model#undoHistory()` and `Model#redoHistory()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. A new model history will be initialised. The first version of addressbook and its display setting will also create the first history instance in the history. Both current and maximum size of history will increment by one.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `edelete 5` command to delete the 5th event in the event list. The `edelete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `edelete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `edelete 5` command to delete the 5th event in the event list. The `edelete` command calls `Model#commitHistory()`, causing the modified state of the address book after the `edelete 5` command executes to be saved in `allHistory` as a new history instance. Both `currentSize` and `maxSize` are incremented by 1, pointing to the newly inserted history instance.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `cadd n/David …​` to add a new contact. The `cadd` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `cadd n/David …​` to add a new contact. The `cadd` command also calls `Model#commitHistory()`, causing another modified address book state to be saved into `allHistory`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
+<div markdown="block" class="alert alert-info">:information_source: **Note:** 
+- If a command fails its execution, it will not call `Model#commitHistory()`, so the address book state will not be saved into `allHistory`.
+- For general commands (help, exit, calendar, undo, redo), `Model#commitHistory()` will not be called as they do not cause any changes to addressBook.
 </div>
 
-Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoHistory()`, which will shift the `currentSize` once to the left, pointing it to the previous history instance, and restores the address book and its displaySetting to that state. Pointer `maxSize` will not shift and will stay at the end point of the history.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentSize` is at index 0, pointing to the initial HistoryInstance, then there are no previous history instances to restore. The `undo` command uses `Model#isUndoable()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
-
 </div>
 
 The following sequence diagram shows how the undo operation works:
@@ -351,17 +354,19 @@ The following sequence diagram shows how the undo operation works:
 
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoHistory()`, which shifts the `currentSize` once to the right, pointing to the previously undone state, and restores the address book and its display setting to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentSize` is at the same point as `maxSize`, pointing to the latest history instance, then there are no undone AddressBook states to restore. The `redo` command uses `Model#isRedoable()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `clist`. Commands that do not modify the address book, such as `clist`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5.
+
+- If the user decides to redo the previous `undo` command, the pointer `currentSize` will again be shifted forward by one, pointing to the last history instance. The previously undone addressBook state is restored.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `eclear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+-  If the user instead executes another command such as `eclear`, this will call `Model#commitHistory()`. This will create a new history instance right after the current instance. Both `currentSize` and `maxSize` will be reset to point to this new instance. Any history instance following after will be ignored. Reason: It no longer makes sense to redo the `cadd n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -373,7 +378,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire address book and its display setting.
     * Pros: Easy to implement.
     * Cons: May have performance issues in terms of memory usage.
 

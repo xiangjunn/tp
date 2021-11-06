@@ -3,20 +3,24 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "edelete 5"
+title 2. After command "edelete 5"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+package ModelHistory {
+    class State1 as "__hi0:HistoryInstance__"
+    class State2 as "__hi1:HistoryInstance__"
+    class State3 as "__hi2:HistoryInstance__"
+    class State4 as "__hi3:HistoryInstance__"
 }
 
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
+State3 -[hidden]right-> State4
 
 hide State3
+hide State4
 
-class Pointer as "Current State" #FFF
-
-Pointer -up-> State2
+class Pointer1 as "Current Size" #FFF
+Pointer1 -up-> State2
+class Pointer2 as "Max Size" #FFF
+Pointer2 -up-> State2
 @end
