@@ -75,7 +75,6 @@ class CUnmarkCommandTest {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         CUnmarkCommand cunmarkCommand = new CUnmarkCommand(indexes);
         assertCommandSuccess(cunmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
-        //TODO test with at least one marked contact remaining
     }
 
     @Test
