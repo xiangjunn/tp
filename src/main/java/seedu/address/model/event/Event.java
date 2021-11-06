@@ -75,7 +75,7 @@ public class Event {
         this.address = address;
         this.zoomLink = zoomLink;
         this.tags.addAll(tags);
-        this.uuid = uuid;
+        this.uuid = uuid == null ? UUID.randomUUID() : uuid;
         this.linkedContacts.addAll(linkedContacts);
         this.isMarked = isMarked;
     }

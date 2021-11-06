@@ -163,11 +163,5 @@ class JsonAdaptedEventTest {
         assertThrows(IllegalValueException.class, event::toModelType);
     }
 
-    @Test
-    public void toModelType_nullUuid_throwsNullPointerException() {
-        Event eventWithNullUuid = new EventBuilder().withUuid(null).build();
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedEvent(eventWithNullUuid));
-    }
-
 }
 

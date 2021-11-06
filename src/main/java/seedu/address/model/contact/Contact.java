@@ -73,7 +73,7 @@ public class Contact {
         this.tags.addAll(tags);
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
-        this.uuid = uuid;
+        this.uuid = uuid == null ? UUID.randomUUID() : uuid;
         this.linkedEvents.addAll(linkedEvents);
         this.isMarked = isMarked;
     }
