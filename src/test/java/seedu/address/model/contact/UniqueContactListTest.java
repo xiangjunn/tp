@@ -2,6 +2,7 @@ package seedu.address.model.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -175,5 +176,28 @@ public class UniqueContactListTest {
         uniqueContactList.add(ALICE_MARKED);
         uniqueContactList.updateContactMap();
         assertEquals(ALICE_MARKED, Contact.findByUuid(ALICE_MARKED.getUuid()));
+    }
+
+    @Test
+    public void test_hashCode() {
+        UniqueContactList uniqueContactListCopy = new UniqueContactList();
+        assertEquals(uniqueContactList.hashCode(), uniqueContactListCopy.hashCode());
+
+        uniqueContactListCopy.add(ALICE);
+        uniqueContactList.add(ALICE);
+        assertEquals(uniqueContactList.hashCode(), uniqueContactListCopy.hashCode());
+
+        uniqueContactList.add(BOB);
+        assertNotEquals(uniqueContactList.hashCode(), uniqueContactListCopy.hashCode());
+    }
+
+    @Test
+    public void test_iterator() {
+        //empty uniqueContactList
+        assertFalse(uniqueContactList.iterator().hasNext());
+
+        //non-empty uniqueContactList
+        uniqueContactList.add(ALICE);
+        assertTrue(uniqueContactList.iterator().hasNext());
     }
 }

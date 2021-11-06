@@ -1,5 +1,6 @@
 package seedu.address.model.contact;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -10,6 +11,8 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUS
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalContacts.BOB;
+import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
+import static seedu.address.testutil.TypicalEvents.CS2101_MEETING;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +51,33 @@ public class ContactTest {
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new ContactBuilder(BOB).withName(nameWithTrailingSpaces).build();
         assertFalse(BOB.isSameContact(editedBob));
+    }
+
+    @Test
+    public void testLinkAndUnlink() {
+        Contact aliceCopy = new ContactBuilder(ALICE).build();
+        Contact expectedContact = aliceCopy.linkTo(CS2101_MEETING);
+
+        //link cs2101 meeting to alice
+        assertTrue(expectedContact.hasLinkTo(CS2101_MEETING));
+        assertEquals(expectedContact, ALICE.linkTo(CS2101_MEETING));
+        assertFalse(expectedContact.hasLinkTo(BIRTHDAY_PARTY));
+
+        //link birthday party to alice
+        expectedContact = expectedContact.linkTo(BIRTHDAY_PARTY);
+        assertTrue(expectedContact.hasLinkTo(BIRTHDAY_PARTY));
+        assertEquals(expectedContact, ALICE.linkTo(BIRTHDAY_PARTY).linkTo(CS2101_MEETING));
+
+        //unlink cs2101 meeting from alice
+        expectedContact = expectedContact.unlink(CS2101_MEETING);
+        assertFalse(expectedContact.hasLinkTo(CS2101_MEETING));
+        assertEquals(expectedContact, ALICE.linkTo(BIRTHDAY_PARTY));
+        assertTrue(expectedContact.hasLinkTo(BIRTHDAY_PARTY));
+
+        //clear all links
+        expectedContact = expectedContact.clearAllLinks();
+        assertEquals(expectedContact, ALICE);
+
     }
 
 

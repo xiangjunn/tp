@@ -84,7 +84,6 @@ public class TypicalEvents {
     private TypicalEvents() {
     }
 
-
     public static List<Event> getTypicalEvents() {
         return new ArrayList<>(
             Arrays.asList(CS2103_MIDTERM_MARKED, CS2100_CONSULTATION, CS2101_MEETING, FOOTBALL_PRACTICE,
