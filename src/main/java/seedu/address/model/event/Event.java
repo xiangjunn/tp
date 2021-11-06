@@ -80,25 +80,6 @@ public class Event {
         this.isMarked = isMarked;
     }
 
-    /**
-     * This constructor is for creating event stored in EventBuilder.
-     * This constructor ensures that everytime an event is created in EventBuilder, its marked status is as specified.
-     */
-    public Event(
-            Name name, StartDateTime startDateAndTime, EndDateTime endDateAndTime, Description description,
-            Address address, ZoomLink zoomLink, Set<Tag> tags, boolean isMarked) {
-        requireAllNonNull(name, startDateAndTime, this.tags);
-        this.name = name;
-        this.startDateAndTime = startDateAndTime;
-        this.endDateAndTime = endDateAndTime;
-        this.description = description;
-        this.address = address;
-        this.zoomLink = zoomLink;
-        this.tags.addAll(tags);
-        this.uuid = UUID.randomUUID();
-        this.isMarked = isMarked;
-    }
-
     public Name getName() {
         return name;
     }

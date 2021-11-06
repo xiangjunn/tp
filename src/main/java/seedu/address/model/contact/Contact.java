@@ -78,25 +78,6 @@ public class Contact {
         this.isMarked = isMarked;
     }
 
-    /**
-     * This constructor is for creating contact stored in ContactBuilder.
-     * This constructor ensures that everytime a contact is created in ContactBuilder, its mark status is as specified.
-     */
-    public Contact(
-            Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-            TelegramHandle telegramHandle, Set<Tag> tags, boolean isMarked) {
-        requireAllNonNull(name, email, tags, isMarked);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.telegramHandle = telegramHandle;
-        this.zoomLink = zoomLink;
-        this.uuid = UUID.randomUUID();
-        this.isMarked = isMarked;
-    }
-
     public Name getName() {
         return name;
     }
