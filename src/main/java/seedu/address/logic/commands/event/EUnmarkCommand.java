@@ -49,9 +49,6 @@ public class EUnmarkCommand extends Command implements Undoable {
         }
         Collections.reverse(indexesToUnmark);
         for (Index index : indexesToUnmark) {
-            if (index.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-            }
             Event event = lastShownList.get(index.getZeroBased());
             commandResult += String.format("%s", generateCommandResultMessage(event, event.getIsMarked()));
             if (event.getIsMarked()) {

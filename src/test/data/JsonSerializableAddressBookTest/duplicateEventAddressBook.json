@@ -1,0 +1,48 @@
+{
+  "contacts" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "telegramHandle" : null,
+    "zoomLink" : null,
+    "tagged" : [ "friends" ],
+    "uuid" : "a9dba5c9-4bce-481d-b2f5-d4820ecdd0a3",
+    "linkedEvents" : ["123e4567-e89b-12d3-a456-556642440002"],
+    "isMarked" : true
+  } ],
+  "events" : [ {
+    "name" : "CS2103 Midterms",
+    "description" : "I'm very unprepared",
+    "address" : "Zoom",
+    "tagged" : [ "exams" ],
+    "uuid" : "17e996a5-1f13-45fe-b9d2-f9517dff067f",
+    "linkedContacts" : [ ],
+    "isMarked" : true,
+    "startDateTime" : "20-10-2021 09:00",
+    "endDateTime" : "20-10-2021 11:00",
+    "zoomLink" : "nus-sg.edu/123%a"
+  }, {
+    "name" : "CS2103 Midterms",
+    "description" : "I'm very unprepared",
+    "address" : "Zoom",
+    "tagged" : [ "exams" ],
+    "uuid" : "17e996a5-1f13-45fe-b9d2-f9517dff067f",
+    "linkedContacts" : [ ],
+    "isMarked" : true,
+    "startDateTime" : "20-10-2021 09:00",
+    "endDateTime" : "20-10-2021 11:00",
+    "zoomLink" : "nus-sg.edu/123%a"
+  }, {
+    "name" : "CS2100 Consultation",
+    "description" : "Topics: Assembly Language",
+    "address" : "02-11 COM2",
+    "tagged" : [ "School" ],
+    "uuid" : "123e4567-e89b-12d3-a456-556642440002",
+    "linkedContacts" : [ "a9dba5c9-4bce-481d-b2f5-d4820ecdd0a3" ],
+    "isMarked" : false,
+    "startDateTime" : "17-10-2021 15:00",
+    "endDateTime" : "17-10-2021 16:00",
+    "zoomLink" : "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG"
+  } ]
+}

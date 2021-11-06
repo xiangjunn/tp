@@ -64,7 +64,7 @@ class JsonAdaptedEventTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedEvent event =
             new JsonAdaptedEvent(null, VALID_START_DATE_AND_TIME, VALID_END_DATE_AND_TIME, VALID_DESCRIPTION,
-            VALID_ADDRESS, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_CONTACTS, false);
+                VALID_ADDRESS, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_CONTACTS, false);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
@@ -83,7 +83,8 @@ class JsonAdaptedEventTest {
         JsonAdaptedEvent event =
             new JsonAdaptedEvent(VALID_NAME, null, VALID_END_DATE_AND_TIME, VALID_DESCRIPTION,
                 VALID_ADDRESS, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_CONTACTS, false);
-        String expectedMessage = String.format(JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT,
+        String expectedMessage = String.format(
+            JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT,
             StartDateTime.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
@@ -160,6 +161,12 @@ class JsonAdaptedEventTest {
             new JsonAdaptedEvent(VALID_NAME, VALID_START_DATE_AND_TIME, VALID_END_DATE_AND_TIME, VALID_DESCRIPTION,
                 VALID_ADDRESS, VALID_ZOOM_LINK, invalidTags, VALID_UUID, VALID_LINKED_CONTACTS, false);
         assertThrows(IllegalValueException.class, event::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullUuid_throwsNullPointerException() {
+        Event eventWithNullUuid = new EventBuilder().withUuid(null).build();
+        assertThrows(NullPointerException.class, () -> new JsonAdaptedEvent(eventWithNullUuid));
     }
 
 }

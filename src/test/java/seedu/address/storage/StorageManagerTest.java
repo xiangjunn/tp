@@ -65,4 +65,8 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
 
+    @Test
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
+    }
 }
