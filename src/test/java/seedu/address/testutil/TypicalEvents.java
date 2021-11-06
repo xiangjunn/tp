@@ -35,7 +35,7 @@ public class TypicalEvents {
             .withTags("meeting").build();
 
     public static final Event FOOTBALL_PRACTICE = new EventBuilder().withName("Football Practice")
-            .withAddress("USC").withStartDateAndTime("20-10-2021 09:00").withEndDateAndTime("20-10-2021 11:00")
+            .withAddress("USC").withStartDateAndTime("30-10-2021 09:00").withEndDateAndTime("30-10-2021 11:00")
             .build();
 
     public static final Event TEAM_MEETING = new EventBuilder().withName("Team Meeting")

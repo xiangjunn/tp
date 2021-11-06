@@ -71,8 +71,8 @@ public class UniqueEventList implements Iterable<Event> {
             throw new DuplicateEventException();
         }
 
-        if (target.getEndDateAndTime() != null
-            && target.getEndDateAndTime().isBefore(target.getStartDateAndTime())) {
+        if (editedEvent.getEndDateAndTime() != null
+            && editedEvent.getEndDateAndTime().isBefore(editedEvent.getStartDateAndTime())) {
             throw new InvalidDateTimeRangeException();
         }
 
@@ -158,7 +158,7 @@ public class UniqueEventList implements Iterable<Event> {
 
     /**
      * Create a copy of a uniqueEventList
-     * @return
+     * @return a copy of a uniqueEventList
      */
     public ObservableList<Event> copy() {
         List<Event> eventList = new ArrayList<>(internalList);
