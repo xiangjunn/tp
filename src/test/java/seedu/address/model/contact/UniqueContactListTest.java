@@ -183,8 +183,8 @@ public class UniqueContactListTest {
         UniqueContactList uniqueContactListCopy = new UniqueContactList();
         assertEquals(uniqueContactList.hashCode(), uniqueContactListCopy.hashCode());
 
-        uniqueContactListCopy.add(ALICE);
-        uniqueContactList.add(ALICE);
+        uniqueContactListCopy.add(ALICE_MARKED);
+        uniqueContactList.add(ALICE_MARKED);
         assertEquals(uniqueContactList.hashCode(), uniqueContactListCopy.hashCode());
 
         uniqueContactList.add(BOB);
@@ -197,7 +197,7 @@ public class UniqueContactListTest {
         assertFalse(uniqueContactList.iterator().hasNext());
 
         //non-empty uniqueContactList
-        uniqueContactList.add(ALICE);
+        uniqueContactList.add(ALICE_MARKED);
         assertTrue(uniqueContactList.iterator().hasNext());
     }
 }

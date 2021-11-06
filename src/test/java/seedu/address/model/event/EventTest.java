@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ZOOM_EX
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.AMY;
 import static seedu.address.testutil.TypicalContacts.BOB;
-import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM;
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED;
 import static seedu.address.testutil.TypicalEvents.FOOTBALL_PRACTICE;
 
 import org.junit.jupiter.api.Test;
@@ -46,32 +46,32 @@ class EventTest {
         assertFalse(FOOTBALL_PRACTICE.isSameEvent(editedPractice));
 
         // name differs in case, all other attributes same -> returns false
-        Event editedMidterm = new EventBuilder(CS2103_MIDTERM).withName(VALID_NAME_EXAM.toLowerCase()).build();
-        assertFalse(CS2103_MIDTERM.isSameEvent(editedMidterm));
+        Event editedMidterm = new EventBuilder(CS2103_MIDTERM_MARKED).withName(VALID_NAME_EXAM.toLowerCase()).build();
+        assertFalse(CS2103_MIDTERM_MARKED.isSameEvent(editedMidterm));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_EXAM + " ";
-        editedMidterm = new EventBuilder(CS2103_MIDTERM).withName(nameWithTrailingSpaces).build();
-        assertFalse(CS2103_MIDTERM.isSameEvent(editedMidterm));
+        editedMidterm = new EventBuilder(CS2103_MIDTERM_MARKED).withName(nameWithTrailingSpaces).build();
+        assertFalse(CS2103_MIDTERM_MARKED.isSameEvent(editedMidterm));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Event midtermCopy = new EventBuilder(CS2103_MIDTERM).build();
-        assertTrue(CS2103_MIDTERM.equals(midtermCopy));
+        Event midtermCopy = new EventBuilder(CS2103_MIDTERM_MARKED).build();
+        assertTrue(CS2103_MIDTERM_MARKED.equals(midtermCopy));
 
         // same object -> returns true
-        assertTrue(CS2103_MIDTERM.equals(CS2103_MIDTERM));
+        assertTrue(CS2103_MIDTERM_MARKED.equals(CS2103_MIDTERM_MARKED));
 
         // null -> returns false
-        assertFalse(CS2103_MIDTERM.equals(null));
+        assertFalse(CS2103_MIDTERM_MARKED.equals(null));
 
         // different type -> returns false
-        assertFalse(CS2103_MIDTERM.equals(5));
+        assertFalse(CS2103_MIDTERM_MARKED.equals(5));
 
         // different event -> returns false
-        assertFalse(CS2103_MIDTERM.equals(FOOTBALL_PRACTICE));
+        assertFalse(CS2103_MIDTERM_MARKED.equals(FOOTBALL_PRACTICE));
 
         // different name -> returns false
         Event editedPractice = new EventBuilder(FOOTBALL_PRACTICE).withName(VALID_NAME_EXAM).build();
@@ -96,27 +96,27 @@ class EventTest {
 
     @Test
     void testLinkAndUnlink() {
-        Event midtermCopy = new EventBuilder(CS2103_MIDTERM).build();
+        Event midtermCopy = new EventBuilder(CS2103_MIDTERM_MARKED).build();
         Event expectedEvent = midtermCopy.linkTo(AMY);
 
         //link Amy to CS2103 Midterm
         assertTrue(expectedEvent.hasLinkTo(AMY));
-        assertEquals(expectedEvent, CS2103_MIDTERM.linkTo(AMY));
+        assertEquals(expectedEvent, CS2103_MIDTERM_MARKED.linkTo(AMY));
         assertFalse(expectedEvent.hasLinkTo(BOB));
 
         //link Bob to CS2103 Midterm
         expectedEvent = expectedEvent.linkTo(BOB);
-        assertEquals(expectedEvent, CS2103_MIDTERM.linkTo(AMY).linkTo(BOB));
+        assertEquals(expectedEvent, CS2103_MIDTERM_MARKED.linkTo(AMY).linkTo(BOB));
         assertTrue(expectedEvent.hasLinkTo(BOB));
 
         //unlink Amy from CS2103 Midterm
         expectedEvent = expectedEvent.unlink(AMY);
         assertTrue(expectedEvent.hasLinkTo(BOB));
-        assertEquals(expectedEvent, CS2103_MIDTERM.linkTo(BOB));
+        assertEquals(expectedEvent, CS2103_MIDTERM_MARKED.linkTo(BOB));
         assertFalse(expectedEvent.hasLinkTo(AMY));
 
         expectedEvent = expectedEvent.clearAllLinks();
-        assertEquals(expectedEvent, CS2103_MIDTERM);
+        assertEquals(expectedEvent, CS2103_MIDTERM_MARKED);
     }
 
 }
