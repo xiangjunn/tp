@@ -343,16 +343,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String toString() {
-        return "ModelManager{"
-            + "addressBook=" + addressBook
-            + ", filteredContacts=" + filteredContacts
-            + ", filteredEvents=" + filteredEvents
-            + ", modelDisplaySetting=" + modelDisplaySetting
-            + '}';
-    }
-
-    @Override
     public void linkEventAndContact(Event event, Contact contact) {
         requireAllNonNull(event, contact);
 
