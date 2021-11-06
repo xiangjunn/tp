@@ -126,7 +126,7 @@ public class LogicManagerTest {
     public void test_getAddressBook() {
         Model newModel = new ModelStubWithAddressBook(new AddressBook());
         Logic newLogic = new LogicManager(newModel, storage);
-        assertEquals(newModel.getAddressBook(), newLogic.getAddressBook());
+        assertEquals(new AddressBook(), newLogic.getAddressBook());
         AddressBook updatedAddressBook = new AddressBook();
         updatedAddressBook.addContact(AMY);
         newModel.setAddressBook(updatedAddressBook);
@@ -142,7 +142,7 @@ public class LogicManagerTest {
     public void test_getGuiSettings() {
         Model newModel = new ModelStubWithGuiSettings(new GuiSettings());
         Logic newLogic = new LogicManager(newModel, storage);
-        assertEquals(newModel.getGuiSettings(), newLogic.getGuiSettings());
+        assertEquals(new GuiSettings(), newLogic.getGuiSettings());
         GuiSettings settings = new GuiSettings(1, 1, 1, 1);
         newModel.setGuiSettings(settings);
         assertEquals(newModel.getGuiSettings(), newLogic.getGuiSettings());
