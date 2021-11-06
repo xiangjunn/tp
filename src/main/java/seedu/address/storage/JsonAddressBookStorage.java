@@ -70,6 +70,12 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null.
      */
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        if (addressBook == null) {
+            throw new NullPointerException("Address book is null.");
+        }
+        if (filePath == null) {
+            throw new NullPointerException("File path is null.");
+        }
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
