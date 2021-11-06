@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
+import static seedu.address.testutil.TypicalContacts.HOON;
+import static seedu.address.testutil.TypicalContacts.IDA;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -71,8 +74,6 @@ public class JsonAddressBookStorageTest {
         ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
-        // TODO: Find the cause of the following test cases failing for MacOS.
-        /*
         // Modify data, overwrite exiting file, and read back
         original.addContact(HOON);
         original.removeContact(ALICE_MARKED);
@@ -85,7 +86,6 @@ public class JsonAddressBookStorageTest {
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));
-        */
     }
 
     @Test
