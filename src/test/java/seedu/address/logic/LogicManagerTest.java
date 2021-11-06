@@ -14,10 +14,8 @@ import static seedu.address.logic.commands.general.CommandTestUtil.PHONE_DESC_AM
 import static seedu.address.logic.commands.general.CommandTestUtil.TELEGRAM_DESC_AMY;
 import static seedu.address.logic.commands.general.CommandTestUtil.ZOOM_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.AMY;
 import static seedu.address.testutil.TypicalContacts.BOB;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalEvents.INTERVIEW;
 import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
 
@@ -41,7 +39,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.common.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactDisplaySetting;
 import seedu.address.model.event.Event;
@@ -50,8 +47,6 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.ContactBuilder;
-import seedu.address.testutil.TypicalContacts;
-import seedu.address.testutil.TypicalEvents;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -126,7 +121,7 @@ public class LogicManagerTest {
         Logic newLogic = new LogicManager(newModel, storage);
         assertEquals(newModel.getAddressBook(), newLogic.getAddressBook());
         AddressBook updatedAddressBook = new AddressBook();
-        updatedAddressBook.addContact(ALICE);
+        updatedAddressBook.addContact(AMY);
         newModel.setAddressBook(updatedAddressBook);
         assertEquals(newModel.getAddressBook(), newLogic.getAddressBook());
     }
@@ -149,7 +144,7 @@ public class LogicManagerTest {
     @Test
     public void test_getContactDisplaySetting() {
         assertEquals(ContactDisplaySetting.DEFAULT_SETTING, logic.getContactDisplaySetting());
-        ContactDisplaySetting setting = new ContactDisplaySetting(true, true ,true, false, false, false);
+        ContactDisplaySetting setting = new ContactDisplaySetting(true, true, true, false, false, false);
         model.setContactDisplaySetting(setting);
         assertEquals(setting, logic.getContactDisplaySetting());
     }
@@ -157,7 +152,7 @@ public class LogicManagerTest {
     @Test
     public void test_getEventDisplaySetting() {
         assertEquals(EventDisplaySetting.DEFAULT_SETTING, logic.getEventDisplaySetting());
-        EventDisplaySetting setting = new EventDisplaySetting(true, true ,true, false, false, false);
+        EventDisplaySetting setting = new EventDisplaySetting(true, true, true, false, false, false);
         model.setEventDisplaySetting(setting);
         assertEquals(setting, logic.getEventDisplaySetting());
     }
@@ -174,8 +169,8 @@ public class LogicManagerTest {
     public void test_filterContactsWithLinksToEvent() {
         ModelStubWithPredicate newModel = new ModelStubWithPredicate();
         Logic newLogic = new LogicManager(newModel, storage);
-        Event event = INTERVIEW.linkTo(ALICE);
-        Contact c = ALICE.linkTo(INTERVIEW);
+        Event event = INTERVIEW.linkTo(AMY);
+        Contact c = AMY.linkTo(INTERVIEW);
         Predicate<? super Contact> predicate = contact -> contact.getLinkedEvents().contains(event.getUuid());
         newLogic.filterContactsWithLinksToEvent(event);
 
@@ -187,8 +182,8 @@ public class LogicManagerTest {
     public void test_filterEventsWithLinkToContact() {
         ModelStubWithPredicate newModel = new ModelStubWithPredicate();
         Logic newLogic = new LogicManager(newModel, storage);
-        Event e = INTERVIEW.linkTo(ALICE);
-        Contact contact = ALICE.linkTo(INTERVIEW);
+        Event e = INTERVIEW.linkTo(AMY);
+        Contact contact = AMY.linkTo(INTERVIEW);
         Predicate<? super Event> predicate = event -> event.getLinkedContacts().contains(contact.getUuid());
         newLogic.filterEventsWithLinkToContact(contact);
 
