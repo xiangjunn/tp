@@ -24,6 +24,14 @@ class DescriptionTest {
     }
 
     @Test
+    public void validDescription_returnsValueInString() {
+        Description description = new Description("description 1");
+        String expectedValue = description.value;
+
+        assertEquals(expectedValue, description.toString());
+    }
+
+    @Test
     public void isValidDescription() {
         // null description
         assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
@@ -63,4 +71,5 @@ class DescriptionTest {
         assertEquals(description, description);
         assertNotEquals(description, differentDescription);
     }
+
 }

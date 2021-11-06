@@ -103,5 +103,38 @@ class DateAndTimeTest {
         assertTrue(thirdDateTime.compareTo(firstDateTime) > 0);
         assertEquals(0, secondDateTime.compareTo(secondDuplicate));
     }
+
+
+
+    @Test
+    public void testEquals() {
+        DateAndTime dateTime = new DateAndTime("30-09-2021 22:50");
+        DateAndTime dateTimeCopy = new DateAndTime("30-09-2021 22:50");
+        DateAndTime differentDate = new DateAndTime("30-12-2021 22:55");
+        DateAndTime differentTime = new DateAndTime("30-09-2021 00:30");
+        DateAndTime differentDateTime = new DateAndTime("30-12-2021 00:30");
+
+        // same object -> returns true
+        assertTrue(dateTime.equals(dateTime));
+
+        // null -> returns false
+        assertFalse(dateTime.equals(null));
+
+        // same values -> returns true
+        assertTrue(dateTime.equals(dateTimeCopy));
+
+        // different type -> returns false
+        assertFalse(dateTime.equals(1));
+
+        // different date -> returns false
+        assertFalse(dateTime.equals(differentDate));
+
+        // different time -> returns false
+        assertFalse(dateTime.equals(differentTime));
+
+        // different date and time -> returns false
+        assertFalse(dateTime.equals(differentDateTime));
+
+    }
 }
 
