@@ -159,7 +159,7 @@ public class EventCard extends UiPart<Region> {
             links.setManaged(true);
             linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
         }
-        if (event.getIsBookMarked()) {
+        if (event.getIsMarked()) {
             favourite.setManaged(true);
             favourite.setVisible(true);
         }

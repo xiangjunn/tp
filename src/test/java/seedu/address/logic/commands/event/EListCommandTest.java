@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.assertCommand
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
 import static seedu.address.model.event.EventDisplaySetting.DEFAULT_SETTING;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class EListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     @Test
@@ -35,7 +35,7 @@ class EListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showEventAtIndex(model, INDEX_FIRST_EVENT);
+        showEventAtIndex(model, INDEX_FIRST);
         expectedModel.setEventDisplaySetting(DEFAULT_SETTING);
         assertCommandSuccess(new EListCommand(DEFAULT_SETTING), model, EListCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -49,7 +49,7 @@ class EListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsSomeFields() {
-        showEventAtIndex(model, INDEX_FIRST_EVENT);
+        showEventAtIndex(model, INDEX_FIRST);
         EventDisplaySetting eventDisplaySetting = new EventDisplaySetting(true, false, false, false, true, false);
         expectedModel.setEventDisplaySetting(eventDisplaySetting);
         assertCommandSuccess(new EListCommand(eventDisplaySetting), model, EListCommand.MESSAGE_SUCCESS, expectedModel);

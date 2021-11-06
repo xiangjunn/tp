@@ -93,7 +93,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TELEGRAM_DESC = " " + PREFIX_TELEGRAM + "2103"; // Minimal 5 characters allowed
-    public static final String INVALID_ZOOM_DESC = " " + PREFIX_ZOOM + "zoom"; // Only valid url allowed
+    public static final String INVALID_ZOOM_DESC = " " + PREFIX_ZOOM + ""; // empty url not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -179,8 +179,6 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-            System.out.println(expectedCommandResult.getFeedbackToUser());
-            System.out.println(result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -218,7 +216,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the contact at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showContactAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredContactList().size());
 
         Contact contact = model.getFilteredContactList().get(targetIndex.getZeroBased());

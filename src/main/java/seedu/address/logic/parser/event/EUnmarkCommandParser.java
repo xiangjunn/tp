@@ -17,8 +17,11 @@ public class EUnmarkCommandParser implements Parser<EUnmarkCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EUnmarkCommand parse(String args) throws ParseException {
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EUnmarkCommand.MESSAGE_USAGE));
+        }
         try {
-            List<Index> indexes = ParserUtil.parseBookmarkIndexes(args);
+            List<Index> indexes = ParserUtil.parseMarkIndexes(args);
             return new EUnmarkCommand(indexes);
         } catch (ParseException pe) {
             throw new ParseException(

@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() and the same Event Values as in TypicalEvents#getTypicalAddressBook()",
+  "_comment": "AddressBook save file which contains the same Contact values as in TypicalContacts#getTypicalAddressBook() and the same Event Values as in TypicalEvents#getTypicalAddressBook()",
   "events" : [  {
     "name": "Birthday party",
     "start": "23-10-2021 20:00",
@@ -38,8 +38,8 @@
     "uuid" : "123e4567-e89b-12d3-a456-556642440004"
   }, {
     "name": "Football Practice",
-    "start": "20-10-2021 09:00",
-    "end": "20-10-2021 11:00",
+    "start": "30-10-2021 09:00",
+    "end": "30-10-2021 11:00",
     "description": null,
     "address": "USC",
     "zoom": null,

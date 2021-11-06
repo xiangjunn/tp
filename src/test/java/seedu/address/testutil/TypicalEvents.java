@@ -35,8 +35,8 @@ public class TypicalEvents {
             .withTags("meeting").build();
 
     public static final Event FOOTBALL_PRACTICE = new EventBuilder().withName("Football Practice")
-            .withAddress("USC").withStartDateAndTime("20-10-2021 09:00").withEndDateAndTime("20-10-2021 11:00")
-            .withTags("CCA").build();
+            .withAddress("USC").withStartDateAndTime("30-10-2021 09:00").withEndDateAndTime("30-10-2021 11:00")
+            .build();
 
     public static final Event TEAM_MEETING = new EventBuilder().withName("Team Meeting")
             .withAddress("Zoom").withZoomLink("nus-edu.sg/123link")
@@ -78,7 +78,7 @@ public class TypicalEvents {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Event event : getTypicalEvents()) {
-            ab.addEvent(event);
+            ab.addEvent(new EventBuilder(event).build());
         }
         return ab;
     }

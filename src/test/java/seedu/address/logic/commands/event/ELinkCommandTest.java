@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,22 +26,34 @@ class ELinkCommandTest {
     private final AddressBook typicalAddressBook = TypicalAddressBook.getTypicalAddressBook();
     private final Model typicalModel = new ModelManager(typicalAddressBook, new UserPrefs());
 
-    private String generateStringFromSet(Set<Contact> set) {
+    private String generateSuccessfulLink(Event eventToLink, Set<Contact> set) {
         assert !set.isEmpty();
         StringBuilder result = new StringBuilder();
         for (Contact contact : set) {
-            result.append(contact.getName());
-            result.append(", ");
+            String resultForEachLink = String.format(ELinkCommand.MESSAGE_SUCCESS,
+                    eventToLink.getName(), contact.getName());
+            result.append(resultForEachLink);
         }
-        result.replace(result.length() - 2, result.length(), "");
-        return result.append(".").toString();
+        return result.toString();
+    }
+
+    private String generateAlreadyLinked(Event eventToLink, Set<Contact> set) {
+        assert !set.isEmpty();
+        StringBuilder result = new StringBuilder();
+        for (Contact contact : set) {
+            String resultForEachLink = String.format(ELinkCommand.MESSAGE_ALREADY_LINKED,
+                eventToLink.getName(), contact.getName());
+            result.append(resultForEachLink);
+        }
+        return result.toString();
     }
 
     @Test
     public void execute_singleLink_success() {
+        // first index of event list and first index of contact list
         ELinkCommand eLinkCommand = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_FIRST_PERSON));
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST));
         Event eventToLink = typicalModel.getFilteredEventList().get(0);
         Contact contactToLink = typicalModel.getFilteredContactList().get(0);
         Model newModel = new ModelManager(typicalAddressBook, new UserPrefs());
@@ -51,18 +61,19 @@ class ELinkCommandTest {
             newModel.getFilteredEventList().get(0),
             newModel.getFilteredContactList().get(0));
         assertCommandSuccess(
-            eLinkCommand, typicalModel, String.format(ELinkCommand.MESSAGE_SUCCESS, eventToLink.getName(), "",
-                generateStringFromSet(Set.of(contactToLink))), newModel);
+            eLinkCommand, typicalModel, generateSuccessfulLink(eventToLink, Set.of(contactToLink)), newModel);
     }
 
     @Test
     public void execute_multiLink_success() {
+        // first index of event list and set of first and second indexes of contact list
         ELinkCommand eLinkCommand = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON));
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST, INDEX_SECOND));
         Event eventToLink = typicalModel.getFilteredEventList().get(0);
         Contact contact1ToLink = typicalModel.getFilteredContactList().get(0);
         Contact contact2ToLink = typicalModel.getFilteredContactList().get(1);
+        Set<Contact> setOfContacts = Set.of(contact1ToLink, contact2ToLink);
         Model newModel = new ModelManager(typicalAddressBook, new UserPrefs());
         newModel.linkEventAndContact(
             newModel.getFilteredEventList().get(0),
@@ -71,33 +82,58 @@ class ELinkCommandTest {
             newModel.getFilteredEventList().get(0),
             newModel.getFilteredContactList().get(1));
         assertCommandSuccess(
-            eLinkCommand, typicalModel, String.format(ELinkCommand.MESSAGE_SUCCESS, eventToLink.getName(), "s",
-                generateStringFromSet(Set.of(contact1ToLink, contact2ToLink))), newModel);
+            eLinkCommand, typicalModel, generateSuccessfulLink(eventToLink, setOfContacts),
+            newModel);
+    }
+
+    @Test
+    public void execute_alreadyLinked_successWithErrorMessage() {
+        // first index of event list and first index of contact list
+        ELinkCommand eLinkCommand = new ELinkCommand(
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST));
+        Event eventToLink = typicalModel.getFilteredEventList().get(0);
+        Contact contactToLink = typicalModel.getFilteredContactList().get(0);
+        typicalModel.linkEventAndContact(eventToLink, contactToLink);
+        Model newModel = new ModelManager(typicalAddressBook, new UserPrefs());
+        newModel.linkEventAndContact(
+            newModel.getFilteredEventList().get(0),
+            newModel.getFilteredContactList().get(0));
+        assertCommandSuccess(
+            eLinkCommand, typicalModel, generateAlreadyLinked(eventToLink, Set.of(contactToLink)), newModel);
     }
 
     @Test
     public void execute_invalidIndex_failure() {
         ELinkCommand eLinkCommand = new ELinkCommand(
             Index.fromZeroBased(100),
-            Set.of(INDEX_SECOND_PERSON));
+            Set.of(INDEX_SECOND));
         assertCommandFailure(eLinkCommand, typicalModel, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         ELinkCommand eLinkCommand2 = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_SECOND_PERSON, Index.fromZeroBased(101)));
+            INDEX_FIRST,
+            Set.of(INDEX_SECOND, Index.fromZeroBased(101)));
         assertCommandFailure(eLinkCommand2, typicalModel, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
     public void testEquals() {
-        ELinkCommand eLinkCommand1 = new ELinkCommand(INDEX_FIRST_EVENT, Set.of(INDEX_FIRST_PERSON));
-        Set<Index> set = new HashSet<>();
-        set.add(INDEX_FIRST_PERSON);
-        set.add(INDEX_SECOND_PERSON);
-        ELinkCommand eLinkCommand2 = new ELinkCommand(INDEX_FIRST_EVENT, set);
+        // first index of event list and first index of contact list
+        ELinkCommand eLinkCommand1 = new ELinkCommand(INDEX_FIRST, Set.of(INDEX_FIRST));
+        Set<Index> setOfContactIndexes = new HashSet<>();
+        setOfContactIndexes.add(INDEX_FIRST);
+        setOfContactIndexes.add(INDEX_SECOND);
+
+        // first index of event list and the set of contact list indexes
+        ELinkCommand eLinkCommand2 = new ELinkCommand(INDEX_FIRST, setOfContactIndexes);
+
+        // first index of event list and set of first and second indexes of contact list
         ELinkCommand eLinkCommand3 = new ELinkCommand(
-            INDEX_FIRST_EVENT,
-            Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON));
-        ELinkCommand eLinkCommand4 = new ELinkCommand(INDEX_SECOND_EVENT, set);
+            INDEX_FIRST,
+            Set.of(INDEX_FIRST, INDEX_SECOND));
+
+        // second index of event list and the set of contact list indexes
+        ELinkCommand eLinkCommand4 = new ELinkCommand(INDEX_SECOND, setOfContactIndexes);
+
         assertEquals(eLinkCommand1, eLinkCommand1);
         assertNotEquals(eLinkCommand1, eLinkCommand2);
         assertEquals(eLinkCommand2, eLinkCommand3);

@@ -34,7 +34,7 @@ class JsonSerializableAddressBook {
      * Constructs a {@code JsonSerializableAddressBook} with the given contacts and events.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedContact> contacts,
+    public JsonSerializableAddressBook(@JsonProperty("contacts") List<JsonAdaptedContact> contacts,
                                        @JsonProperty("events") List<JsonAdaptedEvent> events) {
         if (contacts != null) {
             this.contacts.addAll(contacts);
@@ -60,8 +60,7 @@ class JsonSerializableAddressBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public AddressBook toModelType() throws IllegalValueException {
-        AddressBook.clearHistory();
-        AddressBook addressBook = AddressBook.getCurrentAddressBook();
+        AddressBook addressBook = new AddressBook();
         for (JsonAdaptedContact jsonAdaptedContact : contacts) {
             Contact contact = jsonAdaptedContact.toModelType();
             if (addressBook.hasContact(contact)) {

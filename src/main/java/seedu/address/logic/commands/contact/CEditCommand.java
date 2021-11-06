@@ -22,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.Address;
@@ -36,7 +37,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing contact in the address book.
  */
-public class CEditCommand extends Command {
+public class CEditCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "cedit";
     public static final String PARAMETERS = "[" + PREFIX_NAME + "NAME] "
@@ -61,9 +62,15 @@ public class CEditCommand extends Command {
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
+    public static final String MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL = "Contact already has %s tag.\n";
+    public static final String MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL =
+            "Contact does not contain %s tag to delete.\n";
 
     private final Index index;
     private final EditContactDescriptor editContactDescriptor;
+    // to be displayed to user if user tries to delete a tag that does not exist
+    // or add a tag that already exists
+    private String infoMessage = "";
 
     /**
      * @param index                 of the contact in the filtered contact list to edit
@@ -81,7 +88,7 @@ public class CEditCommand extends Command {
      * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
      * edited with {@code editContactDescriptor}.
      */
-    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor) {
+    private Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor) {
         assert contactToEdit != null;
 
         Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
@@ -97,7 +104,7 @@ public class CEditCommand extends Command {
             ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, contactToEdit.getTags());
         Contact updatedContact = new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedZoomLink,
             updatedTelegram, updatedTags, contactToEdit.getUuid(), contactToEdit.getLinkedEvents(),
-                contactToEdit.getIsBookMarked());
+                contactToEdit.getIsMarked());
         // update the edited contact to the hashmap that stores references to all contacts
         Contact.addToMap(updatedContact);
         return updatedContact;
@@ -107,8 +114,20 @@ public class CEditCommand extends Command {
      * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
      * tags in {@code toRemove} will be excluded.
      */
-    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+    private Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
         Set<Tag> updatedTags = new HashSet<>(original);
+        String result = "\nNote:\n";
+        for (Tag tag : toAdd) {
+            if (!updatedTags.add(tag)) { // if the tag to delete is not in the original tags
+                result += String.format(MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL, tag);
+            }
+        }
+        for (Tag tag : toRemove) {
+            if (!updatedTags.remove(tag)) { // if the tag to delete is not in the original tags
+                result += String.format(MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, tag);
+            }
+        }
+        infoMessage = !result.equals("\nNote:\n") ? result : "";
         toRemove.forEach(updatedTags::remove);
         updatedTags.addAll(toAdd);
         return updatedTags;
@@ -133,9 +152,9 @@ public class CEditCommand extends Command {
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         // rerender UI to show latest change for events with links to edited contact
-        model.rerenderEventCards();
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
+        model.rerenderEventCards(true);
+        String result = String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact) + infoMessage;
+        return new CommandResult(result);
     }
 
     @Override

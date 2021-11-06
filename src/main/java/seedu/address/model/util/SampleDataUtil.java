@@ -69,7 +69,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = AddressBook.getCurrentAddressBook();
+        AddressBook sampleAb = new AddressBook();
         Contact[] sampleContacts = getSampleContacts();
         Event[] sampleEvents = getSampleEvents();
         for (Contact sampleContact : sampleContacts) {

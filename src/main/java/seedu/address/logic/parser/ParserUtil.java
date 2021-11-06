@@ -79,11 +79,14 @@ public class ParserUtil {
      * Parses parameter into a list of {@code Index} and returns it. Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if specified argument cannot be parsed into a Index.
      */
-    public static List<Index> parseBookmarkIndexes(String args) throws ParseException {
-        String[] stringIndexes = args.replaceAll("\\s", "").split("");
+    public static List<Index> parseMarkIndexes(String args) throws ParseException {
+        String[] stringIndexes = args.split("\\s");
         List<Index> indexes = new ArrayList<>();
         for (String index : stringIndexes) {
-            indexes.add(parseIndex(index));
+            index = index.trim();
+            if (!index.equals("")) { // for whitespaces
+                indexes.add(parseIndex(index));
+            }
         }
         return indexes;
     }

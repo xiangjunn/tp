@@ -13,6 +13,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -21,11 +22,11 @@ import seedu.address.model.event.EventChanger;
 /**
  * Adds a event to the address book.
  */
-public class EAddCommand extends Command {
+public class EAddCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "eadd";
-    public static final String PARAMETERS = "[" + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_START_TIME + "START "
+    public static final String PARAMETERS = "" + PREFIX_NAME + "NAME "
+            + "" + PREFIX_START_TIME + "START "
             + "[" + PREFIX_END_TIME + "END] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -72,7 +73,6 @@ public class EAddCommand extends Command {
         }
 
         model.addEvent(toAdd);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), List.of(EventChanger.addEventChanger(toAdd)));
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -79,22 +80,16 @@ public interface Model {
     /** Returns the current AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns initial version of AddressBook */
-    ReadOnlyAddressBook getInitialAddressBook();
-
     /** Adds new state of AddressBook to its history list */
-    void commitAddressBook();
+    void commitHistory();
 
     /** Restores the previous addressBook state from its history */
-    void undoAddressBook();
+    void undoHistory();
 
-    /** Restores a previously undone addressBook state from its history */
-    void redoAddressBook();
+    /** Restores the previously undone state from its history */
+    void redoHistory();
 
-    /** Clear all history of versioned addressBook when exit the app */
-    void clearHistory();
-
-    /** Check if the current state of addressBook is undoable */
+    /** Checks if the current state of addressBook is undoable */
     boolean isUndoable();
 
     /** Check if the current state of addressBook is redoable */
@@ -141,25 +136,17 @@ public interface Model {
     void updateFilteredContactList(Predicate<? super Contact> predicate);
 
     /**
-     * Bookmarks the contact indexed at the specified index.
+     * This will change the order of the filtered list, marked contacts will be placed at the top of the list.
+     * Places the newly marked contacts or replaces unmarked contacts
+     * in the order specified in {@code indexes} and depending on {@code isMark}.
      */
-    void bookmarkContactIndexedAt(Index index);
-
-    /**
-     * This will change the order of the filtered list, bookmarked contacts will be placed at the top of the list.
-     */
-    void reshuffleContactsInOrder();
+    void rearrangeContactsInOrder(List<Index> indexes, boolean isMark);
 
     /**
      * Updates the filter of the filtered contact list to show the contact at {@code index}.
      * @throws NullPointerException if {@code index} is null.
      */
     void updateContactListByIndex(Index index);
-
-    /**
-     * Unmarks the contact indexed at the specified index.
-     */
-    void unmarkContactIndexedAt(Index index);
 
     //=========== Event Management =============================================================
 
@@ -234,32 +221,32 @@ public interface Model {
 
     /**
      * Re-render contact cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
      */
-    void rerenderContactCards();
+    void rerenderContactCards(boolean useBackSamePredicate);
 
     /**
      * Re-render event cards in UI to show the most updated version.
+     * @param useBackSamePredicate whether the same predicate should be refreshed.
+     *                             Otherwise, the filter will be set to all contacts.
      */
-    void rerenderEventCards();
+    void rerenderEventCards(boolean useBackSamePredicate);
 
     /**
      * Re-render both contact and event cards in UI to show the most updated version.
      */
     void rerenderAllCards();
-    /**
-     * Bookmarks the event indexed at the specified index. This will change the order of the filtered list,
-     * placing bookmarked event at the top of the list.
-     */
-    void bookmarkEventIndexedAt(Index index);
 
     /**
-     * This will change the order of the filtered list, bookmarked events will be placed at the top of the list.
+     * This will change the order of the filtered list, marked events will be placed at the top of the list.
+     * Places the newly marked events or replaces unmarked events
+     * in the order specified in {@code indexes} and depending on {@code isMark}.
      */
-    void reshuffleEventsInOrder();
+    void rearrangeEventsInOrder(List<Index> indexes, boolean isMark);
 
     /**
-     * Unmarks the event indexed at the specified index.
+     * Removes all links between contacts and events.
      */
-    void unmarkEventIndexedAt(Index index);
-
+    void removeAllLinks();
 }
