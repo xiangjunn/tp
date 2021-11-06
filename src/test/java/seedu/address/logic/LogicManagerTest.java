@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.general.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -10,7 +11,9 @@ import static seedu.address.logic.commands.general.CommandTestUtil.PHONE_DESC_AM
 import static seedu.address.logic.commands.general.CommandTestUtil.TELEGRAM_DESC_AMY;
 import static seedu.address.logic.commands.general.CommandTestUtil.ZOOM_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.AMY;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,16 +22,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.contact.CAddCommand;
 import seedu.address.logic.commands.contact.CListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.common.Address;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactDisplaySetting;
+import seedu.address.model.event.EventDisplaySetting;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -98,6 +106,49 @@ public class LogicManagerTest {
     @Test
     public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEventList().remove(0));
+    }
+
+    @Test
+    public void test_getAddressBook() {
+        assertEquals(new AddressBook(), logic.getAddressBook());
+        model.addContact(ALICE);
+        AddressBook updatedAddressBook = new AddressBook();
+        updatedAddressBook.addContact(ALICE);
+        assertEquals(updatedAddressBook, logic.getAddressBook());
+    }
+
+    @Test
+    public void test_getAddressBookFilePath() {
+        assertEquals(new UserPrefs().getAddressBookFilePath(), logic.getAddressBookFilePath());
+    }
+
+    @Test
+    public void test_getGuiSettings() {
+        assertEquals(new GuiSettings(), logic.getGuiSettings());
+    }
+
+    @Test
+    public void test_getContactDisplaySetting() {
+        assertEquals(ContactDisplaySetting.DEFAULT_SETTING, logic.getContactDisplaySetting());
+        ContactDisplaySetting setting = new ContactDisplaySetting(true, true ,true, false, false, false);
+        model.setContactDisplaySetting(setting);
+        assertEquals(setting, logic.getContactDisplaySetting());
+    }
+
+    @Test
+    public void test_getEventDisplaySetting() {
+        assertEquals(EventDisplaySetting.DEFAULT_SETTING, logic.getEventDisplaySetting());
+        EventDisplaySetting setting = new EventDisplaySetting(true, true ,true, false, false, false);
+        model.setEventDisplaySetting(setting);
+        assertEquals(setting, logic.getEventDisplaySetting());
+    }
+
+    @Test
+    public void test_setGuiSettings() {
+        GuiSettings guiSettings = new GuiSettings(1, 1, 1, 1);
+        assertNotEquals(guiSettings, logic.getGuiSettings());
+        logic.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, logic.getGuiSettings());
     }
 
     /**
