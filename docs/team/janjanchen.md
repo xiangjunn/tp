@@ -3,44 +3,61 @@ layout: page
 title: Janice Chen's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: SoConnect
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants,
+as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having
+the benefits of a _Graphical User Interface (GUI)_. 
+
+This project is part of the [CS2103T](https://nus-cs2103-ay2122s1.github.io/website/) team project requirements for AY2021/2022 Semester 1.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-    * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-    * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-    * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-    * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added the `Event` model
+    * What it does: allows the user to save events that consists of details such as event date and time, description, address. 
+    * Justification: This feature improves the product significantly because a user can save events next to the contact list using the same platform. This feature saves the trouble of the students from using multiple platforms to separately store the contacts and events.
+    * Highlights: This enhancement affects certain existing commands and how new commands should be implemented, since the model manager will need to take in both `Contact` and `Event`. `Event` and `Contact` also owns different fields, which adds more complexity in how the commands should work.
+   
+* **New Feature**: Added the [help window user interface]().
+  * What it does: allows the user to view the command summary of SoConnect in a different visual interface. 
+  * Justification: This feature improves the product significantly because a user (especially new user) might find it challenging to remember all commands provided by SoConnect.
+  * Highlights: This enhancement requires the understanding of a third-party GUI framework.
+  * Credits: Text wrapping feature of help window is adapted from [@author:James_D](https://stackoverflow.com/questions/22732013/javafx-tablecolumn-text-wrapping)
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Viewing a specific contact or event
+  * What it does: allows the user to view a specific contact or event with all details fully shown
+  * Justification: This feature improves the product significantly because some information saved in the contact or event might be too long and the information will be truncated by default.
+  * Highlights: This enhancement requires new implementation of how to filter out all the other contacts/ events using index only, while changing the GUI framework setting to wrap text when it is in View Mode. Corresponding changes to the GUI setting is also needed to automatically disable View mode.
 
-* **Code contributed**: [RepoSense link]()
+* **New Feature**: Enable partial word search for events and contacts
+  * What it does: allows the user to search information on SoConnect without the need to specify the keyword fully
+  * Justification: This feature improves the product significantly because user does not need to know the full word they want to search for within the contact/ event list.
+
+
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=w15-3&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=zoom&tabAuthor=janjanchen&tabRepo=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&zA=janjanchen&zR=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&zACS=199.78947368421052&zS=2021-09-17&zFS=w15-3&zU=2021-11-06&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)
 
 * **Project management**:
-    * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+
+[comment]: <> (    * Managed releases `v1.3` - `v1.5rc` &#40;3 releases&#41; on GitHub)
 
 * **Enhancements to existing features**:
-    * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-    * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
-
+    * Changed logging and json file name
+    
 * **Documentation**:
     * User Guide:
-        * Added documentation for the features `delete` and `find` [\#72]()
-        * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+        * Added documentation for the features `cadd`, `cedit`, `clist` and `cfind` [\#72]()
+        * Added documentation for the features `cview` and `eview` [\#72]()
+        * Added documentation for the features `help` [\#72]()
+        * Added documentation for `How to use SoConnect User Guide`, `Overview of SoConnect` , `List of Prefixes` and `Glossary`
+        * Did cosmetic tweaks to the document.
     * Developer Guide:
-        * Added implementation details of the `delete` feature.
+        * Added implementation details of the `edelete` feature and `Model`.
 
 * **Community**:
-    * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-    * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-    * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-    * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
 
-* **Tools**:
-    * Integrated a third party library (Natty) to the project ([\#42]())
-    * Integrated a new Github plugin (CircleCI) to the team repo
+[comment]: <> (    * PRs reviewed &#40;with non-trivial review comments&#41;: [\#12]&#40;&#41;, [\#32]&#40;&#41;, [\#19]&#40;&#41;, [\#42]&#40;&#41;)
 
-* _{you can add/remove categories in the list above}_
+[comment]: <> (    * Reported bugs and suggestions for other teams in the class &#40;examples: [1]&#40;&#41;, [2]&#40;&#41;, [3]&#40;&#41;&#41;)
+
+[comment]: <> (    * Some parts of the history feature I added was adopted by several other class mates &#40;[1]&#40;&#41;, [2]&#40;&#41;&#41;)
+
