@@ -191,16 +191,7 @@ The `edelete` command allows users to delete a single or an inclusive range of c
 
 We will use an example command: `edelete 1-3`.
 
-The sequence diagram below shows how the execution of the example command flows:
-
-![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/EDeleteSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** 
-
-The lifeline for `EDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
-
-Given below is one example usage scenario and explains how the `edelete` feature behaves at each step.
+Given below is the usage scenario of the above example and explains how the `edelete` feature behaves at each step.
 
 Step 1: The user enters the command `edelete 1-3` to delete the events at indexes 1, 2 and 3.
 
@@ -219,6 +210,19 @@ The [Calendar UI implementation](#calendar-ui-feature) will discuss the use of t
 
 If the user only specifies one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
 </div>
+
+#### Sequence Diagram
+
+The sequence diagram below shows how the execution of the example command flows:
+
+![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/EDeleteSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+
+The lifeline for `EDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+#### Activity Diagram
 
 The activity diagram below shows how the execution of the `edelete` command flows:
 
