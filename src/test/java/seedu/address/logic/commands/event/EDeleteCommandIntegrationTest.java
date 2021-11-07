@@ -3,9 +3,9 @@ package seedu.address.logic.commands.event;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalContacts.AMY;
 import static seedu.address.testutil.TypicalContacts.BOB;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRanges.RANGE_FIRST_TO_FIRST;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class EDeleteCommandIntegrationTest {
         expectedModel.deleteEvent(eventToDelete);
         EventChanger eventChanger = EventChanger.deleteEventChanger(eventToDelete);
         CommandResult expectedMessage = new CommandResult(
-                String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete), List.of(eventChanger));
+            String.format(EDeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete), List.of(eventChanger));
         assertCommandSuccess(new EDeleteCommand(RANGE_FIRST_TO_FIRST), model,
             expectedMessage, expectedModel);
     }

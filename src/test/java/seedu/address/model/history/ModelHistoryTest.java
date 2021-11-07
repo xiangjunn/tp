@@ -2,10 +2,12 @@ package seedu.address.model.history;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_HIDE_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.testutil.TypicalContacts.HOON;
 import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 
@@ -93,7 +95,8 @@ class ModelHistoryTest {
         AddressBook ab = TypicalAddressBook.getTypicalAddressBook();
         history.commit(ab, new ModelDisplaySetting());
         history.commit(new AddressBookBuilder(ab).withContact(HOON).build(), new ModelDisplaySetting());
-        history.commit(new AddressBookBuilder(ab).withContact(HOON).withEvent(TUTORIAL).build(),
+        history.commit(
+            new AddressBookBuilder(ab).withContact(HOON).withEvent(TUTORIAL).build(),
             new ModelDisplaySetting(ContactDisplaySetting.DEFAULT_SETTING, new EventDisplaySetting(true),
                 PREDICATE_SHOW_ALL_CONTACTS, PREDICATE_HIDE_ALL_EVENTS));
         history.undo();
@@ -132,5 +135,21 @@ class ModelHistoryTest {
         assertFalse(history.isRedoable());
         history.undo();
         assertTrue(history.isRedoable());
+    }
+
+    static class HistoryInstanceTest {
+        @Test
+        public void equal_test() {
+            ModelDisplaySetting displaySetting =
+                new ModelDisplaySetting(ContactDisplaySetting.DEFAULT_SETTING, EventDisplaySetting.DEFAULT_SETTING,
+                    PREDICATE_SHOW_ALL_CONTACTS, PREDICATE_SHOW_ALL_EVENTS);
+            ModelHistory.HistoryInstance instance = new ModelHistory.HistoryInstance(
+                    TypicalAddressBook.getTypicalAddressBook(),
+                    displaySetting);
+            assertNotEquals(instance, null);
+            assertNotEquals(instance, 1);
+            assertEquals(instance, instance);
+            assertNotEquals(instance, new ModelHistory.HistoryInstance(new AddressBook(), displaySetting));
+        }
     }
 }

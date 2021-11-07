@@ -1,7 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED_UUID;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
@@ -23,6 +26,9 @@ public class EventBuilder {
     public static final String DEFAULT_DESCRIPTION = "Important";
     public static final String DEFAULT_ADDRESS = "COM2, SR1, #02-11";
     public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
+    public static final String DEFAULT_TAG = "exams";
+    public static final UUID DEFAULT_UUID = CS2103_MIDTERM_MARKED_UUID;
+    public static final boolean DEFAULT_IS_MARKED = true;
 
     //Compulsory fields
     private Name name;
@@ -34,6 +40,8 @@ public class EventBuilder {
     private Address address;
     private ZoomLink zoomLink;
     private Set<Tag> tags;
+    private UUID uuid;
+    private Set<UUID> linkedContacts;
     private boolean isMarked;
 
     /**
@@ -47,7 +55,10 @@ public class EventBuilder {
         address = new Address(DEFAULT_ADDRESS);
         zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
         tags = new HashSet<>();
-        isMarked = false;
+        tags.add(new Tag(DEFAULT_TAG));
+        uuid = DEFAULT_UUID;
+        linkedContacts = new HashSet<>();
+        isMarked = DEFAULT_IS_MARKED;
     }
 
     /**
@@ -62,6 +73,8 @@ public class EventBuilder {
         zoomLink = eventToCopy.getZoomLink();
         tags = new HashSet<>(eventToCopy.getTags());
         isMarked = eventToCopy.getIsMarked();
+        uuid = eventToCopy.getUuid();
+        linkedContacts = new HashSet<>(eventToCopy.getLinkedContacts());
     }
 
     /**
@@ -121,10 +134,34 @@ public class EventBuilder {
     }
 
     /**
-     * Sets the {@code isMarked} of the {@code Event} that we are building to true.
+     * Sets the {@code UUID} of the {@code Event} that we are building.
      */
-    public EventBuilder withMarked() {
-        this.isMarked = true;
+    public EventBuilder withUuid(UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code Event} that we are building to a random one.
+     */
+    public EventBuilder withRandomUuid() {
+        this.uuid = UUID.randomUUID();
+        return this;
+    }
+
+    /**
+     * Parses the {@code contacts} into a {@code Set<UUID>} and set it to the {@code Event} that we are building.
+     */
+    public EventBuilder withLinkedContacts(UUID ...contacts) {
+        this.linkedContacts = Set.of(contacts);
+        return this;
+    }
+
+    /**
+     * Sets the {@code isMarked} of the {@code Event} that we are building to {@code isMarked}.
+     */
+    public EventBuilder withMarked(boolean isMarked) {
+        this.isMarked = isMarked;
         return this;
     }
 
@@ -132,7 +169,8 @@ public class EventBuilder {
      * Creates an {@code Event} from this {@code Eventbuilder}.
      */
     public Event build() {
-        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags, isMarked);
+        return new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink,
+            tags, uuid, linkedContacts, isMarked);
 
     }
 }

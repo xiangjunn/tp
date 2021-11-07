@@ -115,7 +115,7 @@ public class CommandResultTest {
         assertEquals(0, commandResult.getEventChangerList().size());
         List<EventChanger> eventChangerList = List.of(
             EventChanger.editEventChanger(TypicalEvents.CS2101_MEETING, TypicalEvents.TEAM_MEETING),
-            EventChanger.editEventChanger(TypicalEvents.CS2103_MIDTERM, TypicalEvents.CS2100_CONSULTATION));
+            EventChanger.editEventChanger(TypicalEvents.CS2103_MIDTERM_MARKED, TypicalEvents.CS2100_CONSULTATION));
         CommandResult commandResult1 = new CommandResult("feedback", eventChangerList);
         assertEquals(eventChangerList, commandResult1.getEventChangerList());
     }

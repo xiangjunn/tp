@@ -176,7 +176,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping SoConnect ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
-            storage.saveAddressBook(model.getAddressBook(), true);
+            storage.saveAddressBook(model.getAddressBook());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

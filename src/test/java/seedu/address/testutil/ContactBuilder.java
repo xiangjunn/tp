@@ -1,7 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalEvents.CS2100_CONSULTATION_UUID;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
@@ -24,6 +27,10 @@ public class ContactBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TELEGRAM_HANDLE = "amyBeeBee";
     public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
+    public static final boolean DEFAULT_IS_MARKED = true;
+    public static final String DEFAULT_TAG = "friends";
+    public static final UUID DEFAULT_UUID = TypicalContacts.ALICE_UUID;
+    public static final UUID DEFAULT_LINKED_EVENT = CS2100_CONSULTATION_UUID;
 
     private Name name;
     private Phone phone;
@@ -32,6 +39,8 @@ public class ContactBuilder {
     private TelegramHandle telegramHandle;
     private ZoomLink zoomLink;
     private Set<Tag> tags;
+    private UUID uuid;
+    private Set<UUID> linkedEvents;
     private boolean isMarked;
 
     /**
@@ -46,7 +55,11 @@ public class ContactBuilder {
         telegramHandle = new TelegramHandle(DEFAULT_TELEGRAM_HANDLE);
         zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
         tags = new HashSet<>();
-        isMarked = false;
+        tags.add(new Tag(DEFAULT_TAG));
+        uuid = DEFAULT_UUID;
+        linkedEvents = new HashSet<>();
+        linkedEvents.add(DEFAULT_LINKED_EVENT);
+        isMarked = DEFAULT_IS_MARKED;
     }
 
     /**
@@ -60,6 +73,8 @@ public class ContactBuilder {
         telegramHandle = contactToCopy.getTelegramHandle();
         zoomLink = contactToCopy.getZoomLink();
         tags = new HashSet<>(contactToCopy.getTags());
+        uuid = contactToCopy.getUuid();
+        linkedEvents = new HashSet<>(contactToCopy.getLinkedEvents());
         isMarked = contactToCopy.getIsMarked();
     }
 
@@ -120,10 +135,34 @@ public class ContactBuilder {
     }
 
     /**
-     * Sets the {@code isMarked} of the {@code Contact} that we are building to true.
+     * Sets the {@code UUID} of the {@code Contact} that we are building.
      */
-    public ContactBuilder withMarked() {
-        this.isMarked = true;
+    public ContactBuilder withUuid(UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code contact} that we are building to a random value.
+     */
+    public ContactBuilder withRandomUuid() {
+        this.uuid = UUID.randomUUID();
+        return this;
+    }
+
+    /**
+     * Parses the {@code events} into a {@code Set<UUID>} and set it to the {@code Contact} that we are building.
+     */
+    public ContactBuilder withLinkedEvents(UUID ...events) {
+        this.linkedEvents = Set.of(events);
+        return this;
+    }
+
+    /**
+     * Sets the {@code isMarked} of the {@code Contact} that we are building to {@code isMarked}.
+     */
+    public ContactBuilder withMarked(boolean isMarked) {
+        this.isMarked = isMarked;
         return this;
     }
 
@@ -131,6 +170,6 @@ public class ContactBuilder {
      * Creates an {@code Contact} from this {@code Contactbuilder}.
      */
     public Contact build() {
-        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, isMarked);
+        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, uuid, linkedEvents, isMarked);
     }
 }

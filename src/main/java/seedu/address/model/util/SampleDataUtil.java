@@ -79,14 +79,9 @@ public class SampleDataUtil {
             sampleAb.addEvent(sampleEvent);
         }
         // Link some contacts and events
-        link(sampleContacts[0], sampleEvents[1]);
-        link(sampleContacts[4], sampleEvents[1]);
+        sampleAb.linkEventAndContact(sampleAb.getEventList().get(1), sampleAb.getContactList().get(0));
+        sampleAb.linkEventAndContact(sampleAb.getEventList().get(1), sampleAb.getContactList().get(4));
         return sampleAb;
-    }
-
-    private static void link(Contact contact, Event event) {
-        contact.linkTo(event);
-        event.linkTo(contact);
     }
 
     /**
