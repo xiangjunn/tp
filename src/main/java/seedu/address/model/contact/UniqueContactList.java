@@ -160,8 +160,7 @@ public class UniqueContactList implements Iterable<Contact> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (
-            other instanceof UniqueContactList // instanceof handles nulls
+            || (other instanceof UniqueContactList // instanceof handles nulls
                 && internalList.equals(((UniqueContactList) other).internalList));
     }
 
