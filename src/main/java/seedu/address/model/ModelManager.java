@@ -269,8 +269,8 @@ public class ModelManager implements Model {
         filteredContacts.setPredicate(predicate);
     }
     @Override
-    public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
-        addressBook.rearrangeContactsInOrder(indexes, isMarked);
+    public void rearrangeContactsInOrder(List<Contact> contacts, boolean isMarked) {
+        addressBook.rearrangeContactsInOrder(contacts, isMarked);
     }
 
     //=========== Filtered Event List Accessors =======================
@@ -317,8 +317,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
-        addressBook.rearrangeEventsInOrder(indexes, isMark);
+    public void rearrangeEventsInOrder(List<Event> events, boolean isMark) {
+        addressBook.rearrangeEventsInOrder(events, isMark);
     }
 
     @Override

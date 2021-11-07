@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.event.Event;
@@ -35,7 +34,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Contacts and Events in the {@code toBeCopied}
@@ -47,6 +47,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Create a copy of the current addressBook
+     *
      * @return a copy of current addressBook
      */
     public AddressBook copy() {
@@ -94,10 +95,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Places marked {@code contacts} at the top of the list.
      * Places the newly marked contacts or replaces newly unmarked contacts
-     * in the order specified in {@code indexes} if specified.
+     * in the order specified in {@code contactsToRearrange} if specified.
      */
-    public void rearrangeContactsInOrder(List<Index> indexes, boolean isMarked) {
-        contacts.rearrangeContactsInOrder(indexes, isMarked);
+    public void rearrangeContactsInOrder(List<Contact> contactsToRearrange, boolean isMarked) {
+        contacts.rearrangeContactsInOrder(contactsToRearrange, isMarked);
     }
 
     //// event-level operations
@@ -193,10 +194,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Places marked {@code events} at the top of the list.
      * Places the newly marked events or replaces newly unmarked events
-     * in the order specified in {@code indexes} if specified.
+     * in the order specified in {@code eventsToRearrange} if specified.
      */
-    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
-        events.rearrangeEventsInOrder(indexes, isMark);
+    public void rearrangeEventsInOrder(List<Event> eventsToRearrange, boolean isMarked) {
+        events.rearrangeEventsInOrder(eventsToRearrange, isMarked);
     }
 
     //// contact-level operations
@@ -267,7 +268,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return contacts.asUnmodifiableObservableList().size() + " contacts\n"
-                + events.asUnmodifiableObservableList().size() + " events";
+            + events.asUnmodifiableObservableList().size() + " events";
     }
 
     @Override
@@ -283,7 +284,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
+            || (
+            other instanceof AddressBook // instanceof handles nulls
                 && contacts.equals(((AddressBook) other).contacts)
                 && events.equals(((AddressBook) other).events));
     }

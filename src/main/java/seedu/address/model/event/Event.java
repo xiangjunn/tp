@@ -256,6 +256,28 @@ public class Event {
         return updatedEvent;
     }
 
+    /**
+     * Marks an event object that calls this method as true.
+     * @return The marked event.
+     */
+    public Event markEvent() {
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, linkedContacts, true);
+        addToMap(updatedEvent);
+        return updatedEvent;
+    }
+
+    /**
+     * Removes the mark an event object that calls this method as true.
+     * @return The un-marked event.
+     */
+    public Event unmarkEvent() {
+        Event updatedEvent = new Event(name, startDateAndTime, endDateAndTime, description, address, zoomLink, tags,
+            uuid, linkedContacts, false);
+        addToMap(updatedEvent);
+        return updatedEvent;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
