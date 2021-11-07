@@ -14,6 +14,7 @@ public class EUnmarkCommandParser implements Parser<EUnmarkCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EUnmarkCommand
      * and returns a EUnmarkCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EUnmarkCommand parse(String args) throws ParseException {
@@ -25,7 +26,7 @@ public class EUnmarkCommandParser implements Parser<EUnmarkCommand> {
             return new EUnmarkCommand(indexes);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EUnmarkCommand.MESSAGE_USAGE), pe);
+                String.format(pe.getMessage(), EUnmarkCommand.MESSAGE_USAGE), pe);
         }
     }
 }

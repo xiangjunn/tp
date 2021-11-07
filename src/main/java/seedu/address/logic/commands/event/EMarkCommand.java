@@ -2,6 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,22 +50,16 @@ public class EMarkCommand extends Command implements Undoable {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         Collections.reverse(indexesToMark);
+        List<Event> eventsMarked = new ArrayList<>();
         for (Index index : indexesToMark) {
             Event event = lastShownList.get(index.getZeroBased());
             commandResult += String.format("%s", generateCommandResultMessage(event, event.getIsMarked()));
-            model.setEvent(event, createMarkedEvent(event));
+            Event newEvent = event.markEvent();
+            model.setEvent(event, newEvent);
+            eventsMarked.add(newEvent);
         }
-        model.rearrangeEventsInOrder(indexesToMark, true);
+        model.rearrangeEventsInOrder(eventsMarked, true);
         return new CommandResult(commandResult);
-    }
-
-    /**
-     * Creates and returns a marked {@code Event} with the details of {@code eventToMark}
-     */
-    private static Event createMarkedEvent(Event eventToMark) {
-        return new Event(eventToMark.getName(), eventToMark.getStartDateAndTime(), eventToMark.getEndDateAndTime(),
-                eventToMark.getDescription(), eventToMark.getAddress(), eventToMark.getZoomLink(),
-                eventToMark.getTags(), eventToMark.getUuid(), eventToMark.getLinkedContacts(), true);
     }
 
     private String generateCommandResultMessage(Event event,

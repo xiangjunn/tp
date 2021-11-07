@@ -2,6 +2,7 @@ package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,25 +49,18 @@ public class CUnmarkCommand extends Command implements Undoable {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
         Collections.reverse(indexesToUnmark);
+        List<Contact> contactsUnmarked = new ArrayList<>();
         for (Index index : indexesToUnmark) {
             Contact contact = lastShownList.get(index.getZeroBased());
             commandResult += String.format("%s", generateCommandResultMessage(contact, contact.getIsMarked()));
             if (contact.getIsMarked()) {
-                model.setContact(contact, createUnmarkedContact(contact));
+                Contact newContact = contact.unmarkContact();
+                model.setContact(contact, newContact);
+                contactsUnmarked.add(newContact);
             }
         }
-        model.rearrangeContactsInOrder(indexesToUnmark, false);
+        model.rearrangeContactsInOrder(contactsUnmarked, false);
         return new CommandResult(commandResult);
-    }
-
-    /**
-     * Creates and returns an unmarked {@code Contact} with the details of {@code contactToMark}
-     */
-    private static Contact createUnmarkedContact(Contact contactToUnmark) {
-        return new Contact(contactToUnmark.getName(), contactToUnmark.getPhone(),
-                contactToUnmark.getEmail(), contactToUnmark.getAddress(), contactToUnmark.getZoomLink(),
-                contactToUnmark.getTelegramHandle(), contactToUnmark.getTags(), contactToUnmark.getUuid(),
-                contactToUnmark.getLinkedEvents(), false);
     }
 
     private String generateCommandResultMessage(Contact contact, boolean isAlreadyMarked) {

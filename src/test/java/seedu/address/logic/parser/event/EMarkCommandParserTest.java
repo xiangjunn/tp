@@ -1,6 +1,8 @@
 package seedu.address.logic.parser.event;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -27,7 +29,7 @@ class EMarkCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, " ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 EMarkCommand.MESSAGE_USAGE)); //EP: empty argument
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                EMarkCommand.MESSAGE_USAGE)); //EP non-integer argument
+        assertParseFailure(parser, "a", MESSAGE_INVALID_INDEX); //EP non-integer argument
+        assertParseFailure(parser, "1 1 2", MESSAGE_DUPLICATE_INDEXES_PROVIDED);
     }
 }

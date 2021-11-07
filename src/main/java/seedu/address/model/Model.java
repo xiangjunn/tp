@@ -140,7 +140,7 @@ public interface Model {
      * Places the newly marked contacts or replaces unmarked contacts
      * in the order specified in {@code indexes} and depending on {@code isMark}.
      */
-    void rearrangeContactsInOrder(List<Index> indexes, boolean isMark);
+    void rearrangeContactsInOrder(List<Contact> contacts, boolean isMark);
 
     /**
      * Updates the filter of the filtered contact list to show the contact at {@code index}.
@@ -243,7 +243,7 @@ public interface Model {
      * Places the newly marked events or replaces unmarked events
      * in the order specified in {@code indexes} and depending on {@code isMark}.
      */
-    void rearrangeEventsInOrder(List<Index> indexes, boolean isMark);
+    void rearrangeEventsInOrder(List<Event> events, boolean isMark);
 
     /**
      * Removes all links between contacts and events.

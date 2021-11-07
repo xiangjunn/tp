@@ -2,6 +2,7 @@ package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,12 +49,15 @@ public class CMarkCommand extends Command implements Undoable {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
         Collections.reverse(indexesToMark);
+        List<Contact> contactsMarked = new ArrayList<>();
         for (Index index : indexesToMark) {
             Contact contact = lastShownList.get(index.getZeroBased());
             commandResult += String.format("%s", generateCommandResultMessage(contact, contact.getIsMarked()));
-            model.setContact(contact, createMarkedContact(contact));
+            Contact newContact = contact.markContact();
+            model.setContact(contact, newContact);
+            contactsMarked.add(newContact);
         }
-        model.rearrangeContactsInOrder(indexesToMark, true);
+        model.rearrangeContactsInOrder(contactsMarked, true);
         return new CommandResult(commandResult);
     }
 
