@@ -25,14 +25,13 @@ public class EUnlinkCommand extends Command implements Undoable {
             + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlinks an event to a contact. Include the argument"
-        + " \"c/*\" to clear all links.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlinks an event to one or more contacts."
+        + " Include the argument \"c/*\" to clear all links.\n"
         + "Parameters: "
         + PARAMETERS
-        + "Examples:\n"
-        + "eunlink 1 c/1\n"
-        + "eunlink 3 c/1 c/2 c/3 c/4 c/5\n"
-        + "eunlink 2 c/*";
+        + "Example 1: eunlink 1 c/1\n"
+        + "Example 2: eunlink 3 c/1 c/2 c/3\n"
+        + "Example 3: eunlink 2 c/*";
     public static final String MESSAGE_SUCCESS = "Successfully unlinked the event %s from the contact %s\n";
     public static final String MESSAGE_SUCCESS_CLEAR_ALL = "Successfully unlinked the event %s from all contacts.";
     public static final String MESSAGE_NOT_LINKED = "Event %s is already not linked to the contact %s.\n";

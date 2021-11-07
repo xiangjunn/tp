@@ -47,7 +47,7 @@
 
             <!-- address -->
             <Label fx:id="address" managed="false" visible="false" onMouseClicked="#copyAddress"
-                   styleClass="cell_small_label" text="\$address"/>
+                   styleClass="cell_small_label, clickable" text="\$address"/>
 
             <!-- zoom -->
             <Label fx:id="zoom" managed="false" visible="false" onMouseClicked="#openZoomLink"

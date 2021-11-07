@@ -21,7 +21,7 @@
                 <URL value="@HelpWindow.css" />
             </stylesheets>
 
-            <VBox prefHeight="550" prefWidth="700">
+            <VBox prefHeight="515" prefWidth="700">
                 <children>
                     <Label fx:id="introduction" text="Label" />
                     <ScrollPane fx:id="scrollPane" fitToWidth="true">
