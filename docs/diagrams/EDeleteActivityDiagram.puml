@@ -15,15 +15,16 @@ if () then ([arguments are valid]  )
 
   repeat
   :Checks if the event\nat START INDEX is\nlinked to any contacts;
-    if () then ( [no linked contacts])
+    if () then ( [else])
 
-    else ([else])
-    :Unlinks the event and contact;
+    else ([has linked\ncontact(s)])
+    :Unlinks the event from the contact(s);
+
+    endif
     :Deletes the event at START INDEX;
     :END INDEX = END INDEX - 1;
-    endif
   repeat while () is ( [END INDEX \n>= START INDEX])
-  -> [deleted all events]     ;
+  -> [else]     ;
 
 else (  [else])
 :Throws ParseException with invalid command\nformat message and command usage;
