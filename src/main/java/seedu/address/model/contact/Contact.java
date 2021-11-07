@@ -78,6 +78,28 @@ public class Contact {
         this.isMarked = isMarked;
     }
 
+    /**
+     * Adds the contact to the hashmap that stores references to all contacts.
+     * If the hashmap already contains the UUID of the contact as key, the value associated to the
+     * key will be replaced to the contact passed as parameter to this method.
+     *
+     * @param contact The contact to be added.
+     */
+    public static void addToMap(Contact contact) {
+        map.put(contact.getUuid(), contact);
+    }
+
+    /**
+     * Returns a contact with the unique UUID that is passed in to the method.
+     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
+     *
+     * @param uuid The unique identifier for a contact in the hashmap.
+     */
+    public static Contact findByUuid(UUID uuid) {
+        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
+        return map.get(uuid);
+    }
+
     public Name getName() {
         return name;
     }
@@ -146,6 +168,7 @@ public class Contact {
     public boolean phoneAnyMatch(List<String> strings) {
         return (phone != null) && phone.containsString(strings);
     }
+
     /**
      * Checks if this {@code address} contains any keywords in {code strings}
      */
@@ -184,7 +207,7 @@ public class Contact {
         }
 
         return otherContact != null
-                && otherContact.getName().equals(getName());
+            && otherContact.getName().equals(getName());
     }
 
     /**
@@ -197,6 +220,7 @@ public class Contact {
 
     /**
      * Links the event to the contact object that calls this method.
+     *
      * @param event The event to be linked with.
      * @return The contact that has link to the event passed in as parameter.
      */
@@ -210,27 +234,8 @@ public class Contact {
     }
 
     /**
-     * Adds the contact to the hashmap that stores references to all contacts.
-     * If the hashmap already contains the UUID of the contact as key, the value associated to the
-     * key will be replaced to the contact passed as parameter to this method.
-     * @param contact The contact to be added.
-     */
-    public static void addToMap(Contact contact) {
-        map.put(contact.getUuid(), contact);
-    }
-
-    /**
-     * Returns a contact with the unique UUID that is passed in to the method.
-     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
-     * @param uuid The unique identifier for a contact in the hashmap.
-     */
-    public static Contact findByUuid(UUID uuid) {
-        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
-        return map.get(uuid);
-    }
-
-    /**
      * Removes the link between the event and the contact object that calls this method.
+     *
      * @param event The event to be unlinked.
      * @return The contact that has no link to the event passed in as parameter.
      */
@@ -245,11 +250,36 @@ public class Contact {
 
     /**
      * Removes all links to the contact object that calls this method.
+     *
      * @return The contact that has no link to any contacts.
      */
     public Contact clearAllLinks() {
         Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
             uuid, new HashSet<>(), isMarked);
+        addToMap(updatedContact);
+        return updatedContact;
+    }
+
+    /**
+     * Marks contact object that calls this method.
+     *
+     * @return The contact that has been marked.
+     */
+    public Contact markContact() {
+        Contact updatedContact =
+            new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, uuid, linkedEvents, true);
+        addToMap(updatedContact);
+        return updatedContact;
+    }
+
+    /**
+     * Removes the mark in the contact object that calls this method.
+     *
+     * @return The contact that has been un-marked.
+     */
+    public Contact unmarkContact() {
+        Contact updatedContact =
+            new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, uuid, linkedEvents, false);
         addToMap(updatedContact);
         return updatedContact;
     }

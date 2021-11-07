@@ -2,6 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,25 +49,18 @@ public class EUnmarkCommand extends Command implements Undoable {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         Collections.reverse(indexesToUnmark);
+        List<Event> eventsUnmarked = new ArrayList<>();
         for (Index index : indexesToUnmark) {
             Event event = lastShownList.get(index.getZeroBased());
             commandResult += String.format("%s", generateCommandResultMessage(event, event.getIsMarked()));
             if (event.getIsMarked()) {
-                model.setEvent(event, createUnmarkedEvent(event));
+                Event newEvent = event.unmarkEvent();
+                model.setEvent(event, newEvent);
+                eventsUnmarked.add(newEvent);
             }
         }
-        model.rearrangeEventsInOrder(indexesToUnmark, false);
+        model.rearrangeEventsInOrder(eventsUnmarked, false);
         return new CommandResult(commandResult);
-    }
-
-    /**
-     * Creates and returns an unmarked {@code Event} with the details of {@code eventToMark}
-     */
-    private static Event createUnmarkedEvent(Event eventToUnmark) {
-        return new Event(eventToUnmark.getName(), eventToUnmark.getStartDateAndTime(),
-                eventToUnmark.getEndDateAndTime(), eventToUnmark.getDescription(), eventToUnmark.getAddress(),
-                eventToUnmark.getZoomLink(), eventToUnmark.getTags(), eventToUnmark.getUuid(),
-                eventToUnmark.getLinkedContacts(), false);
     }
 
     private String generateCommandResultMessage(Event event, boolean isAlreadyMarked) {

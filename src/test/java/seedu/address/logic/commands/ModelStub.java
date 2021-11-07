@@ -149,7 +149,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void rearrangeContactsInOrder(List<Index> indexes, boolean isMark) {
+    public void rearrangeContactsInOrder(List<Contact> contacts, boolean isMark) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
@@ -203,7 +203,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMark) {
+    public void rearrangeEventsInOrder(List<Event> events, boolean isMark) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
