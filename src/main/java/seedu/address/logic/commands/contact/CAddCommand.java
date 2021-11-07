@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -18,7 +19,7 @@ import seedu.address.model.contact.Contact;
 /**
  * Adds a contact to the address book.
  */
-public class CAddCommand extends Command {
+public class CAddCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "cadd";
     public static final String PARAMETERS = PREFIX_NAME + "NAME "
@@ -30,7 +31,7 @@ public class CAddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to SoConnect. \n"
             + "Parameters: "
             + PARAMETERS
             + "Example: " + COMMAND_WORD + " "
@@ -59,13 +60,10 @@ public class CAddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (model.hasContact(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
-
         model.addContact(toAdd);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

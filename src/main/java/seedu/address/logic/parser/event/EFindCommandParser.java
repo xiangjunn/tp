@@ -27,6 +27,7 @@ import seedu.address.model.event.EventContainsKeywordsPredicate;
  */
 public class EFindCommandParser implements Parser<EFindCommand> {
 
+    public static final String MESSAGE_MISSING_KEYWORD = "There must be at least one keyword present for prefix '%s'.";
     private EventContainsKeywordsPredicate predicate;
 
     /**
@@ -88,10 +89,14 @@ public class EFindCommandParser implements Parser<EFindCommand> {
         return argumentMultimap.getValue(prefix).isPresent();
     }
 
-    private static List<String> getPrefixValueAndSplit(ArgumentMultimap argumentMultimap, Prefix prefix) {
+    private static List<String> getPrefixValueAndSplit(ArgumentMultimap argumentMultimap, Prefix prefix)
+        throws ParseException {
         requireNonNull(argumentMultimap.getValue(prefix)); //the prefix must not contain an empty value
-        return Stream.of(argumentMultimap.getValue(prefix).get()
-                .split("\\s+")).collect(Collectors.toList());
+        String value = argumentMultimap.getValue(prefix).get();
+        if (value.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_MISSING_KEYWORD, prefix));
+        }
+        return Stream.of(value.split("\\s+")).collect(Collectors.toList());
     }
 
 }

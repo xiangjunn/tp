@@ -36,7 +36,7 @@ class JsonAdaptedContact {
     private final String uuid;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<String> linkedEvents = new ArrayList<>();
-    private final boolean isBookmarked;
+    private final boolean isMarked;
 
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
@@ -47,7 +47,7 @@ class JsonAdaptedContact {
             @JsonProperty("telegramHandle") String telegramHandle, @JsonProperty("zoomLink") String zoomLink,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("uuid") String uuid,
             @JsonProperty("linkedEvents") List<String> linkedEvents,
-            @JsonProperty("isBookmarked") boolean isBookmarked) {
+            @JsonProperty("isMarked") boolean isMarked) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -61,7 +61,7 @@ class JsonAdaptedContact {
         if (linkedEvents != null) {
             this.linkedEvents.addAll(linkedEvents);
         }
-        this.isBookmarked = isBookmarked;
+        this.isMarked = isMarked;
     }
 
     /**
@@ -83,7 +83,7 @@ class JsonAdaptedContact {
         linkedEvents.addAll(source.getLinkedEvents().stream()
             .map(UUID::toString)
             .collect(Collectors.toList()));
-        isBookmarked = source.getIsBookMarked();
+        isMarked = source.getIsMarked();
     }
 
     /**
@@ -144,7 +144,7 @@ class JsonAdaptedContact {
                 linkedEvents.stream().map(UUID::fromString).collect(Collectors.toList()));
 
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelZoomLink,
-                modelTelegramHandle, modelTags, modelUuid, modelLinkedEvents, isBookmarked);
+                modelTelegramHandle, modelTags, modelUuid, modelLinkedEvents, isMarked);
     }
 
 }

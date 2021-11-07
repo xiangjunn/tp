@@ -2,7 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class EAddCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class EAddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateEvent_throwsCommandException() {
-        Event eventInList = model.getInitialAddressBook().getEventList().get(0);
+        Event eventInList = model.getAddressBook().getEventList().get(0);
         assertCommandFailure(new EAddCommand(eventInList), model, EAddCommand.MESSAGE_DUPLICATE_EVENT);
     }
 

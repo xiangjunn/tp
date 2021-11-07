@@ -36,7 +36,7 @@ public class Contact {
     private final ZoomLink zoomLink;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<UUID> linkedEvents = new HashSet<>();
-    private boolean isBookMarked;
+    private final boolean isMarked;
 
     /**
      * Name, email and tags must be present and not null.
@@ -53,7 +53,7 @@ public class Contact {
         this.telegramHandle = telegramHandle;
         this.zoomLink = zoomLink;
         this.uuid = UUID.randomUUID(); // to generate a uuid to uniquely identify contact
-        this.isBookMarked = false;
+        this.isMarked = false;
     }
 
     /**
@@ -64,8 +64,8 @@ public class Contact {
      */
     public Contact(
         Name name, Phone phone, Email email, Address address, ZoomLink zoomLink,
-        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isBookMarked) {
-        requireAllNonNull(name, email, tags, isBookMarked);
+        TelegramHandle telegramHandle, Set<Tag> tags, UUID uuid, Set<UUID> linkedEvents, boolean isMarked) {
+        requireAllNonNull(name, email, tags, uuid, linkedEvents);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -75,8 +75,29 @@ public class Contact {
         this.zoomLink = zoomLink;
         this.uuid = uuid;
         this.linkedEvents.addAll(linkedEvents);
-        this.isBookMarked = isBookMarked;
+        this.isMarked = isMarked;
+    }
 
+    /**
+     * Adds the contact to the hashmap that stores references to all contacts.
+     * If the hashmap already contains the UUID of the contact as key, the value associated to the
+     * key will be replaced to the contact passed as parameter to this method.
+     *
+     * @param contact The contact to be added.
+     */
+    public static void addToMap(Contact contact) {
+        map.put(contact.getUuid(), contact);
+    }
+
+    /**
+     * Returns a contact with the unique UUID that is passed in to the method.
+     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
+     *
+     * @param uuid The unique identifier for a contact in the hashmap.
+     */
+    public static Contact findByUuid(UUID uuid) {
+        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
+        return map.get(uuid);
     }
 
     public Name getName() {
@@ -123,12 +144,8 @@ public class Contact {
         return Collections.unmodifiableSet(linkedEvents);
     }
 
-    public boolean getIsBookMarked() {
-        return isBookMarked;
-    }
-
-    public void setBookMarked(boolean bookMarked) {
-        isBookMarked = bookMarked;
+    public boolean getIsMarked() {
+        return isMarked;
     }
 
     /**
@@ -151,6 +168,7 @@ public class Contact {
     public boolean phoneAnyMatch(List<String> strings) {
         return (phone != null) && phone.containsString(strings);
     }
+
     /**
      * Checks if this {@code address} contains any keywords in {code strings}
      */
@@ -189,66 +207,93 @@ public class Contact {
         }
 
         return otherContact != null
-                && otherContact.getName().equals(getName());
+            && otherContact.getName().equals(getName());
+    }
+
+    /**
+     * Checks if the contact is linked to a particular event.
+     */
+    public boolean hasLinkTo(Event event) {
+        UUID eventUuid = event.getUuid();
+        return linkedEvents.contains(eventUuid);
     }
 
     /**
      * Links the event to the contact object that calls this method.
+     *
      * @param event The event to be linked with.
+     * @return The contact that has link to the event passed in as parameter.
      */
-    public void linkTo(Event event) {
-        this.linkedEvents.add(event.getUuid());
-    }
-
-    /**
-     * Adds the contact to the hashmap that stores references to all contacts.
-     * If the hashmap already contains the UUID of the contact as key, the value associated to the
-     * key will be replaced to the contact passed as parameter to this method.
-     * @param contact The contact to be added.
-     */
-    public static void addToMap(Contact contact) {
-        map.put(contact.getUuid(), contact);
-    }
-
-    /**
-     * Returns a contact with the unique UUID that is passed in to the method.
-     * The UUID passed as parameter MUST be a valid UUID that is stored in the hashmap as a key.
-     * @param uuid The unique identifier for a contact in the hashmap.
-     */
-    public static Contact findByUuid(UUID uuid) {
-        assert map.containsKey(uuid) : "The uuid must be valid and already in the hashmap as a key.";
-        return map.get(uuid);
+    public Contact linkTo(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.add(event.getUuid());
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isMarked);
+        addToMap(updatedContact); // must update the map to represent the latest changes
+        return updatedContact;
     }
 
     /**
      * Removes the link between the event and the contact object that calls this method.
+     *
      * @param event The event to be unlinked.
+     * @return The contact that has no link to the event passed in as parameter.
      */
-    public void unlink(Event event) {
-        this.linkedEvents.remove(event.getUuid());
+    public Contact unlink(Event event) {
+        Set<UUID> updatedLinkedEvents = new HashSet<>(linkedEvents);
+        updatedLinkedEvents.remove(event.getUuid());
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, updatedLinkedEvents, isMarked);
+        addToMap(updatedContact);
+        return updatedContact;
     }
 
     /**
      * Removes all links to the contact object that calls this method.
+     *
+     * @return The contact that has no link to any contacts.
      */
-    public void clearAllLinks() {
-        this.linkedEvents.clear();
+    public Contact clearAllLinks() {
+        Contact updatedContact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags,
+            uuid, new HashSet<>(), isMarked);
+        addToMap(updatedContact);
+        return updatedContact;
+    }
+
+    /**
+     * Marks contact object that calls this method.
+     *
+     * @return The contact that has been marked.
+     */
+    public Contact markContact() {
+        Contact updatedContact =
+            new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, uuid, linkedEvents, true);
+        addToMap(updatedContact);
+        return updatedContact;
+    }
+
+    /**
+     * Removes the mark in the contact object that calls this method.
+     *
+     * @return The contact that has been un-marked.
+     */
+    public Contact unmarkContact() {
+        Contact updatedContact =
+            new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, uuid, linkedEvents, false);
+        addToMap(updatedContact);
+        return updatedContact;
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("; Phone: ")
-                .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress())
-                .append("; Zoom Link: ")
-                .append(getZoomLink())
-                .append("; Telegram: ")
-                .append(getTelegramHandle());
+                .append(getPhone() != null ? "; Phone: " + getPhone() : "") // optional
+                .append(getAddress() != null ? "; Address: " + getAddress() : "") // optional
+                .append(getZoomLink() != null ? "; Zoom Link: " + getZoomLink() : "") // optional
+                .append(getTelegramHandle() != null ? "; Telegram: " + getTelegramHandle() : ""); // optional
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
@@ -278,7 +323,7 @@ public class Contact {
             && Objects.equals(getZoomLink(), contact.getZoomLink())
             && Objects.equals(getAddress(), contact.getAddress())
             && Objects.equals(getTags(), contact.getTags())
-            && Objects.equals(getIsBookMarked(), contact.getIsBookMarked());
+            && Objects.equals(getIsMarked(), contact.getIsMarked());
     }
 
     @Override

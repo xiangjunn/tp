@@ -51,7 +51,7 @@ This section will cover the design considerations and implementations of the var
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
-The ***Architecture Diagram*** given above explains the high-level design of the SoConnect App.
+The Architecture Diagram given above explains the high-level design of the SoConnect App.
 
 Given below is a quick overview of main components and how they interact with each other.
 
@@ -73,14 +73,14 @@ The rest of the App consists of four components.
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `edelete 1`.
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `edelete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
-* defines its *API* in an `_interface_` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `_interface_` mentioned in the previous point).
+* defines its *API* in an _interface_ with the same name as the Component.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API _interface_ mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` _interface_ and implements its functionality using the `LogicManager.java` class which follows the `Logic` _interface_. Other components interact with a given component through its _interface_ rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -117,13 +117,13 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `CAddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add a contact).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("edelete 1-3")` API call.
 
-![Interactions Inside the Logic Component for the `edelete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `edelete 1` Command](images/EDeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
@@ -173,8 +173,6 @@ The `Storage` component,
 
 ### Common classes
 
-The **API** of this component is specified in [`Storage.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/commons)
-
 Classes used by multiple components are in the `seedu.addressbook.commons` package. For example, the `Range` class, specified in [`Range.java`](https://github.com/AY2122S1-CS2103T-W15-3/tp/tree/master/src/main/java/seedu/address/commons/core/range/Range.java) encapsulates a range of indexes that are used by the `EDeleteCommand` and `CDeleteCommand` classes in logic.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -195,7 +193,7 @@ We will use an example command: `edelete 1-3`.
 
 The sequence diagram below shows how the execution of the example command flows:
 
-![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/EDeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
 
@@ -267,7 +265,7 @@ Step 2. The user input `at/ end/` will be subjected to checks by methods from [`
 
 Step 3. A `EventDisplaySetting` object is created based on the input arguments.
    * If there are no inputs, then the default `EventDisplaySetting.DEFAULT_SETTING` object is created.
-   * Since there are inputs for this example, an `EventDisplaySetting` with the `willDisplay` _fields_ for `startDateTime` and `endDateTime` will be set to true. All other _fields_ will be set to false (hidden). `isViewingFull` will be set to false, since this is not a `view` command.
+   * Since there are inputs for this example, an `EventDisplaySetting` with the `willDisplay` _fields_ for `startDateTime` and `endDateTime` set to true. All other _fields_ will be set to false (hidden from the user). `isViewingFull` will be set to false, since this is not a `view` command.
 
 Step 4. A new `EListCommand` object is returned to the `LogicManager`.
 
@@ -393,6 +391,11 @@ Aspect: Whether to update the existing contact/event objects to show the link:
 
 ### Undo/redo feature
 
+This section explains how `undo` and `redo` features are implemented. These features allow users to reverse the effect of
+their previous command by using `undo`, and restore the previously undone action by using `redo`.
+
+#### Implementation
+
 The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `allHistory`, an ArrayList of all `HistoryInstance` of addressBook.
 
 ![ModelHistoryDiagram](images/ModelHistory.png)
@@ -420,7 +423,7 @@ Step 3. The user executes `cadd n/David …​` to add a new contact. The `cadd`
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="block" class="alert alert-info">:information_source: **Note:** 
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:** 
 - If a command fails its execution, it will not call `Model#commitHistory()`, so the address book state will not be saved into `allHistory`.
 - For general commands (help, exit, calendar, undo, redo), `Model#commitHistory()` will not be called as they do not cause any changes to addressBook.
 </div>
@@ -429,9 +432,10 @@ Step 4. The user now decides that adding the contact was a mistake, and decides 
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentSize` is at index 0, pointing to the initial HistoryInstance, then there are no previous history instances to restore. The `undo` command uses `Model#isUndoable()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** If the `currentSize` is at index 0 or 1, it is pointing to an empty history or the initial HistoryInstance. Thus, there are no previous history instances to restore. The `undo` command uses `Model#isUndoable()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo action.
 </div>
+
+#### Undo sequence diagram
 
 The following sequence diagram shows how the undo operation works:
 
@@ -443,7 +447,7 @@ The following sequence diagram shows how the undo operation works:
 
 The `redo` command does the opposite — it calls `Model#redoHistory()`, which shifts the `currentSize` once to the right, pointing to the previously undone state, and restores the address book and its display setting to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentSize` is at the same point as `maxSize`, pointing to the latest history instance, then there are no undone AddressBook states to restore. The `redo` command uses `Model#isRedoable()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** If the `currentSize` is at the same point as `maxSize`, pointing to the latest history instance, then there are no undone AddressBook states to restore. The `redo` command uses `Model#isRedoable()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
@@ -457,9 +461,11 @@ Step 5.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
+#### Activity diagram
+
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="250" />
+![ActivityDiagram](images/UndoRedoActivityDiagram.png)
 
 #### Design considerations
 
@@ -931,7 +937,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
+**11. Use case: UC11 - Mark contacts**
 
+**Guarantees:** The chosen contacts will be marked with a bookmark icon <img src="images/demo-screenshots/bookmarkIcon.png" style="width: 1em;" /> and moved to the start of the contact list.
+
+***MSS***
+
+1. User decides on the contacts to mark.
+
+2. User inputs the indexes of the contacts to mark.
+
+3. SAS marks the chosen contacts and move them to the top of the list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. SAS detects an error in the inputs.
+
+  * 2a1. SAS requests for correct inputs.
+
+  * 2a2. User enters new inputs.
+
+  Steps 2a1 to 2a2 are repeated until the inputs entered are correct.
+
+  Use case resumes from step 3.
+
+* 2b. SAS detects some contacts that have already been marked.
+
+  * 2b1. SAS informs the user the relevant contacts that have already been marked previously.
+
+  * 2b2. SAS proceeds to mark the other contacts and move them to the top of the list.
+
+  Use case ends.
+
+* *a. User chooses not to link event to contacts.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
@@ -941,8 +983,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. Should not depend on Internet connection.
 5. Only one user should be able to use the system at one time.
 6. Should be usable by colorblind students
-
-*{More to be added}*
 
 ### Glossary
 
@@ -988,7 +1028,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+testers are expected to do more exploratory testing.
 
 </div>
 
@@ -998,7 +1038,8 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the _GUI_ with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file <br>
+       Expected: Shows the _GUI_ with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 

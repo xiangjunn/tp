@@ -1,5 +1,6 @@
 package seedu.address.model.contact;
 
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -100,33 +101,43 @@ public class UniqueContactList implements Iterable<Contact> {
 
     /**
      * Remove all the contents of this list.
-     *
      */
     public void resetContacts() {
         internalList.clear();
     }
 
     /**
-     * Moves bookmarked contacts to the top of the list.
+     * Moves marked contacts to the top of the list.
+     * Places the newly marked contacts or replaces newly unmarked contacts
+     * in the order specified in {@code contacts} and
+     * based on {@code isMarked} which signals whether this method is called by
+     * CMarkCommand or otherwise.
      */
-    public void reshuffleContactsInOrder() {
-        ObservableList<Contact> markedContactsFirst = FXCollections.observableArrayList();
-        internalList.forEach(contact -> {
-            if (contact.getIsBookMarked()) {
-                markedContactsFirst.add(contact);
-            }
-        });
-        internalList.forEach(contact -> {
-            if (!contact.getIsBookMarked()) {
-                markedContactsFirst.add(contact);
-            }
-        });
-        internalList.removeAll(internalUnmodifiableList); //removes all contact from the list
-        internalList.addAll(markedContactsFirst); //adds in list in correct order
+    public void rearrangeContactsInOrder(List<Contact> contacts, boolean isMarked) {
+        ObservableList<Contact> tempList = FXCollections.observableArrayList();
+        if (isMarked) {
+            tempList.addAll(contacts);
+            tempList.addAll(internalList.filtered(contact -> !contacts.contains(contact)));
+        } else {
+            tempList.addAll(internalList.filtered(Contact::getIsMarked));
+            tempList.addAll(internalList.filtered(c -> !c.getIsMarked()));
+        }
+        internalList.clear();
+        internalList.addAll(tempList);
+    }
+
+    /**
+     * Update the UUID map in contacts.
+     */
+    public void updateContactMap() {
+        for (Contact contact : internalList) {
+            Contact.addToMap(contact);
+        }
     }
 
     /**
      * Get a copy of uniqueContactList
+     *
      * @return a copy of a UniqueContactList
      */
     public ObservableList<Contact> copy() {
@@ -149,8 +160,7 @@ public class UniqueContactList implements Iterable<Contact> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (
-            other instanceof UniqueContactList // instanceof handles nulls
+            || (other instanceof UniqueContactList // instanceof handles nulls
                 && internalList.equals(((UniqueContactList) other).internalList));
     }
 
