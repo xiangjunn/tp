@@ -348,6 +348,31 @@ The following activity diagram summarizes what happens when the `elink` feature 
 
 ![ELinkActivityDiagram](images/ELinkActivityDiagram.png)
 
+##### Design Considerations
+Aspect: The relationship of the link:
+
+* Alternative implementation 1: The event has a reference to contacts that are linked to it but not the other way.
+  * Pros: Easy to implement. We only need to manage the relationship of the link in `Event` object.
+  * Cons: It is less efficient if we want to make changes to the contacts through other commands because we have to go through
+  all events to find out which events have link to the contact.
+    
+* Alternative implementation 2 (current choice): Both event and contact have reference to each other if they are linked.
+  * Pros: More efficient.
+  * Cons: Have to enforce the bidirectional relationship strictly which is hard to implement ang bug-prone.
+
+Aspect: Whether to update the existing contact/event objects to show the link:
+
+* Alternative implementation 1: Update the contact/event to have information about their linked events/contacts.
+  * Pros: Easy to implement.
+  * Cons: `Contact` and `Event` objects are no longer immutable. Increase in difficulty of testings.
+
+* Alternative implementation 2 (current choice): Creates new `Contact` and `Event` objects with link to each other and making them immutable.
+  * Pros: Less likely to have bugs. Works well with other commands like `undo` and `redo` because any changes in the link
+    will create new objects of `Contact` and `Event`, hence making it easier to store history of the contacts and events.
+  * Cons: May have performance issues in terms of memory usage because other commands like `Edelete` and `CEdit` may result in change in link relationship,
+    resulting in the creation of new `Contact` or `Event` objects.
+
+
 ### Undo/redo feature
 
 The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `allHistory`, an ArrayList of all `HistoryInstance` of addressBook.
@@ -999,6 +1024,18 @@ testers are expected to do more *exploratory* testing.
 
   1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
      Expected: No change in display. Error message shown in status bar.
+
+### Linking an event to one or more contacts
+
+   Prerequisites: There is at least one event and one contact in their respective list.
+
+1. Test case: `elist at/`<br>
+   Expected: All events listed with only address displayed. All events listed shown in the status message.
+1. Test case: `elist`<br>
+   Expected: All events listed with all fields displayed. All events listed shown in the status message.
+
+1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
+   Expected: No change in display. Error message shown in status bar.
 
 ### Saving data
 
