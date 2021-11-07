@@ -22,7 +22,7 @@ import seedu.address.logic.commands.event.EViewCommand;
 public class EventCommandSummary {
 
     public static final String ADD = "Add";
-    public static final String MARK = "mark";
+    public static final String MARK = "Mark";
     public static final String CLEAR = "Clear";
     public static final String DELETE = "Delete";
     public static final String EDIT = "Edit";
@@ -96,13 +96,13 @@ public class EventCommandSummary {
     public static ObservableList<EventCommandSummary> getEventCommandSummary() {
         return FXCollections.observableArrayList(
                 new EventCommandSummary(ADD, EAddCommand.SYNTAX),
-                new EventCommandSummary(MARK, EMarkCommand.SYNTAX),
                 new EventCommandSummary(CLEAR, EClearCommand.SYNTAX),
                 new EventCommandSummary(DELETE, EDeleteCommand.SYNTAX),
                 new EventCommandSummary(EDIT, EEditCommand.SYNTAX),
                 new EventCommandSummary(FIND, EFindCommand.SYNTAX),
                 new EventCommandSummary(LINK, ELinkCommand.SYNTAX),
                 new EventCommandSummary(LIST, EListCommand.SYNTAX),
+                new EventCommandSummary(MARK, EMarkCommand.SYNTAX),
                 new EventCommandSummary(REMOVE_MARK, EUnmarkCommand.SYNTAX),
                 new EventCommandSummary(SORT, ESortCommand.SYNTAX),
                 new EventCommandSummary(UNLINK, EUnlinkCommand.SYNTAX),
