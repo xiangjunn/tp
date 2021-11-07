@@ -817,7 +817,7 @@ Input | Expected Output
 
 ## General
 
-This section details all other the features and commands available in SoConnect that can enhance your SoConnect experience:
+This section details all the other features and commands available in SoConnect that can enhance your SoConnect experience:
 * [Calendar Window](#calendar-window-calendar)
 * [Exiting SoConnect](#exiting-soconnect-exit)
 * [Help Window](#help-window-help)
@@ -869,7 +869,7 @@ Displays a summary of all commands in SoConnect User Guide.
 
 **Format:** `help`
 
-![help message](images/demo-screenshots/helpMessage.png)
+![help message](images/demo-screenshots/helpWindow.png)
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
@@ -968,7 +968,7 @@ The linked contacts will be displayed on the contact panel on the left.
 **Q**: How do I view the events linked to a particular contact?<br>
 **A**: Click on the particular contact card in the panel containing contacts.
 Then click on the yellow boxes which are links to the events.
-The linked events will be displayed on the event panel on the left.
+The linked events will be displayed on the event panel on the right.
 ![View links of contact](images/demo-screenshots/ClickLinksContact.png)
 
 **Q**: What is the purpose of using links?<br>
@@ -1053,7 +1053,7 @@ Action | Format, Examples
 **[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX`<br> e.g. `emark 1`
 **[Clear](#clearing-all-events-eclear)** | `eclear`
 **[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
-**[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
+**[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/CCA t/Hard` <br> e.g., `eedit 3 dt/*`
 **[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind CS2103T t/hard`
 **[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2 c/3`
 **[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
@@ -1078,11 +1078,16 @@ ________________________________________________________________________________
 
 Word | Explanation
 --------|------------------
+**SoC** | School of Computing, the faculty in NUS that specialises in computer science degree courses.
+**Professors** | Instructors who conduct lectures and teach modules in NUS.
+**Teaching Assistants** | NUS student teachers employed to conduct small classes known as tutorials.
 **Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**
-**Command Format** | The structure that a command must abide by for it to be executed
+**Command** | A string of words and characters you type to perform an action, each command has its own **Command format**.
+**Command Format** | The structure that a command must abide by for it to be executed.
+**Parameter(s)** | Information supplied by the user to the application when executing certain commands.
+**Prefix** | A tag, consisting of a slash - "/", with one or a few characters to denote information about a certain **field**.
 **Field(s)** | The information type within each contact or event <br> For example, **Name** and **Address** of a contact are _fields_ of a contact.
-**Graphical User Interface (GUI)** | Graphical representation of the application that the user sees
-**Hard Disk** | Device in computer that is used to store files of the computer
-**Home Folder** | Folder which the application file is saved in the computer
-**JavaScript Object Notation (JSON) File** | The file that is used by the application to load its data and to save data of the application in a human-readable format.
-**Parameter(s)** | Information supplied by the user to the application when executing certain commands 
+**Graphical User Interface (GUI)** | How the application appears to the user on his/her screen.
+**Hard Disk** | Device in computer that is specialised in storing data permanently.
+**Home Folder** | Folder which the application file is saved in the computer.
+**JavaScript Object Notation (JSON) File** | The file that is used by the application to load and save data of the application in a human-readable format.
