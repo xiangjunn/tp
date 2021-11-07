@@ -152,7 +152,10 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
 
-An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` and ` Event` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` or `Event` needing their own `Tag` objects.<br>
+An alternative (arguably, a more OOP) model is given below. 
+It has a `Tag` list in the `AddressBook`, which `Contact` and `Event` references. 
+This allows `AddressBook` to only require one `Tag` object per unique tag, 
+instead of each `Contact` or `Event` needing their own `Tag` objects.<br>
 <img src="images/BetterModelClassDiagram.png" width="350" />
 </div>
 
