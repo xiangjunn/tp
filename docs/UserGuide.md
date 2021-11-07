@@ -3,10 +3,16 @@ layout: page
 title: SoConnect User Guide
 ---
 
-Made by *SoC students*, for SoC students, SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, and keep track of noteworthy events.** It is **optimized for use via a _Command Line Interface (CLI)_** while still having 
-the benefits of a _Graphical User Interface (GUI)_. If you can type fast, managing your contacts will be very easy with SoConnect.
+Made by *SoC students*, for SoC students, SoConnect is a **desktop app for SoC students to manage contacts
+of Professors and Teaching Assistants, and keep track of noteworthy events.** With SoConnect, you can **save 
+your contacts and events in one location**, and even **link events to multiple contacts**, or **bookmark
+your favorite contact**.
 
-This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the
+SoConnect is **optimized for use via a _Command Line Interface (CLI)_** while still having 
+the benefits of a _Graphical User Interface (GUI)_. If you can type fast, managing your contacts will be
+**very easy** with SoConnect.
+
+This user guide will help you to familiarise yourself with your SoConnect quickly and teach you the
 full range of features it offers.
 
 
@@ -28,7 +34,7 @@ full range of features it offers.
 
 ### How to read commands in SoConnect
 
-You will see commands throughout this User Guide and each of them have their own _Command Format_.
+You will see _commands_ throughout this User Guide and each of them has its own _Command Format_.
 
 This is one example of a command:
 
@@ -37,45 +43,31 @@ This is one example of a command:
 There are only 3 different parts of inputs within each command:
 1. **COMMAND WORD**
 
-   Command word is the word that you need to specify when you need SoConnect to perform some actions for you.
-   Else, SoConnect does not know how it can help you!
+   You need to specify the command word to tell SoConnect what action you want to do.
 
-   For example, specifying `cedit` in the command above will tell SoConnect that you want to edit a contact.
+   For example, specifying `cedit` in the command above will tell SoConnect to edit a contact for you.
 
 2. **_PARAMETER_**
 
-   _Parameter_ is the related information that you need to specify to SoConnect for the action you want to do.
+   The _parameter_ is the supplementary information that you need to provide for the action you want to do.
 
-   Using the same example, after telling SoConnect to edit a contact, you will need to tell SoConnect which contact to edit
-   and provide the information for the edit.
+   Using the same example, specifying `2` tells SoConnect to edit the contact at **index 2** (the second contact in the list) to the name `Betsy Crower`.
 
-   Specifying `2` tells SoConnect to edit contact at **index 2** and `Betsy Crower`
-   is the **new name** you want to change the specified contact to.
+3. **_PREFIX_**
 
-3. **PREFIX**
+   The *prefix* separates the different types of *parameters*.
 
-   You can help SoConnect in separating the type of _parameters_ when you input information.
+   Each prefix always ends with a `/`. See the [list of prefixes](#list-of-prefixes) for all the prefixes that you can use in SoConnect.
 
-   Each prefix always ends with one `/`. Jump to [List of Prefixes](#list-of-prefixes) to see all prefixes you can use in SoConnect.
+   For example, if you use `n/`, SoConnect will recognise that the information following this prefix should be a **name**.
 
-   For example, information that you specified after prefix `n/` would help SoConnect to identify the _parameter_
-   is referring to **name** of the contact.
-
-
-Thus, the command above will tell SoConnect to **edit the name of the contact at index 2 to Betsy Crower**.
-
-<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
-
-* Read more on _Command Format_ below, or
-* See more commands that you can type in SoConnect [here](#Features)!
-</div>
-
+You may view the entire list of commands that you can type in SoConnect [here](#Features).
 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: About the _Command_ format:**<br>
 
-* Words in `UPPER_CASE` are the _parameters_ that you will provide.<br>
+* Words in `UPPER_CASE` are the _parameters_ that you should provide.<br>
   e.g. in `cadd n/NAME`, `NAME` is a _parameter_ which can be used as `cadd n/John Doe`.
 
 * _Fields_ in **square brackets** are **optional**.<br>
@@ -87,39 +79,41 @@ Thus, the command above will tell SoConnect to **edit the name of the contact at
 * Each pair of prefix and _parameter_ can be in any order.<br>
   e.g. if the command specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
 
-* If a _parameter_ is expected only once in the command, but you specified it multiple times, **only the last occurrence** of the parameter will be taken.<br>
+* If a _parameter_ is expected only once in the command, but you specify it multiple times, **only the last occurrence** of the parameter will be taken (unless otherwise stated).<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
 * Extraneous _parameters_ for commands that do not take in _parameters_ (such as `help` and `exit`) will be **ignored**.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* Date and time must follow **dd-MM-yyyy HH:mm** format.
+* Date and time must follow **dd-MM-yyyy HH:mm** format (day-month-year hours:minutes).
   e.g. if the date and time is 1 May 2021 6.30pm, you should specify it as `01-05-2021 18:30`
 
 </div>
 
 ### What happens if my command is invalid?
 
-After you specified a command to be done on SoConnect, a success message will be shown on the message box of SoConnect.
+After you enter a command to on SoConnect, a success message will be displayed on the message box of SoConnect.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-Not sure where is the **message box**? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different
-sections you can find in SoConnect!
+Unsure of where to find the **message box**? Click [here](#overview-of-soconnect) to check out the
+overview of different components in SoConnect.
 </div>
 
-For example, after you specified [`clist`](#listing-all-contacts-clist):
+For example, after entering [`clist`](#listing-all-contacts-clist), SoConnect will tell you that it has successfully listed all contacts.
+
 ![Success Message](images/demo-screenshots/successMessage.png)
-SoConnect will tell you that it has successfully listed all contacts!
 
 <br>
 
-However, when the command you entered does not fulfill the _Command Format_ specified in [Features](#features),
-an **error message** will be shown on the message box instead.
+However, if the command you entered does not fulfill the _Command Format_ specified in 
+[Features](#features), an **error message** will be shown on the message box instead.
+You can then correct your mistakes in the command and try again.
 
-For example, after you specified [`cview`](#viewing-a-contact-cview) **without** specifying which contact to view:
+For example, if you enter [`cview`](#viewing-a-contact-cview) **without** specifying which contact to view,
+SoConnect will tell you that the _Command Format_ is invalid.
+
 ![Error Message](images/demo-screenshots/invalidCommand.png)
-SoConnect will tell you that the _Command Format_ is invalid!
 
 --------------------------------------------------------------------------------------------------------------------
 ## Quick start
@@ -134,31 +128,33 @@ SoConnect will tell you that the _Command Format_ is invalid!
 2. Download the latest `soconnect.jar` from [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect.
-
+![Home Folder](images/demo-screenshots/homeFolder.png)
 4. Double-click the file to start SoConnect. This is how SoConnect looks like:<br>
 
-    <div markdown="span" class="alert alert-info">:information_source: **Note:**
+   ![Ui](images/Ui.png)
 
-   SoConnect comes with some sample contacts and events upon installation!
+    <div markdown="span" class="alert alert-info">:information_source: **Note:**
+   SoConnect comes with some sample contacts and events upon installation.
+    </div>
+    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+   If SoConnect does not start by double-clicking, you can check this 
+   [alternative](#how-to-start-soconnect-using-terminal) way of starting SoConnect.
     </div>
 
-   ![Ui](images/Ui.png)
-   If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
-
-5. **Type the command in the command box and press Enter** to execute it.
+5. Type the command in the command box and **press Enter** to execute it.
 
     <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-
-   Not sure where is the **command box**? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different
-   sections you can find in SoConnect!
+   Unsure of where to find the **command box**? Click [here](#overview-of-soconnect) to check out the
+   overview of different components in SoConnect.
     </div>
 
-   e.g. typing `help` and **pressing Enter** will open the [help window](#help-window-help).<br>
-   Some example commands you can try:
+   For example, typing `help` and **pressing Enter** will open the [help window](#help-window-help).<br>
+   Here are some example commands you can try:
 
     * `elist`: [Lists all events](#listing-all-events-elist).
 
-    * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: [Adds a contact](#adding-a-contact-cadd) named `John Doe` to SoConnect.
+    * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`:
+   [Adds a contact](#adding-a-contact-cadd) named `John Doe` to SoConnect.
 
     * `cdelete 3` : [Deletes the third contact](#deleting-a-contact-cdelete) shown in SoConnect.
 
@@ -170,6 +166,7 @@ SoConnect will tell you that the _Command Format_ is invalid!
 
 _See also: [What happens if my command is invalid](#what-happens-if-my-command-is-invalid)_
 
+--------------------------------------------------------------------------------------------------------------------
 
 ## Overview of SoConnect
 
@@ -187,16 +184,14 @@ This is what you will see when you open SoConnect!
    ![File Tab](images/demo-screenshots/fileTab.png)
 
     <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-
-   Checkout how to [exit SoConnect](#exiting-soconnect-exit) and open [Calendar](#calendar-window-calendar) of SoConnect using commands!
+    Click the following links to see how to [exit SoConnect](#exiting-soconnect-exit) and [open the calendar](#calendar-window-calendar) using commands.
     </div> <br>
 
    Upon clicking `Help`, you can choose to open **Help Window** of SoConnect.
    ![Help Tab](images/demo-screenshots/helpTab.png)
 
     <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-
-   Checkout how to open [Help Window](#help-window-help) of SoConnect using commands!
+   Check out how to open [the help window](#help-window-help) using commands.
     </div>
 
 2. **Command Box**
@@ -205,28 +200,28 @@ This is what you will see when you open SoConnect!
 
 3. **Message Box**
 
-   Displays the message from SoConnect **after** you have executed one command.
+   Displays the message from SoConnect after you have executed one command.
 
-   See Also: [What happens if my command is invalid?](#what-happens-if-my-command-is-invalid)
+   _See Also: [What happens if my command is invalid?](#what-happens-if-my-command-is-invalid)_
 
 5. **Contact List**
 
    Displays information of the contacts you saved in SoConnect.
 
-   Refer to [Icons in Contact List](#icons-in-contact-list) to see the different _fields_ that each icon represents in Contact List.
+   Refer to [Icons in Contact List](#icons-in-contact-list) to learn about the different _fields_ that each icon represents in Contact List.
 
 6. **Event list**
 
    Displays information of the events you saved in SoConnect.
 
-   Refer to [Icons in Event List](#icons-in-events-list) to see the different _fields_ that each icon represents in Event List.
+   Refer to [Icons in Event List](#icons-in-event-list) to learn about the different _fields_ that each icon represents in Event List.
 
 
 
 ### Icons in Contact List
 
 ![Contact Card](images/demo-screenshots/contactCard.png)
-You can always find these 2 information of each contact displayed in SoConnect Contact List:
+You will always find these 2 information of each contact displayed in SoConnect Contact List:
 1. Contact Index
 2. Contact Name
 
@@ -243,14 +238,14 @@ Icon | _Field_
 **![Event Icon](images/demo-screenshots/eventIcon.png)** | Linked Events
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*Bookmark icon is only visible when the contact has been bookmarked.
+*The bookmark icon is only visible when the contact has been bookmarked.
 _See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
 
-### Icons in Events List
+### Icons in Event List
 
 ![Event Card](images/demo-screenshots/eventCard.png)
-You can always find these 2 information of each contact displayed in SoConnect Event List:
+You will always find these 2 information of each contact displayed in SoConnect Event List:
 1. Event Index
 2. Event Name
 
@@ -266,7 +261,7 @@ Icon | _Field_
 **![Contact Icon](images/demo-screenshots/contactsIcon.png)** | Linked Contacts
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*Bookmark icon is only visible when the event has been bookmarked.
+*The bookmark icon is only visible when the event has been bookmarked.
 _See also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
 --------------------------------------------------------------------------------------------------------------------
@@ -281,8 +276,9 @@ There are three main sections to SoConnect Features:
 For each feature, you are provided with:
 * Function and Description of the feature
 * _Command Format_ of the feature
-* Examples of some usages of the feature (All examples assumes SoConnect has the **inital sample** contacts and events)
+* Examples of some usages of the feature (All examples use the **initial sample** of contacts and events)
 
+--------------------------------------------------------------------------------------------------------------------
 
 ## Contact Management
 
