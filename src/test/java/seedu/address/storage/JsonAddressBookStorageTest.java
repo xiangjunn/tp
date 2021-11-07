@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalContacts.HOON;
 import static seedu.address.testutil.TypicalContacts.IDA;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,7 +21,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 
 public class JsonAddressBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths
-            .get("src", "test", "data", "JsonAddressBookStorageTest");
+        .get("src", "test", "data", "JsonAddressBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -37,8 +37,8 @@ public class JsonAddressBookStorageTest {
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -54,23 +54,13 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAddressBook_invalidContactAddressBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-                readAddressBook("invalidContactAndEventAddressBook.json"));
+            readAddressBook("invalidContactAndEventAddressBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidContactAddressBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-                readAddressBook("invalidAndValidContactAndEventAddressBook.json"));
-    }
-
-    //TODO implement these methods
-
-    @Test
-    public void readAddressBook_invalidEventAddressBook_throwDataConversionException() {
-    }
-
-    @Test
-    public void readAddressBook_invalidAndValidEventAddressBook_throwDataConversionException() {
+            readAddressBook("invalidAndValidContactAndEventAddressBook.json"));
     }
 
     @Test
@@ -80,39 +70,36 @@ public class JsonAddressBookStorageTest {
         JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath, true);
+        jsonAddressBookStorage.saveAddressBook(original, filePath);
         ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addContact(HOON);
-        original.removeContact(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath, true);
+        original.removeContact(ALICE_MARKED);
+        jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
-        //TODO add code to add and remove event
-
         // Save and read without specifying file path
         original.addContact(IDA);
-        jsonAddressBookStorage.saveAddressBook(original, true); // file path not specified
+        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));
-
     }
 
     @Test
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json", true));
+        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath, boolean isClose) {
+    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
             new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath), isClose);
+                .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
@@ -120,6 +107,6 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new AddressBook(), null, true));
+        assertThrows(NullPointerException.class, () -> saveAddressBook(new AddressBook(), null));
     }
 }

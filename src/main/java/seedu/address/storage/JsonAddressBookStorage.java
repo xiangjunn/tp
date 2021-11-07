@@ -60,16 +60,22 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, boolean isClose) throws IOException {
-        saveAddressBook(addressBook, filePath, isClose);
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook, boolean)}.
+     * Similar to {@link AddressBookStorage#saveAddressBook(ReadOnlyAddressBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, boolean isClose) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        if (addressBook == null) {
+            throw new NullPointerException("Address book is null.");
+        }
+        if (filePath == null) {
+            throw new NullPointerException("File path is null.");
+        }
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

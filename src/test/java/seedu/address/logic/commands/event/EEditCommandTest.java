@@ -11,8 +11,9 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_COO
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.util.List;
@@ -33,7 +34,6 @@ import seedu.address.model.event.EventChanger;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
-import seedu.address.testutil.TypicalEvents;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EEditCommand.
@@ -48,7 +48,7 @@ class EEditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Event editedEvent = new EventBuilder().build();
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent,
-                null, true).build();
+            null, true).build();
         EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, descriptor);
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
@@ -67,11 +67,11 @@ class EEditCommandTest {
 
         EventBuilder eventInList = new EventBuilder(lastEvent);
         Event editedEvent = eventInList.withName(VALID_NAME_TUTORIAL)
-                .withStartDateAndTime(VALID_START_DATE_TIME_TUTORIAL).withTags(VALID_TAG_COOL).build();
+            .withStartDateAndTime(VALID_START_DATE_TIME_TUTORIAL).withTags(VALID_TAG_COOL).build();
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withName(VALID_NAME_TUTORIAL)
-                .withStartDateTime(VALID_START_DATE_TIME_TUTORIAL).withDeleteAllTags(true)
-                .withTags(VALID_TAG_COOL).build();
+            .withStartDateTime(VALID_START_DATE_TIME_TUTORIAL).withDeleteAllTags(true)
+            .withTags(VALID_TAG_COOL).build();
         EEditCommand eEditCommand = new EEditCommand(indexLastEvent, descriptor);
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
@@ -103,8 +103,9 @@ class EEditCommandTest {
 
         Event eventInFilteredList = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         Event editedEvent = new EventBuilder(eventInFilteredList).withName(VALID_NAME_EXAM).build();
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST,
-                new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM).build());
+        EEditCommand eEditCommand = new EEditCommand(
+            INDEX_FIRST,
+            new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM).build());
 
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
@@ -120,7 +121,7 @@ class EEditCommandTest {
     public void execute_duplicateEventUnfilteredList_failure() {
         Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(firstEvent, Set.of(),
-                false).build();
+            false).build();
         EEditCommand eEditCommand = new EEditCommand(INDEX_SECOND, descriptor);
 
         assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_DUPLICATE_EVENT);
@@ -132,8 +133,9 @@ class EEditCommandTest {
 
         // edit event in filtered list into a duplicate in address book
         Event eventInList = model.getAddressBook().getEventList().get(INDEX_SECOND.getZeroBased());
-        EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST,
-                new EditEventDescriptorBuilder(eventInList, Set.of(), false).build());
+        EEditCommand eEditCommand = new EEditCommand(
+            INDEX_FIRST,
+            new EditEventDescriptorBuilder(eventInList, Set.of(), false).build());
 
         assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_DUPLICATE_EVENT);
     }
@@ -142,7 +144,7 @@ class EEditCommandTest {
     public void execute_invalidEventIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredEventList().size() + 1);
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM)
-                .build();
+            .build();
         EEditCommand eEditCommand = new EEditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(eEditCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
@@ -159,8 +161,9 @@ class EEditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getEventList().size());
 
-        EEditCommand eEditCommand = new EEditCommand(outOfBoundIndex,
-                new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM).build());
+        EEditCommand eEditCommand = new EEditCommand(
+            outOfBoundIndex,
+            new EditEventDescriptorBuilder().withName(VALID_NAME_EXAM).build());
 
         assertCommandFailure(eEditCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
@@ -168,25 +171,25 @@ class EEditCommandTest {
     @Test
     public void execute_invalidDateTimeRangeEvent_failure() {
         EEditCommand eEditCommand = new EEditCommand(INDEX_FIRST, new EditEventDescriptorBuilder()
-                .withStartDateTime("20-10-2021 20:00").withEndDateTime("20-10-2021 18:00").build());
+            .withStartDateTime("20-10-2021 20:00").withEndDateTime("20-10-2021 18:00").build());
         assertCommandFailure(eEditCommand, model, EEditCommand.MESSAGE_INVALID_DATE_TIME_RANGE);
     }
 
     @Test
     public void execute_tagToDeleteNotInOriginalEvent_success() {
         Tag toDelete = new Tag("notInOriginal");
-        Event editedEvent = new EventBuilder().build();
+        Event editedEvent = new EventBuilder().withMarked(false).build();
         EEditCommand.EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent,
             Set.of(toDelete), false).build();
         // the index must not have any tags initially (check TypicalEvents)
-        EEditCommand eEditCommand = new EEditCommand(Index.fromZeroBased(3), descriptor);
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FOURTH, descriptor);
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent)
             + "\nNote:\n" + String.format(EEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete);
         EventChanger eventChanger = EventChanger.editEventChanger(model.getFilteredEventList().get(3), editedEvent);
-        Model expectedModel = new ModelManager(new AddressBook(TypicalEvents.getTypicalAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
         expectedModel.setEvent(model.getFilteredEventList().get(3), editedEvent);
         assertCommandSuccess(eEditCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
-                expectedModel);
+            expectedModel);
     }
 
     @Test
@@ -200,7 +203,7 @@ class EEditCommandTest {
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent)
             + "\nNote:\n" + String.format(EEditCommand.MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL, toAdd);
         EventChanger eventChanger = EventChanger.editEventChanger(model.getFilteredEventList().get(0), editedEvent);
-        Model expectedModel = new ModelManager(new AddressBook(TypicalEvents.getTypicalAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
         expectedModel.setEvent(model.getFilteredEventList().get(0), editedEvent);
         assertCommandSuccess(eEditCommand, model, new CommandResult(expectedMessage, List.of(eventChanger)),
             expectedModel);

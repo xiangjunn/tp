@@ -110,11 +110,6 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void commitHistory() {
-            // TODO: 10/27/2021 add check for commit
-        }
-
-        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }

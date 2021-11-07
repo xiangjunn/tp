@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalEvents.INTERVIEW;
 import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
 
@@ -53,9 +53,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateContacts_throwsDuplicateContactException() {
         // Two contacts with the same identity fields
-        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Contact> newContacts = Arrays.asList(ALICE, editedAlice);
+        Contact editedAlice = new ContactBuilder(ALICE_MARKED).withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_HUSBAND).build();
+        List<Contact> newContacts = Arrays.asList(ALICE_MARKED, editedAlice);
         List<Event> newEvents = new ArrayList<>(); //empty event list
         AddressBookStub newData = new AddressBookStub(newContacts, newEvents);
 
@@ -85,7 +85,7 @@ public class AddressBookTest {
 
     @Test
     public void hasContact_contactNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasContact(ALICE));
+        assertFalse(addressBook.hasContact(ALICE_MARKED));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class AddressBookTest {
 
     @Test
     public void hasContact_contactInAddressBook_returnsTrue() {
-        addressBook.addContact(ALICE);
-        assertTrue(addressBook.hasContact(ALICE));
+        addressBook.addContact(ALICE_MARKED);
+        assertTrue(addressBook.hasContact(ALICE_MARKED));
     }
 
     @Test
@@ -107,8 +107,9 @@ public class AddressBookTest {
 
     @Test
     public void hasContact_contactWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addContact(ALICE);
-        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        addressBook.addContact(ALICE_MARKED);
+        Contact editedAlice =
+            new ContactBuilder(ALICE_MARKED).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasContact(editedAlice));
     }
@@ -117,7 +118,7 @@ public class AddressBookTest {
     public void hasEvent_eventWithSameNameFieldsInAddressBook_returnsTrue() {
         addressBook.addEvent(INTERVIEW);
         Event editedEvent = new EventBuilder(INTERVIEW).withAddress("Google Office")
-                .withStartDateAndTime("28-10-2021 11:00").build();
+            .withStartDateAndTime("28-10-2021 11:00").build();
         assertTrue(addressBook.hasEvent(editedEvent));
     }
 

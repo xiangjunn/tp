@@ -278,7 +278,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, boolean isClose)
+        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath)
                 throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }

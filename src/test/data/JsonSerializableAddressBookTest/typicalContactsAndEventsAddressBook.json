@@ -1,60 +1,5 @@
 {
   "_comment": "AddressBook save file which contains the same Contact values as in TypicalContacts#getTypicalAddressBook() and the same Event Values as in TypicalEvents#getTypicalAddressBook()",
-  "events" : [  {
-    "name": "Birthday party",
-    "start": "23-10-2021 20:00",
-    "end": "24-10-2021 01:00",
-    "description": "Dress code: Pink!",
-    "address": "#10-07 Baker Street",
-    "zoom": "nus-sg.edu/123%a",
-    "tagged": ["friends"],
-    "uuid" : "123e4567-e89b-12d3-a456-556642440001"
-  },{
-    "name": "CS2100 Consultation",
-    "start": "17-10-2021 15:00",
-    "end": "17-10-2021 16:00",
-    "description": "Topics: Assembly Language",
-    "address": "02-11 COM2",
-    "zoom": null,
-    "tagged": ["School"],
-    "uuid" : "123e4567-e89b-12d3-a456-556642440002"
-  },{
-    "name": "CS2101 Meeting",
-    "start": "15-10-2021 21:00",
-    "end": "15-10-2021 22:00",
-    "description": "Need to prepare for OP2",
-    "address": "Zoom",
-    "zoom": "nus-sg.edu/pwdffha%a",
-    "tagged": ["meeting"],
-    "uuid" : "123e4567-e89b-12d3-a456-556642440003"
-  }, {
-    "name": "CS2103 Midterms",
-    "start": "20-10-2021 09:00",
-    "end": "20-10-2021 11:00",
-    "description": "I'm very unprepared",
-    "address": "Zoom",
-    "zoom": "nus-sg.edu/123%a",
-    "tagged": ["exams"],
-    "uuid" : "123e4567-e89b-12d3-a456-556642440004"
-  }, {
-    "name": "Football Practice",
-    "start": "30-10-2021 09:00",
-    "end": "30-10-2021 11:00",
-    "description": null,
-    "address": "USC",
-    "zoom": null,
-    "tagged": ["CCA"],
-    "uuid" : "123e4567-e89b-12d3-a456-556642440005"
-  }, {
-    "name": "Team Meeting",
-    "start": "20-10-2021 19:00",
-    "end": "20-10-2021 20:00",
-    "description": null,
-    "address": "Zoom",
-    "zoom": "nus-edu.sg/123link",
-    "tagged": ["meeting"],
-    "uuid" : "123e4567-e89b-12d3-a456-556642440006"
-  } ],
   "contacts" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
@@ -63,7 +8,9 @@
     "telegramHandle" : null,
     "zoomLink" : null,
     "tagged" : [ "friends" ],
-    "uuid" : "223e4567-e89b-12d3-a456-556642440001"
+    "uuid" : "a9dba5c9-4bce-481d-b2f5-d4820ecdd0a3",
+    "linkedEvents" : ["123e4567-e89b-12d3-a456-556642440002"],
+    "isMarked" : true
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
@@ -72,7 +19,9 @@
     "telegramHandle" : "benson67",
     "zoomLink" : null,
     "tagged" : [ "owesMoney", "friends" ],
-    "uuid" : "223e4567-e89b-12d3-a456-556642440002"
+    "uuid" : "bd187ae2-5818-471e-a44f-96b52cb896de",
+    "linkedEvents" : [ ],
+    "isMarked" : false
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
@@ -80,8 +29,10 @@
     "address" : "wall street",
     "telegramHandle" : "carlcarl7",
     "zoomLink" : "https://nus-sg.zoom.us/j/7453256545252",
-    "tagged" : [ ],
-    "uuid" : "223e4567-e89b-12d3-a456-556642440003"
+    "tagged" : ["friends"],
+    "uuid" : "f37d9480-6add-406c-a7e7-bbfc682c1860",
+    "linkedEvents" : [ ],
+    "isMarked" : false
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
@@ -90,7 +41,9 @@
     "telegramHandle" : null,
     "zoomLink" : "nus-sg.zoom.us/j/783624625626",
     "tagged" : [ "friends" ],
-    "uuid" : "223e4567-e89b-12d3-a456-556642440004"
+    "uuid" : "88d18865-efbe-4a2d-b6a6-b7f62b5c36e9",
+    "linkedEvents" : [ ],
+    "isMarked" : false
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
@@ -99,7 +52,9 @@
     "telegramHandle" : "ellelele",
     "zoomLink" : null,
     "tagged" : [ ],
-    "uuid" : "223e4567-e89b-12d3-a456-556642440005"
+    "uuid" : "08289a5f-0254-4c2d-9dd6-241b865166b2",
+    "linkedEvents" : [ ],
+    "isMarked" : false
   }, {
     "name" : "Fiona Kunz",
     "phone" : "93106433",
@@ -108,7 +63,9 @@
     "telegramHandle" : null,
     "zoomLink" : null,
     "tagged" : [ ],
-    "uuid" : "223e4567-e89b-12d3-a456-556642440006"
+    "uuid" : "3de33e74-c2d3-4701-8e54-d851c929f006",
+    "linkedEvents" : [ ],
+    "isMarked" : false
   }, {
     "name" : "George Best",
     "phone" : null,
@@ -117,6 +74,75 @@
     "telegramHandle" : null,
     "zoomLink" : null,
     "tagged" : [ ],
-    "uuid" : "223e4567-e89b-12d3-a456-556642440007"
+    "uuid" : "eb1438dc-f19d-4ab8-bde4-fd749ffe2575",
+    "linkedEvents" : [ ],
+    "isMarked" : false
+  } ],
+  "events" : [ {
+    "name" : "CS2103 Midterms",
+    "description" : "I'm very unprepared",
+    "address" : "Zoom",
+    "tagged" : [ "exams" ],
+    "uuid" : "17e996a5-1f13-45fe-b9d2-f9517dff067f",
+    "linkedContacts" : [ ],
+    "isMarked" : true,
+    "startDateTime" : "20-10-2021 09:00",
+    "endDateTime" : "20-10-2021 11:00",
+    "zoomLink" : "nus-sg.edu/123%a"
+  }, {
+    "name" : "CS2100 Consultation",
+    "description" : "Topics: Assembly Language",
+    "address" : "02-11 COM2",
+    "tagged" : [ "School" ],
+    "uuid" : "123e4567-e89b-12d3-a456-556642440002",
+    "linkedContacts" : [ "a9dba5c9-4bce-481d-b2f5-d4820ecdd0a3" ],
+    "isMarked" : false,
+    "startDateTime" : "17-10-2021 15:00",
+    "endDateTime" : "17-10-2021 16:00",
+    "zoomLink" : "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG"
+  }, {
+    "name" : "CS2101 Meeting",
+    "description" : "Need to prepare for OP2",
+    "address" : "Zoom",
+    "tagged" : [ "meeting" ],
+    "uuid" : "f784de18-adf9-4d0d-8657-8d77d7be9bd7",
+    "linkedContacts" : [ ],
+    "isMarked" : false,
+    "startDateTime" : "15-10-2021 21:00",
+    "endDateTime" : "15-10-2021 22:00",
+    "zoomLink" : "nus-sg.edu/pwdffha%a"
+  }, {
+    "name" : "Football Practice",
+    "description" : "Important",
+    "address" : "USC",
+    "tagged" : [ ],
+    "uuid" : "ff189b43-527f-4afc-905c-aad42e2c68ac",
+    "linkedContacts" : [ ],
+    "isMarked" : false,
+    "startDateTime" : "30-10-2021 09:00",
+    "endDateTime" : "30-10-2021 11:00",
+    "zoomLink" : "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG"
+  }, {
+    "name" : "Team Meeting",
+    "description" : "Important",
+    "address" : "Zoom",
+    "tagged" : [ "meeting" ],
+    "uuid" : "87ac6178-54e7-483a-ac9f-f598b6a27955",
+    "linkedContacts" : [ ],
+    "isMarked" : false,
+    "startDateTime" : "20-10-2021 19:00",
+    "endDateTime" : "20-10-2021 20:00",
+    "zoomLink" : "nus-edu.sg/123link"
+  }, {
+    "name" : "Birthday Party",
+    "description" : "Dress code: Pink!",
+    "address" : "#10-07 Baker Street",
+    "tagged" : [ "friends" ],
+    "uuid" : "1a245538-3cb4-4c9a-8d09-83188e6e4e0e",
+    "linkedContacts" : [ ],
+    "isMarked" : false,
+    "startDateTime" : "23-10-2021 20:00",
+    "endDateTime" : "24-10-2021 01:00",
+    "zoomLink" : "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG"
   } ]
 }

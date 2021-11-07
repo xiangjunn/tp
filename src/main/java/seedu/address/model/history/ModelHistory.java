@@ -13,7 +13,6 @@ import seedu.address.model.ReadOnlyAddressBook;
  * Stores the past history of the model manager. Meant for the undo and redo commands.
  */
 public class ModelHistory {
-    private static final ModelHistory THE_ONLY_HISTORY = new ModelHistory();
 
     private final List<HistoryInstance> allHistory = new ArrayList<>();
     private int currentSize = 0; // Size of the history/Number of undo commands allowed
@@ -21,11 +20,6 @@ public class ModelHistory {
     // maxSize - currentSize = Number of redo commands allowed.
 
     public ModelHistory() {}
-
-    /** Returns the {@code ModelHistory} object. */
-    public static ModelHistory getHistory() {
-        return THE_ONLY_HISTORY;
-    }
 
     /** Resets the history. */
     public void clearHistory() {

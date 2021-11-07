@@ -3,9 +3,9 @@ package seedu.address.logic.commands.contact;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEvents.EXAM;
 import static seedu.address.testutil.TypicalEvents.INTERVIEW;
-import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
 import static seedu.address.testutil.TypicalRanges.RANGE_FIRST_TO_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +45,7 @@ public class CDeleteCommandIntegrationTest {
     public void execute_deleteContactWithLinks_success() throws CommandException {
         // link contact to two events before deleting
         Event event1ToLink = INTERVIEW;
-        Event event2ToLink = TEAM_MEETING;
+        Event event2ToLink = EXAM;
         model.addEvent(event1ToLink);
         model.addEvent(event2ToLink);
         // due to contact immutability, have to get new contact from the contact list
