@@ -7,6 +7,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Represents the command to redo a change by {@code UndoCommand}.
+ */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
@@ -21,12 +24,10 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (!model.isRedoable()) {
             throw new CommandException(MESSAGE_FAIL_TO_REDO);
         }
-        model.redoAddressBook();
+        model.redoHistory();
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }

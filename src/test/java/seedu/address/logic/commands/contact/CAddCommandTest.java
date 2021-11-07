@@ -44,7 +44,7 @@ public class CAddCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         assertThrows(CommandException.class, CAddCommand.MESSAGE_DUPLICATE_CONTACT, () ->
-            addCommand.execute(modelStub));
+                addCommand.execute(modelStub));
     }
 
     @Test
@@ -71,6 +71,7 @@ public class CAddCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
+
     /**
      * A Model stub that contains a single contact.
      */
@@ -87,6 +88,7 @@ public class CAddCommandTest {
             requireNonNull(contact);
             return this.contact.isSameContact(contact);
         }
+
     }
 
     /**
@@ -108,19 +110,9 @@ public class CAddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
-            // TODO: 10/27/2021 add check for commit
-        }
-
-        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
 
-        @Override
-        public ReadOnlyAddressBook getInitialAddressBook() {
-            return new AddressBook();
-        }
     }
-
 }

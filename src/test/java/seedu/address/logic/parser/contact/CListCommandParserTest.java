@@ -29,6 +29,7 @@ public class CListCommandParserTest {
     public void parse_invalidArguments_failure() {
         // Preamble provided
         assertParseFailure(parser, "Hello", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "Hello " + EMPTY_PREFIX_ADDRESS, MESSAGE_INVALID_FORMAT);
 
         // Invalid parameters
         assertParseFailure(parser, "g/", MESSAGE_INVALID_FORMAT);

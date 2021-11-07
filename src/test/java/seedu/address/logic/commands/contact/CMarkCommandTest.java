@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalContacts.BENSON;
 import static seedu.address.testutil.TypicalContacts.CARL;
 import static seedu.address.testutil.TypicalContacts.DANIEL;
 import static seedu.address.testutil.TypicalContacts.ELLE;
 import static seedu.address.testutil.TypicalContacts.FIONA;
 import static seedu.address.testutil.TypicalContacts.GEORGE;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,15 +28,19 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
 import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.TypicalEvents;
 
-class CBookmarkCommandTest {
-    private static final Contact ELLE_BOOKMARKED = new ContactBuilder(ELLE).withBookmarked().build();
-    private Model expectedModel = new ModelManager(getAddressBookWith(getListWithBookmarkContact()), new UserPrefs());
+
+class CMarkCommandTest {
+
+    private static final Contact ELLE_MARKED = new ContactBuilder(ELLE).withMarked(true).build();
+    private Model expectedModel = new ModelManager(getAddressBookWith(getListWithMarkContact()), new UserPrefs());
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private List<Contact> getListWithBookmarkContact() {
-        return new ArrayList<>(Arrays.asList(ELLE_BOOKMARKED, ALICE, BENSON, CARL, DANIEL, FIONA, GEORGE));
+    private List<Contact> getListWithMarkContact() {
+        return new ArrayList<>(Arrays.asList(ELLE_MARKED, ALICE_MARKED, BENSON, CARL, DANIEL, FIONA, GEORGE));
     }
 
     public AddressBook getAddressBookWith(List<Contact> contactList) {
@@ -44,37 +48,43 @@ class CBookmarkCommandTest {
         for (Contact contact : contactList) {
             ab.addContact(contact);
         }
+        for (Event event : TypicalEvents.getTypicalEvents()) {
+            ab.addEvent(event);
+        }
         return ab;
     }
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CBookmarkCommand(null));
+        assertThrows(NullPointerException.class, () -> new CMarkCommand(null));
     }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        String expectedMessage = String.format(CBookmarkCommand.MESSAGE_SUCCESS, ELLE) + "\n";
+        String expectedMessage = String.format(CMarkCommand.MESSAGE_SUCCESS, ELLE) + "\n";
         List<Index> indexes = List.of(Index.fromOneBased(5));
-        CBookmarkCommand cBookmarkCommand = new CBookmarkCommand(indexes);
-        assertCommandSuccess(cBookmarkCommand, model, new CommandResult(expectedMessage), expectedModel);
+        CMarkCommand cMarkCommand = new CMarkCommand(indexes);
+        assertCommandSuccess(cMarkCommand, model, new CommandResult(expectedMessage), expectedModel);
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         List<Index> outOfBoundIndex = List.of(Index.fromOneBased(model.getFilteredContactList().size() + 1));
-        CBookmarkCommand cbookmarkCommand = new CBookmarkCommand(outOfBoundIndex);
+        CMarkCommand cMarkCommand = new CMarkCommand(outOfBoundIndex);
+        assertCommandFailure(cMarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
 
-        assertCommandFailure(cbookmarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        List<Index> veryLargeNumberWithDuplicateDigit = List.of(Index.fromOneBased(1111111111));
+        CMarkCommand secondMarkCommand = new CMarkCommand(veryLargeNumberWithDuplicateDigit);
+        assertCommandFailure(secondMarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_contactAlreadyMarked() {
         List<Index> indexes = List.of(Index.fromOneBased(1));
         model = expectedModel;
-        CBookmarkCommand cbookmarkCommand = new CBookmarkCommand(indexes);
-        String expectedMessage = String.format(CBookmarkCommand.MESSAGE_ALREADY_MARKED, ELLE) + "\n";
-        assertCommandSuccess(cbookmarkCommand, model, expectedMessage, expectedModel);
+        CMarkCommand cMarkCommand = new CMarkCommand(indexes);
+        String expectedMessage = String.format(CMarkCommand.MESSAGE_ALREADY_MARKED, ELLE) + "\n";
+        assertCommandSuccess(cMarkCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -86,25 +96,25 @@ class CBookmarkCommandTest {
         firstIndexes.add(first);
         List<Index> secondIndexes = new ArrayList<>();
         secondIndexes.add(second);
-        CBookmarkCommand bookmarkFirstCommand = new CBookmarkCommand(firstIndexes);
-        CBookmarkCommand bookmarkSecondCommand = new CBookmarkCommand(secondIndexes);
+        CMarkCommand markFirstCommand = new CMarkCommand(firstIndexes);
+        CMarkCommand markSecondCommand = new CMarkCommand(secondIndexes);
 
         // same object -> returns true
-        assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommand));
+        assertTrue(markFirstCommand.equals(markFirstCommand));
 
         // same values -> returns true
-        CBookmarkCommand bookmarkFirstCommandCopy = new CBookmarkCommand(firstIndexes);
+        CMarkCommand markFirstCommandCopy = new CMarkCommand(firstIndexes);
         ;
-        assertTrue(bookmarkFirstCommand.equals(bookmarkFirstCommandCopy));
+        assertTrue(markFirstCommand.equals(markFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(bookmarkFirstCommand.equals(1));
+        assertFalse(markFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(bookmarkFirstCommand.equals(null));
+        assertFalse(markFirstCommand.equals(null));
 
         // different Index -> returns false
-        assertFalse(bookmarkFirstCommand.equals(bookmarkSecondCommand));
+        assertFalse(markFirstCommand.equals(markSecondCommand));
     }
 
 }

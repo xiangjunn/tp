@@ -12,13 +12,14 @@ import java.util.Objects;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.model.Model;
 import seedu.address.model.contact.ContactDisplaySetting;
 
 /**
  * Lists all persons in the address book to the user.
  */
-public class CListCommand extends Command {
+public class CListCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "clist";
     public static final String PARAMETERS = "[" + PREFIX_PHONE + "] "
@@ -34,6 +35,7 @@ public class CListCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all the contacts on the screen with all"
         + " details by default.\n"
         + "Include optional parameters to filter details.\n"
+        + "Parameters should not be followed by any values.\n" //added this to warn users not to add any values.
         + "Parameters: "
         + PARAMETERS
         + "Example: " + COMMAND_WORD + " " + PREFIX_EMAIL + " " + PREFIX_ZOOM;
@@ -48,8 +50,7 @@ public class CListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setContactDisplaySetting(displaySetting);
-        model.rerenderContactCards();
-        model.commitAddressBook();
+        model.rerenderContactCards(false);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

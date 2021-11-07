@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -47,9 +48,12 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
+        if (command instanceof Undoable) {
+            model.commitHistory();
+        }
 
         try {
-            storage.saveAddressBook(model.getAddressBook(), false);
+            storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -109,11 +113,11 @@ public class LogicManager implements Logic {
 
     @Override
     public void resetFilterOfContacts() {
-        model.rerenderContactCards();
+        model.rerenderContactCards(true);
     }
 
     @Override
     public void resetFilterOfEvents() {
-        model.rerenderEventCards();
+        model.rerenderEventCards(true);
     }
 }

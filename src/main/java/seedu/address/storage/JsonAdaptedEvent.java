@@ -36,7 +36,7 @@ class JsonAdaptedEvent {
     private final String uuid;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<String> linkedContacts = new ArrayList<>();
-    private final boolean isBookmarked;
+    private final boolean isMarked;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -48,7 +48,7 @@ class JsonAdaptedEvent {
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                             @JsonProperty("uuid") String uuid,
                             @JsonProperty("linkedContacts") List<String> linkedContacts,
-                            @JsonProperty("isBookmarked") boolean isBookmarked) {
+                            @JsonProperty("isMarked") boolean isMarked) {
         this.name = name;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -62,7 +62,7 @@ class JsonAdaptedEvent {
         if (linkedContacts != null) {
             this.linkedContacts.addAll(linkedContacts);
         }
-        this.isBookmarked = isBookmarked;
+        this.isMarked = isMarked;
     }
 
     /**
@@ -84,7 +84,7 @@ class JsonAdaptedEvent {
         linkedContacts.addAll(source.getLinkedContacts().stream()
             .map(UUID::toString)
             .collect(Collectors.toList()));
-        isBookmarked = source.getIsBookMarked();
+        isMarked = source.getIsMarked();
     }
 
     /**
@@ -145,7 +145,7 @@ class JsonAdaptedEvent {
             linkedContacts.stream().map(UUID::fromString).collect(Collectors.toList()));
 
         return new Event(modelName, modelStartDateTime, modelEndDateTime, modelDescription, modelAddress, modelZoomLink,
-                modelTags, modelUuid, modelLinkedContacts, isBookmarked);
+                modelTags, modelUuid, modelLinkedContacts, isMarked);
     }
 
 }

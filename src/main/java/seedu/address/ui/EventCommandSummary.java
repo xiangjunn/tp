@@ -5,13 +5,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.event.EAddCommand;
-import seedu.address.logic.commands.event.EBookmarkCommand;
 import seedu.address.logic.commands.event.EClearCommand;
 import seedu.address.logic.commands.event.EDeleteCommand;
 import seedu.address.logic.commands.event.EEditCommand;
 import seedu.address.logic.commands.event.EFindCommand;
 import seedu.address.logic.commands.event.ELinkCommand;
 import seedu.address.logic.commands.event.EListCommand;
+import seedu.address.logic.commands.event.EMarkCommand;
 import seedu.address.logic.commands.event.ESortCommand;
 import seedu.address.logic.commands.event.EUnlinkCommand;
 import seedu.address.logic.commands.event.EUnmarkCommand;
@@ -22,14 +22,14 @@ import seedu.address.logic.commands.event.EViewCommand;
 public class EventCommandSummary {
 
     public static final String ADD = "Add";
-    public static final String BOOKMARK = "Bookmark";
+    public static final String MARK = "Mark";
     public static final String CLEAR = "Clear";
     public static final String DELETE = "Delete";
     public static final String EDIT = "Edit";
     public static final String FIND = "Find\n(at least one keyword must be present)";
     public static final String LINK = "Link";
     public static final String LIST = "List";
-    public static final String REMOVE_BOOKMARK = "Remove Bookmark";
+    public static final String REMOVE_MARK = "Remove mark";
     public static final String SORT = "Sort";
     public static final String UNLINK = "Unlink";
     public static final String VIEW = "View";
@@ -96,14 +96,14 @@ public class EventCommandSummary {
     public static ObservableList<EventCommandSummary> getEventCommandSummary() {
         return FXCollections.observableArrayList(
                 new EventCommandSummary(ADD, EAddCommand.SYNTAX),
-                new EventCommandSummary(BOOKMARK, EBookmarkCommand.SYNTAX),
                 new EventCommandSummary(CLEAR, EClearCommand.SYNTAX),
                 new EventCommandSummary(DELETE, EDeleteCommand.SYNTAX),
                 new EventCommandSummary(EDIT, EEditCommand.SYNTAX),
                 new EventCommandSummary(FIND, EFindCommand.SYNTAX),
                 new EventCommandSummary(LINK, ELinkCommand.SYNTAX),
                 new EventCommandSummary(LIST, EListCommand.SYNTAX),
-                new EventCommandSummary(REMOVE_BOOKMARK, EUnmarkCommand.SYNTAX),
+                new EventCommandSummary(MARK, EMarkCommand.SYNTAX),
+                new EventCommandSummary(REMOVE_MARK, EUnmarkCommand.SYNTAX),
                 new EventCommandSummary(SORT, ESortCommand.SYNTAX),
                 new EventCommandSummary(UNLINK, EUnlinkCommand.SYNTAX),
                 new EventCommandSummary(VIEW, EViewCommand.SYNTAX));

@@ -10,9 +10,10 @@ import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUS
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showContactAtIndex;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
@@ -146,6 +148,37 @@ public class CEditCommandTest {
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(cEditCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_tagToDeleteNotInOriginalContact_success() {
+        Tag toDelete = new Tag("notInOriginal");
+        Contact defaultContact = new ContactBuilder().withMarked(false).build(); // with friends and unmarked
+        Contact editedContact = new ContactBuilder().withTags().build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact,
+            Set.of(toDelete), false).build();
+        // the index must not have any tags initially (check TypicalContacts)
+        CEditCommand cEditCommand = new CEditCommand(INDEX_THIRD, descriptor);
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, defaultContact)
+                + "\nNote:\n" + String.format(CEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete);
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
+        expectedModel.setContact(model.getFilteredContactList().get(2), defaultContact);
+        assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_tagToAddAlreadyInOriginalContact_success() {
+        Tag toAdd = new Tag("friends");
+        Contact editedContact = new ContactBuilder().withTags("friends").build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact,
+            null, false).build();
+        // the index must contain [friends] tag initially (check TypicalContacts)
+        CEditCommand cEditCommand = new CEditCommand(INDEX_FIRST, descriptor);
+        String expectedMessage = String.format(CEditCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact)
+            + "\nNote:\n" + String.format(CEditCommand.MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL, toAdd);
+        Model expectedModel = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
+        expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
+        assertCommandSuccess(cEditCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

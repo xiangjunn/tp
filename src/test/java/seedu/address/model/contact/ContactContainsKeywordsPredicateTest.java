@@ -3,7 +3,7 @@ package seedu.address.model.contact;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalContacts.FIONA;
 
 import java.util.Arrays;
@@ -46,44 +46,55 @@ public class ContactContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
-        // One keyword
+    public void test_fieldContainsKeywords_returnsTrue() {
+        // One keyword matches name field
         ContactContainsKeywordsPredicate predicate =
                 new ContactContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new ContactBuilder().withName("Alice Bob").build()));
 
-        // Multiple keywords
+        // Multiple keywords match name field
         predicate = new ContactContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
         assertTrue(predicate.test(new ContactBuilder().withName("Alice Bob").build()));
 
-        // Only one matching keyword
+        // Only one matching keyword to name field
         predicate = new ContactContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
         assertTrue(predicate.test(new ContactBuilder().withName("Alice Carol").build()));
 
-        // Mixed-case keywords
+        // Mixed-case keywords match name field
         predicate = new ContactContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new ContactBuilder().withName("Alice Bob").build()));
 
-        // Keyword matches multiple fields
+        // Keyword matches address field
         predicate = new ContactContainsKeywordsPredicate();
         predicate.setAddressKeywords(Arrays.asList("JURONG", "TOK"));
         // Both predicate test on ALICE and BENSON should return true
-        assertEquals(predicate.test(ALICE), predicate.test(FIONA));
+        assertEquals(predicate.test(ALICE_MARKED), predicate.test(FIONA));
+
+        // keyword match phone number, address and one tag
+        predicate = new ContactContainsKeywordsPredicate(Arrays.asList("Alex"));
+        predicate.setPhoneKeywords(Arrays.asList("12345"));
+        predicate.setEmailKeywords(Arrays.asList("alex@email.com"));
+        predicate.setAddressKeywords(Arrays.asList("MAIN"));
+        predicate.setTagKeywords(Arrays.asList("smart", "cca", "friend"));
+        predicate.setTelegramHandleKeyword(Arrays.asList("alexx"));
+        predicate.setZoomLinkKeywords(Arrays.asList("meeting.com/123456"));
+        assertTrue(predicate.test(new ContactBuilder().withName("Alice").withPhone("12345")
+                .withEmail("alice@email.com").withAddress("Main Street").withTags("friends").build()));
 
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_fieldDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         ContactContainsKeywordsPredicate predicate =
                 new ContactContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new ContactBuilder().withName("Alice").build()));
 
-        // Non-matching keyword
+        // Non-matching keyword to name field
         predicate = new ContactContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new ContactBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone, email and address, but does not match name
+        // no field match the keywords
         predicate = new ContactContainsKeywordsPredicate(Arrays.asList("22345"));
         predicate.setEmailKeywords(Arrays.asList("alex@email.com"));
         predicate.setTagKeywords(Arrays.asList("smart", "cca"));

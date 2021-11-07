@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
@@ -34,7 +34,7 @@ import seedu.address.model.event.EventChanger;
 public class EDeleteCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

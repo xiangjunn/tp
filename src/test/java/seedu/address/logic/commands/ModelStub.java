@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -20,10 +21,6 @@ import seedu.address.model.event.EventDisplaySetting;
 public class ModelStub implements Model {
     public static final String ERROR_MESSAGE = "This method should not be called.";
 
-    @Override
-    public ReadOnlyAddressBook getInitialAddressBook() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError(ERROR_MESSAGE);
@@ -86,22 +83,17 @@ public class ModelStub implements Model {
 
     // manage versioned addressBook
     @Override
-    public void commitAddressBook() {
+    public void commitHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     @Override
-    public void redoAddressBook() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void clearHistory() {
+    public void redoHistory() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
@@ -152,25 +144,16 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void bookmarkContactIndexedAt(Index index) {
+    public void updateContactListByIndex(Index index) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     @Override
-    public void reshuffleContactsInOrder() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void unmarkContactIndexedAt(Index index) {
+    public void rearrangeContactsInOrder(List<Contact> contacts, boolean isMark) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
     // manage events
-    @Override
-    public void updateContactListByIndex(Index index) {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
 
     @Override
     public void addEvent(Event event) {
@@ -214,9 +197,15 @@ public class ModelStub implements Model {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
+    @Override
     public void updateEventListByIndex(Index index) {
         throw new AssertionError(ERROR_MESSAGE);
-    };
+    }
+
+    @Override
+    public void rearrangeEventsInOrder(List<Event> events, boolean isMark) {
+        throw new AssertionError(ERROR_MESSAGE);
+    }
 
     @Override
     public void linkEventAndContact(Event event, Contact contact) {
@@ -234,11 +223,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void rerenderContactCards() {
+    public void rerenderContactCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
     }
+
     @Override
-    public void rerenderEventCards() {
+    public void rerenderEventCards(boolean useBackSamePredicate) {
         throw new AssertionError(ERROR_MESSAGE);
     }
 
@@ -248,17 +238,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void bookmarkEventIndexedAt(Index index) {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void reshuffleEventsInOrder() {
-        throw new AssertionError(ERROR_MESSAGE);
-    }
-
-    @Override
-    public void unmarkEventIndexedAt(Index index) {
+    public void removeAllLinks() {
         throw new AssertionError(ERROR_MESSAGE);
     }
 }

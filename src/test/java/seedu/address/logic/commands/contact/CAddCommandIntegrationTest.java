@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.contact;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class CAddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateContact_throwsCommandException() {
-        Contact contactInList = model.getInitialAddressBook().getContactList().get(0);
+        Contact contactInList = model.getAddressBook().getContactList().get(0);
         assertCommandFailure(new CAddCommand(contactInList), model,
                 CAddCommand.MESSAGE_DUPLICATE_CONTACT);
     }
