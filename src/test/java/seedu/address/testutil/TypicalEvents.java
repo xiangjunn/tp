@@ -25,6 +25,7 @@ import seedu.address.model.event.Event;
 
 public class TypicalEvents {
 
+    public static final UUID CS2103_MIDTERM_MARKED_UUID = UUID.fromString("17e996a5-1f13-45fe-b9d2-f9517dff067f");
     public static final Event CS2103_MIDTERM_MARKED = new EventBuilder().withName("CS2103 Midterms")
         .withAddress("Zoom").withZoomLink("nus-sg.edu/123%a").withDescription("I'm very unprepared")
         .withStartDateAndTime("20-10-2021 09:00").withEndDateAndTime("20-10-2021 11:00")

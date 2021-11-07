@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.general.CommandTestUtil.assertCommand
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import java.util.List;
@@ -181,7 +182,7 @@ class EEditCommandTest {
         EEditCommand.EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent,
             Set.of(toDelete), false).build();
         // the index must not have any tags initially (check TypicalEvents)
-        EEditCommand eEditCommand = new EEditCommand(Index.fromZeroBased(3), descriptor);
+        EEditCommand eEditCommand = new EEditCommand(INDEX_FOURTH, descriptor);
         String expectedMessage = String.format(EEditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent)
             + "\nNote:\n" + String.format(EEditCommand.MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, toDelete);
         EventChanger eventChanger = EventChanger.editEventChanger(model.getFilteredEventList().get(3), editedEvent);

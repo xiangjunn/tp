@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED_UUID;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -25,7 +27,7 @@ public class EventBuilder {
     public static final String DEFAULT_ADDRESS = "COM2, SR1, #02-11";
     public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
     public static final String DEFAULT_TAG = "exams";
-    public static final UUID DEFAULT_UUID = UUID.fromString("17e996a5-1f13-45fe-b9d2-f9517dff067f");
+    public static final UUID DEFAULT_UUID = CS2103_MIDTERM_MARKED_UUID;
     public static final boolean DEFAULT_IS_MARKED = true;
 
     //Compulsory fields
