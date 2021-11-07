@@ -1,12 +1,15 @@
 package seedu.address.logic.commands.event;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.general.CommandTestUtil.showEventAtIndex;
 import static seedu.address.model.event.EventDisplaySetting.DEFAULT_SETTING;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+
+import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,6 +66,19 @@ class EListCommandTest {
         assertFalse(standardCommand.equals(new EListCommand(new EventDisplaySetting(false, false,
             false, true, true, true))));
         assertFalse(standardCommand.equals(new EClearCommand()));
+
+    }
+
+    @Test
+    public void hashCode_equal() {
+        EListCommand standardCommand = new EListCommand(DEFAULT_SETTING);
+        assertEquals(standardCommand.hashCode(), Objects.hash(DEFAULT_SETTING));
+        EListCommand anotherCommand = new EListCommand(
+            new EventDisplaySetting(true, false, false, true, false, true)
+        );
+        assertEquals(anotherCommand.hashCode(), Objects.hash(
+            new EventDisplaySetting(true, false, false, true, false, true)
+        ));
 
     }
 }

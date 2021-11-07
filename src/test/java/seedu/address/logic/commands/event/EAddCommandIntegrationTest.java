@@ -2,7 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.List;
 
