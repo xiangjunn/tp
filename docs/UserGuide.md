@@ -843,6 +843,11 @@ Shows a calendar of all the events.
 Alternatively, you can view the calendar using the top menu bar via `File -> Calendar` or press `F2`.
 </div>
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will not change the state of the calendar
+</div>
+
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Any changes made in the calendar window will not be saved. 
 Do not attempt to add new events using the calendar window. 
@@ -1035,31 +1040,31 @@ Prefix | _Parameter_ Type
 
 Action | Format, Examples
 --------|------------------
-**[Add](#adding-a-contact-cadd)** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/James Ho p/22224444 e/hohohojames@u.nus.edu a/123, Clementi Rd, 1234665 t/Professor`
-**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX`<br> e.g. `cmark 1`
+**[Add](#adding-a-contact-cadd)** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor`
+**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX`<br> e.g. `cmark 2`
 **[Clear](#clearing-all-contacts-cclear)** | `cclear`
 **[Delete](#deleting-a-contact-cdelete)** | `cdelete INDEX1[-INDEX2]`<br> e.g. `cdelete 3` <br> e.g. `cdelete 1-5`
-**[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g. `cedit 3 dt/*`
-**[Find](#finding-contacts-cfind)** | `cfind [KEYWORD]… [e/KEYWORD…] [p/KEYWORD…] [a/KEYWORD…] [th/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`<br> e.g. `cfind James Jake p/12345678`
+**[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 p/91234567 e/agentX@thehightable.com` <br> e.g. `cedit 1 n/Betsy Crower dt/*`
+**[Find](#finding-contacts-cfind)** | `cfind [KEYWORD]… [e/KEYWORD…] [p/KEYWORD…] [a/KEYWORD…] [th/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`<br> e.g. `cfind alex david`
 **[List](#listing-all-contacts-clist)** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g. `clist` <br> e.g. `clist e/ p/`
-**[Remove Bookmark](#removing-bookmark-of-a-contact-cunmark)** | `cunmark INDEX [INDEX]…`<br> e.g. `cunmark 1 3 4`
-**[View](#viewing-a-contact-cview)** | `cview INDEX`<br> e.g. `cview 3`
+**[Remove Bookmark](#removing-bookmark-of-a-contact-cunmark)** | `cunmark INDEX [INDEX]…`<br> e.g. `cunmark 2` <br> e.g. `cunmark 2 3`
+**[View](#viewing-a-contact-cview)** | `cview INDEX`<br> e.g. `cview 2`
 
 **Event Management**
 
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-an-event-eadd)** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-**[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX`<br> e.g. `emark 1`
+**[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX`<br> e.g. `emark 2`
 **[Clear](#clearing-all-events-eclear)** | `eclear`
 **[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/CCA t/Hard` <br> e.g., `eedit 3 dt/*`
-**[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind CS2103T t/hard`
-**[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2 c/3`
-**[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist at/ d/`
-**[Remove Bookmark](#removing-bookmark-of-an-event-eunmark)** | `eunmark INDEX [INDEX]…`<br> e.g. `eunmark 1 3 4`
+**[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind meet` <br> e.g., `efind t/CS2103T Intern`
+**[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2`
+**[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist d/ at/`
+**[Remove Bookmark](#removing-bookmark-of-an-event-eunmark)** | `eunmark INDEX [INDEX]…`<br> e.g. `eunmark 2` <br> e.g. `eunmark 2 4`
 **[Sort](#sorting-events-esort)** | `esort`
-**[Unlink](#unlinking-an-event-from-contacts-eunlink)** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1 c/2` <br> e.g., `eunlink 3 c/*`
+**[Unlink](#unlinking-an-event-from-contacts-eunlink)** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1` <br> e.g., `eunlink 3 c/*`
 **[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
 
 **General**
