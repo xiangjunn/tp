@@ -16,7 +16,7 @@ public class CClearCommand extends Command implements Undoable {
 
     public static final String SYNTAX = COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "All entries of contacts have been cleared!";
+    public static final String MESSAGE_SUCCESS = "All contacts have been cleared!";
 
 
     @Override
