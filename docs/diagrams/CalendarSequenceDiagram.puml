@@ -3,18 +3,25 @@
 
 actor User
 
-create ":CalendarWindow" as CalendarWindow UI_COLOR
+box UI UI_COLOR_T1
+participant ":CalendarWindow" as CalendarWindow UI_COLOR
+participant ":CalendarView" as CalendarView UI_COLOR_T4
+participant ":Calendar" as Calendar UI_COLOR_T4
+participant ":CalendarSource" as CalendarSource UI_COLOR_T4
+participant "calendarui:StackPane" as CalendarUI UI_COLOR_T4
+end box
+
+create CalendarWindow
 User -> CalendarWindow : CalendarWindow(events)
 activate CalendarWindow
-deactivate CalendarWindow
 
-create ":CalendarView" as CalendarView UI_COLOR_T4
+create CalendarView
 CalendarWindow -> CalendarView : new
 activate CalendarView
 CalendarView --> CalendarWindow
 deactivate CalendarView
 
-create ":Calendar" as Calendar UI_COLOR_T4
+create Calendar
 CalendarWindow -> Calendar : new Calendar("Events")
 activate Calendar
 Calendar --> CalendarWindow
@@ -24,17 +31,22 @@ CalendarWindow -> CalendarWindow : createTimeThread()
 note left: parallel thread to\nupdate calendar\nevery 10 seconds
 
 CalendarWindow -> CalendarWindow : createCalendar(events)
+
 activate CalendarWindow
+
 loop all events
 CalendarWindow -> CalendarWindow : createEntry(event)
 activate CalendarWindow
 CalendarWindow -> Calendar : addEntry
 deactivate CalendarWindow
 end
+
 deactivate CalendarWindow
+
 CalendarWindow -> CalendarWindow : updateCalendarView()
 activate CalendarWindow
-create ":CalendarSource" as CalendarSource UI_COLOR_T4
+
+create CalendarSource
 CalendarWindow -> CalendarSource : new
 activate CalendarSource
 return source
@@ -42,7 +54,6 @@ deactivate CalendarSource
 
 CalendarWindow -> CalendarSource : add(calendar)
 
-participant "calendarui:StackPane" as CalendarUI UI_COLOR_T4
 CalendarWindow -> CalendarUI : add calendarView
 deactivate CalendarWindow
 
