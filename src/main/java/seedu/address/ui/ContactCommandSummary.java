@@ -88,12 +88,12 @@ public class ContactCommandSummary {
     public static ObservableList<ContactCommandSummary> getContactCommandSummary() {
         return FXCollections.observableArrayList(
                 new ContactCommandSummary(ADD, CAddCommand.SYNTAX),
-                new ContactCommandSummary(MARK, CMarkCommand.SYNTAX),
                 new ContactCommandSummary(CLEAR, CClearCommand.SYNTAX),
                 new ContactCommandSummary(DELETE, CDeleteCommand.SYNTAX),
                 new ContactCommandSummary(EDIT, CEditCommand.SYNTAX),
                 new ContactCommandSummary(FIND, CFindCommand.SYNTAX),
                 new ContactCommandSummary(LIST, CListCommand.SYNTAX),
+                new ContactCommandSummary(MARK, CMarkCommand.SYNTAX),
                 new ContactCommandSummary(REMOVE_MARK, CUnmarkCommand.SYNTAX),
                 new ContactCommandSummary(VIEW, CViewCommand.SYNTAX));
     }

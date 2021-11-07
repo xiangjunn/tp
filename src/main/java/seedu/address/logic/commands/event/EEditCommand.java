@@ -41,14 +41,14 @@ import seedu.address.model.tag.Tag;
 public class EEditCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "eedit";
-    public static final String PARAMETERS = "INDEX "
+    public static final String PARAMETERS = "INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_START_TIME + "START] "
             + "[" + PREFIX_END_TIME + "END] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_ZOOM + "ZOOM] "
-            + "[" + PREFIX_TAG + "TAG]..."
+            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_DELETE_TAG + "DELETE TAG]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
@@ -57,7 +57,7 @@ public class EEditCommand extends Command implements Undoable {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_START_TIME + "2020-12-01 "
+            + PREFIX_START_TIME + "01-10-2021 15:00 "
             + PREFIX_ADDRESS + "12th Street";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";

@@ -21,20 +21,20 @@
                 <URL value="@HelpWindow.css" />
             </stylesheets>
 
-            <VBox prefHeight="500" prefWidth="700">
+            <VBox prefHeight="515" prefWidth="700">
                 <children>
                     <Label fx:id="introduction" text="Label" />
                     <ScrollPane fx:id="scrollPane" fitToWidth="true">
                         <content>
                             <VBox>
                                 <Label fx:id="contactTitle" text="contactTitle" />
-                                <TableView fx:id="contactTable" prefWidth="600" prefHeight="340"/>
+                                <TableView fx:id="contactTable" prefWidth="600" prefHeight="407"/>
 
                                 <Label fx:id="eventTitle" text="Label" />
-                                <TableView fx:id="eventTable" prefWidth="600" prefHeight="400"/>
+                                <TableView fx:id="eventTable" prefWidth="600" prefHeight="524"/>
 
                                 <Label fx:id="generalTitle" text="Label" />
-                                <TableView fx:id="generalTable" prefWidth="600" prefHeight="150"/>
+                                <TableView fx:id="generalTable" prefWidth="600" prefHeight="146"/>
                             </VBox>
                         </content>
                     </ScrollPane>
