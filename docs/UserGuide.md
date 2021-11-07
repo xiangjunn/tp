@@ -3,10 +3,8 @@ layout: page
 title: SoConnect User Guide
 ---
 
-SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, 
-as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having 
-the benefits of a _Graphical User Interface (GUI)_. If you can type fast, SoConnect can get your contact management tasks
-done faster than traditional GUI apps. 
+Made by *SoC students*, for SoC students, SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, and keep track of noteworthy events.** It is **optimized for use via a _Command Line Interface (CLI)_** while still having 
+the benefits of a _Graphical User Interface (GUI)_. If you can type fast, managing your contacts will be very easy with SoConnect.
 
 This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the 
 full range of features it offers.
@@ -24,12 +22,14 @@ full range of features it offers.
     * **:bulb: Tip** provides additional information that might be useful to you.
     * **:information_source: Note** provides supplementary information that helps you to understand this User Guide.
     * **:exclamation: Caution** cautions you against certain actions that will lead to undesirable consequences.
-* You can find explanations of _italicised_ words in the [Glossary](#glossary).
+* You can find explanations of _italicized_ words in the [Glossary](#glossary).
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
+
+
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: About the _Command Syntax_ format:**<br>
+**:information_source: About the _Command_ format:**<br>
 
 * Words in `UPPER_CASE` are the _parameters_ that you will provide.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
