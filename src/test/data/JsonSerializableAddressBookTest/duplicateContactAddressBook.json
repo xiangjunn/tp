@@ -22,14 +22,5 @@
     "zoom": "http://zoomlink.com",
     "tagged": [ "its lecture time" ],
     "uuid": "123e4567-e89b-12d3-a456-556642440001"
-  }, {
-    "name": "CS2103T lecture",
-    "start": "2021-03-27 15:30",
-    "end": "2021-03-27 15:30",
-    "description": "",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "zoom": "http://zoomlink.com",
-    "tagged": [ ],
-    "uuid": "123e4567-e89b-12d3-a456-556642440001"
   } ]
 }

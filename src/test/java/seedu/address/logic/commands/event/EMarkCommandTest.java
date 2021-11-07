@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalEvents.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalEvents.CS2100_CONSULTATION;
 import static seedu.address.testutil.TypicalEvents.CS2101_MEETING;
-import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM;
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED;
 import static seedu.address.testutil.TypicalEvents.FOOTBALL_PRACTICE;
 import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,23 +26,28 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.TypicalContacts;
 
 class EMarkCommandTest {
 
-    private static final Event TEAM_MEETING_MARKED = new EventBuilder(TEAM_MEETING).withMarked().build();
+    private static final Event TEAM_MEETING_MARKED = new EventBuilder(TEAM_MEETING).withMarked(true).build();
 
     private Model expectedModel = new ModelManager(getAddressBookWith(getListWithMarkEvent()), new UserPrefs());
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private List<Event> getListWithMarkEvent() {
-        return new ArrayList<>(Arrays.asList(TEAM_MEETING_MARKED, CS2103_MIDTERM, CS2100_CONSULTATION,
-                CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
+        return new ArrayList<>(Arrays.asList(TEAM_MEETING_MARKED, CS2103_MIDTERM_MARKED, CS2100_CONSULTATION,
+            CS2101_MEETING, FOOTBALL_PRACTICE, BIRTHDAY_PARTY));
     }
 
     public AddressBook getAddressBookWith(List<Event> eventList) {
         AddressBook ab = new AddressBook();
+        for (Contact contact : TypicalContacts.getTypicalContacts()) {
+            ab.addContact(contact);
+        }
         for (Event event : eventList) {
             ab.addEvent(event);
         }

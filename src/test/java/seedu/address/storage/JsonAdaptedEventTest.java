@@ -4,7 +4,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM;
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +32,13 @@ class JsonAdaptedEventTest {
     private static final String INVALID_ZOOM_LINK = "";
     private static final String INVALID_TAG = "#summer";
 
-    private static final String VALID_NAME = CS2103_MIDTERM.getName().toString();
-    private static final String VALID_START_DATE_AND_TIME = CS2103_MIDTERM.getStartDateAndTime().toString();
-    private static final String VALID_END_DATE_AND_TIME = CS2103_MIDTERM.getEndDateAndTime().toString();
-    private static final String VALID_DESCRIPTION = CS2103_MIDTERM.getDescription().toString();
-    private static final String VALID_ADDRESS = CS2103_MIDTERM.getAddress().toString();
-    private static final String VALID_ZOOM_LINK = CS2103_MIDTERM.getZoomLink().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = CS2103_MIDTERM.getTags().stream()
+    private static final String VALID_NAME = CS2103_MIDTERM_MARKED.getName().toString();
+    private static final String VALID_START_DATE_AND_TIME = CS2103_MIDTERM_MARKED.getStartDateAndTime().toString();
+    private static final String VALID_END_DATE_AND_TIME = CS2103_MIDTERM_MARKED.getEndDateAndTime().toString();
+    private static final String VALID_DESCRIPTION = CS2103_MIDTERM_MARKED.getDescription().toString();
+    private static final String VALID_ADDRESS = CS2103_MIDTERM_MARKED.getAddress().toString();
+    private static final String VALID_ZOOM_LINK = CS2103_MIDTERM_MARKED.getZoomLink().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = CS2103_MIDTERM_MARKED.getTags().stream()
         .map(JsonAdaptedTag::new)
         .collect(Collectors.toList());
     private static final String VALID_UUID = UUID.randomUUID().toString();
@@ -46,8 +46,8 @@ class JsonAdaptedEventTest {
 
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws IllegalValueException {
-        JsonAdaptedEvent event = new JsonAdaptedEvent(CS2103_MIDTERM);
-        assertEquals(CS2103_MIDTERM, event.toModelType());
+        JsonAdaptedEvent event = new JsonAdaptedEvent(CS2103_MIDTERM_MARKED);
+        assertEquals(CS2103_MIDTERM_MARKED, event.toModelType());
     }
 
     @Test
@@ -64,7 +64,7 @@ class JsonAdaptedEventTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedEvent event =
             new JsonAdaptedEvent(null, VALID_START_DATE_AND_TIME, VALID_END_DATE_AND_TIME, VALID_DESCRIPTION,
-            VALID_ADDRESS, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_CONTACTS, false);
+                VALID_ADDRESS, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_CONTACTS, false);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
@@ -83,7 +83,8 @@ class JsonAdaptedEventTest {
         JsonAdaptedEvent event =
             new JsonAdaptedEvent(VALID_NAME, null, VALID_END_DATE_AND_TIME, VALID_DESCRIPTION,
                 VALID_ADDRESS, VALID_ZOOM_LINK, VALID_TAGS, VALID_UUID, VALID_LINKED_CONTACTS, false);
-        String expectedMessage = String.format(JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT,
+        String expectedMessage = String.format(
+            JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT,
             StartDateTime.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }

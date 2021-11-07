@@ -58,14 +58,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_cadd() throws Exception {
-        Contact contact = new ContactBuilder().build();
+        Contact contact = new ContactBuilder().withLinkedEvents().withRandomUuid().withMarked(false).build();
         CAddCommand command = (CAddCommand) parser.parseCommand(ContactUtil.getCAddCommand(contact));
         assertEquals(new CAddCommand(contact), command);
     }
 
     @Test
     public void parseCommand_eadd() throws Exception {
-        Event event = new EventBuilder().build();
+        Event event = new EventBuilder().withMarked(false).build();
         EAddCommand command = (EAddCommand) parser.parseCommand(EventUtil.getEAddCommand(event));
         assertEquals(new EAddCommand(event), command);
     }

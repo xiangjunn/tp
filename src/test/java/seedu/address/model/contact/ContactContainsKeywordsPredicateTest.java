@@ -3,7 +3,7 @@ package seedu.address.model.contact;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalContacts.FIONA;
 
 import java.util.Arrays;
@@ -68,7 +68,7 @@ public class ContactContainsKeywordsPredicateTest {
         predicate = new ContactContainsKeywordsPredicate();
         predicate.setAddressKeywords(Arrays.asList("JURONG", "TOK"));
         // Both predicate test on ALICE and BENSON should return true
-        assertEquals(predicate.test(ALICE), predicate.test(FIONA));
+        assertEquals(predicate.test(ALICE_MARKED), predicate.test(FIONA));
 
         // keyword match phone number, address and one tag
         predicate = new ContactContainsKeywordsPredicate(Arrays.asList("Alex"));

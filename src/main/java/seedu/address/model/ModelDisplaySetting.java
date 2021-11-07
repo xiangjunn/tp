@@ -31,14 +31,16 @@ public class ModelDisplaySetting {
 
     /**
      * Constructor of a customised display setting
-     * @param contactDisplaySetting contact display setting to be set
-     * @param eventDisplaySetting event display setting to be set
+     *
+     * @param contactDisplaySetting   contact display setting to be set
+     * @param eventDisplaySetting     event display setting to be set
      * @param contactDisplayPredicate contact display predicate to be set
-     * @param eventDisplayPredicate event display predicate to be set
+     * @param eventDisplayPredicate   event display predicate to be set
      */
-    public ModelDisplaySetting(ContactDisplaySetting contactDisplaySetting, EventDisplaySetting eventDisplaySetting,
-                                 Predicate<? super Contact> contactDisplayPredicate,
-                                 Predicate<? super Event> eventDisplayPredicate) {
+    public ModelDisplaySetting(
+        ContactDisplaySetting contactDisplaySetting, EventDisplaySetting eventDisplaySetting,
+        Predicate<? super Contact> contactDisplayPredicate,
+        Predicate<? super Event> eventDisplayPredicate) {
         this.contactDisplaySetting = contactDisplaySetting;
         this.eventDisplaySetting = eventDisplaySetting;
         this.contactDisplayPredicate = contactDisplayPredicate;
@@ -63,11 +65,12 @@ public class ModelDisplaySetting {
 
     /**
      * Create a copy of the current model display setting
+     *
      * @return a copy of model display setting
      */
     public ModelDisplaySetting copy() {
         return new ModelDisplaySetting(contactDisplaySetting, eventDisplaySetting, contactDisplayPredicate,
-                eventDisplayPredicate);
+            eventDisplayPredicate);
     }
 
     @Override
@@ -82,7 +85,7 @@ public class ModelDisplaySetting {
 
         ModelDisplaySetting other = (ModelDisplaySetting) obj;
         return eventDisplaySetting.equals(other.eventDisplaySetting)
-                && contactDisplaySetting.equals(other.contactDisplaySetting);
+            && contactDisplaySetting.equals(other.contactDisplaySetting);
     }
 
     /**
@@ -119,5 +122,13 @@ public class ModelDisplaySetting {
     public ModelDisplaySetting differentEventDisplayPredicate(Predicate<? super Event> predicate) {
         return new ModelDisplaySetting(contactDisplaySetting, eventDisplaySetting,
             contactDisplayPredicate, predicate);
+    }
+
+    @Override
+    public String toString() {
+        return "ModelDisplaySetting{"
+            + "contactDisplaySetting=" + contactDisplaySetting
+            + ", eventDisplaySetting=" + eventDisplaySetting
+            + '}';
     }
 }

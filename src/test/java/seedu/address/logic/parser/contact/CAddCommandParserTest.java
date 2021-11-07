@@ -49,7 +49,7 @@ public class CAddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Contact expectedContact = new ContactBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Contact expectedContact = new ContactBuilder(BOB).withTags(VALID_TAG_FRIEND).withMarked(false).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -78,7 +78,7 @@ public class CAddCommandParserTest {
 
         // multiple tags - all accepted
         Contact expectedContactMultipleTags = new ContactBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
+            .withMarked(false).build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + ZOOM_DESC_BOB + TELEGRAM_DESC_BOB + TAG_DESC_FRIEND,
             new CAddCommand(expectedContactMultipleTags));

@@ -46,7 +46,7 @@ class EAddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Event expectedEvent = new EventBuilder(EXAM).withTags(VALID_TAG_EXAMS).build();
+        Event expectedEvent = new EventBuilder(EXAM).withTags(VALID_TAG_EXAMS).withMarked(false).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_EXAM + START_DATE_TIME_DESC_EXAM
@@ -80,7 +80,7 @@ class EAddCommandParserTest {
 
         // multiple tags - all accepted
         Event expectedEventMultipleTags = new EventBuilder(EXAM).withTags(VALID_TAG_EXAMS, VALID_TAG_COOL)
-                .build();
+                .withMarked(false).build();
 
         assertParseSuccess(parser, NAME_DESC_EXAM + START_DATE_TIME_DESC_EXAM + END_DATE_TIME_DESC_EXAM
                         + DESCRIPTION_DESC_EXAM + ADDRESS_DESC_EXAM
@@ -91,7 +91,7 @@ class EAddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Event expectedEvent = new EventBuilder(EXAM).withTags().build();
+        Event expectedEvent = new EventBuilder(EXAM).withTags().withMarked(false).build();
         assertParseSuccess(parser, NAME_DESC_EXAM + START_DATE_TIME_DESC_EXAM + END_DATE_TIME_DESC_EXAM
                         + DESCRIPTION_DESC_EXAM + ADDRESS_DESC_EXAM + ZOOM_DESC_EXAM,
                 new EAddCommand(expectedEvent));
