@@ -309,7 +309,7 @@ The following activity diagram summarizes what happens when the `elist` feature 
 ### Link Event feature
 This section details how an `Event` object is linked to one or more `Contact` objects using the `elink` command.
 
-The `elink` command allows users to link an event to multiple contacts from the current event list and contact list shown on SoConnect.
+The `elink` command allows users to link an event to one or more contacts from the current event list and contact list shown in SoConnect.
 The user needs to specify the `Index` of the event as well as the `Index` of the contacts to link. `Index` of the event must
 come first, followed by that of contacts. To differentiate the `Index` of contact and event, the user needs to specify the
 prefix `c/` right before every `Index` of the contact to be linked to the event.
@@ -322,18 +322,17 @@ prefix `c/` right before every `Index` of the contact to be linked to the event.
 
 The following operations are the main operations for `elink`.
 
-- `ELinkCommandParser#parse` - Parse the user inputs and create a `ELinkCommand` to return.
+- `ELinkCommandParser#parse` - Parse the user inputs and create a `ELinkCommand` object to return.
 
 - `ELinkCommand#execute` - Links the event to the target contacts.
 
 We will use an example command `elink 1 c/1 c/2 c/3`, together with a sequence diagram, to explain how the `elink` feature works.
 
-##### Sequence Diagram
+#### Sequence Diagram
 
 ![ELinkSequenceDiagram](images/ELinkSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-primary">
-:bulb: **Tip:** The lifeline for `ELinkCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ELinkCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Given below is the usage scenario from the example command `elink 1 c/1 c/2 c/3`, and explains how the `elink` feature behaves at each step.
@@ -345,26 +344,26 @@ Step 2: The argument `1 c/1 c/2 c/3` will be subjected to checks by methods from
 incorrect arguments in the command. Examples of incorrect arguments include `1` or `c/2 1`.
 
 Step 3: A [HashSet](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashSet.html) of type `Index`
-containing the indexes of contact is created. The index of event and the HashSet is passed as arguments to construct an
+containing the indexes of contact is created. The index of event and the HashSet(https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashSet.html) is passed as arguments to construct an
 `linkCommand` object. `ELinkCommand` object is then returned to `LogicManager` to be executed.
 
 Step 4: During the execution of the command, the `ELinkCommand` object links the event at index `1` to each of the contacts
-through the `Model#linkEventAndContact` method call, by looping through the HashSet containing the indexes of the contacts. 
+through the `Model#linkEventAndContact` method call, by looping through the HashSet(https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashSet.html) containing the indexes of the contacts. 
 
 Step 5. A `CommandResult` containing information about each link status will be displayed to the user.
 
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:** If a user attempts to link an event and contact
-that were already linked, the command will go through with a `CommandResult` to let user know instead of throwing a `CommandException`.
+that were already linked, the command will succeed with a `CommandResult` to let user know instead of throwing a `CommandException`.
 </div>
 
-##### Activity Diagram
+#### Activity Diagram
 
 The following activity diagram summarizes what happens when the `elink` feature is triggered:
 
 ![ELinkActivityDiagram](images/ELinkActivityDiagram.png)
 
-##### Design Considerations
+#### Design Considerations
 Aspect: The relationship of the link:
 
 * Alternative implementation 1: The event has a reference to contacts that are linked to it but not the other way.
@@ -385,7 +384,7 @@ Aspect: Whether to update the existing contact/event objects to show the link:
 * Alternative implementation 2 (current choice): Creates new `Contact` and `Event` objects with link to each other and making them immutable.
   * Pros: Less likely to have bugs. Works well with other commands like `undo` and `redo` because any changes in the link
     will create new objects of `Contact` and `Event`, hence making it easier to store history of the contacts and events.
-  * Cons: May have performance issues in terms of memory usage because other commands like `EDelete` and `CEdit` may result in change in link relationship,
+  * Cons: May have performance issues in terms of memory usage because other commands like `EDeleteCommand` and `CEditCommand` may result in change in link relationship,
     resulting in the creation of new `Contact` or `Event` objects.
 
 
