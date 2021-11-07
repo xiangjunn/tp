@@ -79,10 +79,10 @@ The *Sequence Diagram* below shows how the components interact with each other f
 
 Each of the four main components (also shown in the diagram above),
 
-* defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
+* defines its *API* in an `_interface_` with the same name as the Component.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `_interface_` mentioned in the previous point).
 
-For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+For example, the `Logic` component defines its API in the `Logic.java` _interface_ and implements its functionality using the `LogicManager.java` class which follows the `Logic` _interface_. Other components interact with a given component through its _interface_ rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
 <img src="images/ComponentManagers.png" width="300" />
 
@@ -134,7 +134,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `CAddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `CAddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `CAddCommandParser`, `EDeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* All `XYZCommandParser` classes (e.g., `CAddCommandParser`, `EDeleteCommandParser`, ...) inherit from the `Parser` _interface_ so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 
@@ -223,17 +223,17 @@ Step 4: During the execution, the `EDeleteCommand` object repeatedly deletes eac
 
 ### List Events feature
 
-This section details how the `elist` command is implemented. This command allows the user to view all events, with the added feature of allowing the user to specify which _field_ to display. By default, all fields will be displayed.
+This section details how the `elist` command is implemented. This command allows the user to view all events, with the added feature of allowing the user to specify which _field_ to display. By default, all _fields_ will be displayed.
 
 #### Implementation
 
 As outlined in the [Logic component section](#logic-component), both `EListCommandParser` and `EListCommand` classes are involved in the execution of the `elist` command.
 
-The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es). It then creates a new immutable `EventDisplaySetting` object that will encapsulate the visibility of the various fields for all events in the _GUI_.
+The `parse` method inside the `EListCommandParser` receives the user input, extracts the required prefix(es). It then creates a new immutable `EventDisplaySetting` object that will encapsulate the visibility of the various _fields_ for all events in the _GUI_.
 
-* If no prefix is provided, the `parse` method will set all fields of the `Event` class to be displayed. This is the default setting.
+* If no prefix is provided, the `parse` method will set all _fields_ of the `Event` class to be displayed. This is the default setting.
 * If one or more prefix(es) is / are provided, `parse` will set the corresponding _field_(s) to be displayed,
-  sets the rest of the fields to be hidden.
+  sets the rest of the _fields_ to be hidden.
 
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:** If values of prefixes given are not empty, `EListCommandParser#parse` throws a ParseException.
@@ -249,7 +249,7 @@ Step 2. The user input `at/ end/` will be subjected to checks by methods from [`
 
 Step 3. A `EventDisplaySetting` object is created based on the input arguments.
    * If there are no inputs, then the default `EventDisplaySetting.DEFAULT_SETTING` object is created.
-   * Since there are inputs for this example, an `EventDisplaySetting` with the `willDisplay` fields for `startDateTime` and `endDateTime` will be set to true. All other fields will be set to false (hidden). `isViewingFull` will be set to false, since this is not a `view` command.
+   * Since there are inputs for this example, an `EventDisplaySetting` with the `willDisplay` _fields_ for `startDateTime` and `endDateTime` will be set to true. All other _fields_ will be set to false (hidden). `isViewingFull` will be set to false, since this is not a `view` command.
 
 Step 4. A new `EListCommand` object is returned to the `LogicManager`.
 
@@ -271,12 +271,12 @@ The following activity diagram summarizes what happens when the `elist` feature 
 
 #### Design Considerations
 
-**Aspect: Whether to allow hiding of specific fields:**
+**Aspect: Whether to allow hiding of specific _fields_:**
 
-* **Alternative implementation 1:** EListCommand displays all fields.
+* **Alternative implementation 1:** EListCommand displays all _fields_.
     * Pros: No need to check for valid prefixes.
-    * Cons: User may be interested in one _field_, but has to look through all the fields.
-* **Alternative implementation 2 (current choice):** EListCommand allows users to choose which fields to display.
+    * Cons: User may be interested in one _field_, but has to look through all the _fields_.
+* **Alternative implementation 2 (current choice):** EListCommand allows users to choose which _fields_ to display.
   * Pros: User can choose to hide long details about the event and focus on the details important to them.
   * Cons: There is more room for mistakes, since it is more difficult to parse the user input correctly.
 
@@ -386,7 +386,7 @@ The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `
   * `undo()` — Restores the previous history instance book state from its history.
   * `redo()` — Restores a previously undone history instance from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitHistory()`, `Model#undoHistory()` and `Model#redoHistory()` respectively.
+These operations are exposed in the `Model` _interface_ as `Model#commitHistory()`, `Model#undoHistory()` and `Model#redoHistory()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -472,8 +472,8 @@ The sequence of how a calendar window is generated is shown in the UML sequence 
 2. The `Calendar` and `CalendarView` objects are created and stored. A _hashmap_ of `Event` objects to `Entry` objects is created. (Not shown)
 3. A time thread is created to constantly update the current time of the calendar every 10 seconds.
 4. The `Calendar` object is populated with the entries of events from Step 1. The _hashmap_ is also concurrently being updated with the events and the associated entries. (Not shown)
-5. The `CalendarView` object is updated to include the `Calendar` object, and also to change some configurations to simplify the interface and prevent edits directly on the calendar.
-6. The `StackPane` (see [`CalendarWindow.fxml`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/resources/view/CalendarWindow.fxml)) is updated to include the new `CalendarView` interface. The `CalendarWindow` object is now created and returned to `MainWindow`.
+5. The `CalendarView` object is updated to include the `Calendar` object, and also to change some configurations to simplify the user interface and prevent edits directly on the calendar.
+6. The `StackPane` (see [`CalendarWindow.fxml`](https://github.com/AY2122S1-CS2103T-W15-3/tp/blob/master/src/main/resources/view/CalendarWindow.fxml)) is updated to include the new `CalendarView` user interface. The `CalendarWindow` object is now created and returned to `MainWindow`.
 
 #### Design considerations
 
@@ -540,7 +540,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | senior SoC student | delete the contact of my *TA*/*Profs* | remove contact of my *TA* after I have completed the module |
 | `* * *` | SoC student | view the contact of my *TA*/*Profs* | |
 | `* * *` | year 4 SoC student with many contacts | search for contact of my *TA*/*Profs* | contact them when necessary |
-| `* * *` | CS2103T student | list all the telegram handles of my CS2103T project mates | add them to the project group |   
+| `* * *` | CS2103T student | list all the _telegram handles_ of my CS2103T project mates | add them to the project group |   
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
 | `* *` | organized SoC student | categorize the contacts of students/*TA*/*Profs* by tags | view them separately |
@@ -800,7 +800,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case resumes from step 4.
 
   
-**7. Use case: UC7 - List event fields**
+**7. Use case: UC7 - List event _fields_**
 
 **Preconditions:** There is at least one event in the event list.
 
@@ -831,7 +831,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2b. SAS detects that the user did not provide a _field_.
 
-    * 2b1. SAS displays the default list containing all the fields of the events.
+    * 2b1. SAS displays the default list containing all the _fields_ of the events.
 
   Use case ends.
 
@@ -940,7 +940,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Graphical User Interface** (GUI): Graphic-based user interface.
 
 
-* **Interface**: The place at which independent and often unrelated systems meet and act on or communicate with each other/ a way for the user to interact with the system.
+* **Interface**: (For user interface) The place at which independent and often unrelated systems meet and act on or communicate with each other/ a way for the user to interact with the system. (For other use of interfaces such as `Model`) See the [Java Tutorials](https://docs.oracle.com/javase/tutorial/java/concepts/interface.html) for more details on what an interface in Java means.
 
 
 * **Telegram handle**: Username of a [Telegram](https://telegram.org/) user.
@@ -1015,14 +1015,14 @@ testers are expected to do more *exploratory* testing.
 
 ### Listing all events
 
-1. Listing all event with certain fields shown.
+1. Listing all event with certain _fields_ shown.
 
    Prerequisites: At least one event in the list.
 
   1. Test case: `elist at/`<br>
      Expected: All events listed with only address displayed. All events listed shown in the status message.
   1. Test case: `elist`<br>
-     Expected: All events listed with all fields displayed. All events listed shown in the status message.
+     Expected: All events listed with all _fields_ displayed. All events listed shown in the status message.
 
   1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
      Expected: No change in display. Error message shown in status bar.
