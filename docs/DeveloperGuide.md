@@ -1029,12 +1029,19 @@ testers are expected to do more *exploratory* testing.
 
    Prerequisites: There is at least one event and one contact in their respective list.
 
-1. Test case: `elist at/`<br>
-   Expected: All events listed with only address displayed. All events listed shown in the status message.
-1. Test case: `elist`<br>
-   Expected: All events listed with all fields displayed. All events listed shown in the status message.
+1. Test case: `elink 1 c/1`<br>
+   Expected: The event at index `1` is linked to the contact at index `1`. The successfulness of the link is shown in the status message.
+   
+2. Test case: `elink 2 c/1 c/2 c/3`<br>
+   Expected: The event at index `2` is linked to each of the contacts at indexes `1`, `2` and `3`.
 
-1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
+3. Test case: `elink * c/1` (where x is an index larger than the event list size)<br>
+   Expected: No change in display. Error message shown in status bar.
+
+3. Test case: `elink 1 c/*` (where x is an index larger than the contact list size)<br>
+   Expected: No change in display. Error message shown in status bar.
+
+4. Other incorrect `elink` commands to try: `elink`, `elink 1`, `elink c/1`<br>
    Expected: No change in display. Error message shown in status bar.
 
 ### Saving data
