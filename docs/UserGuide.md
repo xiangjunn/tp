@@ -960,7 +960,7 @@ empty data file SoConnect creates on the other Computer.
 As shown on the image above, clicking on the `email` of `Charlotte Oliveiro` will copy her Email Address.
 
 **Q**: Can SoConnect automatically open a link on my browser?<br>
-**A**: YES! You can open any links that you have included in a contact or in an event.<br>
+**A**: You can open any links that you have included in a contact or in an event.<br>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
@@ -987,7 +987,7 @@ The linked events will be displayed on the event panel on the right.
 
 **Q**: What is the purpose of using links?<br>
 **A**: Links are a form of relationship between the contacts and the events saved in SoConnect.
-Typically, we link an event to a contact if the contact is involved as a participant of the event.
+Typically, we link an event to a contact if the contact of a participant of the event.
 For instance, you can link your professor to the lecture.
 
 
