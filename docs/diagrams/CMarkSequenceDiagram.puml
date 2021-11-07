@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CMarkCommandParser" as CMarkCommandParser LOGIC_COLOR
+participant "c:CMarkCommand" as CMarkCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Contact" as Contact MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cmark 1 2")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("cmark 1 2")
+activate AddressBookParser
+
+create CMarkCommandParser
+AddressBookParser -> CMarkCommandParser
+activate CMarkCommandParser
+
+CMarkCommandParser --> AddressBookParser
+deactivate CMarkCommandParser
+
+AddressBookParser -> CMarkCommandParser : parse("1 2")
+activate CMarkCommandParser
+
+create CMarkCommand
+CMarkCommandParser -> CMarkCommand
+activate CMarkCommand
+
+CMarkCommand --> CMarkCommandParser : c
+deactivate CMarkCommand
+
+CMarkCommandParser --> AddressBookParser : c
+deactivate CMarkCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CMarkCommandParser -[hidden]-> AddressBookParser
+destroy CMarkCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> CMarkCommand : execute()
+activate CMarkCommand
+
+CMarkCommand -> Model : getFilteredContactList()
+activate Model
+Model --> CMarkCommand
+deactivate Model
+
+loop 2 times
+    CMarkCommand -> Contact : markContact()
+    activate Contact
+
+    Contact --> CMarkCommand
+    deactivate Contact
+
+    CMarkCommand -> Model : setContact()
+    activate Model
+
+    Model --> CMarkCommand
+    deactivate Model
+
+end
+
+CMarkCommand -> Model : rearrangeContactsInOrder()
+activate Model
+
+Model --> CMarkCommand
+deactivate
+
+create CommandResult
+CMarkCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CMarkCommand
+deactivate CommandResult
+
+CMarkCommand --> LogicManager : result
+deactivate CMarkCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
