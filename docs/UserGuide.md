@@ -545,7 +545,7 @@ An event can have any number of tags (including 0)
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
 
 * Start time and End Time should be of format **dd-MM-yyyy HH:m** (date-MONTH-year HOUR:minute in 24-hour format).
-* Ensure the End Time you enter is **chronologically after** the Start Time.
+* End Time should be **chronologically after** the Start Time.
 </div>
 
 **Examples:**
@@ -593,14 +593,14 @@ This will not change the contacts saved in SoConnect.
 
 ### Deleting an event: `edelete`
 
-Deletes the specified event from SoConnect.
+Deletes the specified event(s) from SoConnect.
 
 **Format:** `edelete INDEX1[-INDEX2]`
 
-* Deletes the contact at:
+* Deletes the event(s) at:
     * the specified `INDEX1` or
     * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
-* `INDEX` refers to the index number shown in the displayed event list.
+* `INDEX1` and `INDEX2` refer to the index numbers shown in the displayed event list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
@@ -611,7 +611,7 @@ Deletes the specified event from SoConnect.
 
 Input | Expected Output
 --------|------------------
-[`elist`](#deleting-an-event-edelete) followed by `edelete 2` | Deletes the second event from SoConnect. <br><br> You should see these messages in the message box: <br>1. After `elist`: `Listed all events` <br>2. After `edelete 2`: `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
+[`elist`](#listing-all-events-elist) followed by `edelete 2` | Deletes the second event from SoConnect. <br><br> You should see these messages in the message box: <br>1. After `elist`: `Listed all events` <br>2. After `edelete 2`: `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
 [`efind Class`](#finding-events-efind) followed by `edelete 1` | Deletes the first event from the **results of the `efind` command**.<br><br> You should see these messages in the message box: <br>1. After `efind class`: `1 events listed!` <br>2. After `edelete 1`: `Deleted Event: Dance class; Start: 13-11-2021 20:00; End: 13-11-2021 22:00; Description: Dancing is my passion. I like pole dancing.; Address: NUS UTown; Tags: [CCA][Recurring]`
 `edelete 1-2` | Deletes events from index 1 to 2 from the **currently displayed** event list. <br><br> You should see these messages in the message box: <br> `Deleted Event: CS2103T project meeting; Start: 10-10-2021 21:00; End: 10-10-2021 22:00; Zoom Link: nus-sg.zoom.us/j/21342513543; Tags: [Recurring][CS2103T]` <br> `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
 
@@ -622,19 +622,24 @@ Edits an existing event in SoConnect.
 
 **Format:** `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
+
+You must provide **at least one** of the optional _fields_.
+</div>
+
 * Edits the event at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed event list.
-* You must provide **at least one** of the optional _fields_.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
 * You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
-* You can remove all existing tags of a contact by typing `dt/*`.
+* You can remove all existing tags of an event by typing `dt/*`.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:** 
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 * Start time and End Time should be of format **dd-MM-yyyy HH:mm** (date-MONTH-year HOUR:minute in 24-hour format).
+* End Time should be **chronologically after** the Start Time.
 </div>
 
 **Examples:**
@@ -649,21 +654,21 @@ Input | Expected Output
 
 Finds all events that contain any of the given keywords based on your search type.
 
-**Format:** `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`
+**Format:** `efind [KEYWORD]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 There are two types of event searches you can do in SoConnect:
-1. If you **do not specify any optional _fields_ before your keywords**, e.g. `efind KEYWORD1 KEYWORD2`,
+1. If you **do not specify any optional _fields_ before your keyword(s)**, e.g. `efind KEYWORD1 KEYWORD2`,
 
-   You will only search the names of the events based on the keywords you provide.
+   You will only search the names of the events based on the keyword(s) provided.
 
-2. If you specified optional _fields_ before your keyword, e.g. `efind a/KEYWORD1 d/KEYWORD2`,
+2. If you specified any prefix before your keyword(s), e.g. `efind a/KEYWORD1 d/KEYWORD2`,
 
    You will search the addresses and descriptions of the events based on `KEYWORD1` and `KEYWORD2` respectively.
 </div>
 
 * You need to provide **at least one keyword**.
-* You can provide multiple keywords without specifying any optional _fields_.
+* You can provide multiple keywords without specifying any prefixes.
 * You can only **specify each optional _field_ once**.
 * Partial words can be matched e.g. `Exa` will match `CS2103T Exam` .
 * Events matching at least one keyword will be returned.
@@ -678,8 +683,8 @@ The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 
 Input | Expected Output
 --------|------------------
-`efind meet` | Returns `CS2103 project meeting`. <br><br> You should see this message in the message box:<br> `1 events listed!` <br><br> You should also see only this **1 event**: ![Find Event 1](images/demo-screenshots/efindEx1.png)
-`efind t/CS2103T Intern` | Returns events with tags that contain `CS2103T` and `Intern`.<br><br> You should see this message in the message box:<br> `2 events listed!` <br><br> You should also see only these **2 events**: ![Find Event 2](images/demo-screenshots/efindEx2.png)
+`efind meet` | Displays events with names that contain `meet`. <br><br> You should see this message in the message box:<br> `1 events listed!` <br><br> You should also see only this **one event**: ![Find Event 1](images/demo-screenshots/efindEx1.png)
+`efind t/CS2103T Intern` | Displays events with tags that contain `CS2103T` and `Intern`.<br><br> You should see this message in the message box:<br> `2 events listed!` <br><br> You should also see only these **two events**: ![Find Event 2](images/demo-screenshots/efindEx2.png)
 
 
 ### Linking an event to contacts: `elink`
@@ -708,20 +713,20 @@ _See Also: [Unlinking an event from contacts](#unlinking-an-event-from-contacts-
 
 ### Listing all events: `elist`
 
-Shows all events in SoConnect, with all details by default.
+Displays all events in SoConnect, with all details by default.
 
 **Format:** `elist [at/] [end/] [d/] [a/] [z/] [t/]`
 
-* Names of events are always shown.
-* When no optional _fields_ are provided, e.g. `elist` , all available details of each event will be shown.
-* When optional _fields_ are provided, it will only show the names and the corresponding specified _fields_ for each event.
-* You can provide more than one optional _field_.
-* The order of the optional _fields_ does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
-* _Fields_ of an event that have no value will no appear.
+* Event names are always displayed.
+* When no optional prefixes are provided, e.g. `elist` , all available details of each event will be displayed.
+* When optional prefixes are provided, only the names and the corresponding specified _fields_ for each event will be shown.
+* You can provide more than one optional prefixes.
+* The order of the prefixes does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
+* _Fields_ of an event that have no value will not be shown.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Do not add extraneous values after each optional _field_ you specify.
+No extraneous values should be added after each prefix.
 </div>
 
 **Examples:**
@@ -729,7 +734,7 @@ Do not add extraneous values after each optional _field_ you specify.
 Input | Expected Output
 --------|------------------
 `elist` | Shows **all events** in SoConnect with **all available details** for each event. <br><br> You should see this message in the message box: <br>`Listed all events`
-`elist d/ at/` | Shows **all events** in SoConnect with **only their names, start date and time and description** (if available). You should see this message in the message box: <br>`Listed all events` <br><br> You should also see the event list displays **only the specified _fields_**: ![List Events](images/demo-screenshots/elistEx.png)
+`elist d/ at/` | Shows **all events** in SoConnect with **only their names, start date and time and description** (if available). You should see this message in the message box: <br>`Listed all events` <br><br> You should also see the event list displays all events with **only the specified _fields_**: ![List Events](images/demo-screenshots/elistEx.png)
 
 
 ### Removing bookmark of an event: `eunmark`
@@ -744,8 +749,8 @@ Removes bookmark of the specified event(s).
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
 
-* `INDEX` **must be a positive integer**, e.g. 1, 2, 3,…
-* You must ensure that the event indexed at `INDEX` is **initially bookmarked**.
+* `INDEX1` and `INDEX2` **must be a positive integer**, e.g. 1, 2, 3,…
+* You must ensure that the events at `INDEX1` and `INDEX2` are **initially bookmarked**.
 </div>
 
 **Examples:**
@@ -769,7 +774,7 @@ Sorts all events by start time and displays all upcoming or ongoing events.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Events that have ended **will not be shown** after you execute `esort`
+Events that have ended **will not be shown**
 </div>
 
 
@@ -780,9 +785,10 @@ Events that have ended **will not be shown** after you execute `esort`
 Unlinks the specified event and the specified contact(s).
 
 **Examples:**
+
 Input | Expected Output
 --------|------------------
-`eunlink 1 c/1` | Unlinks the first event in the **currently displayed** event list from the first contact in the **currently displayed** contact list. Yous should see this message in the message box: `Successfully unlinked the event CS2103T project meeting from the contact Alex Yeoh`
+`eunlink 1 c/1` | Unlinks the first event in the **currently displayed** event list from the first contact in the **currently displayed** contact list. <br><br>You should see this message in the message box: <br>`Successfully unlinked the event CS2103T project meeting from the contact Alex Yeoh`
 
 _See Also: [Linking an event to contacts](#linking-an-event-to-contacts-elink)_
 
@@ -795,7 +801,7 @@ Views an event with all details fully shown.
 
 * Views the event at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed event list.
-* All truncated details of the event you want to view will be expanded fully.
+* All truncated details of the event will be shown fully.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
