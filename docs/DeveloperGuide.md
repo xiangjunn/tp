@@ -931,7 +931,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
+**11. Use case: UC11 - Mark contacts**
 
+**Guarantees:** The chosen contacts will be marked with a bookmark icon <img src="images/demo-screenshots/bookmarkIcon.png" style="width: 1em;" /> and moved to the start of the contact list.
+
+***MSS***
+
+1. User decides on the contacts to mark.
+
+2. User inputs the indexes of the contacts to mark.
+
+3. SAS marks the chosen contacts and move them to the top of the list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. SAS detects an error in the inputs.
+
+  * 2a1. SAS requests for correct inputs.
+
+  * 2a2. User enters new inputs.
+
+  Steps 2a1 to 2a2 are repeated until the inputs entered are correct.
+
+  Use case resumes from step 3.
+
+* 2b. SAS detects some contacts that have already been marked.
+
+  * 2b1. SAS informs the user the relevant contacts that have already been marked previously.
+
+  * 2b2. SAS proceeds to mark the other contacts and move them to the top of the list.
+
+  Use case ends.
+
+* *a. User chooses not to link event to contacts.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
@@ -941,8 +977,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. Should not depend on Internet connection.
 5. Only one user should be able to use the system at one time.
 6. Should be usable by colorblind students
-
-*{More to be added}*
 
 ### Glossary
 
