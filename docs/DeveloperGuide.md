@@ -150,7 +150,9 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` and ` Event` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` or `Event` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+
+An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` and ` Event` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` or `Event` needing their own `Tag` objects.<br>
 <img src="images/BetterModelClassDiagram.png" width="350" />
 </div>
 
@@ -192,7 +194,9 @@ The sequence diagram below shows how the execution of the example command flows:
 
 ![Interactions Inside the Logic Component for the `edelete 1 - 3` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+
+The lifeline for `EDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Given below is one example usage scenario and explains how the `edelete` feature behaves at each step.
@@ -200,26 +204,37 @@ Given below is one example usage scenario and explains how the `edelete` feature
 Step 1: The user enters the command `edelete 1-3` to delete the events at indexes 1, 2 and 3.
 
 Step 2: The user input argument is passed to the `EDeleteCommandParser` object, which parses the input arguments and creates a `Range` object for the range .
+`Range` object will only be created if the input arguments pass the checks of `ArgumentMultimap` and `ParserUtil` methods.
 
 Step 3: This `Range` object is used to construct a new `EDeleteCommand` object. `EDeleteCommand` object is then returned to `LogicManager` to be executed.
 
-Step 4: During the execution, the `EDeleteCommand` object repeatedly deletes each event from the most updated event list through the `Model#deleteEvent` method. At the same time, a new list of `EventChanger` objects containing all the events to be deleted will be created. The [Calendar UI implementation](#calendar-ui-feature) will discuss the use of this list.
+Step 4: During the execution, the `EDeleteCommand` object repeatedly deletes each event from the most updated event list through the `Model#deleteEvent` method.
+`Model#deleteEvent` method would then check if the event to be deleted is **linked to any contacts**.
+If the event **has linked** contacts, `Model#deleteEvent` would **first unlink** the event and the linked contacts through `Model#unlinkContactsFromEvent` before deleting the event.
+At the same time, a new list of `EventChanger` objects containing all the events to be deleted will be created.
+The [Calendar UI implementation](#calendar-ui-feature) will discuss the use of this list.
 
-<div markdown="span" class="alert alert-primary">
-:bulb: **Tip:** If the user only specifies one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
+
+If the user only specifies one `Index` for `edelete`, a `Range` object is created with the same start and end `Index`.
 </div>
+
+The activity diagram below shows how the execution of the `edelete` command flows:
+
+![EDeleteActivityDiagram](images/EDeleteActivityDiagram.png)
 
 #### Design considerations
 
 **Aspect: Type of user inputs:**
 
 * **Alternative 1 (current choice):** Either a single Index or a Range can be specified.
-    * Pros: Easy to implement.
-    * Cons: Unable to delete multiple ranges of events or events that are not ordered consecutively in the event list.
+  * Pros: Easy to implement.
+  * Cons: Unable to delete multiple ranges of events or events that are not ordered consecutively in the event list.
 
 * **Alternative 2:** Allow a mixture of multiple single indexes and multiple ranges
-    * Pros: Able to delete events more efficiently.
-    * Cons: We must ensure that the order of delete of the events is correct. It is more complex to keep track of the events to be deleted.
+  * Pros: Able to delete events more efficiently.
+  * Cons: We must ensure that the order of delete of the events is correct. It is more complex to keep track of the events to be deleted.
+
 
 ### List Events feature
 
