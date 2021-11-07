@@ -31,7 +31,7 @@ Given below are my contributions to the project.
     * Justification: This feature improves the product significantly because it allows user to focus on certain fields of events they are interested in instead of looking at the entire list.
     * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* **Code contributed**: [RepoSense link]()
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=w15-3&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=zoom&tabAuthor=janjanchen&tabRepo=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&zA=janjanchen&zR=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&zACS=199.78947368421052&zS=2021-09-17&zFS=w15-3&zU=2021-11-06&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)
 
 * **Project management**:
     * Manage issue tracker, created issues, linked them to the relevant milestone, tags and project dashboard and assigned them to the relevant teammate based on the breakdown of work discussed in the team meeting, where possible, included task descriptions in the issue for easy reference.
@@ -42,13 +42,12 @@ Given below are my contributions to the project.
 
 * **Documentation**:
     * User Guide:
-        * Added documentation for the features `eedit`, `efind` and `edelete` [\#29]()
-        * Added screenshots for `cdelete`, `emark`, eunmark`, `elink` and `eunlink`, and updated screenshots for `, `cmark`, `cunmark`, `edelete`, `efind`, `elist` [\#273]()
-        * Add a link to JSON format [\#273]() 
-        * Reorganised features from basic to more advanced [\#273]() 
+         * Added documentation for the features `eedit`, `efind` and `edelete` [\#29]https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/29)
+         * Updated documentation for `cmark`, `cunmark`, added screenshots for `edelete`, `efind`, `elist` [\#2]https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/213)
+         * Reorganised features from basic to more advanced [\#213]https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/213) 
     * Developer Guide:
-        * Added implementation details for `elist` [\#132]()
-        * Added implementation details for `cmark`, `cunmark`, `emark`, `eunmark` [\#]()
+        * Added implementation details for `elist` [\#132]()https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/132) 
+        * Added implementation details for `cmark` and `cunmark` [\#217]()https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/217) 
 
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [\#33](), [\#145](), [\#148]()
