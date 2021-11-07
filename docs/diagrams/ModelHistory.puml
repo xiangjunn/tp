@@ -18,5 +18,4 @@ ModelHistory -down-> HistoryInstance
 HistoryInstance -down-> AddressBook
 HistoryInstance -down-> ModelDisplaySetting
 
-
 @enduml
