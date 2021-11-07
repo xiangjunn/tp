@@ -543,7 +543,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | CS2103T student | list all the telegram handles of my CS2103T project mates | add them to the project group |   
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
-| `* *` | organised SoC students | categorize the contacts of students/*TA*/*Profs* | view them separately |
+| `* *` | organised SoC student | categorize the contacts of students/*TA*/*Profs* by tags | view them separately |
+| `* *` | SoC student who frequently contacts a *TA* | mark a contact as favorite and pin them to the top | view them easily when I start the app |
 | `* *` | student with many contacts | add the profile picture of *TA*/*Profs* | more easily differentiate my contacts and remember their faces |
 | `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
 | `*` | long term user | archive some contacts | still save old contacts without cluttering my current screen |
@@ -562,6 +563,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *` | SoC student with busy schedule | check if the new event clashes with any of my current events | better plan my timetable and avoid event clashes |
 | `* *` | SoC student with busy schedule | see a weekly calendar | easily visualize my schedule for the week |
 | `* *` | SoC student with many different events to manage | categorize my events with different tags like classes and CCAs | search related events |
+| `* *` | SoC student with an important event coming up | mark an event as favorite and pin them to the top | easily see the most important events first when I start the app |
 | `* *` | SoC student with many events and contacts to manage | link some contacts to some events | view the details of the participants/*TAs* in my events or lessons. |
 | `*` | SoC student who uses other calendars | import and export my events to other calendars like Google Calendar | synchronize my events across my calendars |
 | `*` | long term user | archive some events that have ended | still save details of past events without cluttering my main screen |
