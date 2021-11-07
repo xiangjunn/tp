@@ -6,7 +6,7 @@ title: SoConnect User Guide
 Made by *SoC students*, for SoC students, SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, and keep track of noteworthy events.** It is **optimized for use via a _Command Line Interface (CLI)_** while still having 
 the benefits of a _Graphical User Interface (GUI)_. If you can type fast, managing your contacts will be very easy with SoConnect.
 
-This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the 
+This User Guide will help you to familiarise yourself with your SoConnect quickly and teach you the
 full range of features it offers.
 
 
@@ -26,81 +26,262 @@ full range of features it offers.
 * You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and commands.
 
 
+### How to read commands in SoConnect
+
+You will see commands throughout this User Guide and each of them have their own _Command Format_.
+
+This is one example of a command:
+
+![Command Example](images/demo-screenshots/commandSyntax.png)
+
+There are only 3 different parts of inputs within each command:
+1. **COMMAND WORD**
+
+   Command word is the word that you need to specify when you need SoConnect to perform some actions for you.
+   Else, SoConnect does not know how it can help you!
+
+   For example, specifying `cedit` in the command above will tell SoConnect that you want to edit a contact.
+
+2. **_PARAMETER_**
+
+   _Parameter_ is the related information that you need to specify to SoConnect for the action you want to do.
+
+   Using the same example, after telling SoConnect to edit a contact, you will need to tell SoConnect which contact to edit
+   and provide the information for the edit.
+
+   Specifying `2` tells SoConnect to edit contact at **index 2** and `Betsy Crower`
+   is the **new name** you want to change the specified contact to.
+
+3. **PREFIX**
+
+   You can help SoConnect in separating the type of _parameters_ when you input information.
+
+   Each prefix always ends with one `/`. Jump to [List of Prefixes](#list-of-prefixes) to see all prefixes you can use in SoConnect.
+
+   For example, information that you specified after prefix `n/` would help SoConnect to identify the _parameter_
+   is referring to **name** of the contact.
+
+
+Thus, the command above will tell SoConnect to **edit the name of the contact at index 2 to Betsy Crower**.
+
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
+
+* Read more on _Command Format_ below, or
+* See more commands that you can type in SoConnect [here](#Features)!
+</div>
+
 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: About the _Command_ format:**<br>
 
 * Words in `UPPER_CASE` are the _parameters_ that you will provide.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `cadd n/NAME`, `NAME` is a _parameter_ which can be used as `cadd n/John Doe`.
 
-* _Fields_ in square brackets are optional.<br>
+* _Fields_ in **square brackets** are **optional**.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Fields with `…`​ after them can be used multiple times including zero times.<br>
+* _Fields_ with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
 
-* Parameters can be in any order.<br>
+* Each pair of prefix and _parameter_ can be in any order.<br>
   e.g. if the command specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command, but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a _parameter_ is expected only once in the command, but you specified it multiple times, **only the last occurrence** of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help` and `exit`) will be ignored.<br>
+* Extraneous _parameters_ for commands that do not take in _parameters_ (such as `help` and `exit`) will be **ignored**.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* Date and time must follow dd-MM-yyyy HH:mm format.
+* Date and time must follow **dd-MM-yyyy HH:mm** format.
   e.g. if the date and time is 1 May 2021 6.30pm, you should specify it as `01-05-2021 18:30`
 
 </div>
 
+### What happens if my command is invalid?
 
+After you specified a command to be done on SoConnect, a success message will be shown on the message box of SoConnect.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Not sure where is the **message box**? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different
+sections you can find in SoConnect!
+</div>
+
+For example, after you specified [`clist`](#listing-all-contacts-clist):
+![Success Message](images/demo-screenshots/successMessage.png)
+SoConnect will tell you that it has successfully listed all contacts!
+
+<br>
+
+However, when the command you entered does not fulfill the _Command Format_ specified in [Features](#features),
+an **error message** will be shown on the message box instead.
+
+For example, after you specified [`cview`](#viewing-a-contact-cview) **without** specifying which contact to view:
+![Error Message](images/demo-screenshots/invalidCommand.png)
+SoConnect will tell you that the _Command Format_ is invalid!
+
+--------------------------------------------------------------------------------------------------------------------
 ## Quick start
 
 1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
-   
+
    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-   
+
    [Here](https://www.java.com/en/download/help/version_manual.html) is how you can check the Java Version installed in your Computer.
    </div>
 
 2. Download the latest `soconnect.jar` from [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect app.
+3. Copy the file to the folder you want to use as the _home folder_ for your SoConnect.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start SoConnect. This is how SoConnect looks like:<br>
+
+    <div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+   SoConnect comes with some sample contacts and events upon installation!
+    </div>
+
    ![Ui](images/Ui.png)
-   If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-command-prompt) to start it too.
+   If SoConnect does not start by double-clicking, you can check this [alternative](#how-to-start-soconnect-using-terminal) to start it too.
 
-5. Type the command in the command box and press Enter to execute it. 
-   e.g. typing `help` and pressing Enter will open the help window.<br>
+5. **Type the command in the command box and press Enter** to execute it.
+
+    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+   Not sure where is the **command box**? Go to [Overview of SoConnect](#overview-of-soconnect) to check out the different
+   sections you can find in SoConnect!
+    </div>
+
+   e.g. typing `help` and **pressing Enter** will open the [help window](#help-window-help).<br>
    Some example commands you can try:
 
-   * `elist`: Lists all events.
+    * `elist`: [Lists all events](#listing-all-events-elist).
 
-   * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: Adds a contact named `John Doe` to SoConnect.
+    * `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: [Adds a contact](#adding-a-contact-cadd) named `John Doe` to SoConnect.
 
-   * `cdelete 3` : Deletes the third contact shown in SoConnect.
+    * `cdelete 3` : [Deletes the third contact](#deleting-a-contact-cdelete) shown in SoConnect.
 
-   * `eclear` : Deletes all entries of events from SoConnect.
+    * `eclear` : [Clears all entries of events](#clearing-all-events-eclear) from SoConnect.
 
-   * `exit` : Exits SoConnect.
+    * `exit` : [Exits](#exiting-soconnect-exit) SoConnect.
 
 6. Refer to the [Features](#features) below for details of each command.
+
+_See also: [What happens if my command is invalid](#what-happens-if-my-command-is-invalid)_
+
+
+## Overview of SoConnect
+
+This is what you will see when you open SoConnect!
+![Labelled SoConnect](images/demo-screenshots/labelledSoconnectOverview.png)
+
+1. **Menu Bar**
+
+   Menu Bar consists if 2 tabs: `File` and `Help`.
+
+   Upon clicking `File`, you can choose to:
+    1. **Exit** SoConnect
+    2. Open **Calendar** of SoConnect
+
+   ![File Tab](images/demo-screenshots/fileTab.png)
+
+    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+   Checkout how to [exit SoConnect](#exiting-soconnect-exit) and open [Calendar](#calendar-window-calendar) of SoConnect using commands!
+    </div> <br>
+
+   Upon clicking `Help`, you can choose to open **Help Window** of SoConnect.
+   ![Help Tab](images/demo-screenshots/helpTab.png)
+
+    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+   Checkout how to open [Help Window](#help-window-help) of SoConnect using commands!
+    </div>
+
+2. **Command Box**
+
+   This is where you can type all your commands to use the [features of SoConnect](#features).
+
+3. **Message Box**
+
+   Displays the message from SoConnect **after** you have executed one command.
+
+   See Also: [What happens if my command is invalid?](#what-happens-if-my-command-is-invalid)
+
+5. **Contact List**
+
+   Displays information of the contacts you saved in SoConnect.
+
+   Refer to [Icons in Contact List](#icons-in-contact-list) to see the different _fields_ that each icon represents in Contact List.
+
+6. **Event list**
+
+   Displays information of the events you saved in SoConnect.
+
+   Refer to [Icons in Event List](#icons-in-events-list) to see the different _fields_ that each icon represents in Event List.
+
+
+
+### Icons in Contact List
+
+![Contact Card](images/demo-screenshots/contactCard.png)
+You can always find these 2 information of each contact displayed in SoConnect Contact List:
+1. Contact Index
+2. Contact Name
+
+Here are the icons you might see under each contact:
+
+Icon | _Field_
+--------|------------------
+**![Bookmark Icon](images/demo-screenshots/bookmarkIcon.png)** | Bookmark*
+**![Email Icon](images/demo-screenshots/emailIcon.png)** | Email Address
+**![Phone Number Icon](images/demo-screenshots/phoneNumberIcon.png)** | Phone Number
+**![Address Icon](images/demo-screenshots/addressIcon.png)** | Address
+**![Telegram Icon](images/demo-screenshots/telegramIcon.png)** | Telegram Handle
+**![Website Icon](images/demo-screenshots/websiteIcon.png)** | Links/ Websites
+**![Event Icon](images/demo-screenshots/eventIcon.png)** | Linked Events
+**![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
+
+*Bookmark icon is only visible when the contact has been bookmarked.
+_See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
+
+
+### Icons in Events List
+
+![Event Card](images/demo-screenshots/eventCard.png)
+You can always find these 2 information of each contact displayed in SoConnect Event List:
+1. Event Index
+2. Event Name
+
+Here are the icons you might see under each event:
+
+Icon | _Field_
+--------|------------------
+**![Bookmark Icon](images/demo-screenshots/bookmarkIcon.png)** | Bookmark*
+**![Start Time Icon](images/demo-screenshots/startTimeIcon.png)** | Start Time
+**![End Time Icon](images/demo-screenshots/endTimeIcon.png)** | End Time
+**![Website Icon](images/demo-screenshots/websiteIcon.png)** | Links/ Websites
+**![Description Icon](images/demo-screenshots/descriptionIcon.png)** | Description
+**![Contact Icon](images/demo-screenshots/contactsIcon.png)** | Linked Contacts
+**![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
+
+*Bookmark icon is only visible when the event has been bookmarked.
+_See also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
-There are three main sections to SoConnect Features: 
-[Contact Management](#contact-management), 
-[Event Management](#event-management) and 
+There are three main sections to SoConnect Features:
+[Contact Management](#contact-management),
+[Event Management](#event-management) and
 [General](#general).
 
 For each feature, you are provided with:
 * Function and Description of the feature
-* Format of _Command Syntax_ of the feature
-* Examples of some usages of the feature
+* _Command Format_ of the feature
+* Examples of some usages of the feature (All examples assumes SoConnect has the **inital sample** contacts and events)
 
 
 ## Contact Management
@@ -128,21 +309,23 @@ A contact can have any number of tags (including 0)
 </div>
 
 **Examples:**
-* `cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor`
-* `cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH`
+
+Input | Expected Output
+------|------------------
+`cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor` | You should see this message in the message box: `New contact added: Alex Doe; Email: e0123456@u.nus.edu; Address: COM1 #99-99; Telegram: johnDoe99; Tags: [Professor]` <br><br> You should also see `Alex Doe` **at the end** of your contact list: ![New Contact 1](images/demo-screenshots/caddEx1.png)
+`cadd n/ Jon Cheng t/TA e/e7654321@u.nus.edu a/COM1-0201 p/87654321 t/Senior th/jonnyjohnny z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH` | You should see this message in the message box: `New contact added: Jon Cheng; Email: e7654321@u.nus.edu; Phone: 87654321; Address: COM1-0201; Zoom Link: https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDH; Telegram: jonnyjohnny; Tags: [Senior][TA]`<br><br> You should also see `Jon Cheng` **at the end** of your contact list: ![New Contact 2](images/demo-screenshots/caddEx2.png)
+
+*Index of the newly added contact will depend on your previous number of contacts.
 
 
 ### Bookmarking a contact: `cmark`
 
 Bookmarks the specified contact(s).
 
-**Format:** `cmark INDEX1 [INDEX]...`
+**Format:** `cmark INDEX`
 
-![image](images/demo-screenshots/BookmarkContact.png)
-
-* Bookmarks the contact at `INDEX1` and pins it at the top of the contact list.
-* You may bookmark **more than one contact at a time** by specifying multiple indexes `cmark 1 2`.
-* `INDEX` refers to the index number shown in the displayed contact list.
+* Bookmarks the contact at `INDEX` and **pins it at the top** of the contact list.
+* `INDEX` refers to the index number shown in the **currently displayed** contact list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
@@ -150,8 +333,10 @@ Bookmarks the specified contact(s).
 </div>
 
 **Examples:**
-* `cmark 2` bookmarks the second contact in SoConnect.
-* `cmark 2 4` bookmarks the second and fourth contacts in SoConnect.
+
+Input | Expected Output
+--------|------------------
+`cmark 2` | Bookmarks the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Bookmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` **pinned to the top** of your contact list with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx.png)
 
 _See also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
 
@@ -175,8 +360,8 @@ Deletes the specified contact(s) from SoConnect.
 **Format:** `cdelete INDEX1[-INDEX2]`
 
 * Deletes the contact at:
-  * the specified `INDEX1` or 
-  * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
+    * the specified `INDEX1` or
+    * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
 * `INDEX` refers to the index number shown in the displayed contact list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -185,9 +370,12 @@ Deletes the specified contact(s) from SoConnect.
 </div>
 
 **Examples:**
-* `clist` followed by `cdelete 2` deletes the second contact from SoConnect.
-* `cfind Betsy` followed by `cdelete 1` deletes the first contact from the results of the `cfind` command.
-* `cdelete 3-5` deletes contacts from index 3 to 5 from the currently displayed contacts.
+
+Input | Expected Output
+--------|------------------
+[`clist`](#listing-all-contacts-clist) followed by `cdelete 2` | Deletes the second contact from SoConnect. <br><br> You should see these messages in the message box: <br> 1. After `clist`: `Listed all contacts` <br> 2. After `cdelete 2`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
+[`cfind Bernice`](#finding-contacts-cfind) followed by `cdelete 1` | Deletes the first contact from the **results of the `cfind` command**. <br><br> You should see these messages in the message box: <br> 1. After `cfind Bernice`: `1 contacts listed!` <br> 2. After `cdelete 1`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
+[`cdelete 3-5`](#deleting-a-contact-cdelete) | Deletes contacts from index 3 to 5 from the **currently displayed** contact list. <br><br> You should see these messages in the message box:<br>`Deleted Contact: Charlotte Oliveiro; Email: charlotte@example.com` <br> `Deleted Contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br> `Deleted Contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates]`
 
 
 ### Editing a contact: `cedit`
@@ -211,11 +399,11 @@ Edits an existing contact in SoConnect.
 </div>
 
 **Examples:**
-* `clist` followed by `cedit 2 p/91234567 e/agentX@thehightable.com` edits the phone number and email address of the second contact of SoConnect to be `91234567` and `agentX@thehightable.com` respectively.
-* `cfind Betsy` followed by `cedit 2 n/Betsy Crower dt/*` edits the name of the second contact from the results of the `cfind` command to be `Betsy Crower` and clears all existing tags.
-* `cedit 3 dt/TA`  deletes the `TA` tag from the third contact.
-* `cedit 4 dt/*` deletes all tags from the fourth contact.
-* `cedit 5 dt/classmate t/friend` first deletes the `classmate` tag, then adds `friend` tag to the fifth contact.
+
+Input | Expected Output
+--------|------------------
+`cedit 2 p/91234567 e/agentX@thehightable.com` | Edits the **phone number** and **email address** of the second contact of **currently displayed** contact list to be `91234567` and `agentX@thehightable.com` respectively. <br> <br>You should see this message in the message box:<br> `Edited Contact: Bernice Yu; Email: agentX@thehightable.com; Phone: 91234567; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should also see these changes: ![Edit Contact 1](images/demo-screenshots/ceditEx1.png)
+`cedit 1 n/Betsy Crower dt/*` | Edits the **name** of the first contact of **currently displayed** contact list to be `Betsy Crower` and **clears all existing tags**. <br><br>You should see this message in your message box: `Edited Contact: Betsy Crower; Email: alexyeoh@example.com; Phone: 87438807; Address: Blk 30 Geylang Street 29, #06-40; Telegram: yeoh_alex` <br><br> You should also see these changes: ![Edit Contact 2](images/demo-screenshots/ceditEx2.png)
 
 
 ### Finding contacts: `cfind`
@@ -227,7 +415,7 @@ Finds all contacts that contain any of the given keywords based on your search t
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 There are two types of contact searches you can do in SoConnect:
-1. If you **do not specify any optional fields before your keywords**, e.g. `cfind KEYWORD1 KEYWORD2`,
+1. If you **do not specify any optional _fields_ before your keywords**, e.g. `cfind KEYWORD1 KEYWORD2`,
 
    You will only search the names of the contacts based on the keywords you provide.
 
@@ -237,11 +425,11 @@ There are two types of contact searches you can do in SoConnect:
 </div>
 
 * You need to provide **at least one keyword**.
-* You can provide multiple keywords without specifying any optional fields.
-* You can only **specify each optional field once**.
+* You can provide multiple keywords without specifying any optional _fields_.
+* You can only **specify each optional _field_ once**.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Partial words can be matched e.g. `Han` will match `Hans`.
-* Contact matching at least one keyword will be returned (i.e. _`OR` search_).
+* Contact matching at least one keyword will be returned.
   e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -250,12 +438,11 @@ The search by `cfind` is case-insensitive. e.g. `hans` will match `Hans`.
 </div>
 
 **Examples:**
-* `cfind John` returns `john` and `Johnathon Doe`.
-* `cfind alex david` returns `Alex Yeoh` and `David Li`.
-* `cfind p/123 e/gmail` returns 
-   contacts with phone numbers that contain `123` and with emails that contain `gmail.com`.
-* `cfind alex david p/123 456` returns `Alex Yeoh`, `David Li` and 
-   contacts with phone numbers that contain `123` and `456`.
+
+Input | Expected Output
+--------|------------------
+`cfind alex david` | Returns contacts of `Alex Yeoh` and `David Li`. <br><br>You should see this message in the message box:<br>`2 contacts listed!`<br><br> You should also see only these **2 contacts**: ![Find Contact 1](images/demo-screenshots/cfindEx1.png)
+`cfind p/926 441 e/nus.edu` | Returns contacts with phone numbers that contain `926` and with emails that contain `nus.edu`.<br><br>You should see this message in the message box:<br>`2 contacts listed!`<br><br> You should also see only these **2 contacts**: ![Find Contact 2](images/demo-screenshots/cfindEx2.png)
 
 
 ### Listing all contacts: `clist`
@@ -265,41 +452,47 @@ Shows all contacts in the SoConnect, with all details by default.
 **Format:** `clist [e/] [p/] [a/] [th/] [z/] [t/]`
 
 * Names of contacts are always shown.
-* When no optional fields are provided, e.g `clist`, all available details of each contact will be shown.
-* When optional fields are provided, it will only show the names and the corresponding specified fields for each contact.
-* You can provide more than one optional field.
-* The order of the optional fields does not matter. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
-* Fields of a contact that have no value will not appear.
+* When no optional _fields_ are provided, e.g `clist`, all available details of each contact will be shown.
+* When optional _fields_ are provided, it will only show the names and the corresponding specified _fields_ for each contact.
+* You can provide more than one optional _field_.
+* The order of the optional _fields_ does not matter. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
+* _Fields_ of a contact that have no value will not appear.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Do not add extraneous values after each optional field you specify.
+Do not add extraneous values after each optional _field_ you specify.
 </div>
 
 **Examples:**
-* `clist` shows all contacts in SoConnect with all available details for each contact.
-* `clist e/ p/` shows all contacts in SoConnect with only their names, email addresses and phone numbers (if available).
+
+Input | Expected Output
+--------|------------------
+`clist` | Shows **all contacts** in SoConnect with **all available details** for each contact. <br><br> You should see this message in the message box:<br> `Listed all contacts`
+`clist e/ p/` | Shows **all contacts** in SoConnect with **only their names, email addresses and phone numbers** (if available). <br><br> You should see this message in the message box:<br> `Listed all contacts` <br><br> You should also see the contacts list displays **only the specified _fields_**: ![List Contact 1](images/demo-screenshots/clistEx.png)
 
 
 ### Removing bookmark of a contact: `cunmark`
 
-Remove bookmark(s) of the specified contact(s).
+Removes bookmark(s) of the specified contact(s).
 
-**Format:** `cunmark INDEX1 [INDEX]...`
+**Format:** `cunmark INDEX1 [INDEX2]...`
 
 * Removes the bookmark of the contact at `INDEX1`.  
 * You may remove bookmarks of **more than one contact at a time** by specifying multiple indexes, eg `cunmark 1 2`
-* `INDEX` refers to the index number shown in the displayed contact list.
+* `INDEX1` and `INDEX2` refers to the index number shown in the displayed contact list.
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
 
-* `INDEX` **must be a positive integer**, e.g. 1, 2, 3,… 
+* `INDEX` **must be a positive integer**, e.g. 1, 2, 3,…
 * You must ensure that the contact indexed at `INDEX` is **initially bookmarked**.
 </div>
 
 **Examples:**
-* `cunmark 1` removes the bookmark of the first contact in SoConnect.
-* `cunmark 2 3` removes the bookmarks of the second and third contact in SoConnect.
+
+Input | Expected Output
+--------|------------------
+`cunmark 2` | Removes bookmark of the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` moved to the **bottom of your bookmarked contact list** without the **Bookmark Icon**
+`cunmark 2 3` | Removes the bookmarks of the second and third contact in SoConnect.
 
 _See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
 
@@ -310,7 +503,7 @@ Views a contact with all details fully shown.
 **Format:** `cview INDEX`
 
 * Views the contact at the specified `INDEX`.
-* `INDEX` refers to the index number shown in the displayed contact list. 
+* `INDEX` refers to the index number shown in the displayed contact list.
 * All truncated details of the contact you want to view will be expanded fully.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -319,8 +512,10 @@ Views a contact with all details fully shown.
 </div>
 
 **Examples:**
-* `cview 2` shows all details of the second contact in SoConnect fully.
-* `cfind alex david` followed by `cview 1` shows all details of the first contact from the result of the `cfind`.
+
+Input | Expected Output
+--------|------------------
+`cview 2` | Shows all details of the second contact of **currently displayed** in SoConnect **fully**. <br> You should see this message in the message box:<br> `Viewing Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see this change of your **viewed** contact: ![View Contact](images/demo-screenshots/cviewEx.png)
 
 
 ## Event Management
@@ -353,27 +548,27 @@ An event can have any number of tags (including 0)
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
 
-* Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+* Start time and End Time should be of format **dd-MM-yyyy HH:m** (date-MONTH-year HOUR:minute in 24-hour format).
 * Ensure the End Time you enter is **chronologically after** the Start Time.
 </div>
 
 **Examples:**
-* `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-* `eadd n/CS2103T Lecture at/10-09-2021 16:00 end/18:00
-  z/https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFGHIJKLMNOPDJFHISDFSDHk t/lecture`
 
+Input | Expected Output
+--------|------------------
+`eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun` | You should see this message in the message box:<br> `New event added: Summer Party; Start: 12-12-2021 15:12; Address: 123, Clementi Rd, 1234665; Tags: [fun]` <br><br> You should also see `Summer Party` **at the end** of your event list: ![New Event](images/demo-screenshots/eaddEx.png)
+
+*Index of the newly added event will depend on your previous number of events.
 
 ### Bookmarking an event: `emark`
 
 Bookmarks the specified event(s).
 
-**Format:** `emark INDEX1 [INDEX]…`
-
-![image](images/demo-screenshots/BookmarkEvents.png)
+**Format:** `emark INDEX1 [INDEX2]…`
 
 * Bookmarks the event at `INDEX1` and pins it to the top of the event list.
 * You may bookmark **more than one event at a time** by specifying multiple indexes, eg `emark 1 2`
-* `INDEX` refers to the index number shown in the displayed event list.
+* `INDEX1` and `INDEX2` refers to the index number shown in the displayed event list.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
@@ -381,10 +576,12 @@ Bookmarks the specified event(s).
 </div>
 
 **Examples:**
-* `emark 2` bookmarks the second event in SoConnect.
-* `emark 2 4` bookmarks the second and fourth event in SoConnect.
 
-_See Also: [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
+Input | Expected Output
+--------|------------------
+`emark 2` | Bookmarks the second event of **currently displayed** event list in SoConnect. <br><br> _The expected display is similar to [Bookmarking a contact](#bookmarking-a-contact-cmark)_
+
+_See Also: [Removing bookmark of an event](#removing-bookmark-of-an-event-eunmark)_
 
 
 ### Clearing all events: `eclear`
@@ -415,9 +612,12 @@ Deletes the specified event from SoConnect.
 </div>
 
 **Examples:**
-* `elist` followed by `edelete 2` deletes the second event from SoConnect.
-* `efind Exam` followed by `edelete 1` deletes the first event from the results of the `efind` command.
-* `edelete 3-5` deletes events from index 3 to 5 from SoConnect.
+
+Input | Expected Output
+--------|------------------
+[`elist`](#deleting-an-event-edelete) followed by `edelete 2` | Deletes the second event from SoConnect. <br><br> You should see these messages in the message box: <br>1. After `elist`: `Listed all events` <br>2. After `edelete 2`: `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
+[`efind Class`](#finding-events-efind) followed by `edelete 1` | Deletes the first event from the **results of the `efind` command**.<br><br> You should see these messages in the message box: <br>1. After `efind class`: `1 events listed!` <br>2. After `edelete 1`: `Deleted Event: Dance class; Start: 13-11-2021 20:00; End: 13-11-2021 22:00; Description: Dancing is my passion. I like pole dancing.; Address: NUS UTown; Tags: [CCA][Recurring]`
+`edelete 1-2` | Deletes events from index 1 to 2 from the **currently displayed** event list. <br><br> You should see these messages in the message box: <br> `Deleted Event: CS2103T project meeting; Start: 10-10-2021 21:00; End: 10-10-2021 22:00; Zoom Link: nus-sg.zoom.us/j/21342513543; Tags: [Recurring][CS2103T]` <br> `Deleted Event: Basketball training; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [CCA][Recurring]`
 
 
 ### Editing an event: `eedit`
@@ -428,7 +628,7 @@ Edits an existing event in SoConnect.
 
 * Edits the event at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed event list.
-* You must provide **at least one** of the optional fields.
+* You must provide **at least one** of the optional _fields_.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
 * You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
@@ -438,15 +638,15 @@ Edits an existing event in SoConnect.
 <div markdown="block" class="alert alert-info">:information_source: **Note:** 
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
-* Start time and End Time should be of format “dd-MM-yyyy HH:mm” (date-MONTH-year HOUR:minutes in 24-hour format).
+* Start time and End Time should be of format **dd-MM-yyyy HH:mm** (date-MONTH-year HOUR:minute in 24-hour format).
 </div>
 
 **Examples:**
-* `elist` followed by `eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams`
-  first changes the name of the second event to `CS2103T Exam`, deletes the tag `Easy_exams` and
-  adds the tag `Hard_exams`.
-* `efind Betsy` followed by `eedit 2 n/Betsy’s Wedding` edits the name of the second event from the results of the `efind` command to be `Betsy’s Wedding`.
-* `eedit 4 dt/*` deletes all existing tags from the fourth event.
+
+Input | Expected Output
+--------|------------------
+`eedit 2 n/CS2103T Exam dt/CCA t/Hard` | Changes the name of the second event from **currently displayed** event list to `CS2103T Exam`, deletes the tag `CCA` and adds the tag `Hard`. <br><br> You should see this message in the message box: <br> `Edited Event: CS2103T Exam; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [Recurring][Hard]` <br><br> You should also see these changes: ![Edit Event](images/demo-screenshots/eeditEx.png)
+
 
 
 ### Finding Events: `efind`
@@ -457,20 +657,20 @@ Finds all events that contain any of the given keywords based on your search typ
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 There are two types of event searches you can do in SoConnect:
-1. If you **do not specify any optional fields before your keywords**, e.g. `efind KEYWORD1 KEYWORD2`,
+1. If you **do not specify any optional _fields_ before your keywords**, e.g. `efind KEYWORD1 KEYWORD2`,
 
    You will only search the names of the events based on the keywords you provide.
 
-2. If you specified optional fields before your keyword, e.g. `efind a/KEYWORD1 d/KEYWORD2`,
+2. If you specified optional _fields_ before your keyword, e.g. `efind a/KEYWORD1 d/KEYWORD2`,
 
    You will search the addresses and descriptions of the events based on `KEYWORD1` and `KEYWORD2` respectively.
 </div>
 
 * You need to provide **at least one keyword**.
-* You can provide multiple keywords without specifying any optional fields.
-* You can only **specify each optional field once**.
+* You can provide multiple keywords without specifying any optional _fields_.
+* You can only **specify each optional _field_ once**.
 * Partial words can be matched e.g. `Exa` will match `CS2103T Exam` .
-* Events matching at least one keyword will be returned (i.e. _`OR` search_).
+* Events matching at least one keyword will be returned.
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -479,9 +679,11 @@ The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 </div>
 
 **Examples:**
-* `efind ex` returns `exams` and `Examinations`
-* `efind CS Exam` returns `CS2100 Exam`,  `CS2101`
-* `efind CS EXAM t/hard easy` returns `CS2100 Exam`, `CS2101` and events with tags that contain `hard` and `easy`
+
+Input | Expected Output
+--------|------------------
+`efind meet` | Returns `CS2103 project meeting`. <br><br> You should see this message in the message box:<br> `1 events listed!` <br><br> You should also see only this **1 event**: ![Find Event 1](images/demo-screenshots/efindEx1.png)
+`efind t/CS2103T Intern` | Returns events with tags that contain `CS2103T` and `Intern`.<br><br> You should see this message in the message box:<br> `2 events listed!` <br><br> You should also see only these **2 events**: ![Find Event 2](images/demo-screenshots/efindEx2.png)
 
 
 ### Linking an event to contacts: `elink`
@@ -500,8 +702,10 @@ Links the specified event to one or more contacts.
 </div>
 
 **Examples:**
-* `elink 1 c/1` links the first event in the displayed event list to the first contact in the displayed contact list.
-* `elink 2 c/1 c/2 c/3` links the second event in the displayed event list to the first, second and third contact in the displayed contact list.
+
+Input | Expected Output
+--------|------------------
+`elink 2 c/1 c/2` | Links the second event in the from the **currently displayed** event list to contacts with index **1 and 2** in the **currently displayed** contact list. <br><br>You should see this in your SoConnect: ![Link](images/demo-screenshots/elinkEx.png)
 
 _See Also: [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)_
 
@@ -513,31 +717,34 @@ Shows all events in SoConnect, with all details by default.
 **Format:** `elist [at/] [end/] [d/] [a/] [z/] [t/]`
 
 * Names of events are always shown.
-* When no optional fields are provided, e.g. `elist` , all available details of each event will be shown.
-* When optional fields are provided, it will only show the names and the corresponding specified fields for each event.
-* You can provide more than one optional field.
-* The order of the optional fields does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
-* Fields of an event that have no value will no appear.
+* When no optional _fields_ are provided, e.g. `elist` , all available details of each event will be shown.
+* When optional _fields_ are provided, it will only show the names and the corresponding specified _fields_ for each event.
+* You can provide more than one optional _field_.
+* The order of the optional _fields_ does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
+* _Fields_ of an event that have no value will no appear.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Do not add extraneous values after each optional field you specify.
+Do not add extraneous values after each optional _field_ you specify.
 </div>
 
 **Examples:**
-* `elist` shows all events in SoConnect with all available details for each event.
-* `elist d/ at/` events in SoConnect with only their names, starting times and descriptions (if available).
+
+Input | Expected Output
+--------|------------------
+`elist` | Shows **all events** in SoConnect with **all available details** for each event. <br><br> You should see this message in the message box: <br>`Listed all events`
+`elist d/ at/` | Shows **all events** in SoConnect with **only their names, start date and time and description** (if available). You should see this message in the message box: <br>`Listed all events` <br><br> You should also see the event list displays **only the specified _fields_**: ![List Events](images/demo-screenshots/elistEx.png)
 
 
 ### Removing bookmark of an event: `eunmark`
 
 Removes bookmark of the specified event(s).
 
-**Format:** `eunmark INDEX1 [INDEX]...`
+**Format:** `eunmark INDEX1 [INDEX2]...`
 
 * Removes bookmark of the event at `INDEX1`.
 * You may **remove bookmarks of more than one event** by specifying multiple indexes, eg `eunmark 1 2`
-* `INDEX` refers to the index number shown in the displayed event list.
+* `INDEX1` and `INDEX2` refers to the index number shown in the displayed event list.
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
 
@@ -546,8 +753,11 @@ Removes bookmark of the specified event(s).
 </div>
 
 **Examples:**
-* `eunmark 1` removes the bookmark of the first event in SoConnect.
-* `eunmark 2 4` removes the bookmark of the second and fourth event in SoConnect.
+
+Input | Expected Output
+--------|------------------
+`eunmark 2` | Removes bookmark of the second event of **currently displayed** event list in SoConnect.<br><br> _The expected display is similar to [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
+`eunmark 2 4` | Removes the bookmark of the second and fourth event in SoConnect.
 
 _See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
 
@@ -558,9 +768,12 @@ Sorts all events by start time and displays all upcoming or ongoing events.
 
 **Format:** `esort`
 
+**Examples:**
+![Sort example](images/demo-screenshots/sortResult.png)
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-Events that have ended will not be shown after you execute `esort`
+Events that have ended **will not be shown** after you execute `esort`
 </div>
 
 
@@ -571,9 +784,9 @@ Events that have ended will not be shown after you execute `esort`
 Unlinks the specified event and the specified contact(s).
 
 **Examples:**
-* `eunlink 1 c/1` unlinks the first event in the displayed event list from the first contact in the displayed contact list.
-* `eunlink 2 c/1 c/2 c/3` unlinks the second event in the displayed event list from the first, second and third contacts in the displayed contact list.
-* `eunlink 3 c/*` unlinks the third event in the displayed event list from all contacts that are linked to it.
+Input | Expected Output
+--------|------------------
+`eunlink 1 c/1` | Unlinks the first event in the **currently displayed** event list from the first contact in the **currently displayed** contact list. Yous should see this message in the message box: `Successfully unlinked the event CS2103T project meeting from the contact Alex Yeoh`
 
 _See Also: [Linking an event to contacts](#linking-an-event-to-contacts-elink)_
 
@@ -585,7 +798,7 @@ Views an event with all details fully shown.
 **Format:** `eview INDEX`
 
 * Views the event at the specified `INDEX`.
-* `INDEX` refers to the index number shown in the displayed event list. 
+* `INDEX` refers to the index number shown in the displayed event list.
 * All truncated details of the event you want to view will be expanded fully.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -594,8 +807,10 @@ Views an event with all details fully shown.
 </div>
 
 **Examples:**
-* `eview 1` shows all details of the first event in SoConnect fully.
-* `efind exam` followed by `eview 4` shows all details of the fourth event from the result of the `cfind`.
+
+Input | Expected Output
+--------|------------------
+`eview 1` | Shows all details of the first event in the **currently displayed** event list **fully**. <br><br> _The expected display is similar to [Viewing a contact](#viewing-a-contact-cview)_
 
 
 ## General
@@ -609,13 +824,21 @@ This section details all other the features and commands available in SoConnect 
 
 ### Calendar Window: `calendar`
 
-Shows a calendar of all the events. 
+Shows a calendar of all the events.
 
 **Format:** `calendar`
 
+* You can view the calendar in 4 different views:
+    * Daily
+    * Weekly
+    * Monthly
+    * Yearly
+      ![calendar](images/demo-screenshots/Calendar.png)
+
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-Alternatively, you can view the calendar using the top menu via `File -> Calendar` or press `F2`.
+Alternatively, you can view the calendar using the top menu bar via `File -> Calendar` or press `F2`.
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -624,14 +847,18 @@ Do not attempt to add new events using the calendar window.
 Doing so might result in a crash and your data may be lost.
 </div>
 
-![calendar](images/demo-screenshots/Calendar.png)
 
 
 ### Exiting SoConnect: `exit`
 
-Exits and Closes SoConnect.
+Exits and closes SoConnect.
 
 **Format:** `exit`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Alternatively, you can exit SoConnect using the top menu bar via `File -> Exit`.
+</div>
 
 
 ### Help Window: `help`
@@ -642,6 +869,11 @@ Displays a summary of all commands in SoConnect User Guide.
 
 ![help message](images/demo-screenshots/helpMessage.png)
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+Alternatively, you can view the help window using the top menu bar via `Help -> Help` or press `F1`.
+</div>
+
 
 ### Redo a command: `redo`
 
@@ -650,21 +882,25 @@ Restores SoConnect to a previously undone state from its history.
 **Format:** `redo`
 
 **Examples:**
-* `edelete 1` followed by `undo` restores the deleted event in the event list. This followed by `redo` command will delete the event at index 1 again.
+
+Input | Expected Output
+--------|------------------
+[`edelete 1`](#deleting-an-event-edelete) followed by [`undo`](#undo-a-command-undo) then `redo` | First **restores the deleted event** in the event list. <br>Then `redo` will **delete the same event again**.
 
 _See Also: [Undo a command](#undo-a-command-undo)_
 
 
 ### Undo a command: `undo`
 
-Restore SoConnect to its previous state from its history.
+Restores SoConnect to its previous state from its history.
 
 **Format:** `undo`
 
 **Examples:**
-* `edelete 1` followed by `undo` restores the deleted event in the event list.
-* `add n/John Doe e/john@gmail.com` followed by `undo` removes the added contact from contact list.
-* `eview 1` followed by `undo` will display the full event list.
+
+Input | Expected Output
+--------|------------------
+[`cadd n/John Doe e/john@gmail.com`](#adding-a-contact-cadd) followed by `undo` | **Removes the added** contact from contact list.
 
 _See Also: [Redo a command](#redo-a-command-redo)_
 
@@ -675,12 +911,12 @@ _See Also: [Redo a command](#redo-a-command-redo)_
 
 ### Saving the data
 
-SoConnect data is saved in the _hard disk_ automatically after any command that changes the data. 
+SoConnect data is saved in the _hard disk_ automatically after any command that changes the data.
 There is no need to save manually.
 
 ### Editing the data file
 
-SoConnect data are saved as a _JSON file_ `[JAR file location]/data/soconnect.json`. 
+SoConnect data are saved as a _JSON file_ `[JAR file location]/data/soconnect.json`.
 Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -695,17 +931,17 @@ SoConnect will discard all data and start with an empty data file at the next ru
 ### FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install SoConnect in the other computer and copy over the contents from your previous SoConnect JSON file to the
+**A**: Install SoConnect in the other computer and copy over the contents from your previous SoConnect _JSON file_ to the
 empty data file SoConnect creates on the other Computer.
 
 
 #### Copying Details and Opening Links
 
-![clickable links](images/clickableLinkExample.png)
+![clickable links](images/demo-screenshots/clickableLinkExample.png)
 
 **Q**: How do I copy the email address of a contact?<br>
 **A**: You can copy any specific details of a contact or an event just by clicking on that detail! <br>
-As shown on the image above, clicking on the `telegram handle` of `Bernice Yu` will copy her Telegram handle.
+As shown on the image above, clicking on the `email` of `Charlotte Oliveiro` will copy her Email Address.
 
 **Q**: Can SoConnect automatically open a link on my browser?<br>
 **A**: YES! You can open any links that you have included in a contact or in an event.<br>
@@ -715,45 +951,81 @@ As shown on the image above, clicking on the `telegram handle` of `Bernice Yu` w
 Clickable links are underlined in blue
 </div>
 
-Referring back to the same image, if you click on the `zoom` link saved under `Bernice Yu`, 
+Referring back to the same image, if you click on the `zoom` link saved under `Charlotte Oliveiro`,
 SoConnect will help you open the link on your browser automatically.
 
 
 #### Linked Contacts and Events
 
 **Q**: How do I view the contacts linked to a particular event?<br>
-**A**: Click on the particular event card in the panel containing events. 
-Then click on the yellow boxes which are links to the contacts. 
+**A**: Click on the particular event card in the panel containing events.
+Then click on the yellow boxes which are links to the contacts.
 The linked contacts will be displayed on the contact panel on the left.
 ![View links of event](images/demo-screenshots/ClickLinksEvent.png)
 
 **Q**: How do I view the events linked to a particular contact?<br>
-**A**: Click on the particular contact card in the panel containing contacts. 
-Then click on the yellow boxes which are links to the events. 
+**A**: Click on the particular contact card in the panel containing contacts.
+Then click on the yellow boxes which are links to the events.
 The linked events will be displayed on the event panel on the left.
 ![View links of contact](images/demo-screenshots/ClickLinksContact.png)
 
 **Q**: What is the purpose of using links?<br>
-**A**: Links are a form of relationship between the contacts and the events saved in SoConnect. 
-Typically, we link an event to a contact if the contact is involved as a participant of the event. 
+**A**: Links are a form of relationship between the contacts and the events saved in SoConnect.
+Typically, we link an event to a contact if the contact is involved as a participant of the event.
 For instance, you can link your professor to the lecture.
 
 
 ### How to start SoConnect using Terminal
 
-Open the terminal (For [MacOS](https://support.apple.com/en-sg/guide/terminal/welcome/mac) or Linux) or Command Prompt (For [Windows](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)).
+1. Open the terminal (For [MacOS](https://support.apple.com/en-sg/guide/terminal/welcome/mac) or Linux)
+   or Command Prompt (For [Windows](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)).
 
-Navigate to the folder containing `soconnect.jar`. See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/), [MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html) (Linux uses the same command for navigating folders).
+2. Navigate to the folder containing `soconnect.jar`.
+   See the tutorial for [Windows](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/),
+   [MacOS or Linux](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html)
+   (Linux uses the same command for navigating folders).
 
-Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
+3. Enter the following command: `java -jar soconnect.jar`. The SoConnect window should open.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-If you are still unable to open the file, [check your Java version](https://www.java.com/en/download/help/version_manual.html) again and make sure it is version 11. [Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
+* If you are still unable to open the file,
+  [check your Java version](https://www.java.com/en/download/help/version_manual.html)
+  again and make sure it is version 11.
+* [Download Java 11](https://www.oracle.com/java/technologies/downloads/) if you have not done so.
 </div>
 
 
 --------------------------------------------------------------------------------------------------------------------
+## List of Prefixes
+
+**Contact Management**
+
+Prefix | _Parameter_ Type
+--------|------------------
+**`a/`** | Address
+**`dt/`** | Tag to be deleted
+**`e/`** | Email Address
+**`n/`** | Name
+**`p/`** | Phone Number
+**`t/`** | Tag
+**`th/`** | Telegram Handle
+**`z/`** | Links/ Websites
+
+**Event Management**
+
+Prefix | _Parameter_ Type
+--------|------------------
+**`a/`** | Address
+**`at/`** | Start Date and Time
+**`c/`** | Contact index
+**`d/`** | Description
+**`dt/`** | Tag to be deleted
+**`end/`** | End Date and Time
+**`n/`** | Name
+**`t/`** | Tag
+**`z/`** | Links/ Websites
+
 
 ## Command Summary
 
@@ -762,7 +1034,7 @@ If you are still unable to open the file, [check your Java version](https://www.
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-a-contact-cadd)** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/James Ho p/22224444 e/hohohojames@u.nus.edu a/123, Clementi Rd, 1234665 t/Professor`
-**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX [INDEX]…`<br> e.g. `cmark 1 4`
+**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX`<br> e.g. `cmark 1`
 **[Clear](#clearing-all-contacts-cclear)** | `cclear`
 **[Delete](#deleting-a-contact-cdelete)** | `cdelete INDEX1[-INDEX2]`<br> e.g. `cdelete 3` <br> e.g. `cdelete 1-5`
 **[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 n/James Lee e/jameslee@u.nus.edu p/91234567 dt/OP1_projectmate t/CS2103T_projectmate t/roommate` <br> e.g. `cedit 3 dt/*`
@@ -776,7 +1048,7 @@ Action | Format, Examples
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-an-event-eadd)** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-**[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX [INDEX]…`<br> e.g. `emark 1 4`
+**[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX`<br> e.g. `emark 1`
 **[Clear](#clearing-all-events-eclear)** | `eclear`
 **[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/Easy_exams t/Hard_exams` <br> e.g., `eedit 3 dt/*`
@@ -801,4 +1073,14 @@ Action | Format, Examples
 ________________________________________________________________________________________________________________
 
 ## Glossary
-{to be added}
+
+Word | Explanation
+--------|------------------
+**Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**
+**Command Format** | The structure that a command must abide by for it to be executed
+**Field(s)** | The information type within each contact or event <br> For example, **Name** and **Address** of a contact are _fields_ of a contact.
+**Graphical User Interface (GUI)** | Graphical representation of the application that the user sees
+**Hard Disk** | Device in computer that is used to store files of the computer
+**Home Folder** | Folder which the application file is saved in the computer
+**JavaScript Object Notation (JSON) File** | The file that is used by the application to load its data and to save data of the application in a human-readable format.
+**Parameter(s)** | Information supplied by the user to the application when executing certain commands 
