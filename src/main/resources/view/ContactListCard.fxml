@@ -56,11 +56,11 @@
              styleClass="cell_small_label, clickable" text="\$zoom" />
 
       <!-- links -->
-      <HBox fx:id="linksHBox" styleClass="clickable">
+      <HBox fx:id="linksHBox">
         <padding>
           <Insets top="2" bottom="2" />
         </padding>
-        <Label fx:id="linkToEvent" styleClass="cell_small_label" managed="false" visible="false" >
+        <Label fx:id="linkToEvent" styleClass="cell_small_label, clickable" managed="false" visible="false" >
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
@@ -70,7 +70,7 @@
           <padding>
             <Insets left="2" top="3" />
           </padding>
-          <FlowPane fx:id="links" managed="false" />
+          <FlowPane fx:id="links" styleClass="clickable" managed="false" prefWrapLength="NaN" />
         </HBox>
       </HBox>
 

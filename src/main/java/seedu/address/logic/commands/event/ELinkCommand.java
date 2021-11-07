@@ -23,12 +23,11 @@ public class ELinkCommand extends Command implements Undoable {
             + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Links an event to a contact. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Links an event to one or more contacts. \n"
         + "Parameters: "
         + PARAMETERS
-        + "Examples:\n"
-        + "elink 1 c/1\n"
-        + "elink 3 c/1 c/2 c/3 c/4 c/5";
+        + "Example 1: elink 1 c/1\n"
+        + "Example 2: elink 3 c/1 c/2 c/3";
     public static final String MESSAGE_SUCCESS = "Successfully linked the event %s to the contact %s.\n";
     public static final String MESSAGE_ALREADY_LINKED = "Event %s is already linked to the contact %s.\n";
 

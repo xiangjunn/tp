@@ -47,7 +47,7 @@
 
             <!-- address -->
             <Label fx:id="address" managed="false" visible="false" onMouseClicked="#copyAddress"
-                   styleClass="cell_small_label" text="\$address"/>
+                   styleClass="cell_small_label, clickable" text="\$address"/>
 
             <!-- zoom -->
             <Label fx:id="zoom" managed="false" visible="false" onMouseClicked="#openZoomLink"
@@ -58,11 +58,11 @@
                    styleClass="cell_small_label, clickable" text="\$description"/>
 
             <!-- links -->
-            <HBox fx:id="linksHBox" styleClass="clickable">
+            <HBox fx:id="linksHBox">
                 <padding>
                     <Insets top="2" bottom="2"/>
                 </padding>
-                <Label fx:id="linkToContact" styleClass="cell_small_label" managed="false"
+                <Label fx:id="linkToContact" styleClass="cell_small_label, clickable" managed="false"
                        visible="false">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
@@ -73,7 +73,7 @@
                     <padding>
                         <Insets left="2" top="3"/>
                     </padding>
-                    <FlowPane fx:id="links" managed="false"/>
+                    <FlowPane fx:id="links" styleClass="clickable" managed="false" prefWrapLength="NaN" />
                 </HBox>
 
             <!-- tags -->

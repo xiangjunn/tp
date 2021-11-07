@@ -34,7 +34,7 @@ public class EAddCommand extends Command implements Undoable {
             + "[" + PREFIX_TAG + "TAG]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to SoConnect. \n"
             + "Parameters: "
             + PARAMETERS
             + "Example: " + COMMAND_WORD + " "
