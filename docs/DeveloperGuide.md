@@ -21,7 +21,7 @@ This developer guide is targeted at current and potential developers and testers
     * **:bulb: Tip** provides additional information that might be useful to you.
     * **:information_source: Note** provides supplementary information that helps you to understand this Developer Guide.
     * **:exclamation: Caution** cautions you against certain actions that will lead to undesirable consequences.
-* You can find explanations of _italicised_ words in the [Glossary](#glossary).
+* You can find explanations of _italicized_ words in the [Glossary](#glossary).
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -119,7 +119,7 @@ How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add a contact).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("edelete 1-3")` API call.
 
@@ -354,22 +354,22 @@ Aspect: The relationship of the link:
 * Alternative implementation 1: The event has a reference to contacts that are linked to it but not the other way.
   * Pros: Easy to implement. We only need to manage the relationship of the link in `Event` object.
   * Cons: It is less efficient if we want to make changes to the contacts through other commands because we have to go through
-  all events to find out which events have link to the contact.
+  all events to find out which events have links to the contact.
     
 * Alternative implementation 2 (current choice): Both event and contact have reference to each other if they are linked.
   * Pros: More efficient.
-  * Cons: Have to enforce the bidirectional relationship strictly which is hard to implement ang bug-prone.
+  * Cons: Have to enforce the bidirectional relationship strictly which is hard to implement and bug-prone.
 
 Aspect: Whether to update the existing contact/event objects to show the link:
 
 * Alternative implementation 1: Update the contact/event to have information about their linked events/contacts.
   * Pros: Easy to implement.
-  * Cons: `Contact` and `Event` objects are no longer immutable. Increase in difficulty of testings.
+  * Cons: `Contact` and `Event` objects are no longer immutable. Increase in difficulty of testing.
 
 * Alternative implementation 2 (current choice): Creates new `Contact` and `Event` objects with link to each other and making them immutable.
   * Pros: Less likely to have bugs. Works well with other commands like `undo` and `redo` because any changes in the link
     will create new objects of `Contact` and `Event`, hence making it easier to store history of the contacts and events.
-  * Cons: May have performance issues in terms of memory usage because other commands like `Edelete` and `CEdit` may result in change in link relationship,
+  * Cons: May have performance issues in terms of memory usage because other commands like `EDelete` and `CEdit` may result in change in link relationship,
     resulting in the creation of new `Contact` or `Event` objects.
 
 
@@ -380,7 +380,7 @@ The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `
 ![ModelHistoryDiagram](images/ModelHistory.png)
 
 - `HistoryInstance` is a nested class inside `ModelHistory` which keeps track of the current state of addressBook and its displaySetting.
-- `allHistory` is managed by two pointers `currentSize` and `maxSize`. `currentSize` indicates the current point in history, while `maxSize` indicates the last point of history. Both of these pointers will be initialised to 0 when the modelHistory is empty.
+- `allHistory` is managed by two pointers `currentSize` and `maxSize`. `currentSize` indicates the current point in history, while `maxSize` indicates the last point of history. Both of these pointers will be initialized to 0 when the modelHistory is empty.
 - `Model History` implements the following operations:
   * `commit()` — Saves the current history instance in the history.
   * `undo()` — Restores the previous history instance book state from its history.
@@ -390,7 +390,7 @@ These operations are exposed in the `Model` interface as `Model#commitHistory()`
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. A new model history will be initialised. The first version of addressbook and its display setting will also create the first history instance in the history. Both current and maximum size of history will increment by one.
+Step 1. The user launches the application for the first time. A new model history will be initialized. The first version of addressbook and its display setting will also create the first history instance in the history. Both current and maximum size of history will increment by one.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
@@ -543,7 +543,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | CS2103T student | list all the telegram handles of my CS2103T project mates | add them to the project group |   
 | `* *` | year 4 SoC student with many contacts | sort the contacts of my *TA* | view the contacts based on the sorting settings |
 | `* *` | careless student | undo my last action(s) | recover contacts I accidentally deleted/changed |
-| `* *` | organised SoC student | categorize the contacts of students/*TA*/*Profs* by tags | view them separately |
+| `* *` | organized SoC student | categorize the contacts of students/*TA*/*Profs* by tags | view them separately |
 | `* *` | SoC student who frequently contacts a *TA* | mark a contact as favorite and pin them to the top | view them easily when I start the app |
 | `* *` | student with many contacts | add the profile picture of *TA*/*Profs* | more easily differentiate my contacts and remember their faces |
 | `*` | first time user | import existing contacts from my phone | easily access all my past contacts using SoConnect |
@@ -889,7 +889,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. SAS detects that SoConnect does not have a previous state in its history.
 
-    * 1a1. SAS notifies the user that SoConnect is already at its orignal state.
+    * 1a1. SAS notifies the user that SoConnect is already at its original state.
 
   Use case ends.
 
@@ -901,7 +901,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User decides to undo the previous undo command.
 
-2. SAS redo the command and restores the previously undone state of SoConnect from its history.
+2. SAS redoes the command and restores the previously undone state of SoConnect from its history.
 
    Use case ends.
 
