@@ -5,7 +5,9 @@ title: Gordon's Project Portfolio Page
 
 ### Project: SoConnect
 
-SoConnect is a desktop address book application used by SoC students to manage contacts and events. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having the benefits of a _Graphical User Interface (GUI)_. 
+
+This project is part of the [CS2103T](https://nus-cs2103-ay2122s1.github.io/website/) team project requirements for AY2021/2022 Semester 1.
 
 Given below are my contributions to the project.
 
