@@ -291,8 +291,16 @@ The following activity diagram summarizes what happens when the `elist` feature 
   * Cons: More code will have to be written in order to facilitate the change in display settings.
 
 ### Link Event feature
+This section details how an `Event` object is linked to one or more `Contact` objects using the `elink` command.
 
-This section details how the `elink` command is implemented. This command allows the user to link a single event to any number of contacts. This link is bi-directional and will be displayed to the user.
+The `elink` command allows users to link an event to multiple contacts from the current event list and contact list shown on SoConnect.
+The user needs to specify the `Index` of the event as well as the `Index` of the contacts to link. `Index` of the event must
+come first, followed by that of contacts. To differentiate the `Index` of contact and event, the user needs to specify the
+prefix `c/` right before every `Index` of the contact to be linked to the event.
+
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** Each link between an event and contact results in them having a bi-directional relationship.
+</div>
 
 #### Implementation
 
@@ -300,11 +308,45 @@ The following operations are the main operations for `elink`.
 
 - `ELinkCommandParser#parse` - Parse the user inputs and create a `ELinkCommand` to return.
 
-- `ELinkCommand#execute` - Links the event to the target contact.
+- `ELinkCommand#execute` - Links the event to the target contacts.
 
-The following sequence diagram shows how the `elink` operation works:
+We will use an example command `elink 1 c/1 c/2 c/3`, together with a sequence diagram, to explain how the `elink` feature works.
+
+##### Sequence Diagram
 
 ![ELinkSequenceDiagram](images/ELinkSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** The lifeline for `ELinkCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+Given below is the usage scenario from the example command `elink 1 c/1 c/2 c/3`, and explains how the `elink` feature behaves at each step.
+
+Step 1: The user enters `elink 1 c/1 c/2 c/3` to link the event at index `1` to the contacts at indexes `1`, `2` and `3`.
+The argument `1 c/1 c/2 c/3` are passed to the `ELinkCommandParser` through the `parse` method call.
+
+Step 2: The argument `1 c/1 c/2 c/3` will be subjected to checks by methods from `ArgumentMultimap` and `ParserUtil` to ensure that there are no
+incorrect arguments in the command. Examples of incorrect arguments include `1` or `c/2 1`.
+
+Step 3: A [HashSet](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashSet.html) of type `Index`
+containing the indexes of contact is created. The index of event and the HashSet is passed as arguments to construct an
+`linkCommand` object. `ELinkCommand` object is then returned to `LogicManager` to be executed.
+
+Step 4: During the execution of the command, the `ELinkCommand` object links the event at index `1` to each of the contacts
+through the `Model#linkEventAndContact` method call, by looping through the HashSet containing the indexes of the contacts. 
+
+Step 5. A `CommandResult` containing information about each link status will be displayed to the user.
+
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** If a user attempts to link an event and contact
+that were already linked, the command will go through with a `CommandResult` to let user know instead of throwing a `CommandException`.
+</div>
+
+##### Activity Diagram
+
+The following activity diagram summarizes what happens when the `elink` feature is triggered:
+
+![ELinkActivityDiagram](images/ELinkActivityDiagram.png)
 
 ### Undo/redo feature
 
@@ -944,6 +986,20 @@ testers are expected to do more *exploratory* testing.
    7. Test case: `edelete 1-x` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+### Listing all events
+
+1. Listing all event with certain fields shown.
+
+   Prerequisites: At least one event in the list.
+
+  1. Test case: `elist at/`<br>
+     Expected: All events listed with only address displayed. All events listed shown in the status message.
+  1. Test case: `elist`<br>
+     Expected: All events listed with all fields displayed. All events listed shown in the status message.
+
+  1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
+     Expected: No change in display. Error message shown in status bar.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -960,17 +1016,3 @@ testers are expected to do more *exploratory* testing.
    2. Test case: Delete the json file and start `soconnect.jar`. <br>
    Expected: The default event and contact list is loaded (see [User Guide](../UserGuide.html#quick-start) for an example).
       
-
-### Listing all events
-
-1. Listing all event with certain fields shown.
-
-    Prerequisites: At least one event in the list.
-
-    1. Test case: `elist at/`<br>
-       Expected: All events listed with only address displayed. All events listed shown in the status message.  
-    1. Test case: `elist`<br>
-       Expected: All events listed with all fields displayed. All events listed shown in the status message.
-
-    1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
-       Expected: No change in display. Error message shown in status bar.
