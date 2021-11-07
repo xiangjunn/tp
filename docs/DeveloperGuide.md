@@ -396,7 +396,7 @@ Aspect: Whether to update the existing contact/event objects to show the link:
 This section explains how `undo` and `redo` features are implemented. These features allow users to reverse the effect of
 their previous command by using `undo`, and restore the previously undone action by using `redo`.
 
-####Implementation
+#### Implementation
 
 The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `allHistory`, an ArrayList of all `HistoryInstance` of addressBook.
 
@@ -468,7 +468,7 @@ Step 5.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/UndoRedoActivityDiagram.png" width="250" />
+![ActivityDiagram](images/UndoRedoActivityDiagram.png)
 
 #### Design considerations
 
