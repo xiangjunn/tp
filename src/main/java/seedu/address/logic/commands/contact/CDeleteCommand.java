@@ -24,8 +24,8 @@ public class CDeleteCommand extends Command implements Undoable {
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list."
-            + " Parameters: " + PARAMETERS + " (both indexes must be a positive integer)\n"
+            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
+            + "Parameters: " + PARAMETERS + " (both indexes must be a positive integer)\n"
             + "Note: index must be a positive integer and INDEX1 must be smaller than or equal to INDEX2"
             + " if the optional INDEX2 is included)\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"

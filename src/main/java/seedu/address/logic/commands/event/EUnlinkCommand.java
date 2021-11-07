@@ -25,7 +25,7 @@ public class EUnlinkCommand extends Command implements Undoable {
             + PREFIX_CONTACT + "CONTACT_INDEX [" + PREFIX_CONTACT + "CONTACT_INDEX]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlinks an event to one or more contacts."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlinks an event from one or more contacts."
         + " Include the argument \"c/*\" to clear all links.\n"
         + "Parameters: "
         + PARAMETERS
