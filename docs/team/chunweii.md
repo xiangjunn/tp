@@ -36,11 +36,12 @@ The non-exhaustive list given below are my contributions to the project. All fea
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `calendar`([\#122](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/122)), `cadd`, `cedit` and `clist` ([\#81](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/81))
+    * Added documentation for the features `calendar`([\#122](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/122)), and the instructions to use the user guide. ([\#236](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/236))
     * Add instructions on how to open the jar file in terminal. [\#162](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/162)
   * Developer Guide:
-    * Added implementation details of the [calendar user interface](../DeveloperGuide.html#calendar-ui-feature).
+    * Added implementation details of the [calendar user interface](../DeveloperGuide.html#calendar-ui-feature) and heavily edited the [List Events feature](../DeveloperGuide.html#list-events-feature).
     * Updated the [UI design section](../DeveloperGuide.html#ui-component).
+    * Added use case 11 in [#217](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/217).
 
 * **Community**:
   * Notable PRs reviewed (with non-trivial review comments): [\#147](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/147), [\#135](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/135), [\#94](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/94). See others [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/pulls?page=1&q=is%3Apr+is%3Aclosed+reviewed-by%3Achunweii).
