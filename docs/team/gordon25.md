@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Gordon's Project Portfolio Page
+title: Gordon Yit Hongyao's Project Portfolio Page
 ---
 
 ### Project: SoConnect
