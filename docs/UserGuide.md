@@ -57,9 +57,9 @@ There are only 3 different parts of inputs within each command:
 
    The *prefix* separates the different types of *parameters*.
 
-   Each prefix always ends with a `/`. See the [list of prefixes](#list-of-prefixes) for all the prefixes that you can use in SoConnect.
+   Each _prefix_ always ends with a `/`. See the [list of prefixes](#list-of-prefixes) for all the _prefixes_ that you can use in SoConnect.
 
-   For example, if you use `n/`, SoConnect will recognise that the information following this prefix should be a **name**.
+   For example, if you use `n/`, SoConnect will recognise that the information following this _prefix_ should be a **name**.
 
 You may view the entire list of commands that you can type in SoConnect [here](#Features).
 
@@ -76,7 +76,7 @@ You may view the entire list of commands that you can type in SoConnect [here](#
 * _Fields_ with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
 
-* Each pair of prefix and _parameter_ can be in any order.<br>
+* Each pair of _prefix_ and _parameter_ can be in any order.<br>
   e.g. if the command specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
 
 * If a _parameter_ is expected only once in the command, but you specify it multiple times, **only the last occurrence** of the parameter will be taken (unless otherwise stated).<br>
@@ -290,8 +290,8 @@ This section details all the features and commands available in SoConnect that c
 * [Editing a contact](#editing-a-contact-cedit)
 * [Finding contacts](#finding-contacts-cfind)
 * [Listing all contacts](#listing-all-contacts-clist)
-* [Marking a contact](#marking-a-contact-cmark)
-* [Unmarking a contact](#unmarking-a-contact-cunmark)
+* [Marking a contact](#bookmarking-a-contact-cmark)
+* [Unmarking a contact](#removing-bookmark-of-a-contact-cunmark)
 * [Viewing a contact](#viewing-a-contact-cview)
 
 
@@ -408,7 +408,7 @@ There are **two** types of contact searches you can do in SoConnect:
 * The contact(s) matching at least one keyword you provide will be returned.
   e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 The search by `cfind` is case-insensitive. e.g. `hans` will match `Hans`.
 </div>
@@ -429,8 +429,8 @@ Shows **all contacts** in the SoConnect, with all available details by default.
 
 * Names of contacts are always shown.
 * If you do not provide any optional _prefixes_ are provided, e.g `clist`, all available details of each contact will be shown.
-* If you provide optional prefixes, it will only show the names and the fields corresponding to specified _prefixes_ for each contact.
-* You can provide more than one optional prefix.
+* If you provide optional _prefixes_, it will only show the names and the fields corresponding to specified _prefixes_ for each contact.
+* You can provide more than one optional _prefix_.
 * You can specify the optional _prefix_ **in any order**. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
 * _Fields_ of a contact that have no value will not appear e.g. if a contact does not have a zoom link, typing `clist z/` will not display the zoom link of this contact.
 
@@ -446,7 +446,7 @@ Input | Expected Output
 `clist` | Shows **all available details** of each contact in SoConnect. <br><br> You should see this message in the message box:<br> `Listed all contacts`
 `clist e/ p/` | Shows **only the names, email addresses and phone numbers** (if available) of each contact in SoConnect. <br><br> You should see this message in the message box:<br> `Listed all contacts` <br><br> You should also see the contacts list displays **only the specified _fields_**: ![List Contact 1](images/demo-screenshots/clistEx.png)
 
-### Marking a contact: `cmark`
+### Bookmarking a contact: `cmark`
 
 Marks the specified contact(s).
 
@@ -456,7 +456,7 @@ Marks the specified contact(s).
 * You can specify more than one `INDEX`, e.g `cmark 1 2`, the order in which the marked contacts appear will be in reverse order to the order you specify their corresponding `INDEXES`.
 * `INDEX` refers to the index number shown in the **currently displayed** contact list.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 * `INDEX` **must be a positive integer**, e.g. 1, 2, 3,…
 * `INDEX` must **not be greater** than the **number of contacts** in the contact list.
@@ -469,10 +469,10 @@ Input | Expected Output
 `cmark 2` | Marks the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` **pinned to the top** of your contact list with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx1.png)
 `cmark 4 5` | Marks the fourth and fifth contacts of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Marked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` **pinned to the top** of your contact list in that order with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx2.png)
 
-_See also: [Unmarking a contact](#unmarking-a-contact-cunmark)_
+_See also: [Unmarking a contact](#removing-bookmark-of-a-contact-cunmark)_
 
 
-### Unmarking a contact: `cunmark`
+### Removing bookmark of a contact: `cunmark`
 
 Unmark the specified contact(s).
 
@@ -493,10 +493,10 @@ Unmark the specified contact(s).
 
 Input | Expected Output
 --------|------------------
-`cunmark 2` | Unmarks the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` moved to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx1.png)
-`cunmark 2 3` | Unmarks the second and third contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Unmarked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` moved in that order to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx2.png)
+`cunmark 1` | Unmarks the first contact of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` moved to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx1.png)
+`cunmark 1 2` | Unmarks the first and second contact of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Unmarked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` moved in that order to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx2.png)
 
-_See also: [Marking a contact](#marking-a-contact-cmark)_
+_See also: [Marking a contact](#bookmarking-a-contact-cmark)_
 
 ### Viewing a contact: `cview`
 
@@ -575,7 +575,7 @@ Bookmarks the specified event(s).
 * You may bookmark **more than one event at a time** by specifying multiple indexes, eg `emark 1 2`
 * `INDEX1` and `INDEX2` refers to the index number shown in the displayed event list.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 `INDEX` **must be a positive integer**, e.g. 1, 2, 3,…
 </div>
@@ -595,7 +595,7 @@ Clears all entries of events from SoConnect.
 
 **Format:** `eclear`
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 This will not change the contacts saved in SoConnect. 
 </div>
 
@@ -611,7 +611,7 @@ Deletes the specified event(s) from SoConnect.
     * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
 * `INDEX1` and `INDEX2` refer to the index numbers shown in the displayed event list.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 </div>
@@ -644,7 +644,7 @@ You must provide **at least one** of the optional _fields_.
 * You can remove all existing tags of an event by typing `dt/*`.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
-<div markdown="block" class="alert alert-info">:information_source: **Note:** 
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 * Start time and End Time should be of format **dd-MM-yyyy HH:mm** (date-MONTH-year HOUR:minute in 24-hour format).
@@ -671,7 +671,7 @@ There are two types of event searches you can do in SoConnect:
 
    You will only search the names of the events based on the keyword(s) provided.
 
-2. If you specified any prefix before your keyword(s), e.g. `efind a/KEYWORD1 d/KEYWORD2`,
+2. If you specify any _prefix_ before your keyword(s), e.g. `efind a/KEYWORD1 d/KEYWORD2`,
 
    You will search the addresses and descriptions of the events based on `KEYWORD1` and `KEYWORD2` respectively.
 </div>
@@ -683,7 +683,7 @@ There are two types of event searches you can do in SoConnect:
 * Events matching at least one keyword will be returned.
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 The search by `efind` is case-insensitive. e.g. `exams` will match `Exams`.
 </div>
@@ -706,7 +706,7 @@ Links the specified event to one or more contacts.
 * `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * `CONTACT_INDEX` refers to the index number shown in the displayed contact list.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 `EVENT_INDEX` and `CONTACT_INDEX` **must be a positive integer**, e.g. 1, 2, 3,…
 </div>
@@ -733,9 +733,9 @@ Displays all events in SoConnect, with all details by default.
 * The order of the prefixes does not matter. e.g. both `elist d/ at/` and `elist at/ d/` will only show the names, descriptions and starting times of each event.
 * _Fields_ of an event that have no value will not be shown.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-No extraneous values should be added after each prefix.
+**Do not** add extraneous values after each optional _prefix_ you specify.
 </div>
 
 **Examples:**
@@ -756,7 +756,7 @@ Removes bookmark of the specified event(s).
 * You may **remove bookmarks of more than one event** by specifying multiple indexes, eg `eunmark 1 2`
 * `INDEX1` and `INDEX2` refers to the index number shown in the displayed event list.
 
-<div markdown="block" class="alert alert-info">:information_source: **Note:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 * `INDEX1` and `INDEX2` **must be a positive integer**, e.g. 1, 2, 3,…
 * You must ensure that the events at `INDEX1` and `INDEX2` are **initially bookmarked**.
@@ -812,7 +812,7 @@ Views an event with all details fully shown.
 * `INDEX` refers to the index number shown in the displayed event list.
 * All truncated details of the event will be shown fully.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 </div>
@@ -854,12 +854,13 @@ Alternatively, you can view the calendar using the top menu bar via `File -> Cal
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will not change the state of the calendar
+[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will not change the state of the calendar.
+You should close the calendar window before performing any undo or redo operations.
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Any changes made in the calendar window will not be saved. 
-Do not attempt to add new events using the calendar window. 
+**Do not attempt to add new events using the calendar window.** 
 Doing so might result in a crash and your data may be lost.
 </div>
 
@@ -920,6 +921,13 @@ Input | Expected Output
 
 _See Also: [Redo a command](#redo-a-command-redo)_
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+
+[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will only work for commands listed in the
+[Contact Management](#contact-management) and [Event Management](#event-management) features section.
+
+Commands listed in the [General](#general) section are not undoable.
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -951,7 +959,7 @@ SoConnect will discard all data and start with an empty data file at the next ru
 empty data file SoConnect creates on the other Computer.
 
 
-#### Copying Details and Opening Links
+#### Copying Details and Opening Hyperlinks
 
 ![clickable links](images/demo-screenshots/clickableLinkExample.png)
 
@@ -959,15 +967,16 @@ empty data file SoConnect creates on the other Computer.
 **A**: You can copy any specific details of a contact or an event just by clicking on that detail! <br>
 As shown on the image above, clicking on the `email` of `Charlotte Oliveiro` will copy her Email Address.
 
-**Q**: Can SoConnect automatically open a link on my browser?<br>
-**A**: You can open any links that you have included in a contact or in an event.<br>
+**Q**: Can SoConnect automatically open a hyperlink on my browser?<br>
+**A**: You can open any hyperlinks that you have included in a contact or in an event. This includes
+telegram handles and Zoom meeting links.<br>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-Clickable links are underlined in blue
+Clickable hyperlinks are underlined in blue
 </div>
 
-Referring back to the same image, if you click on the `zoom` link saved under `Charlotte Oliveiro`,
+Referring back to the same image, if you click on the zoom link saved under `Charlotte Oliveiro`,
 SoConnect will help you open the link on your browser automatically.
 
 
@@ -986,9 +995,9 @@ The linked events will be displayed on the event panel on the right.
 ![View links of contact](images/demo-screenshots/ClickLinksContact.png)
 
 **Q**: What is the purpose of using links?<br>
-**A**: Links are a form of relationship between the contacts and the events saved in SoConnect.
-Typically, we link an event to a contact if the contact of a participant of the event.
-For instance, you can link your professor to the lecture.
+**A**: Links are a form of **relationship between the contacts and the events** saved in SoConnect.
+Typically, we link an event to a contact if the contact of a **participant** of the event.
+For instance, you can link your *professor* to the lecture.
 
 
 ### How to start SoConnect using Terminal
@@ -1017,7 +1026,7 @@ For instance, you can link your professor to the lecture.
 
 **Contact Management**
 
-Prefix | _Parameter_ Type
+_Prefix_ | _Parameter_ Type
 --------|------------------
 **`a/`** | Address
 **`dt/`** | Tag to be deleted
@@ -1030,11 +1039,11 @@ Prefix | _Parameter_ Type
 
 **Event Management**
 
-Prefix | _Parameter_ Type
+_Prefix_ | _Parameter_ Type
 --------|------------------
 **`a/`** | Address
 **`at/`** | Start Date and Time
-**`c/`** | Contact index
+**`c/`** | Contact index (for linking)
 **`d/`** | Description
 **`dt/`** | Tag to be deleted
 **`end/`** | End Date and Time
