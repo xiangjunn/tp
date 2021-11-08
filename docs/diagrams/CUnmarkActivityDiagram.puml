@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+start
+:User enters cunmark command in the command box;
+:CUnmarkCommandParser parses the command;
+if () then ([arguments are valid])
+
+    :Generate list of indexes;
+
+    if() then ([indexes not greater than length of contact list])
+        : get contact corresponding to the index
+                        in the contact list;
+        if() then ([contact is marked])
+            : create a new unmarked contact;
+            : replace the original contact with the unmarked contact;
+
+            else ([else])
+            endif
+
+            : rearrange contacts in order;
+
+    else ([else]))
+        :throw CommandException with
+                invalid contact displayed;
+    endif
+
+else ([else])
+:throw ParseException with invalid command
+format message and command usage;
+endif
+
+:returns feedback to user;
+
+stop
+
+@enduml

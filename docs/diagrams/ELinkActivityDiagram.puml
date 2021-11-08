@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User enters elink command in the command box;
+:ELinkCommandParser parses the command;
+if () then ([arguments are valid]  )
+:Creates ElinkCommand object for execution;
+
+  repeat
+  :Checks if each of the contacts is linked to the event;
+    if () then ( [already linked])
+
+    else ([else])
+    :Links the event and contact;
+    endif
+  repeat while () is ( [else])
+  -> [linked to all contacts]     ;
+
+else (  [else])
+:throws ParseException with invalid command
+format message and command usage;
+endif
+
+:returns feedback to user;
+
+stop
+
+@enduml
