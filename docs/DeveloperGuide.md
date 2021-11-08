@@ -1318,5 +1318,5 @@ Prerequisite: There should be a valid `soconnect.json` file saved in the data fo
    Expected: The event and contact list is empty.
 
    2. Test case: Delete the json file and start `soconnect.jar`. <br>
-   Expected: The default event and contact list is loaded (see [User Guide](https://ay2122s1-cs2103t-w15-3.github.io/tp/UserGuide.html) for an example).
+   Expected: The default event and contact list is loaded (see [User Guide](https://ay2122s1-cs2103t-w15-3.github.io/tp/UserGuide.html#quick-start) for an example).
       
