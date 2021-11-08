@@ -37,19 +37,19 @@ Given below are my contributions to the project.
     * Managed issue tracker, created issues, linked them to the relevant milestone, tags and project dashboard and assigned them to the relevant teammate based on the breakdown of work discussed in the team meeting. Where possible, included task descriptions in the issue for easy reference.
 
 * **Enhancements to existing features**:
-    * Updated contact search features to allow users to find by other fields (Pull request [\#135])
-    * Modified storage class to store events (Pull request [\#53])
+    * Updated contact search features to allow users to find by other fields (Pull request [\#135](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/135))
+    * Modified storage class to store events (Pull request [\#53](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/53))
 
 * **Documentation**:
     * User Guide:
-         * Added documentation for the features `eedit`, `efind` and `edelete` [\#29]https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/29)
-         * Updated documentation for the features `cmark`, `cunmark`, added screenshots for `edelete`, `efind`, `elist` [\#2]https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/213)
+         * Added documentation for the features `eedit`, `efind` and `edelete` [\#29](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/29)
+         * Updated documentation for the features `cmark`, `cunmark`, added screenshots for `edelete`, `efind`, `elist` [\#213](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/213)
     * Developer Guide:
-        * Added implementation details for `elist` [\#132]()https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/132) 
-        * Added implementation details for `cmark` and `cunmark` [\#217]()https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/217) 
+        * Added implementation details for `elist` [\#132](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/132) 
+        * Added implementation details for `cmark` and `cunmark` [\#217](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/217) 
 
 * **Community**:
-    * PRs reviewed (with non-trivial review comments): [\#33](), [\#145](), [\#148]()
+    * PRs reviewed (with non-trivial review comments): [\#33](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/33), [\#145](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/145), [\#148]https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/148)
 
     * Reported bugs and suggestions for other teams in the class (examples: [1]https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/169), [2]https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/178), [3]https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/181))
 
