@@ -81,3 +81,5 @@ activate Model
 
 Model --> CUnmarkCommand
 deactivate
+
+@enduml
