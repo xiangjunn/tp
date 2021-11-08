@@ -1212,6 +1212,7 @@ Prerequisites: At least one event in the list.
 
   1. Test case: `elist at/`<br>
      Expected: All events listed with only address displayed. All events listed shown in the status message.
+  
   1. Test case: `elist`<br>
      Expected: All events listed with all _fields_ displayed. All events listed shown in the status message.
 
@@ -1239,8 +1240,6 @@ Prerequisites: At least one event in the list.
    
 
 ### Undoing/Redoing a command
-
-Prerequisites: Add at least one command before trying out `undo`.
 
 1. Test case: `cadd n/Amy e/amy@mail.com p/1987911` followed by `undo`<br>
     Expected: A new contact named Amy is added after the first command is then removed after the `undo` command. Success messages displayed in the status bar after each command.
