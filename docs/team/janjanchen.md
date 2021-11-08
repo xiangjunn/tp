@@ -36,7 +36,7 @@ Given below are my contributions to the project.
 
 
 * **Project management**:
-  * Added documentation for `How to use SoConnect User Guide`, `Overview of SoConnect` , `List of Prefixes` and `Glossary` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/78)
+  * Added documentation for `How to use SoConnect User Guide`, `Overview of SoConnect` , `List of Prefixes` and `Glossary` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/139)
   * Added screenshots for User Guide
   * Changed logging and json file name [\#98](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/98)
 
@@ -53,7 +53,7 @@ Given below are my contributions to the project.
     * User Guide:
         * Added documentation for the features `cadd`, `cedit`, `clist` and `cfind` [\#11](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/11)
         * Added documentation for the features `cview` and `eview` [\#78](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/78)
-        * Added documentation for the features `help` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/78)
+        * Added documentation for the features `help` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/139)
         * Did cosmetic tweaks to the document.
     * Developer Guide:
         * Added implementation details of the `edelete` feature and `Model`[\#127](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/127)
