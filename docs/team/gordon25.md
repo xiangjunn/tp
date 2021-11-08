@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Gordon's Project Portfolio Page
+title: Gordon Yit Hongyao's Project Portfolio Page
 ---
 
 ### Project: SoConnect
@@ -20,6 +20,8 @@ Given below are my contributions to the project.
    * What it does: allows the users to unmark one or more marked contacts / events at a time. The newly unmarked contacts / events will appear after all marked contacts / events in the list.
     * Justification: This feature improves the product significantly because it allows the user to keep the number of marked contacts / events small and unmark contacts / events they no longer reference frequently, saving them time from having to look through a long list of marked contacts / events.
     * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives.
+
+<div style="page-break-after: always;"></div>
 
 * **New Feature**: Added ability to search contacts / events based on other fields 
    * What it does: allows the users to search for contacts / events based on other fields other than the the contact / event name.
