@@ -3,47 +3,57 @@ layout: page
 title: Gordon's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: SoConnect
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+SoConnect is a **desktop app for SoC students to manage contacts of Professors and Teaching Assistants, as well as to keep track of noteworthy events, optimized for use via a _Command Line Interface (CLI)_** while still having the benefits of a _Graphical User Interface (GUI)_. 
+
+This project is part of the [CS2103T](https://nus-cs2103-ay2122s1.github.io/website/) team project requirements for AY2021/2022 Semester 1.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-    * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-    * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-    * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-    * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added the ability to mark contacts and events.
+    * What it does: allows the user to mark one or more contacts / events at a time. The marked contacts / events will appear at the top of the contact / event list.
+    * Justification: This feature improves the product significantly because it saves the user time from having to scroll through the list or using the `find` command to find contacts / events that they use frequently and the app should provide a convenient way for users to refer to them.
+    * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives.
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Added ability to unmark contacts and events.
+   * What it does: allows the users to unmark one or more marked contacts / events at a time. The newly unmarked contacts / events will appear after all marked contacts / events in the list.
+    * Justification: This feature improves the product significantly because it allows the user to keep the number of marked contacts / events small and unmark contacts / events they no longer reference frequently, saving them time from having to look through a long list of marked contacts / events.
+    * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives.
 
-* **Code contributed**: [RepoSense link]()
+* **New Feature**: Added ability to search contacts / events based on other fields 
+   * What it does: allows the users to search for contacts / events based on other fields other than the the contact / event name.
+    * Justification: This feature improves the product significantly because it gives users more freedom in how they search for contacts / events. For example, they can for search for an event based on its location or description.
+    * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* **New Feature**: Added ability to list only certain fields of events 
+   * What it does: allows the users to only list certain types of fields of each event. 
+    * Justification: This feature improves the product significantly because it allows user to focus on certain fields of events they are interested in instead of looking at the entire list.
+    * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=w15-3&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=zoom&tabAuthor=janjanchen&tabRepo=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&zA=janjanchen&zR=AY2122S1-CS2103T-W15-3%2Ftp%5Bmaster%5D&zACS=199.78947368421052&zS=2021-09-17&zFS=w15-3&zU=2021-11-06&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)
 
 * **Project management**:
-    * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+    * Managed issue tracker, created issues, linked them to the relevant milestone, tags and project dashboard and assigned them to the relevant teammate based on the breakdown of work discussed in the team meeting. Where possible, included task descriptions in the issue for easy reference.
 
 * **Enhancements to existing features**:
-    * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-    * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
+    * Updated contact search features to allow users to find by other fields: [\#135](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/135)
+    * Modified storage class to store events: [\#53](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/53)
 
 * **Documentation**:
-    * User Guide:
-        * Added documentation for the features `delete` and `find` [\#72]()
-        * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * User Guide: 
+         * Added documentation for the features `eedit`, `efind` and `edelete`: [\#29](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/29)
+         * Updated documentation for the features `cmark`, `cunmark`, added screenshots for `edelete`, `efind`, `elist`: [\#213](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/213)
     * Developer Guide:
-        * Added implementation details of the `delete` feature.
+        * Added implementation details for `elist` [\#132](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/132) 
+        * Added implementation details for `cmark` and `cunmark` [\#217](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/217) 
 
 * **Community**:
-    * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-    * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-    * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-    * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
+    * PRs reviewed (with non-trivial review comments): [\#33](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/33), [\#145](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/145), [\#148](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/148)
 
-* **Tools**:
-    * Integrated a third party library (Natty) to the project ([\#42]())
-    * Integrated a new Github plugin (CircleCI) to the team repo
+    * Reported bugs and suggestions for other teams in the class : [\#169](https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/169), [\#178](https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/178), [\#181](https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/181)
 
-* _{you can add/remove categories in the list above}_
+
 © 2021 GitHub, Inc.
 Terms
 Privacy
