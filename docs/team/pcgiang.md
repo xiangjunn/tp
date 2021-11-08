@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Giang's Project Portfolio Page
+title: Pham Chau Giang's Project Portfolio Page
 ---
 
 ### Project: SoConnect
@@ -41,9 +41,10 @@ Given below are my contributions to the project.
 * **Documentation**:
     * User Guide:
         * Added documentation for the feature `undo` and `redo` [\#133](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/133)
+        * Checked and fixed bugs in Managing Events Section [\#236](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/236)
     * Developer Guide:
-        * Added implementation details of the `undo/redo` feature.
-
+        * Added implementation details of the `undo/redo` feature [\#217](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/217)
+        * Added manual test cases [\#217](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/217)
 
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [\#132](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/132), [\#165](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/165)
