@@ -22,12 +22,12 @@ Given below are my contributions to the project.
     * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives.
 
 * **New Feature**: Added ability to search contacts / events based on other fields 
-   * What it does: allows the users to search for contacts / events based on other fields other than the the event name.
-    * Justification: This feature improves the product significantly because it gives users more freedom to search for events, they can for example search for events based on location or description.
+   * What it does: allows the users to search for contacts / events based on other fields other than the the contact / event name.
+    * Justification: This feature improves the product significantly because it gives users more freedom in how they search for contacts / events. For example, they can for search for an event based on its location or description.
     * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
 * **New Feature**: Added ability to list only certain fields of events 
-   * What it does: allows the users to list certain types of fields of each event. 
+   * What it does: allows the users to only list certain types of fields of each event. 
     * Justification: This feature improves the product significantly because it allows user to focus on certain fields of events they are interested in instead of looking at the entire list.
     * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
@@ -37,13 +37,13 @@ Given below are my contributions to the project.
     * Managed issue tracker, created issues, linked them to the relevant milestone, tags and project dashboard and assigned them to the relevant teammate based on the breakdown of work discussed in the team meeting. Where possible, included task descriptions in the issue for easy reference.
 
 * **Enhancements to existing features**:
-    * Updated contact search features to allow users to find by other fields (Pull request [\#135](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/135))
-    * Modified storage class to store events (Pull request [\#53](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/53))
+    * Updated contact search features to allow users to find by other fields: [\#135](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/135)
+    * Modified storage class to store events: [\#53](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/53)
 
 * **Documentation**:
-    * User Guide:
-         * Added documentation for the features `eedit`, `efind` and `edelete` [\#29](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/29)
-         * Updated documentation for the features `cmark`, `cunmark`, added screenshots for `edelete`, `efind`, `elist` [\#213](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/213)
+    * User Guide: 
+         * Added documentation for the features `eedit`, `efind` and `edelete`: [\#29](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/29)
+         * Updated documentation for the features `cmark`, `cunmark`, added screenshots for `edelete`, `efind`, `elist`: [\#213](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/213)
     * Developer Guide:
         * Added implementation details for `elist` [\#132](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/132) 
         * Added implementation details for `cmark` and `cunmark` [\#217](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/217) 
@@ -53,7 +53,7 @@ Given below are my contributions to the project.
 
     * Reported bugs and suggestions for other teams in the class : [\#1](https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/169), [\#2](https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/178), [\#3](https://github.com/AY2122S1-CS2103T-T13-3/tp/issues/181)
 
-* _{you can add/remove categories in the list above}_
+
 © 2021 GitHub, Inc.
 Terms
 Privacy
