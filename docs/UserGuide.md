@@ -527,13 +527,13 @@ Input | Expected Output
 
 This section details all the features and commands available in SoConnect that can help you with managing your events:
 * [Adding an event](#adding-an-event-eadd)
-* [Marking an event](#marking-an-event-emark)
 * [Clearing all event](#clearing-all-events-eclear)
 * [Deleting an event](#deleting-an-event-edelete)
 * [Editing an event](#editing-an-event-eedit)
 * [Finding events](#finding-events-efind)
 * [Linking an event to contacts](#linking-an-event-to-contacts-elink)
 * [Listing all events](#listing-all-events-elist)
+* [Marking an event](#marking-an-event-emark)
 * [Removing mark of an event](#removing-mark-of-an-event-eunmark)
 * [Sorting events](#sorting-events-esort)
 * [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)
@@ -772,7 +772,7 @@ Input | Expected Output
 `eunmark 2` | Unmarks the second event of **currently displayed** event list in SoConnect.<br><br> _The expected display is similar to [Removing mark of a contact](#removing-mark-of-a-contact-cunmark)_
 `eunmark 2 4` | Unmarks the second and fourth event in SoConnect.
 
-_See Also: [Marking an event](#Marking-an-event-emark)_
+_See Also: [Marking an event](#marking-an-event-emark)_
 
 
 ### Sorting events: `esort`
