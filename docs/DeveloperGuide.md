@@ -205,8 +205,7 @@ Step 1. The user enters `cmark 1 2` to mark the first and second contact display
 
 Step 2. The user input `1 2` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. `Parserutil#parseMarkIndexes` will check for invalid arguments and create a list of `Index` object(s).
 
-Step 3. A List of `Index` object is created based on the input arguments.
-   * From this example, the List of `Indexes` created will contain element two elements both of which are `Indexes` and contains the integer value `1` and `2` respectively.
+Step 3. From this example, the List of `Indexes` created will contain two elements, both of which are `Indexes` and contain the integer value `1` and `2` respectively.
 
 Step 4. A new `CMarkCommand` object is returned to the `LogicManager`.
 
@@ -230,13 +229,10 @@ The following activity diagram summarizes what happens when the `cmark` feature 
 
 **Aspect: Marking of contacts:**
 
-* **Alternative implementation 1:** Not have command to mark contacts (current).
-    * Pros: No need to implement this command and the corresponding parser, code base is prone to bugs.
-    * Cons: User may have to scroll through or use `cfind` command to refer to contact(s) used frequently.
-* **Alternative implementation 2:** CMarkCommand that does not place newly marked contacts at the top of the list.
+* **Alternative implementation 1:** CMarkCommand that does not place newly marked contacts at the top of the list.
   * Pros: Easier to implement as there is no need to keep track of which contacts are marked and the order in which they are marked.
-  * Cons: While user can more easily find marked contacts than in the first alternative, they still have to scroll through the entire contact list to find the marked contact(s).
-* **Alternative implementation 3 (current choice):** CMmark replaces newly marked contacts at the top of the contact list.
+  * Cons: Users still have to scroll through the entire contact list to find the marked contact(s).
+* **Alternative implementation 2 (current choice):** CMmark replaces newly marked contacts at the top of the contact list.
   * Pros: Easier for the users to differentiate the marked portion of the contact list from the unmarked portion.
   * Cons: Harder to implement as there is a need to keep track of the order in which the contacts is marked and rearrange the contact list after each `cmark` command.
 
@@ -271,14 +267,13 @@ Given below is one example usage scenario and explains how the `cunmark` feature
 
 Step 1. The user enters `cunmark 4 5` to unmark the fourth and fifth **marked** contact displayed in the contact list. The arguments `4 5` are passed to the `CUnmarkCommandParser` through the `parse` method call.
 
-Step 2. The user input `4 5` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. `Parserutil#parseMarkIndexes` will check for invalid argument and create the list of `Index` from the argument.
+Step 2. The user input `4 5` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. `Parserutil#parseMarkIndexes` will check for invalid argument and create a list of `Index` from the argument.
 
-Step 3. A List of `Index` object is created based on the input arguments.
-   * From this example, the List of `Indexes` created will contain element two elements both of which are `Indexes` and contains the integer value `4` and `5` respectively.
+Step 3. From this example, the List of `Indexes` created will contain two elements both of which are `Indexes` and contains the integer value `4` and `5` respectively.
 
 Step 4. A new `CUnmarkCommand` object is returned to the `LogicManager`.
 
-Step 5. During the execution of the command, the `CUnmarkCommand` object retrives the `filteredContactList` in the `Model` and get the relevant contacts using the object created in step 3. For each contact identified, the command will check if the contact is not marked, if so a message saying the contact is not marked will be generated. Otherwise, a new unmarked `Contact` object containing the same details as the original contact is created and replaces the original contact in `Model`. Thereafter, the list of contact in the model is rearranged using `Model#rearrangeContactsInOrder`, which will cause newly unmarked contacts to be placed below all marked contacts in the contact list.
+Step 5. During the execution of the command, the `CUnmarkCommand` object retrieves the `filteredContactList` in the `Model` and get the relevant contacts using the object created in step 3. For each contact identified, the command will check if the contact is not marked, if so a message saying the contact is not marked will be generated. Otherwise, a new unmarked `Contact` object containing the same details as the original contact is created and replaces the original contact in `Model`. Thereafter, the list of contact in the model is rearranged using `Model#rearrangeContactsInOrder`, which will cause newly unmarked contacts to be placed below all marked contacts in the contact list.
 
 Step 6. A `CommandResult` with all newly unmarked contacts is returned and will be displayed to the user.
 
@@ -298,13 +293,10 @@ The following activity diagram summarizes what happens when the `cunmark` featur
 
 **Aspect: Unmarking of contacts:**
 
-* **Alternative implementation 1:** Not have command to unmark contacts (current).
-    * Pros: No need to implement this command and the corresponding parser, code base is prone to bugs.
-    * Cons: The list of marked contacts may grow and become too large for user to meaningfully use.
-* **Alternative implementation 2:** CUnmarkCommand that does not replace newly unmarked contacts after all marked contacts.
+* **Alternative implementation 1:** CUnmarkCommand that does not replace newly unmarked contacts after all marked contacts.
   * Pros: Easier to implement as there is no need to keep track of which the newly unmarked contacts.
   * Cons: The marked contacts will no longer be at the top of the contact list, users would still have to scroll through the entire list of unmark and marked contacts to find a specific marked contact(s).
-* **Alternative implementation 3 (current choice):** CUnmark replaces newly unmarked contacts below marked contacts.
+* **Alternative implementation 2 (current choice):** CUnmark replaces newly unmarked contacts below marked contacts.
   * Pros: Easier for the users to differentiate the marked portion of the contact list from the unmarked portion.
   * Cons: Harder to implement as there is a need to keep track of the order in which the contacts is unmarked and rearrange the contact list after each `cunmark` command.
    
@@ -541,8 +533,8 @@ The undo/redo mechanism is facilitated by `ModelHistory`, stored internally as `
 
 ![ModelHistoryDiagram](images/ModelHistory.png)
 
-- `HistoryInstance` is a nested class inside `ModelHistory` which keeps track of the current state of addressBook and its displaySetting.
-- `allHistory` is managed by two pointers `currentSize` and `maxSize`. `currentSize` indicates the current point in history, while `maxSize` indicates the last point of history. Both of these pointers will be initialized to 0 when the modelHistory is empty.
+- `HistoryInstance` is a nested class inside `ModelHistory` which keeps track of the current state of `AddressBook` and its `ModelDisplaySetting`.
+- `allHistory` is managed by two pointers `currentSize` and `maxSize`. `currentSize` indicates the current point in history, while `maxSize` indicates the last point of history. Both of these pointers will be initialized to 0 when the modelHistory is first created.
 - `Model History` implements the following operations:
   * `commit()` — Saves the current history instance in the history.
   * `undo()` — Restores the previous history instance book state from its history.
@@ -552,7 +544,7 @@ These operations are exposed in the `Model` _interface_ as `Model#commitHistory(
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. A new model history will be initialized. The first version of addressbook and its display setting will also create the first history instance in the history. Both current and maximum size of history will increment by one.
+Step 1. The user launches the application for the first time. A new model history will be initialized. The first version of `AddressBook` and `ModelDisplaySetting` will also create the first history instance in the history. Both current and maximum size of history will increment by one.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
@@ -560,7 +552,7 @@ Step 2. The user executes `edelete 5` command to delete the 5th event in the eve
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `cadd n/David …​` to add a new contact. The `cadd` command also calls `Model#commitHistory()`, causing another modified address book state to be saved into `allHistory`.
+Step 3. The user executes `cadd n/David …​` to add a new contact. The `cadd` command also calls `Model#commitHistory()`, causing another modified state to be saved into `allHistory`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
