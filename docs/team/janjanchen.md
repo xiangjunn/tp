@@ -36,7 +36,7 @@ Given below are my contributions to the project.
 
 
 * **Project management**:
-  * Added documentation for `How to use SoConnect User Guide`, `Overview of SoConnect` , `List of Prefixes` and `Glossary` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/139)
+  * Added documentation for `How to use SoConnect User Guide`, `Overview of SoConnect` , `List of Prefixes` and `Glossary` [\#139](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/139) and [\#236](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/236) 
   * Added screenshots for User Guide
   * Changed logging and json file name [\#98](https://github.com/AY2122S1-CS2103T-W15-3/tp/issues/98)
 
