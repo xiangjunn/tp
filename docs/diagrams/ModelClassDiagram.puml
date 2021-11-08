@@ -86,4 +86,5 @@ ZoomLink -up[hidden]- Name
 
 ModelManager -->"~* filtered" Contact
 ModelManager -->"~* filtered" Event
+
 @enduml

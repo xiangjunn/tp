@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User enters edelete command in the command box;
+:EDeleteCommandParser parses the command;
+if () then ([arguments are valid]  )
+    if () then ( [argument is\na single INDEX])
+    :Creates a RANGE with\nSTART INDEX = END INDEX = INPUT INDEX;
+
+    else ([argument is a RANGE])
+
+    endif
+:Creates EDeleteCommand object for execution;
+
+  repeat
+  :Checks if the event\nat START INDEX is\nlinked to any contacts;
+    if () then ( [else])
+
+    else ([has linked\ncontact(s)])
+    :Unlinks the event from the contact(s);
+
+    endif
+    :Deletes the event at START INDEX;
+    :END INDEX = END INDEX - 1;
+  repeat while () is ( [END INDEX \n>= START INDEX])
+  -> [else]     ;
+
+else (  [else])
+:Throws ParseException with invalid command\nformat message and command usage;
+endif
+
+:Returns feedback to user;
+
+stop
+
+@enduml
