@@ -21,6 +21,8 @@ Given below are my contributions to the project.
     * Justification: This feature improves the product significantly because it allows the user to keep the number of marked contacts / events small and unmark contacts / events they no longer reference frequently, saving them time from having to look through a long list of marked contacts / events.
     * Highlights: This enhancement affects existing commands commands to be added in future. It required an in-depth analysis of design alternatives.
 
+<div style="page-break-after: always;"></div>
+
 * **New Feature**: Added ability to search contacts / events based on other fields 
    * What it does: allows the users to search for contacts / events based on other fields other than the the contact / event name.
     * Justification: This feature improves the product significantly because it gives users more freedom in how they search for contacts / events. For example, they can for search for an event based on its location or description.
