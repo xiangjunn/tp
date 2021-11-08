@@ -498,24 +498,24 @@ The following activity diagram summarizes what happens when the `elink` feature 
 ![ELinkActivityDiagram](images/ELinkActivityDiagram.png)
 
 #### Design Considerations
-Aspect: The relationship of the link:
+**Aspect: The relationship of the link:**
 
-* Alternative implementation 1: The event has a reference to contacts that are linked to it but not the other way.
+* **Alternative implementation 1:** The event has a reference to contacts that are linked to it but not the other way.
   * Pros: Easy to implement. We only need to manage the relationship of the link in `Event` object.
   * Cons: It is less efficient if we want to make changes to the contacts through other commands because we have to go through
   all events to find out which events have links to the contact.
     
-* Alternative implementation 2 (current choice): Both event and contact have reference to each other if they are linked.
+* **Alternative implementation 2 (current choice):** Both event and contact have reference to each other if they are linked.
   * Pros: More efficient.
   * Cons: Have to enforce the bidirectional relationship strictly which is hard to implement and bug-prone.
 
-Aspect: Whether to update the existing contact/event objects to show the link:
+**Aspect: Whether to update the existing contact/event objects to show the link:**
 
-* Alternative implementation 1: Update the contact/event to have information about their linked events/contacts.
+* **Alternative implementation 1:** Update the contact/event to have information about their linked events/contacts.
   * Pros: Easy to implement.
   * Cons: `Contact` and `Event` objects are no longer immutable. Increase in difficulty of testing.
 
-* Alternative implementation 2 (current choice): Creates new `Contact` and `Event` objects with link to each other and making them immutable.
+* **Alternative implementation 2 (current choice):** Creates new `Contact` and `Event` objects with link to each other and making them immutable.
   * Pros: Less likely to have bugs. Works well with other commands like `undo` and `redo` because any changes in the link
     will create new objects of `Contact` and `Event`, hence making it easier to store history of the contacts and events.
   * Cons: May have performance issues in terms of memory usage because other commands like `EDeleteCommand` and `CEditCommand` may result in change in link relationship,
