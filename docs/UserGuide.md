@@ -302,8 +302,10 @@ Adds a contact to SoConnect.
 
 **Format:** `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A contact can have any number of tags (including 0)
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
+
+* A contact can have any number of tags (including 0)
+* You **cannot** add a contact with the same name as an existing contact.
 </div>
 
 **Examples:**
@@ -373,6 +375,7 @@ Edits an **existing** contact in SoConnect.
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 * `INDEX` must **not be greater** than the **number of contacts** in the contact list.
+* You **cannot** edit a contact to the same name as an existing contact.
 </div>
 
 **Examples:**
@@ -548,8 +551,10 @@ Adds an event to SoConnect.
 
 **Format:** `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-An event can have any number of tags (including 0)
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
+
+* An event can have any number of tags (including 0)
+* You **cannot** add an event with the same name as an existing event.
 </div>
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
@@ -627,6 +632,7 @@ You must provide **at least one** of the optional _fields_.
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 * Start time and End Time should be of format **dd-MM-yyyy HH:mm** (date-MONTH-year HOUR:minute in 24-hour format).
 * End Time should be **chronologically after** the Start Time.
+* You **cannot** edit an event to the same name as an existing event.
 </div>
 
 **Examples:**
@@ -853,7 +859,8 @@ Shows a calendar of all the events.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-Alternatively, you can view the calendar using the top menu bar via `File -> Calendar` or press `F2`.
+* Alternatively, you can view the calendar using the top menu bar via `File -> Calendar` or press `F2`.
+* If an event does not have a specified end date and time, the calendar will treat the duration of the event as **one hour**.
 </div>
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -1105,7 +1112,7 @@ ________________________________________________________________________________
 
 Word | Explanation
 --------|------------------
-**Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**
+**Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**.
 **Command** | A string of words and characters you type to perform an action, each command has its own **_Command format_**.
 **Command Format** | The structure that a _command_ must abide by for it to be executed.
 **Parameter(s)** | Information supplied by the user to the application when executing certain _commands_.
