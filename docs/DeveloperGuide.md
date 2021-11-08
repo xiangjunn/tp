@@ -1115,7 +1115,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should not depend on Internet connection.
 5. Only one user should be able to use the system at one time.
-6. Should be usable by colorblind students
 
 ### Glossary
 
@@ -1183,33 +1182,33 @@ testers are expected to do more exploratory testing.
 
 ### Deleting an event
 
-1. Deleting an event while all events are being shown
+Deleting an event while all events are being shown
 
-   Prerequisites: List all events using the `elist` command. Multiple events in the list.
+Prerequisites: List all events using the `elist` command. Multiple events in the list.
 
-   2. Test case: `edelete 1`<br>
+   1. Test case: `edelete 1`<br>
       Expected: First event is deleted from the list. Details of the deleted event shown in the status message. Timestamp in the status bar is updated.
 
-   3. Test case: `edelete 0`<br>
+   2. Test case: `edelete 0`<br>
       Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
 
-   4. Other incorrect delete commands to try: `edelete`, `edelete x` (where x is larger than the list size), `edelete a` <br>
+   3. Other incorrect delete commands to try: `edelete`, `edelete x` (where x is larger than the list size), `edelete a` <br>
       Expected: Similar to previous.
 
-   5. Test case: `edelete 1-2`<br>
+   4. Test case: `edelete 1-2`<br>
       Expected: First and second event are deleted from the list. Details of the deleted events shown in the status message. Timestamp in the status bar is updated.
 
-   6. Test case: `edelete 2-1` (invalid range)<br>
+   5. Test case: `edelete 2-1` (invalid range)<br>
       Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
    
-   7. Test case: `edelete 1-x` (where x is larger than the list size)<br>
+   6. Test case: `edelete 1-x` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 ### Listing all events
 
-1. Listing all event with certain _fields_ shown.
+Listing all event with certain _fields_ shown.
 
-   Prerequisites: At least one event in the list.
+Prerequisites: At least one event in the list.
 
   1. Test case: `elist at/`<br>
      Expected: All events listed with only address displayed. All events listed shown in the status message.
@@ -1237,12 +1236,32 @@ testers are expected to do more exploratory testing.
 
 4. Other incorrect `elink` commands to try: `elink`, `elink 1`, `elink c/1`<br>
    Expected: No change in display. Error message shown in status bar.
+   
+
+### Undoing/Redoing a command
+
+Prerequisites: Add at least one command before trying out `undo`.
+
+1. Test case: `cadd n/Amy e/amy@mail.com p/1987911` followed by `undo`<br>
+    Expected: A new contact named Amy is added after the first command is then removed after the `undo` command. Success messages displayed in the status bar after each command.
+   
+2. Test case: `cfind Alex` followed by `undo 12`<br>
+    Expected: A filtered list with contact name Alex Yeoh will be displayed after the first command. A full contact list will be displayed after `undo`command. Success messages displayed in the status bar after each command.
+
+3. Test case: `cdelete 1` followed by `undo` and `redo`<br>
+   Expected: First contact in the contact list is removed from the displayed contact list after the first command. The contact is restored after the `undo` command, and is removed again after the `redo` command. Success messages will be displayed after each command.
+
+4. Test case: `undo` without any previous command<br>
+    Expected: No change in display. Error message is displayed in the status bar.
+   
+5. Test case: `redo` without any previous `undo` command.<br>
+    Expected: No change in display. Error message is displayed in the status bar.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+Dealing with missing/corrupted data files
 
-   Prerequisite: There should be a valid `soconnect.json` file saved in the data folder.
+Prerequisite: There should be a valid `soconnect.json` file saved in the data folder.
 
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:** If there is no json file, start `soconnect.jar`, perform some changes to the default list of contacts or events (see [User Guide](../UserGuide.html)). A folder `data` with a file `soconnect.json` should be created.
