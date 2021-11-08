@@ -24,7 +24,7 @@ Given below are my notable contributions to the project.
 
 * **New Feature**: Added the ability to delete a range of contacts.
     * What it does: allows the user to delete either one contact or an inclusive range of consecutive contacts.
-      * Justification: It is troublesome for users to delete the contact one by one. Allowing them to delete a range of contacts
+    * Justification: It is troublesome for users to delete the contact one by one. Allowing them to delete a range of contacts
         is more user-friendly.
     * Highlights: This feature works well with the existing feature which can filter the contact list because user can delete the contacts from that filtered list with ease.
 
