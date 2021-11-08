@@ -146,9 +146,10 @@ The `Model` component,
 
 * stores the SoConnect data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object) and all `Event` objects (which are contained in a `UniqueEventList` object).
 * stores the currently 'selected' `Contact` and `Event` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the lists change.
-* stores a `ContactDisplaySetting` and an `EventDisplaySetting` object (not shown in the diagram). These settings will affect how the contacts and events will be displayed to the user.
+* stores a `ModelDisplaySetting` object (not shown in the diagram) which will affect how the contacts and events will be displayed to the user.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* stores a `ModelHistory` object (not shown in the diagram) which keeps track of all history instances  of SoConnect. This is to facilitate the `undo` and `redo` features.
+* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components).
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
 
@@ -167,9 +168,9 @@ The **API** of this component is specified in [`Storage.java`](https://github.co
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
+* saves both address book data and user preference data in json format, and reads them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`).
 
 ### Common classes
 
@@ -184,7 +185,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ## Mark Contacts feature
 
-This section details how the `cmark` command is implemented. This command allows the user to mark freuquently used contacts, with the added feature of allowing the user to specify **more than one** contacts to mark. The marked contacts will appear at the **top** of the contact list and in **reverse order** in which their corresponding indexes are specified.
+This section details how the `cmark` command is implemented. This command allows the user to mark frequently used contacts, with the added feature of allowing the user to specify **more than one** contacts to mark. The marked contacts will appear at the **top** of the contact list and in **reverse order** in which their corresponding indexes are specified.
 
 #### Implementation
 
@@ -193,7 +194,7 @@ Both `CMarkCommandParser` and `CMarkCommand` classes are involved in the executi
 The `parse` method inside the `CMarkCommandParser` receives the user input, extracts the required index(es). It then creates a new List of `Index`(es) objects that will encapsulate the indexes of the contacts to be marked.
 
 <div markdown="span" class="alert alert-primary">
-:bulb: **Tip:** If the argument is empty or contains invalid values, `CMarkCommandParser#parse` throws a ParseException.
+:bulb: **Tip:** `CMarkCommandParser#parse` will throw a ParseException if the argument is empty, not an integer or is outside of the contact index range.
 </div>
 
 `CMarkCommandParser#parse` method will then return an `CMarkCommand` with the given List of `Index` object.
@@ -202,7 +203,7 @@ Given below is one example usage scenario and explains how the `cmark` feature b
 
 Step 1. The user enters `cmark 1 2` to mark the first and second contact displayed in the contact list. The arguments `1 2` are passed to the `CMarkCommandParser` through the `parse` method call.
 
-Step 2. The user input `1 2` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. A list of `Index` object is created from the argument using `Parserutil#parseMarkIndexes`. Examples of incorrect arguments include `` or `a @`.
+Step 2. The user input `1 2` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. `Parserutil#parseMarkIndexes` will check for invalid arguments and create a list of `Index` object(s).
 
 Step 3. A List of `Index` object is created based on the input arguments.
    * From this example, the List of `Indexes` created will contain element two elements both of which are `Indexes` and contains the integer value `1` and `2` respectively.
@@ -215,7 +216,7 @@ Step 6. A `CommandResult` with all newly marked contacts is returned and will be
 
 #### Sequence Diagram
 
-The following sequence diagram shows how the `elist` feature works for the example:
+The following sequence diagram shows how the `cmark` feature works for the example above:
 
 ![CMarkSequenceDiagram](images/CMarkSequenceDiagram.png)
 
@@ -261,16 +262,16 @@ Both `CUnmarkCommandParser` and `CUnmarkCommand` classes are involved in the exe
 The `parse` method inside the `CUnmarkCommandParser` receives the user input, extracts the required index(es). It then creates a new List of `Index`(es) objects that will encapsulate the indexes of the marked contacts to be unmarked.
 
 <div markdown="span" class="alert alert-primary">
-:bulb: **Tip:** If the argument is empty or contains invalid values, `CUnmarkCommandParser#parse` throws a ParseException.
+:bulb: **Tip:** `CUnmarkCommandParser#parse` will throw a ParseException if the argument is empty, contains invalid values or the contact at the specifed index is not initially marked.
 </div>
 
 `CUnmarkCommandParser#parse` method will then return an `CUnmarkCommand` with the given List of `Index` object.
 
 Given below is one example usage scenario and explains how the `cunmark` feature behaves at each step. You may also refer to the sequence diagram below.
 
-Step 1. The user enters `cunmark 4 5` to unmark the fourth and fifth ***marked** contact displayed in the contact list. The arguments `4 5` are passed to the `CUnmarkCommandParser` through the `parse` method call.
+Step 1. The user enters `cunmark 4 5` to unmark the fourth and fifth **marked** contact displayed in the contact list. The arguments `4 5` are passed to the `CUnmarkCommandParser` through the `parse` method call.
 
-Step 2. The user input `4 5` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. `Parserutil#parseMarkIndexes` is used to create the list of `Index` from the argument. Examples of incorrect arguments include `` or `a @`.
+Step 2. The user input `4 5` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. `Parserutil#parseMarkIndexes` will check for invalid argument and create the list of `Index` from the argument.
 
 Step 3. A List of `Index` object is created based on the input arguments.
    * From this example, the List of `Indexes` created will contain element two elements both of which are `Indexes` and contains the integer value `4` and `5` respectively.
@@ -283,7 +284,7 @@ Step 6. A `CommandResult` with all newly unmarked contacts is returned and will 
 
 #### Sequence Diagram
 
-The following sequence diagram shows how the `elist` feature works for the example:
+The following sequence diagram shows how the `cunmark` feature works for the example above:
 
 ![CUnmarkSequenceDiagram](images/CUnmarkSequenceDiagram.png)
 

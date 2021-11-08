@@ -62,7 +62,7 @@ loop 2 times
     deactivate Contact
 
 alt isMarked
-    CUnmarkCommand -> Contact : markContact()
+    CUnmarkCommand -> Contact : unmarkContact()
     activate Contact
 
     Contact --> CUnmarkCommand
