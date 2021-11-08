@@ -183,7 +183,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 
-## Mark Contacts feature
+### Mark Contacts feature
 
 This section details how the `cmark` command is implemented. This command allows the user to mark frequently used contacts, with the added feature of allowing the user to specify **more than one** contacts to mark. The marked contacts will appear at the **top** of the contact list and in **reverse order** in which their corresponding indexes are specified.
 
@@ -247,7 +247,7 @@ The following activity diagram summarizes what happens when the `cmark` feature 
   * Cons: Harder to implement as more code is needed to facilitate the marking of multiple contacts in the correct order.
 
 
-## Unmark Contacts feature
+### Unmark Contacts feature
 
 This section details how the `cunmark` command is implemented. This command allows the user to unmark marked contacts, with the added feature of allowing the user to specify **more than one** contacts to unmark. The marked contacts will appear after all marked contacts and **in order** in which their corresponding indexes are specified.
 
@@ -1291,6 +1291,18 @@ Prerequisites: At least one event in the list.
    
 5. Test case: `redo` without any previous `undo` command<br>
     Expected: No change in display. Error details displayed in the status message.
+   
+### GUI
+
+1. Test case: Click on a linked contact of an event (labeled in yellow) <br>
+   Expected: Only linked contacts of the chosen event is displayed in the contact list. Clicking on the same linked contact(s) again will show back the full contact list.
+
+2. Test case: Click on any field in the contact and event list (except for tag) to copy that field <br>
+    Expected: The chosen field will be copied to clipboard. Success details displayed in the status message.
+   
+3. Test case: Click on any zoom link or telegram link in the contact list to open the links in browser<br>
+    Expected: The chosen link is opened in browser. Success details displayed in the status message.
+   
 
 ### Saving data
 
