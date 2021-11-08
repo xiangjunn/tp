@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.general.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE_MARKED;
 import static seedu.address.testutil.TypicalEvents.INTERVIEW;
 import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,8 +25,8 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.EventBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
@@ -51,11 +51,11 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateContacts_throwsDuplicateContactException() {
         // Two contacts with the same identity fields
-        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Contact> newContacts = Arrays.asList(ALICE, editedAlice);
+        Contact editedAlice = new ContactBuilder(ALICE_MARKED).withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_HUSBAND).build();
+        List<Contact> newContacts = Arrays.asList(ALICE_MARKED, editedAlice);
         List<Event> newEvents = new ArrayList<>(); //empty event list
         AddressBookStub newData = new AddressBookStub(newContacts, newEvents);
 
@@ -74,7 +74,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasContact_nullContact_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasContact(null));
     }
 
@@ -84,8 +84,8 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasContact(ALICE));
+    public void hasContact_contactNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasContact(ALICE_MARKED));
     }
 
     @Test
@@ -94,9 +94,9 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addContact(ALICE);
-        assertTrue(addressBook.hasContact(ALICE));
+    public void hasContact_contactInAddressBook_returnsTrue() {
+        addressBook.addContact(ALICE_MARKED);
+        assertTrue(addressBook.hasContact(ALICE_MARKED));
     }
 
     @Test
@@ -106,9 +106,10 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addContact(ALICE);
-        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasContact_contactWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addContact(ALICE_MARKED);
+        Contact editedAlice =
+            new ContactBuilder(ALICE_MARKED).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasContact(editedAlice));
     }
@@ -117,18 +118,24 @@ public class AddressBookTest {
     public void hasEvent_eventWithSameNameFieldsInAddressBook_returnsTrue() {
         addressBook.addEvent(INTERVIEW);
         Event editedEvent = new EventBuilder(INTERVIEW).withAddress("Google Office")
-                .withStartDateAndTime("28-10-2021 11:00").build();
+            .withStartDateAndTime("28-10-2021 11:00").build();
         assertTrue(addressBook.hasEvent(editedEvent));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getContactList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getContactList().remove(0));
     }
 
     @Test
     public void getEventList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getEventList().remove(0));
+    }
+
+    @Test
+    public void copy_success() {
+        AddressBook copy = addressBook.copy();
+        assertEquals(addressBook, copy);
     }
 
     /**

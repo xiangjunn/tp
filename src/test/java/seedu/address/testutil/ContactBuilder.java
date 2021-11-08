@@ -1,7 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalEvents.CS2100_CONSULTATION_UUID;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.common.Address;
 import seedu.address.model.common.Name;
@@ -16,7 +19,7 @@ import seedu.address.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Contact objects.
  */
-public class PersonBuilder {
+public class ContactBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
@@ -24,6 +27,10 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TELEGRAM_HANDLE = "amyBeeBee";
     public static final String DEFAULT_ZOOM_LINK = "https://nus-sg.zoom.us/j/0123456789?pwd=ABCDEFG";
+    public static final boolean DEFAULT_IS_MARKED = true;
+    public static final String DEFAULT_TAG = "friends";
+    public static final UUID DEFAULT_UUID = TypicalContacts.ALICE_UUID;
+    public static final UUID DEFAULT_LINKED_EVENT = CS2100_CONSULTATION_UUID;
 
     private Name name;
     private Phone phone;
@@ -32,12 +39,14 @@ public class PersonBuilder {
     private TelegramHandle telegramHandle;
     private ZoomLink zoomLink;
     private Set<Tag> tags;
-    private boolean isBookmarked;
+    private UUID uuid;
+    private Set<UUID> linkedEvents;
+    private boolean isMarked;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code ContactBuilder} with the default details.
      */
-    public PersonBuilder() {
+    public ContactBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -46,13 +55,17 @@ public class PersonBuilder {
         telegramHandle = new TelegramHandle(DEFAULT_TELEGRAM_HANDLE);
         zoomLink = new ZoomLink(DEFAULT_ZOOM_LINK);
         tags = new HashSet<>();
-        isBookmarked = false;
+        tags.add(new Tag(DEFAULT_TAG));
+        uuid = DEFAULT_UUID;
+        linkedEvents = new HashSet<>();
+        linkedEvents.add(DEFAULT_LINKED_EVENT);
+        isMarked = DEFAULT_IS_MARKED;
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code contactToCopy}.
+     * Initializes the ContactBuilder with the data of {@code contactToCopy}.
      */
-    public PersonBuilder(Contact contactToCopy) {
+    public ContactBuilder(Contact contactToCopy) {
         name = contactToCopy.getName();
         phone = contactToCopy.getPhone();
         email = contactToCopy.getEmail();
@@ -60,13 +73,15 @@ public class PersonBuilder {
         telegramHandle = contactToCopy.getTelegramHandle();
         zoomLink = contactToCopy.getZoomLink();
         tags = new HashSet<>(contactToCopy.getTags());
-        isBookmarked = contactToCopy.getIsBookMarked();
+        uuid = contactToCopy.getUuid();
+        linkedEvents = new HashSet<>(contactToCopy.getLinkedEvents());
+        isMarked = contactToCopy.getIsMarked();
     }
 
     /**
      * Sets the {@code Name} of the {@code Contact} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public ContactBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -74,7 +89,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Contact} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public ContactBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -82,7 +97,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Address} of the {@code Contact} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public ContactBuilder withAddress(String address) {
         this.address = address != null ? new Address(address) : null;
         return this;
     }
@@ -90,7 +105,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Contact} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public ContactBuilder withPhone(String phone) {
         this.phone = phone != null ? new Phone(phone) : null;
         return this;
     }
@@ -98,7 +113,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Contact} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public ContactBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
@@ -106,7 +121,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code TelegramHandle} of the {@code Contact} that we are building.
      */
-    public PersonBuilder withTelegramHandle(String telegramHandle) {
+    public ContactBuilder withTelegramHandle(String telegramHandle) {
         this.telegramHandle = telegramHandle != null ? new TelegramHandle(telegramHandle) : null;
         return this;
     }
@@ -114,16 +129,40 @@ public class PersonBuilder {
     /**
      * Sets the {@code ZoomLink} of the {@code Contact} that we are building.
      */
-    public PersonBuilder withZoomLink(String zoomLink) {
+    public ContactBuilder withZoomLink(String zoomLink) {
         this.zoomLink = zoomLink != null ? new ZoomLink(zoomLink) : null;
         return this;
     }
 
     /**
-     * Sets the {@code isBookmarked} of the {@code Contact} that we are building to true.
+     * Sets the {@code UUID} of the {@code Contact} that we are building.
      */
-    public PersonBuilder withBookmarked() {
-        this.isBookmarked = true;
+    public ContactBuilder withUuid(UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code contact} that we are building to a random value.
+     */
+    public ContactBuilder withRandomUuid() {
+        this.uuid = UUID.randomUUID();
+        return this;
+    }
+
+    /**
+     * Parses the {@code events} into a {@code Set<UUID>} and set it to the {@code Contact} that we are building.
+     */
+    public ContactBuilder withLinkedEvents(UUID ...events) {
+        this.linkedEvents = Set.of(events);
+        return this;
+    }
+
+    /**
+     * Sets the {@code isMarked} of the {@code Contact} that we are building to {@code isMarked}.
+     */
+    public ContactBuilder withMarked(boolean isMarked) {
+        this.isMarked = isMarked;
         return this;
     }
 
@@ -131,11 +170,6 @@ public class PersonBuilder {
      * Creates an {@code Contact} from this {@code Contactbuilder}.
      */
     public Contact build() {
-        Contact contact = new Contact(name, phone, email, address, zoomLink, telegramHandle, tags);
-        if (isBookmarked) {
-            contact.setBookMarked(true);
-        }
-        return contact;
+        return new Contact(name, phone, email, address, zoomLink, telegramHandle, tags, uuid, linkedEvents, isMarked);
     }
-
 }

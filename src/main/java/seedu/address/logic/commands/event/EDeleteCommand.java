@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.range.Range;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -18,25 +19,23 @@ import seedu.address.model.event.EventChanger;
 /**
  * Deletes an event identified using its displayed index from the SoConnect.
  */
-public class EDeleteCommand extends Command {
+public class EDeleteCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "edelete";
     public static final String PARAMETERS = "INDEX1[-INDEX2]";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the event identified by the index number used in the displayed SoConnect.\n"
+            + ": Deletes the event identified by the index number used in the displayed event list.\n"
             + "Parameters: " + PARAMETERS + " (both indexes must be a positive integer)\n"
-            + "Example 1: " + COMMAND_WORD + " 1"
+            + "Note: index must be a positive integer and INDEX1 must be smaller than or equal to INDEX2"
+            + " if the optional INDEX2 is included)\n"
+            + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
     private final Range targetRange;
-
-    public EDeleteCommand(Index targetIndex) {
-        this.targetRange = new Range(targetIndex, targetIndex);
-    }
 
     public EDeleteCommand(Range targetRange) {
         this.targetRange = targetRange;
@@ -53,9 +52,6 @@ public class EDeleteCommand extends Command {
         if (end >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
-        if (startIndex.isMoreThan(endIndex)) {
-            throw new CommandException(Messages.MESSAGE_START_MORE_THAN_END_INDEX);
-        }
 
         String commandResult = "";
         int indexToDelete = startIndex.getZeroBased();
@@ -70,8 +66,7 @@ public class EDeleteCommand extends Command {
             }
         }
         // rerender UI to update the links for contacts with links to deleted event
-        model.rerenderContactCards();
-        model.commitAddressBook();
+        model.rerenderContactCards(true);
         return new CommandResult(commandResult, eventChangerList);
     }
 

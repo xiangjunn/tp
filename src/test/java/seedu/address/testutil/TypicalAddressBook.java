@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalContacts.getTypicalContacts;
 import static seedu.address.testutil.TypicalEvents.getTypicalEvents;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.contact.Contact;
@@ -18,7 +18,7 @@ public class TypicalAddressBook {
         for (Event event : getTypicalEvents()) {
             ab.addEvent(event);
         }
-        for (Contact contact : getTypicalPersons()) {
+        for (Contact contact : getTypicalContacts()) {
             ab.addContact(contact);
         }
         return ab;

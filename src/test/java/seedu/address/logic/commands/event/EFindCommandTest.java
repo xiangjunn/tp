@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.general.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalEvents.CS2101_MEETING;
-import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM;
+import static seedu.address.testutil.TypicalEvents.CS2103_MIDTERM_MARKED;
 import static seedu.address.testutil.TypicalEvents.FOOTBALL_PRACTICE;
 import static seedu.address.testutil.TypicalEvents.TEAM_MEETING;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import seedu.address.model.event.EventContainsKeywordsPredicate;
  */
 public class EFindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(model.getInitialAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -72,7 +72,7 @@ public class EFindCommandTest {
         EFindCommand command = new EFindCommand(predicate);
         expectedModel.updateFilteredEventList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103_MIDTERM, CS2101_MEETING, FOOTBALL_PRACTICE, TEAM_MEETING),
+        assertEquals(Arrays.asList(CS2103_MIDTERM_MARKED, CS2101_MEETING, FOOTBALL_PRACTICE, TEAM_MEETING),
                 model.getFilteredEventList());
     }
 

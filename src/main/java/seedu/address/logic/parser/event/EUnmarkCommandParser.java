@@ -14,15 +14,19 @@ public class EUnmarkCommandParser implements Parser<EUnmarkCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EUnmarkCommand
      * and returns a EUnmarkCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EUnmarkCommand parse(String args) throws ParseException {
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EUnmarkCommand.MESSAGE_USAGE));
+        }
         try {
-            List<Index> indexes = ParserUtil.parseBookmarkIndexes(args);
+            List<Index> indexes = ParserUtil.parseMarkIndexes(args);
             return new EUnmarkCommand(indexes);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EUnmarkCommand.MESSAGE_USAGE), pe);
+                String.format(pe.getMessage(), EUnmarkCommand.MESSAGE_USAGE), pe);
         }
     }
 }

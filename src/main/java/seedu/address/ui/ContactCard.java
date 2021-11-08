@@ -109,38 +109,38 @@ public class ContactCard extends UiPart<Region> {
         name.setWrapText(isViewMode);
 
         // Compulsory fields
-        if (displaySetting.isWillDisplayEmail()) {
+        if (displaySetting.willDisplayEmail()) {
             email.setText(contact.getEmail().value);
             email.setManaged(true);
             email.setVisible(true);
             email.setWrapText(isViewMode);
         }
         // Optional fields
-        if (contact.getPhone() != null && displaySetting.isWillDisplayPhone()) {
+        if (contact.getPhone() != null && displaySetting.willDisplayPhone()) {
             phone.setText(contact.getPhone().value);
             phone.setManaged(true);
             phone.setVisible(true);
             phone.setWrapText(isViewMode);
         }
-        if (contact.getAddress() != null && displaySetting.isWillDisplayAddress()) {
+        if (contact.getAddress() != null && displaySetting.willDisplayAddress()) {
             address.setText(contact.getAddress().value);
             address.setManaged(true);
             address.setVisible(true);
             address.setWrapText(isViewMode);
         }
-        if (contact.getTelegramHandle() != null && displaySetting.isWillDisplayTelegramHandle()) {
+        if (contact.getTelegramHandle() != null && displaySetting.willDisplayTelegramHandle()) {
             telegramHandle.setText(contact.getTelegramHandle().handle);
             telegramHandle.setManaged(true);
             telegramHandle.setVisible(true);
             telegramHandle.setWrapText(isViewMode);
         }
-        if (contact.getZoomLink() != null && displaySetting.isWillDisplayZoomLink()) {
+        if (contact.getZoomLink() != null && displaySetting.willDisplayZoomLink()) {
             zoom.setText(contact.getZoomLink().link);
             zoom.setManaged(true);
             zoom.setVisible(true);
             zoom.setWrapText(isViewMode);
         }
-        if (displaySetting.isWillDisplayTags() && !contact.getTags().isEmpty()) {
+        if (displaySetting.willDisplayTags() && !contact.getTags().isEmpty()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> {
@@ -167,9 +167,10 @@ public class ContactCard extends UiPart<Region> {
 
         }
 
-        linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+        linkToEvent.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+        links.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
 
-        if (contact.getIsBookMarked()) {
+        if (contact.getIsMarked()) {
             favourite.setManaged(true);
             favourite.setVisible(true);
         }

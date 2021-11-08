@@ -16,6 +16,9 @@ public class Messages {
     public static final String MESSAGE_EVENT_LINK_OPENED = "Event %1$s link opened in browser";
     public static final String MESSAGE_CONTACT_LINK_NOT_FOUND = "Contact %1$s link not found!";
     public static final String MESSAGE_EVENT_LINK_NOT_FOUND = "Event %1$s link not found!";
+    public static final String MESSAGE_DUPLICATE_INDEXES_PROVIDED = "There are duplicates in the indexes provided!";
+    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_RANGE = "Range given is invalid";
     public static final String MESSAGE_CONTACT_FIELD_COPIED = "Contact %1$s copied to clipboard!";
     public static final String MESSAGE_EVENT_FIELD_COPIED = "Event %1$s copied to clipboard!";
 }

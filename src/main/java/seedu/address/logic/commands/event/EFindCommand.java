@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ZOOM;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.model.Model;
 import seedu.address.model.event.EventContainsKeywordsPredicate;
 import seedu.address.model.event.EventDisplaySetting;
@@ -20,7 +21,7 @@ import seedu.address.model.event.EventDisplaySetting;
  * Finds and lists all events in SoConnect which have names containing any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class EFindCommand extends Command {
+public class EFindCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "efind";
     public static final String PARAMETERS = "[KEYWORD]… "
@@ -52,7 +53,6 @@ public class EFindCommand extends Command {
         requireNonNull(model);
         model.setEventDisplaySetting(EventDisplaySetting.DEFAULT_SETTING);
         model.updateFilteredEventList(predicate);
-        model.commitAddressBook();
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }

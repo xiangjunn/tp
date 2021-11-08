@@ -37,29 +37,34 @@ public class ContactContainsKeywordsPredicate implements Predicate<Contact> {
         requireNonNull(phoneKeywords);
         this.phoneKeywords = phoneKeywords;
     }
+
     public void setEmailKeywords(List<String> emailKeywords) {
         requireNonNull(emailKeywords);
         this.emailKeywords = emailKeywords;
     }
+
     public void setAddressKeywords(List<String> addressKeywords) {
         requireNonNull(addressKeywords);
         this.addressKeywords = addressKeywords;
     }
+
     public void setTelegramHandleKeyword(List<String> telegramHandleKeywords) {
         requireNonNull(telegramHandleKeywords);
         this.telegramHandleKeywords = telegramHandleKeywords;
     }
+
     public void setZoomLinkKeywords(List<String> zoomLinkKeywords) {
         requireNonNull(zoomLinkKeywords);
         this.zoomLinkKeywords = zoomLinkKeywords;
     }
+
     public void setTagKeywords(List<String> tagKeywords) {
         requireNonNull(tagKeywords);
         this.tagKeywords = tagKeywords;
     }
 
     @Override
-    public boolean test(Contact contact) { // applied Law of Demeter, dont access contact fields' strings
+    public boolean test(Contact contact) { // applied Law of Demeter, don't access contact fields' strings
         requireNonNull(contact);
         return contact.nameAnyMatch(nameKeywords) || contact.phoneAnyMatch(phoneKeywords)
                 || contact.emailAnyMatch(emailKeywords) || contact.addressAnyMatch(addressKeywords)

@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RANGE;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.range.Range;
 import seedu.address.commons.util.StringUtil;
@@ -29,8 +32,7 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_RANGE = "Range given is invalid";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -79,11 +81,19 @@ public class ParserUtil {
      * Parses parameter into a list of {@code Index} and returns it. Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if specified argument cannot be parsed into a Index.
      */
-    public static List<Index> parseBookmarkIndexes(String args) throws ParseException {
-        String[] stringIndexes = args.replaceAll("\\s", "").split("");
+    public static List<Index> parseMarkIndexes(String args) throws ParseException {
+        String[] stringIndexes = args.split("\\s+");
         List<Index> indexes = new ArrayList<>();
         for (String index : stringIndexes) {
-            indexes.add(parseIndex(index));
+            index = index.trim();
+            if (index.equals("")) {
+                continue;
+            }
+            Index parsedIndex = parseIndex(index.trim());
+            if (indexes.contains(parsedIndex)) {
+                throw new ParseException(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED);
+            }
+            indexes.add(parsedIndex);
         }
         return indexes;
     }

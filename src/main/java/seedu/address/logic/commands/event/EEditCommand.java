@@ -22,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Undoable;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.Address;
@@ -37,17 +38,17 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing event in the address book.
  */
-public class EEditCommand extends Command {
+public class EEditCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "eedit";
-    public static final String PARAMETERS = "INDEX "
+    public static final String PARAMETERS = "INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_START_TIME + "START] "
             + "[" + PREFIX_END_TIME + "END] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_ZOOM + "ZOOM] "
-            + "[" + PREFIX_TAG + "TAG]..."
+            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_DELETE_TAG + "DELETE TAG]...\n";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
@@ -56,16 +57,22 @@ public class EEditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: " + PARAMETERS
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_START_TIME + "2020-12-01 "
+            + PREFIX_START_TIME + "01-10-2021 15:00 "
             + PREFIX_ADDRESS + "12th Street";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book.";
     public static final String MESSAGE_INVALID_DATE_TIME_RANGE = "Event start time cannot be later than end time.";
+    public static final String MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL = "Event already has %s tag.\n";
+    public static final String MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL =
+        "Event does not contain %s tag to delete.\n";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
+    // to be displayed to user if user tries to delete a tag that does not exist
+    // or add a tag that already exists
+    private String infoMessage = "";
 
     /**
      * @param index of the event in the filtered event list to edit
@@ -83,7 +90,7 @@ public class EEditCommand extends Command {
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
+    private Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
@@ -100,7 +107,7 @@ public class EEditCommand extends Command {
                 ? updatedNewTags : addAndRemoveTags(updatedNewTags, updatedDeletedTags, eventToEdit.getTags());
         Event updatedEvent = new Event(updatedName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
             updatedAddress, updatedZoomLink, updatedTags, eventToEdit.getUuid(), eventToEdit.getLinkedContacts(),
-                eventToEdit.getIsBookMarked());
+                eventToEdit.getIsMarked());
         // update the edited event to the hashmap that stores references to all events
         Event.addToMap(updatedEvent);
         return updatedEvent;
@@ -110,9 +117,20 @@ public class EEditCommand extends Command {
      * Creates and returns a {@code Set<Tag>} with tags from {@code original} and {@code toAdd}, but
      * tags in {@code toRemove} will be excluded.
      */
-    private static Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
+    private Set<Tag> addAndRemoveTags(Set<Tag> toAdd, Set<Tag> toRemove, Set<Tag> original) {
         Set<Tag> updatedTags = new HashSet<>(original);
-        toRemove.forEach(updatedTags::remove);
+        String result = "\nNote:\n";
+        for (Tag tag : toAdd) {
+            if (!updatedTags.add(tag)) { // if the tag to delete is not in the original tags
+                result += String.format(MESSAGE_TAG_TO_ADD_ALREADY_IN_ORIGINAL, tag);
+            }
+        }
+        for (Tag tag : toRemove) {
+            if (!updatedTags.remove(tag)) { // if the tag to delete is not in the original tags
+                result += String.format(MESSAGE_TAG_TO_DELETE_NOT_IN_ORIGINAL, tag);
+            }
+        }
+        infoMessage = !result.equals("\nNote:\n") ? result : "";
         updatedTags.addAll(toAdd);
         return updatedTags;
     }
@@ -141,10 +159,9 @@ public class EEditCommand extends Command {
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         // rerender UI to show latest change for contacts with links to edited event
-        model.rerenderContactCards();
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent),
-            List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
+        model.rerenderContactCards(true);
+        String result = String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent) + infoMessage;
+        return new CommandResult(result, List.of(EventChanger.editEventChanger(eventToEdit, editedEvent)));
     }
 
     @Override

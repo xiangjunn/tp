@@ -24,8 +24,7 @@ public class EmailTest {
 
     @Test
     public void containsString() {
-        Email email =
-                new Email("peter_jack@example.com");
+        Email email = new Email("peter_jack@example.com");
 
         // keywords contained in email
         List<String> listOfKeywordsContained = Arrays.asList("pete", "@EXAMPLE");
