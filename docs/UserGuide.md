@@ -29,7 +29,7 @@ full range of features it offers.
     * **:information_source: Note** provides supplementary information that helps you to understand this User Guide.
     * **:exclamation: Caution** cautions you against certain actions that will lead to undesirable consequences.
 * You can find explanations of _italicized_ words in the [Glossary](#glossary).
-* You can refer to the [Command Summary](#_command_-summary) for a complete overview of all SoConnect features and _commands_.
+* You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and _commands_.
 
 
 ### How to read _commands_ in SoConnect
@@ -57,7 +57,7 @@ There are only 3 different parts of inputs within each _command_:
 
    The *prefix* separates the different types of *parameters*.
 
-   Each _prefix_ always ends with a `/`. See the [list of _prefixes_](#list-of-_prefixes_) for all the _prefixes_ that you can use in SoConnect.
+   Each _prefix_ always ends with a `/`. See the [list of _prefixes_](#list-of-prefixes) for all the _prefixes_ that you can use in SoConnect.
 
    For example, if you use `n/`, SoConnect will recognise that the information following this _prefix_ should be a **name**.
 
@@ -165,7 +165,7 @@ SoConnect will tell you that the _Command Format_ is invalid.
 
 6. Refer to the [Features](#features) below for details of each _command_.
 
-_See also: [What happens if my command is invalid](#what-happens-if-my-_command_-is-invalid)_
+_See also: [What happens if my command is invalid](#what-happens-if-my-command-is-invalid)_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -203,7 +203,7 @@ This is what you will see when you open SoConnect!
 
    This is where the message from SoConnect is displayed after you have executed one _command_.
 
-   _See Also: [What happens if my command is invalid?](#what-happens-if-my-_command_-is-invalid)_
+   _See Also: [What happens if my command is invalid?](#what-happens-if-my-command-is-invalid)_
 
 5. **Contact List**
 
@@ -842,8 +842,8 @@ This section details all the other features and _commands_ available in SoConnec
 * [Calendar Window](#calendar-window-calendar)
 * [Exiting SoConnect](#exiting-soconnect-exit)
 * [Help Window](#help-window-help)
-* [Redo a _command_](#redo-a-_command_-redo)
-* [Undo a _command_](#undo-a-_command_-undo)
+* [Redo a _command_](#redo-a-command-redo)
+* [Undo a _command_](#undo-a-command-undo)
 
 #### Calendar Window: `calendar`
 
@@ -867,7 +867,7 @@ Shows a calendar of all the events.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-[Undo](#undo-a-_command_-undo) and [redo](#redo-a-_command_-redo) will not change the state of the calendar.
+[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will not change the state of the calendar.
 You should close the calendar window before performing any undo or redo operations.
 </div>
 
@@ -915,9 +915,9 @@ Restores SoConnect to a previously undone state from its history.
 
 Input | Expected Output
 --------|------------------
-[`edelete 1`](#deleting-an-event-edelete) followed by [`undo`](#undo-a-_command_-undo) then `redo` | First **restores the deleted event** in the event list. <br>Then `redo` will **delete the same event again**.
+[`edelete 1`](#deleting-an-event-edelete) followed by [`undo`](#undo-a-command-undo) then `redo` | First **restores the deleted event** in the event list. <br>Then `redo` will **delete the same event again**.
 
-_See Also: [Undo a command](#undo-a-_command_-undo)_
+_See Also: [Undo a command](#undo-a-command-undo)_
 
 
 #### Undo a _command_: `undo`
@@ -932,11 +932,11 @@ Input | Expected Output
 --------|------------------
 [`cadd n/John Doe e/john@gmail.com`](#adding-a-contact-cadd) followed by `undo` | **Removes the added** contact from the contact list.
 
-_See Also: [Redo a command](#redo-a-_command_-redo)_
+_See Also: [Redo a command](#redo-a-command-redo)_
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-[Undo](#undo-a-_command_-undo) and [redo](#redo-a-_command_-redo) will only work for _commands_ listed in the
+[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will only work for _commands_ listed in the
 [Contact Management](#contact-management) and [Event Management](#event-management) features section.
 
 _Commands_ listed in the [General](#general) section are not undoable.
@@ -1105,8 +1105,8 @@ Action | Format, Examples
 **[Calendar](#calendar-window-calendar)** | `calendar`
 **[Exit](#exiting-soconnect-exit)** | `exit`
 **[Help](#help-window-help)** | `help`
-**[Redo](#redo-a-_command_-redo)** | `redo`
-**[Undo](#undo-a-_command_-undo)** | `undo`
+**[Redo](#redo-a-command-redo)** | `redo`
+**[Undo](#undo-a-command-undo)** | `undo`
 
 ________________________________________________________________________________________________________________
 
