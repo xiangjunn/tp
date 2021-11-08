@@ -217,13 +217,13 @@ Step 6. A `CommandResult` with all newly marked contacts is returned and will be
 
 The following sequence diagram shows how the `elist` feature works for the example:
 
-//![CMarkSequenceDiagram](images/CMarkSequenceDiagram.png)
+![CMarkSequenceDiagram](images/CMarkSequenceDiagram.png)
 
 #### Activity Diagram
 
 The following activity diagram summarizes what happens when the `cmark` feature is triggered:
 
-//![CMarkActivityDiagram](images/CMarkActivityDiagram.png)
+![CMarkActivityDiagram](images/CMarkActivityDiagram.png)
 
 #### Design Considerations
 
@@ -232,9 +232,13 @@ The following activity diagram summarizes what happens when the `cmark` feature 
 * **Alternative implementation 1:** Not have command to mark contacts (current).
     * Pros: No need to implement this command and the corresponding parser, code base is prone to bugs.
     * Cons: User may have to scroll through or use `cfind` command to refer to contact(s) used frequently.
-* **Alternative implementation 2 (current choice):** CMarkCommand that does not place newly marked contacts at the top of the list.
+* **Alternative implementation 2:** CMarkCommand that does not place newly marked contacts at the top of the list.
   * Pros: Easier to implement as there is no need to keep track of which contacts are marked and the order in which they are marked.
   * Cons: While user can more easily find marked contacts than in the first alternative, they still have to scroll through the entire contact list to find the marked contact(s).
+* **Alternative implementation 3 (current choice):** CMmark replaces newly marked contacts at the top of the contact list.
+  * Pros: Easier for the users to differentiate the marked portion of the contact list from the unmarked portion.
+  * Cons: Harder to implement as there is a need to keep track of the order in which the contacts is marked and rearrange the contact list after each `cmark` command.
+
 
 **Aspect: Allowing users to specify more than one index:**
 
@@ -264,7 +268,7 @@ The `parse` method inside the `CUnmarkCommandParser` receives the user input, ex
 
 Given below is one example usage scenario and explains how the `cunmark` feature behaves at each step. You may also refer to the sequence diagram below.
 
-Step 1. The user enters `cunmark 4 5` to mark the fourth and fifth ***marked** contact displayed in the contact list. The arguments `4 5` are passed to the `CUnmarkCommandParser` through the `parse` method call.
+Step 1. The user enters `cunmark 4 5` to unmark the fourth and fifth ***marked** contact displayed in the contact list. The arguments `4 5` are passed to the `CUnmarkCommandParser` through the `parse` method call.
 
 Step 2. The user input `4 5` will be subjected to checks by `String#trim` to ensure that argument provided is not empty. `Parserutil#parseMarkIndexes` is used to create the list of `Index` from the argument. Examples of incorrect arguments include `` or `a @`.
 
@@ -281,32 +285,34 @@ Step 6. A `CommandResult` with all newly unmarked contacts is returned and will 
 
 The following sequence diagram shows how the `elist` feature works for the example:
 
-//![CUnmarkSequenceDiagram](images/CUnmarkSequenceDiagram.png)
+![CUnmarkSequenceDiagram](images/CUnmarkSequenceDiagram.png)
 
 #### Activity Diagram
 
-The following activity diagram summarizes what happens when the `cmark` feature is triggered:
+The following activity diagram summarizes what happens when the `cunmark` feature is triggered:
 
-//![CUnmarkActivityDiagram](images/CUnmarkActivityDiagram.png)
+![CUnmarkActivityDiagram](images/CUnmarkActivityDiagram.png)
 
 #### Design Considerations
 
-**Aspect: Marking of contacts:**
+**Aspect: Unmarking of contacts:**
 
 * **Alternative implementation 1:** Not have command to unmark contacts (current).
     * Pros: No need to implement this command and the corresponding parser, code base is prone to bugs.
-    * Cons: The list of marked contacts may grow and become to large for user to meaningfully use.
-* **Alternative implementation 2 (current choice):** CMarkCommand that does not replace newly unmarked contacts after all marked contacts.
+    * Cons: The list of marked contacts may grow and become too large for user to meaningfully use.
+* **Alternative implementation 2:** CUnmarkCommand that does not replace newly unmarked contacts after all marked contacts.
   * Pros: Easier to implement as there is no need to keep track of which the newly unmarked contacts.
   * Cons: The marked contacts will no longer be at the top of the contact list, users would still have to scroll through the entire list of unmark and marked contacts to find a specific marked contact(s).
-
+* **Alternative implementation 3 (current choice):** CUnmark replaces newly unmarked contacts below marked contacts.
+  * Pros: Easier for the users to differentiate the marked portion of the contact list from the unmarked portion.
+  * Cons: Harder to implement as there is a need to keep track of the order in which the contacts is unmarked and rearrange the contact list after each `cunmark` command.
+   
 
 **Aspect: Whether to allow users to specify more than one index:**
 
 * **Alternative implementation 1:** Only allow users to specify one `Index`.
-  * Pros: Easy to implement as the newly marked contacts is simply removed and added after all marked contacts.
-  * Cons: The user may want to unmark multiple contacts, which result in calling `cunmark` command multiple times.
-
+  * Pros: Easy to implement as the newly unmarked contacts is simply removed and added after all marked contacts.
+  * Cons: The user may want to unmark multiple contacts, which result in having to call `cunmark` command multiple times.
 * **Alternative implementation 2 (current choice):** Allow users to specify one or more `Index`(es).
   * Pros: This command is more efficient, users can now unmark more than one contacts at the same time, saving time from having to call `cunmark` repeatedly.
   * Cons: More code will have to be written in order to facilitate unmarking multiple contacts and ensuring they are rearranged in the correct order.
