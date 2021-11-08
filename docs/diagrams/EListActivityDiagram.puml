@@ -4,17 +4,17 @@
 start
 :User enters elist command in the command box;
 :EListCommandParser parses the command;
-if () then (arguements are valid)
+if () then ([valid arguments])
 
-  if () then (prefix present)
+  if () then ([prefix present])
     :set corresponding fields
            to be displayed;
 
-  else (no prefix present)
+  else ([no prefix present])
   :set all fields to display;
   endif
 
-else (false)
+else ([invalid arguments])
 :throw ParseException with invalid command
 format message and command usage;
 endif
