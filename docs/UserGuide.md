@@ -239,14 +239,14 @@ Icon | _Field_
 **![Event Icon](images/demo-screenshots/eventIcon.png)** | Linked Events
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*The bookmark icon is only visible when the contact has been marked.
+*The bookmark icon is only visible if the contact has been marked.
 _See also: [Marking a contact](#marking-a-contact-cmark)_
 
 
 ### Icons in Event List
 
 ![Event Card](images/demo-screenshots/eventCard.png)
-You will always find these 2 information of each contact displayed in SoConnect Event List:
+You will always find these 2 information of each event displayed in SoConnect Event List:
 1. Event Index
 2. Event Name
 
@@ -262,7 +262,7 @@ Icon | _Field_
 **![Contact Icon](images/demo-screenshots/contactsIcon.png)** | Linked Contacts
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*The bookmark icon is only visible when the event has been marked.
+*The bookmark icon is only visible if the event has been marked.
 _See also: [Marking an event](#marking-an-event-emark)_
 
 --------------------------------------------------------------------------------------------------------------------
@@ -320,7 +320,7 @@ Input | Expected Output
 
 #### Clearing all contacts: `cclear`
 
-Clears **all** contacts entries in SoConnect.
+Clears **all** entries of contacts in SoConnect.
 
 **Format:** `cclear`
 
@@ -334,17 +334,17 @@ This **will not change the events** saved in SoConnect.
 
 Deletes the specified contact(s) from SoConnect.
 
-**Format:** `cdelete INDEX[-INDEX]`
+**Format:** `cdelete INDEX1[-INDEX2]`
 
 * Deletes the contact(s):
-    * at the specified `INDEX` or
-    * between the specified range from the first `INDEX` to the second `INDEX2` inclusively (if you provide the second `INDEX`).
-* `INDEX` refers to the index number shown in the displayed contact list.
+    * at the specified `INDEX1` or
+    * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
+* `INDEX1` and `INDEX2` refer to the index number shown in the displayed contact list.
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-* `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
-* `INDEX` must **not be greater** than the **number of contacts** in the contact list.
+* `INDEX1` and `INDEX2` **must be a positive integer**. e.g. 1, 2, 3, …
+* `INDEX1` and `INDEX2` must **not be greater** than the **number of contacts** in the contact list.
 </div>
 
 **Examples:**
@@ -353,7 +353,7 @@ Input | Expected Output
 --------|------------------
 [`clist`](#listing-all-contacts-clist) followed by `cdelete 2` | Deletes the second contact in the contact list. <br><br> You should see these messages in the message box: <br> 1. After `clist`: `Listed all contacts` <br> 2. After `cdelete 2`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
 [`cfind Bernice`](#finding-contacts-cfind) followed by `cdelete 1` | Deletes the first contact in the **results of the `cfind` _command_**. <br><br> You should see these messages in the message box: <br> 1. After `cfind Bernice`: `1 contacts listed!` <br> 2. After `cdelete 1`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
-[`cdelete 3-5`](#deleting-a-contact-cdelete) | Deletes contacts from indexes 3 to 5 (inclusive) from the **currently displayed** contact list. <br><br> You should see these messages in the message box:<br>`Deleted Contact: Charlotte Oliveiro; Email: charlotte@example.com Deleted Contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T] Deleted Contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates]`
+`cdelete 3-5` | Deletes contacts from indexes 3 to 5 (inclusive) from the **currently displayed** contact list. <br><br> You should see these messages in the message box:<br>`Deleted Contact: Charlotte Oliveiro; Email: charlotte@example.com Deleted Contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T] Deleted Contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates]`
 
 
 #### Editing a contact: `cedit`
@@ -367,7 +367,7 @@ Edits an **existing** contact in SoConnect.
 * You must provide **at least one** of the optional _fields_.
 * The input values you provide will be used to update the existing values.
 * You can use `t/` to add a tag.
-* You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
+* You can remove a specific tag by typing `dt/` followed by the name of the tag that you wish to remove.
 * You can remove all existing tags of a contact by typing `dt/*`.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
@@ -432,7 +432,7 @@ Shows **all contacts** in the SoConnect, with all available details by default.
 **Format:** `clist [e/] [p/] [a/] [th/] [z/] [t/]`
 
 * Names of contacts are always shown.
-* If you do not provide any optional _prefixes_ are provided, e.g `clist`, all available details of each contact will be shown.
+* If you do not provide any optional _prefixes_, e.g `clist`, all available details of each contact will be shown.
 * If you provide optional _prefixes_, it will only show the names and the _fields_ corresponding to specified _prefixes_ for each contact.
 * You can provide more than one optional _prefix_.
 * You can specify the optional _prefix_ **in any order**. e.g. both `clist e/ p/` and `clist p/ e/` will show only the names, email addresses and phone numbers of each contact.
@@ -594,9 +594,10 @@ Deletes the specified event(s) from SoConnect.
     * between the specified range from `INDEX1` to `INDEX2` inclusively (if you provide `INDEX2`).
 * `INDEX1` and `INDEX2` refer to the index numbers shown in the displayed event list.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
-`INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
+* `INDEX1` and `INDEX2` **must be a positive integer**. e.g. 1, 2, 3, …
+* `INDEX1` and `INDEX2` must **not be greater** than the **number of events** in the event list.
 </div>
 
 **Examples:**
@@ -623,7 +624,7 @@ You must provide **at least one** of the optional _fields_.
 * `INDEX` refers to the index number shown in the displayed event list.
 * Existing values will be updated to the input values.
 * You can use `t/` to add a tag.
-* You can remove a specific tag by typing `dt/` followed by the tag name that you wish to remove.
+* You can remove a specific tag by typing `dt/` followed by the name of the tag that you wish to remove.
 * You can remove all existing tags of an event by typing `dt/*`.
 * When editing tags, the tags to be deleted will be removed first, before new tags are added.
 
@@ -1085,7 +1086,7 @@ Action | Format, Examples
 --------|------------------
 **[Add](#adding-an-event-eadd)** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
 **[Clear](#clearing-all-events-eclear)** | `eclear`
-**[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
+**[Delete](#deleting-an-event-edelete)** | `edelete INDEX1[-INDEX2]`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/CCA t/Hard` <br> e.g., `eedit 3 dt/*`
 **[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind meet` <br> e.g., `efind t/CS2103T Intern`
 **[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2`
