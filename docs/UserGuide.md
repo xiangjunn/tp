@@ -61,7 +61,7 @@ There are only 3 different parts of inputs within each _command_:
 
    For example, if you use `n/`, SoConnect will recognise that the information following this _prefix_ should be a **name**.
 
-You may view the entire list of _commands_ that you can type in SoConnect [here](#Features).
+You may view the entire list of _commands_ that you can type in SoConnect [here](#features).
 
 <div markdown="block" class="alert alert-info">
 
