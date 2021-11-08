@@ -20,14 +20,14 @@ import seedu.address.model.contact.Contact;
 public class CDeleteCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "cdelete";
-    public static final String PARAMETERS = "INDEX[-INDEX]\n";
+    public static final String PARAMETERS = "INDEX1[-INDEX2]";
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list."
-            + " Parameters: " + PARAMETERS
-            + "Note: index must be a positive integer and first index must be smaller than or equal to second"
-            + " index if the optional second index is included)\n"
+            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
+            + "Parameters: " + PARAMETERS + " (both indexes must be a positive integer)\n"
+            + "Note: index must be a positive integer and INDEX1 must be smaller than or equal to INDEX2"
+            + " if the optional INDEX2 is included)\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 

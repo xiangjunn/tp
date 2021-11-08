@@ -157,7 +157,8 @@ public class EventCard extends UiPart<Region> {
             linkToContact.setManaged(true);
             linkToContact.setVisible(true);
             links.setManaged(true);
-            linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+            linkToContact.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+            links.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
         }
         if (event.getIsMarked()) {
             favourite.setManaged(true);

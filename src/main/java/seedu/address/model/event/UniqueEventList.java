@@ -10,7 +10,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
@@ -21,7 +20,7 @@ import seedu.address.model.event.exceptions.InvalidDateTimeRangeException;
  * events uses Event#isSameEvent(Event) for equality so as to ensure that the event being added or updated is
  * unique in terms of event name in the UniqueEventList. However, the removal of an event uses Event#equals(Object) so
  * as to ensure that the event with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Event#isSameEvent(Event)
@@ -30,7 +29,7 @@ public class UniqueEventList implements Iterable<Event> {
 
     private final ObservableList<Event> internalList = FXCollections.observableArrayList();
     private final ObservableList<Event> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent event as the given argument.
@@ -122,29 +121,21 @@ public class UniqueEventList implements Iterable<Event> {
     /**
      * Moves marked events to the top of the list.
      * Places the newly marked events or replaces newly unmarked events
-     * in the order specified in {@code indexes} and
+     * in the order specified in {@code events} and
      * based on {@code isMarked} which signals whether this method is called by
      * EMarkCommand or otherwise.
      */
-    public void rearrangeEventsInOrder(List<Index> indexes, boolean isMarked) {
+    public void rearrangeEventsInOrder(List<Event> events, boolean isMarked) {
         ObservableList<Event> tempList = FXCollections.observableArrayList();
         if (isMarked) {
-            indexes.forEach(index -> tempList.add(internalList.get(index.getZeroBased())));
-            internalUnmodifiableList.forEach(event -> {
-                if (!tempList.contains(event)) {
-                    tempList.add(event);
-                }
-            });
-            internalList.removeAll(internalUnmodifiableList);
-            internalList.addAll(tempList);
+            tempList.addAll(events);
+            tempList.addAll(internalList.filtered(event -> !events.contains(event)));
         } else {
-            internalList.filtered(event -> event.getIsMarked()).forEach(event -> tempList.add(event));
-            indexes.forEach(index -> tempList.add(internalList.get(index.getZeroBased())));
-            internalList.filtered(event -> !event.getIsMarked() && !tempList.contains(event))
-                    .forEach(event -> tempList.add(event));
-            internalList.removeAll(internalUnmodifiableList);
-            internalList.addAll(tempList);
+            tempList.addAll(internalList.filtered(Event::getIsMarked));
+            tempList.addAll(internalList.filtered(e -> !e.getIsMarked()));
         }
+        internalList.clear();
+        internalList.addAll(tempList);
     }
 
     /**
@@ -158,6 +149,7 @@ public class UniqueEventList implements Iterable<Event> {
 
     /**
      * Create a copy of a uniqueEventList
+     *
      * @return a copy of a uniqueEventList
      */
     public ObservableList<Event> copy() {
@@ -180,7 +172,7 @@ public class UniqueEventList implements Iterable<Event> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueEventList // instanceof handles nulls
+            || (other instanceof UniqueEventList // instanceof handles nulls
                 && internalList.equals(((UniqueEventList) other).internalList));
     }
 

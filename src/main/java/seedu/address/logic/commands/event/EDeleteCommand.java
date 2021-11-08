@@ -26,8 +26,10 @@ public class EDeleteCommand extends Command implements Undoable {
     public static final String SYNTAX = COMMAND_WORD + " " + PARAMETERS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the event identified by the index number used in the displayed SoConnect.\n"
+            + ": Deletes the event identified by the index number used in the displayed event list.\n"
             + "Parameters: " + PARAMETERS + " (both indexes must be a positive integer)\n"
+            + "Note: index must be a positive integer and INDEX1 must be smaller than or equal to INDEX2"
+            + " if the optional INDEX2 is included)\n"
             + "Example 1: " + COMMAND_WORD + " 1\n"
             + "Example 2: " + COMMAND_WORD + " 2-5";
 

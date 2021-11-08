@@ -26,7 +26,7 @@ activate ELinkCommandParser
 ELinkCommandParser --> AddressBookParser
 deactivate ELinkCommandParser
 
-AddressBookParser -> ELinkCommandParser : parse("elink 1 c/1 c/2 c/3")
+AddressBookParser -> ELinkCommandParser : parse("1 c/1 c/2 c/3")
 activate ELinkCommandParser
 
 create ELinkCommand

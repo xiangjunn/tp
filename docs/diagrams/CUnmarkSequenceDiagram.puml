@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CUnmarkCommandParser" as CUnmarkCommandParser LOGIC_COLOR
+participant "c:CUnmarkCommand" as CUnmarkCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Contact" as Contact MODEL_COLOR
+end box
+
+[-> LogicManager : execute("cunmark 4 5")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("cunmark 4 5")
+activate AddressBookParser
+
+create CUnmarkCommandParser
+AddressBookParser -> CUnmarkCommandParser
+activate CUnmarkCommandParser
+
+CUnmarkCommandParser --> AddressBookParser
+deactivate CUnmarkCommandParser
+
+AddressBookParser -> CUnmarkCommandParser : parse("4 5")
+activate CUnmarkCommandParser
+
+create CUnmarkCommand
+CUnmarkCommandParser -> CUnmarkCommand
+activate CUnmarkCommand
+
+CUnmarkCommand --> CUnmarkCommandParser : c
+deactivate CUnmarkCommand
+
+CUnmarkCommandParser --> AddressBookParser : c
+deactivate CUnmarkCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CUnmarkCommandParser -[hidden]-> AddressBookParser
+destroy CUnmarkCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> CUnmarkCommand : execute()
+activate CUnmarkCommand
+
+CUnmarkCommand -> Model : getFilteredContactList()
+activate Model
+Model --> CUnmarkCommand
+deactivate Model
+
+loop 2 times
+    CUnmarkCommand -> Contact : getIsMarked()
+    activate Contact
+
+    Contact --> CUnmarkCommand : isMarked
+    deactivate Contact
+
+alt isMarked
+    CUnmarkCommand -> Contact : unmarkContact()
+    activate Contact
+
+    Contact --> CUnmarkCommand
+    deactivate Contact
+
+    CUnmarkCommand -> Model : setContact()
+    activate Model
+
+    Model --> CUnmarkCommand
+    deactivate Model
+end
+end
+
+CUnmarkCommand -> Model : rearrangeContactsInOrder()
+activate Model
+
+Model --> CUnmarkCommand
+deactivate
+
+@enduml

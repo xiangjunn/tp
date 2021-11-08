@@ -14,6 +14,7 @@ public class CMarkCommandParser implements Parser<CMarkCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the CMarkCommand
      * and returns a CMarkCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public CMarkCommand parse(String args) throws ParseException {
@@ -25,7 +26,7 @@ public class CMarkCommandParser implements Parser<CMarkCommand> {
             return new CMarkCommand(indexes);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CMarkCommand.MESSAGE_USAGE), pe);
+                String.format(pe.getMessage(), CMarkCommand.MESSAGE_USAGE), pe);
         }
     }
 }

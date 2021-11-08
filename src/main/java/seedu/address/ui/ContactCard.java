@@ -167,7 +167,8 @@ public class ContactCard extends UiPart<Region> {
 
         }
 
-        linksHBox.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+        linkToEvent.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
+        links.addEventHandler(MouseEvent.MOUSE_CLICKED, this::toggleShowLinks);
 
         if (contact.getIsMarked()) {
             favourite.setManaged(true);

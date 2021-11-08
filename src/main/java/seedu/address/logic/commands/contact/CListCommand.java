@@ -35,6 +35,7 @@ public class CListCommand extends Command implements Undoable {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all the contacts on the screen with all"
         + " details by default.\n"
         + "Include optional parameters to filter details.\n"
+        + "Parameters should not be followed by any values.\n" //added this to warn users not to add any values.
         + "Parameters: "
         + PARAMETERS
         + "Example: " + COMMAND_WORD + " " + PREFIX_EMAIL + " " + PREFIX_ZOOM;

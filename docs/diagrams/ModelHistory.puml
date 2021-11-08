@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR_T4
+skinparam classBackgroundColor MODEL_COLOR
+
+package Model {
+    Class ModelManager
+    Class ModelHistory
+    Class HistoryInstance
+    Class AddressBook
+    class ModelDisplaySetting
+}
+
+ModelManager -> ModelHistory
+ModelHistory -down-> HistoryInstance
+HistoryInstance -down-> AddressBook
+HistoryInstance -down-> ModelDisplaySetting
+
+@enduml

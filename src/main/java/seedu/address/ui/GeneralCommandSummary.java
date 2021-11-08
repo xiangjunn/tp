@@ -82,7 +82,7 @@ public class GeneralCommandSummary {
                 new GeneralCommandSummary(CALENDAR, CalendarCommand.SYNTAX),
                 new GeneralCommandSummary(EXIT, ExitCommand.SYNTAX),
                 new GeneralCommandSummary(HELP, HelpCommand.SYNTAX),
-                new GeneralCommandSummary(UNDO, UndoCommand.SYNTAX),
-                new GeneralCommandSummary(REDO, RedoCommand.SYNTAX));
+                new GeneralCommandSummary(REDO, RedoCommand.SYNTAX),
+                new GeneralCommandSummary(UNDO, UndoCommand.SYNTAX));
     }
 }
