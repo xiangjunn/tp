@@ -305,7 +305,7 @@ Adds a contact to SoConnect.
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 * A contact can have any number of tags (including 0)
-* You **cannot** add a contact with the same name as an existing contact.
+* You **cannot** add a contact with the **same name** as an existing contact.
 </div>
 
 **Examples:**
@@ -375,7 +375,7 @@ Edits an **existing** contact in SoConnect.
 
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 * `INDEX` must **not be greater** than the **number of contacts** in the contact list.
-* You **cannot** edit a contact to the same name as an existing contact.
+* You **cannot** edit a contact to the **same name** as an existing contact.
 </div>
 
 **Examples:**
@@ -554,7 +554,7 @@ Adds an event to SoConnect.
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 * An event can have any number of tags (including 0)
-* You **cannot** add an event with the same name as an existing event.
+* You **cannot** add an event with the **same name** as an existing event.
 </div>
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:**
@@ -633,7 +633,7 @@ You must provide **at least one** of the optional _fields_.
 * `INDEX` **must be a positive integer**. e.g. 1, 2, 3, …
 * Start time and End Time should be of format **dd-MM-yyyy HH:mm** (date-MONTH-year HOUR:minute in 24-hour format).
 * End Time should be **chronologically after** the Start Time.
-* You **cannot** edit an event to the same name as an existing event.
+* You **cannot** edit an event to the **same name** as an existing event.
 </div>
 
 **Examples:**
