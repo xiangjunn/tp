@@ -3,21 +3,21 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
+'skinparam linetype ortho
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class CalendarWindow
-Class ResultDisplay
 Class ContactListPanel
 Class EventListPanel
 Class ContactCard
 Class EventCard
-Class StatusBarFooter
-Class CommandBox
+package OtherUiComponents <<Rectangle>> {
+Class HiddenComponent #FFFFFF
+}
 }
 
 package Model <<Rectangle>> {
@@ -34,38 +34,30 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
-MainWindow *-left->  "1" CommandBox
-MainWindow *-down-> "1" ResultDisplay
-MainWindow *-right-> "1" ContactListPanel
-MainWindow *-right-> "1" EventListPanel
-MainWindow *-left-> "1" StatusBarFooter
-MainWindow --> "0..1" HelpWindow
-MainWindow --> "0..1" CalendarWindow
+Ui -[hidden]---> OtherUiComponents
+MainWindow *--> OtherUiComponents
+MainWindow *--> "1" ContactListPanel
+MainWindow *--> "1" EventListPanel
+MainWindow *--> "0..1" CalendarWindow
 
 ContactListPanel -down-> "*" ContactCard
 EventListPanel -down-> "*" EventCard
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
 ContactListPanel --|> UiPart
 EventListPanel --|> UiPart
 ContactCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
+EventCard --|> UiPart
 CalendarWindow --|> UiPart
+OtherUiComponents --|> UiPart
 
 ContactCard ..> Contact
 EventCard ..> Event
-CalendarWindow --> "*" Event : calendar of >
+CalendarWindow --> Event : calendar of >
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-ContactListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
-
-MainWindow -[hidden]-|> UiPart
+'MainWindow -[hidden]-|> UiPart
+ContactListPanel -[hidden]left- EventListPanel
 @enduml

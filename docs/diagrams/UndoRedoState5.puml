@@ -3,19 +3,23 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "eclear"
+title 5b. After command "eclear"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab3:AddressBook__"
+package ModelHistory {
+    class State1 as "__hi0:HistoryInstance__"
+    class State2 as "__hi1:HistoryInstance__"
+    class State3 as "__hi2:HistoryInstance__" #807f7d
+    class State4 as "__hi3:HistoryInstance__"
 }
 
 State1 -[hidden]right-> State2
-State2 -[hidden]right-> State3
+State2 -[hidden]right-> State4
+State4 -[hidden]right-> State3
 
-class Pointer as "Current State" #FFF
+class Pointer1 as "Current Size" #FFF
+Pointer1 -up-> State4
+class Pointer2 as "Max Size" #FFF
+Pointer2 -up-> State4
 
-Pointer -up-> State3
-note right on link: State ab2 deleted.
+note right on link: State hi2 cannot be accessed.
 @end
