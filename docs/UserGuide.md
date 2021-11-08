@@ -23,7 +23,7 @@ full range of features it offers.
 
 ## How to use SoConnect User Guide
 
-* You can click on the titles in the Table of Contents to jump the section that you are interested in.
+* You can click on the titles in the Table of Contents to jump to the section that you are interested in.
 * You will find these icons in this user guide:
     * **:bulb: Tip** provides additional information that might be useful to you.
     * **:information_source: Note** provides supplementary information that helps you to understand this User Guide.
@@ -68,7 +68,7 @@ You may view the entire list of _commands_ that you can type in SoConnect [here]
 **:information_source: About the _Command_ format:**<br>
 
 * Words in `UPPER_CASE` are the _parameters_ that you should provide.<br>
-  e.g. in `cadd n/NAME`, `NAME` is a _parameter_ which can be used as `cadd n/John Doe`.
+  e.g. in `cadd n/NAME`, `NAME` is a _parameter_ that can be used as `cadd n/John Doe`.
 
 * _Fields_ in **square brackets** are **optional**.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -76,7 +76,7 @@ You may view the entire list of _commands_ that you can type in SoConnect [here]
 * _Fields_ with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family`, etc.
 
-* Each pair of _prefix_ and _parameter_ can be in any order.<br>
+* Each pair of _prefixes_ and _parameters_ can be in any order.<br>
   e.g. if the _command_ specifies `n/NAME [p/PHONE_NUMBER]`, `[p/PHONE_NUMBER] n/NAME` is also acceptable.
 
 * If a _parameter_ is expected only once in the _command_, but you specify it multiple times, **only the last occurrence** of the _parameter_ will be taken (unless otherwise stated).<br>
@@ -118,11 +118,11 @@ SoConnect will tell you that the _Command Format_ is invalid.
 --------------------------------------------------------------------------------------------------------------------
 ## Quick start
 
-1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed in your Computer.
+1. Ensure you have [Java 11](https://www.oracle.com/java/technologies/downloads/) or above installed on your computer.
 
    <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-   [Here](https://www.java.com/en/download/help/version_manual.html) is how you can check the Java Version installed in your Computer.
+   [Here](https://www.java.com/en/download/help/version_manual.html) is how you can check the Java Version installed on your computer.
    </div>
 
 2. Download the latest `soconnect.jar` from [here](https://github.com/AY2122S1-CS2103T-W15-3/tp/releases).
@@ -176,7 +176,7 @@ This is what you will see when you open SoConnect!
 
 1. **Menu Bar**
 
-   The menu Bar consists of 2 tabs: `File` and `Help`.
+   The Menu Bar consists of 2 tabs: `File` and `Help`.
 
    Upon clicking `File`, you can choose to:
     1. **Exit** SoConnect
@@ -188,7 +188,7 @@ This is what you will see when you open SoConnect!
     Click the following links to see how to [exit SoConnect](#exiting-soconnect-exit) and [open the calendar](#calendar-window-calendar) using _commands_.
     </div> <br>
 
-   Upon clicking `Help`, you can choose to open **Help Window** of SoConnect.
+   Upon clicking `Help`, you can choose to open the **Help Window** of SoConnect.
    ![Help Tab](images/demo-screenshots/helpTab.png)
 
     <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -271,7 +271,7 @@ _See also: [Marking an event](#marking-an-event-emark)_
 
 There are three main sections to SoConnect Features:
 [Contact Management](#contact-management),
-[Event Management](#event-management) and
+[Event Management](#event-management), and
 [General](#general).
 
 For each feature, you are provided with:
@@ -353,7 +353,7 @@ Input | Expected Output
 --------|------------------
 [`clist`](#listing-all-contacts-clist) followed by `cdelete 2` | Deletes the second contact in the contact list. <br><br> You should see these messages in the message box: <br> 1. After `clist`: `Listed all contacts` <br> 2. After `cdelete 2`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
 [`cfind Bernice`](#finding-contacts-cfind) followed by `cdelete 1` | Deletes the first contact in the **results of the `cfind` _command_**. <br><br> You should see these messages in the message box: <br> 1. After `cfind Bernice`: `1 contacts listed!` <br> 2. After `cdelete 1`: `Deleted Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]`
-[`cdelete 3-5`](#deleting-a-contact-cdelete) | Deletes contacts from indexes 3 to 5 (inclusive) in the **currently displayed** contact list. <br><br> You should see these messages in the message box:<br>`Deleted Contact: Charlotte Oliveiro; Email: charlotte@example.com Deleted Contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T] Deleted Contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates]`
+[`cdelete 3-5`](#deleting-a-contact-cdelete) | Deletes contacts from indexes 3 to 5 (inclusive) from the **currently displayed** contact list. <br><br> You should see these messages in the message box:<br>`Deleted Contact: Charlotte Oliveiro; Email: charlotte@example.com Deleted Contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T] Deleted Contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates]`
 
 
 #### Editing a contact: `cedit`
@@ -382,8 +382,8 @@ Edits an **existing** contact in SoConnect.
 
 Input | Expected Output
 --------|------------------
-`cedit 2 p/91234567 e/agentX@thehightable.com` | Edits the **phone number** and **email address** of the second contact in **currently displayed** contact list to be `91234567` and `agentX@thehightable.com` respectively. <br> <br>You should see this message in the message box:<br> `Edited Contact: Bernice Yu; Email: agentX@thehightable.com; Phone: 91234567; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should also the following changes: ![Edit Contact 1](images/demo-screenshots/ceditEx1.png)
-`cedit 1 n/Betsy Crower dt/*` | Edits the **name** of the first contact in **currently displayed** contact list to be `Betsy Crower` and **clears all existing tags**. <br><br>You should see this message in your message box: `Edited Contact: Betsy Crower; Email: alexyeoh@example.com; Phone: 87438807; Address: Blk 30 Geylang Street 29, #06-40; Telegram: yeoh_alex` <br><br> You should also see the following changes: ![Edit Contact 2](images/demo-screenshots/ceditEx2.png)
+`cedit 2 p/91234567 e/agentX@thehightable.com` | Edits the **phone number** and **email address** of the second contact in the **currently displayed** contact list to be `91234567` and `agentX@thehightable.com` respectively. <br> <br>You should see this message in the message box:<br> `Edited Contact: Bernice Yu; Email: agentX@thehightable.com; Phone: 91234567; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should also the following changes: ![Edit Contact 1](images/demo-screenshots/ceditEx1.png)
+`cedit 1 n/Betsy Crower dt/*` | Edits the **name** of the first contact in the **currently displayed** contact list to be `Betsy Crower` and **clears all existing tags**. <br><br>You should see this message in your message box: `Edited Contact: Betsy Crower; Email: alexyeoh@example.com; Phone: 87438807; Address: Blk 30 Geylang Street 29, #06-40; Telegram: yeoh_alex` <br><br> You should also see the following changes: ![Edit Contact 2](images/demo-screenshots/ceditEx2.png)
 
 
 #### Finding contacts: `cfind`
@@ -404,7 +404,7 @@ There are **two** types of contact searches you can do in SoConnect:
    SoConnect will search the emails and phone numbers of the contacts using `KEYWORD1` and `KEYWORD2` respectively.
 </div>
 
-* You must to provide **at least one keyword**.
+* You must provide **at least one keyword**.
 * You can provide multiple keywords without specifying any optional _fields_ e.g. `cfind John David`.
 * You can only **specify each optional _field_ once**.
 * You can the keywords **in any order**. e.g. Both `Hans Bo` and `Bo Hans` will return the same result.
@@ -470,8 +470,8 @@ Marks the specified contact(s).
 
 Input | Expected Output
 --------|------------------
-`cmark 2` | Marks the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` **pinned to the top** of your contact list with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx1.png)
-`cmark 4 5` | Marks the fourth and fifth contacts of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Marked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` **pinned to the top** of your contact list in that order with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx2.png)
+`cmark 2` | Marks the second contact of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` **pinned to the top** of your contact list with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx1.png)
+`cmark 4 5` | Marks the fourth and fifth contacts of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Marked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` **pinned to the top** of your contact list in that order with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx2.png)
 
 _See also: [Unmarking a contact](#removing-mark-of-a-contact-cunmark)_
 
@@ -524,7 +524,7 @@ Views a contact with all details fully shown.
 
 Input | Expected Output
 --------|------------------
-`cview 2` | Shows all details of the second contact of **currently displayed** in SoConnect **fully**. <br> You should see this message in the message box:<br> `Viewing Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see this change of your **viewed** contact: ![View Contact](images/demo-screenshots/cviewEx.png)
+`cview 2` | Shows all details of the second contact of the **currently displayed** in SoConnect **fully**. <br> You should see this message in the message box:<br> `Viewing Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see this change of your **viewed** contact: ![View Contact](images/demo-screenshots/cviewEx.png)
 
 
 ### Event Management
@@ -639,7 +639,7 @@ You must provide **at least one** of the optional _fields_.
 
 Input | Expected Output
 --------|------------------
-`eedit 2 n/CS2103T Exam dt/CCA t/Hard` | Changes the name of the second event from **currently displayed** event list to `CS2103T Exam`, deletes the tag `CCA` and adds the tag `Hard`. <br><br> You should see this message in the message box: <br> `Edited Event: CS2103T Exam; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [Recurring][Hard]` <br><br> You should also see these changes: ![Edit Event](images/demo-screenshots/eeditEx.png)
+`eedit 2 n/CS2103T Exam dt/CCA t/Hard` | Changes the name of the second event in the **currently displayed** event list to `CS2103T Exam`, deletes the tag `CCA` and adds the tag `Hard`. <br><br> You should see this message in the message box: <br> `Edited Event: CS2103T Exam; Start: 01-11-2021 20:00; End: 01-11-2021 21:00; Description: Meeting every week; Address: NUS Sport Centre; Tags: [Recurring][Hard]` <br><br> You should also see these changes: ![Edit Event](images/demo-screenshots/eeditEx.png)
 
 
 
@@ -663,7 +663,7 @@ There are two types of event searches you can do in SoConnect:
 * You need to provide **at least one keyword**.
 * You can provide multiple keywords without specifying any _prefixes_.
 * You can only **specify each optional _field_ once**.
-* Partial words can be matched e.g. `Exa` will match `CS2103T Exam` .
+* Partial words can be matched e.g. `Exa` will match `CS2103T Exam`.
 * Events matching at least one keyword will be returned.
   e.g. `Exam Hard` will return `Hard Exam`, `CS1101S Exams`.
 
@@ -699,7 +699,7 @@ Links the specified event to one or more contacts.
 
 Input | Expected Output
 --------|------------------
-`elink 2 c/1 c/2` | Links the second event in the from the **currently displayed** event list to contacts with index **1 and 2** in the **currently displayed** contact list. <br><br>You should see this in your SoConnect: ![Link](images/demo-screenshots/elinkEx.png)
+`elink 2 c/1 c/2` | Links the second event in the **currently displayed** event list to the contacts with index **1 and 2** in the **currently displayed** contact list. <br><br>You should see this in your SoConnect: ![Link](images/demo-screenshots/elinkEx.png)
 
 _See Also: [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)_
 
@@ -928,7 +928,7 @@ Restores SoConnect to its previous state from its history.
 
 Input | Expected Output
 --------|------------------
-[`cadd n/John Doe e/john@gmail.com`](#adding-a-contact-cadd) followed by `undo` | **Removes the added** contact from contact list.
+[`cadd n/John Doe e/john@gmail.com`](#adding-a-contact-cadd) followed by `undo` | **Removes the added** contact from the contact list.
 
 _See Also: [Redo a command](#redo-a-command-redo)_
 
@@ -955,7 +955,7 @@ SoConnect data are saved as a _JSON file_ `[JAR file location]/data/soconnect.js
 Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, 
+If your changes to the data file make its format invalid, 
 SoConnect will discard all data and start with an empty data file at the next run.
 </div>
 
@@ -1112,13 +1112,13 @@ ________________________________________________________________________________
 
 Word | Explanation
 --------|------------------
-**Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**.
+**Command Line Interface (CLI)** | Text-based application where users interact with the application by **typing in texts/ commands**.
 **Command** | A string of words and characters you type to perform an action, each command has its own **_Command format_**.
 **Command Format** | The structure that a _command_ must abide by for it to be executed.
 **Parameter(s)** | Information supplied by the user to the application when executing certain _commands_.
 **Prefix** | A tag, consisting of a slash - "/", with one or a few characters to denote information about a certain **_field_**.
 **Field(s)** | The information type within each contact or event <br> For example, **Name** and **Address** of a contact are _fields_ of a contact.
 **Graphical User Interface (GUI)** | How the application appears to the user on his/her screen.
-**Hard Disk** | Device in computer that is specialised in storing data permanently.
-**Home Folder** | Folder which the application file is saved in the computer.
+**Hard Disk** | Device in a computer that is specialized in storing data permanently.
+**Home Folder** | Folder which the application file is saved on the computer.
 **JavaScript Object Notation (JSON) File** | The file that is used by the application to load and save data of the application in a human-readable format.
