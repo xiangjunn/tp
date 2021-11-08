@@ -1266,10 +1266,10 @@ Prerequisites: At least one event in the list.
 2. Test case: `elink 2 c/1 c/2 c/3`<br>
    Expected: The event at index `2` is linked to each of the contacts at indexes `1`, `2` and `3`.
 
-3. Test case: `elink * c/1` (where x is an index larger than the event list size)<br>
+3. Test case: `elink x c/1` (where x is an index larger than the event list size)<br>
    Expected: No change in display. Error details displayed in the status message.
 
-3. Test case: `elink 1 c/*` (where x is an index larger than the contact list size)<br>
+3. Test case: `elink 1 c/x` (where x is an index larger than the contact list size)<br>
    Expected: No change in display. Error details displayed in the status message.
 
 4. Other incorrect `elink` commands to try: `elink`, `elink 1`, `elink c/1`<br>
