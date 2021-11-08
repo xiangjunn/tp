@@ -14,18 +14,14 @@ public class EMarkCommandParser implements Parser<EMarkCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EMarkCommand
      * and returns a EMarkCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EMarkCommand parse(String args) throws ParseException {
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EMarkCommand.MESSAGE_USAGE));
         }
-        try {
-            List<Index> indexes = ParserUtil.parseMarkIndexes(args);
-            return new EMarkCommand(indexes);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EMarkCommand.MESSAGE_USAGE), pe);
-        }
+        List<Index> indexes = ParserUtil.parseMarkIndexes(args);
+        return new EMarkCommand(indexes);
     }
 }
