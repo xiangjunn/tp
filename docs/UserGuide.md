@@ -29,7 +29,7 @@ full range of features it offers.
     * **:information_source: Note** provides supplementary information that helps you to understand this User Guide.
     * **:exclamation: Caution** cautions you against certain actions that will lead to undesirable consequences.
 * You can find explanations of _italicized_ words in the [Glossary](#glossary).
-* You can refer to the [Command Summary](#command-summary) for a complete overview of all SoConnect features and _commands_.
+* You can refer to the [Command Summary](#_command_-summary) for a complete overview of all SoConnect features and _commands_.
 
 
 ### How to read _commands_ in SoConnect
@@ -57,7 +57,7 @@ There are only 3 different parts of inputs within each _command_:
 
    The *prefix* separates the different types of *parameters*.
 
-   Each _prefix_ always ends with a `/`. See the [list of _prefixes_](#list-of-prefixes) for all the _prefixes_ that you can use in SoConnect.
+   Each _prefix_ always ends with a `/`. See the [list of _prefixes_](#list-of-_prefixes_) for all the _prefixes_ that you can use in SoConnect.
 
    For example, if you use `n/`, SoConnect will recognise that the information following this _prefix_ should be a **name**.
 
@@ -165,7 +165,7 @@ SoConnect will tell you that the _Command Format_ is invalid.
 
 6. Refer to the [Features](#features) below for details of each _command_.
 
-_See also: [What happens if my command is invalid](#what-happens-if-my-command-is-invalid)_
+_See also: [What happens if my command is invalid](#what-happens-if-my-_command_-is-invalid)_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -203,7 +203,7 @@ This is what you will see when you open SoConnect!
 
    This is where the message from SoConnect is displayed after you have executed one _command_.
 
-   _See Also: [What happens if my command is invalid?](#what-happens-if-my-command-is-invalid)_
+   _See Also: [What happens if my command is invalid?](#what-happens-if-my-_command_-is-invalid)_
 
 5. **Contact List**
 
@@ -497,8 +497,8 @@ Unmarks the specified contact(s).
 
 Input | Expected Output
 --------|------------------
-`cunmark 1` | Unmarks the first contact of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` moved to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx1.png)
-`cunmark 1 2` | Unmarks the first and second contact of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Unmarked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` moved in that order to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx2.png)
+[`cmark 2 3`](#marking-a-contact-cmark) followed by `cunmark 1` | Unmarks the first contact of the **currently displayed** contact list in SoConnect. <br><br> You should see these messages in the message box:<br> 1. After `cmark 2 3`: `Marked contact: Charlotte Oliveiro; Email: charlotte@example.com Marked contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br> 2. After `cunmark 1`: `Unmarked contact: Charlotte Oliveiro; Email: charlotte@example.com` <br><br> You should see `Charlotte Oliveiro` moved to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx1.png)
+[`cmark 1 2 3`](#marking-a-contact-cmark) followed by `cunmark 1 2` | Unmarks the first and second contact of the **currently displayed** contact list in SoConnect. <br><br> You should see these messages in the message box:<br> 1. After `cmark 1 2 3`: `Marked contact: Charlotte Oliveiro; Email: charlotte@example.com Marked contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends] Marked contact: Alex Yeoh; Email: alexyeoh@example.com; Phone: 87438807; Address: Blk 30 Geylang Street 29, #06-40; Telegram: yeoh_alex; Tags: [friends]` <br> 2. After `cunmark 1 2`: `Unmarked contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends] Unmarked contact: Charlotte Oliveiro; Email: charlotte@example.com` <br><br> You should see `Bernice Yu` and `Charlotte Oliveiro` moved to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx2.png)
 
 _See also: [Marking a contact](#marking-a-contact-cmark)_
 
@@ -808,7 +808,8 @@ Unlinks the specified event and the specified contact(s).
 
 Input | Expected Output
 --------|------------------
-`eunlink 1 c/1` | Unlinks the first event in the **currently displayed** event list from the first contact in the **currently displayed** contact list. <br><br>You should see this message in the message box: <br>`Successfully unlinked the event CS2103T project meeting from the contact Alex Yeoh`
+`eunlink 2 c/1` | Unlinks the second event in the **currently displayed** event list from the first contact in the **currently displayed** contact list. <br><br>You should see this in your SoConnect: ![unlink contact](images/demo-screenshots/eunlinkEx1.png)
+`eunlink 2 c/*` | Unlinks the second event in the **currently displayed** event list from **all of its linked contacts**. <br><br>You should see this in your SoConnect: ![unlink all contacts](images/demo-screenshots/eunlinkEx2.png)
 
 _See Also: [Linking an event to contacts](#linking-an-event-to-contacts-elink)_
 
@@ -841,8 +842,8 @@ This section details all the other features and _commands_ available in SoConnec
 * [Calendar Window](#calendar-window-calendar)
 * [Exiting SoConnect](#exiting-soconnect-exit)
 * [Help Window](#help-window-help)
-* [Redo a _command_](#redo-a-command-redo)
-* [Undo a _command_](#undo-a-command-undo)
+* [Redo a _command_](#redo-a-_command_-redo)
+* [Undo a _command_](#undo-a-_command_-undo)
 
 #### Calendar Window: `calendar`
 
@@ -866,7 +867,7 @@ Shows a calendar of all the events.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will not change the state of the calendar.
+[Undo](#undo-a-_command_-undo) and [redo](#redo-a-_command_-redo) will not change the state of the calendar.
 You should close the calendar window before performing any undo or redo operations.
 </div>
 
@@ -914,9 +915,9 @@ Restores SoConnect to a previously undone state from its history.
 
 Input | Expected Output
 --------|------------------
-[`edelete 1`](#deleting-an-event-edelete) followed by [`undo`](#undo-a-command-undo) then `redo` | First **restores the deleted event** in the event list. <br>Then `redo` will **delete the same event again**.
+[`edelete 1`](#deleting-an-event-edelete) followed by [`undo`](#undo-a-_command_-undo) then `redo` | First **restores the deleted event** in the event list. <br>Then `redo` will **delete the same event again**.
 
-_See Also: [Undo a command](#undo-a-command-undo)_
+_See Also: [Undo a command](#undo-a-_command_-undo)_
 
 
 #### Undo a _command_: `undo`
@@ -931,11 +932,11 @@ Input | Expected Output
 --------|------------------
 [`cadd n/John Doe e/john@gmail.com`](#adding-a-contact-cadd) followed by `undo` | **Removes the added** contact from the contact list.
 
-_See Also: [Redo a command](#redo-a-command-redo)_
+_See Also: [Redo a command](#redo-a-_command_-redo)_
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 
-[Undo](#undo-a-command-undo) and [redo](#redo-a-command-redo) will only work for _commands_ listed in the
+[Undo](#undo-a-_command_-undo) and [redo](#redo-a-_command_-redo) will only work for _commands_ listed in the
 [Contact Management](#contact-management) and [Event Management](#event-management) features section.
 
 _Commands_ listed in the [General](#general) section are not undoable.
@@ -1104,8 +1105,8 @@ Action | Format, Examples
 **[Calendar](#calendar-window-calendar)** | `calendar`
 **[Exit](#exiting-soconnect-exit)** | `exit`
 **[Help](#help-window-help)** | `help`
-**[Redo](#redo-a-command-redo)** | `redo`
-**[Undo](#undo-a-command-undo)** | `undo`
+**[Redo](#redo-a-_command_-redo)** | `redo`
+**[Undo](#undo-a-_command_-undo)** | `undo`
 
 ________________________________________________________________________________________________________________
 
