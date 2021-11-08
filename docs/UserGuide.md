@@ -3,7 +3,7 @@ layout: page
 title: SoConnect User Guide
 ---
 
-Made by *SoC students*, for SoC students, SoConnect is a **desktop app for SoC students to manage contacts
+Made by [School of Computing](https://www.comp.nus.edu.sg/) (SoC) students, for SoC students, SoConnect is a **desktop app for SoC students to manage contacts
 of Professors and Teaching Assistants, and keep track of noteworthy events.** With SoConnect, you can **save 
 your contacts and events in one location**, and even **link events to multiple contacts**, or **bookmark
 your favorite contact**.
@@ -238,8 +238,8 @@ Icon | _Field_
 **![Event Icon](images/demo-screenshots/eventIcon.png)** | Linked Events
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*The bookmark icon is only visible when the contact has been bookmarked.
-_See also: [Bookmarking a contact](#bookmarking-a-contact-cmark)_
+*The bookmark icon is only visible when the contact has been marked.
+_See also: [Marking a contact](#marking-a-contact-cmark)_
 
 
 ### Icons in Event List
@@ -261,8 +261,8 @@ Icon | _Field_
 **![Contact Icon](images/demo-screenshots/contactsIcon.png)** | Linked Contacts
 **![Tag Icon](images/demo-screenshots/tagIcon.png)** | Tag
 
-*The bookmark icon is only visible when the event has been bookmarked.
-_See also: [Bookmarking an event](#bookmarking-an-event-emark)_
+*The bookmark icon is only visible when the event has been marked.
+_See also: [Marking an event](#marking-an-event-emark)_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -290,8 +290,8 @@ This section details all the features and commands available in SoConnect that c
 * [Editing a contact](#editing-a-contact-cedit)
 * [Finding contacts](#finding-contacts-cfind)
 * [Listing all contacts](#listing-all-contacts-clist)
-* [Marking a contact](#bookmarking-a-contact-cmark)
-* [Unmarking a contact](#removing-bookmark-of-a-contact-cunmark)
+* [Marking a contact](#marking-a-contact-cmark)
+* [Unmarking a contact](#removing-mark-of-a-contact-cunmark)
 * [Viewing a contact](#viewing-a-contact-cview)
 
 
@@ -446,7 +446,7 @@ Input | Expected Output
 `clist` | Shows **all available details** of each contact in SoConnect. <br><br> You should see this message in the message box:<br> `Listed all contacts`
 `clist e/ p/` | Shows **only the names, email addresses and phone numbers** (if available) of each contact in SoConnect. <br><br> You should see this message in the message box:<br> `Listed all contacts` <br><br> You should also see the contacts list displays **only the specified _fields_**: ![List Contact 1](images/demo-screenshots/clistEx.png)
 
-### Bookmarking a contact: `cmark`
+### Marking a contact: `cmark`
 
 Marks the specified contact(s).
 
@@ -469,12 +469,12 @@ Input | Expected Output
 `cmark 2` | Marks the second contact of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` **pinned to the top** of your contact list with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx1.png)
 `cmark 4 5` | Marks the fourth and fifth contacts of **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Marked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Marked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` **pinned to the top** of your contact list in that order with the **Bookmark Icon**: ![Mark Contact](images/demo-screenshots/cmarkEx2.png)
 
-_See also: [Unmarking a contact](#removing-bookmark-of-a-contact-cunmark)_
+_See also: [Unmarking a contact](#removing-mark-of-a-contact-cunmark)_
 
 
-### Removing bookmark of a contact: `cunmark`
+### Removing mark of a contact: `cunmark`
 
-Unmark the specified contact(s).
+Unmarks the specified contact(s).
 
 **Format:** `cunmark INDEX [INDEX]...`
 
@@ -496,7 +496,7 @@ Input | Expected Output
 `cunmark 1` | Unmarks the first contact of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked Contact: Bernice Yu; Email: berniceyu@example.com; Phone: 99272758; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Zoom Link: nus-sg.zoom.us/j/08382435376?pwd=Oow3u9N098nh8nsdLp0; Telegram: bbernicee; Tags: [TA][friends]` <br><br> You should see `Bernice Yu` moved to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx1.png)
 `cunmark 1 2` | Unmarks the first and second contact of the **currently displayed** contact list in SoConnect. <br><br> You should see this message in the message box:<br> `Unmarked contact: Irfan Ibrahim; Email: irfan@example.com; Address: Blk 47 Tampines Street 20, #17-35; Telegram: irfanx; Tags: [classmates] Unmarked contact: David Li; Email: lidavid@comp.nus.edu.sg; Address: COM1-B1-0931; Telegram: lidavid; Tags: [professor][CS2103T]` <br><br> You should see `Irfan Ibrahim` and `David Li` moved in that order to the **bottom of your marked contact list** without the **Bookmark Icon**: ![Unmark Contact](images/demo-screenshots/cunmarkEx2.png)
 
-_See also: [Marking a contact](#bookmarking-a-contact-cmark)_
+_See also: [Marking a contact](#marking-a-contact-cmark)_
 
 ### Viewing a contact: `cview`
 
@@ -527,14 +527,14 @@ Input | Expected Output
 
 This section details all the features and commands available in SoConnect that can help you with managing your events:
 * [Adding an event](#adding-an-event-eadd)
-* [Bookmarking an event](#bookmarking-an-event-emark)
+* [Marking an event](#marking-an-event-emark)
 * [Clearing all event](#clearing-all-events-eclear)
 * [Deleting an event](#deleting-an-event-edelete)
 * [Editing an event](#editing-an-event-eedit)
 * [Finding events](#finding-events-efind)
 * [Linking an event to contacts](#linking-an-event-to-contacts-elink)
 * [Listing all events](#listing-all-events-elist)
-* [Removing bookmark of an event](#removing-bookmark-of-an-event-eunmark)
+* [Removing mark of an event](#removing-mark-of-an-event-eunmark)
 * [Sorting events](#sorting-events-esort)
 * [Unlinking an event from contacts](#unlinking-an-event-from-contacts-eunlink)
 * [Viewing an event](#viewing-an-event-eview)
@@ -564,29 +564,6 @@ Input | Expected Output
 `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun` | You should see this message in the message box:<br> `New event added: Summer Party; Start: 12-12-2021 15:12; Address: 123, Clementi Rd, 1234665; Tags: [fun]` <br><br> You should also see `Summer Party` **at the end** of your event list: ![New Event](images/demo-screenshots/eaddEx.png)
 
 *Index of the newly added event will depend on your previous number of events.
-
-### Bookmarking an event: `emark`
-
-Bookmarks the specified event(s).
-
-**Format:** `emark INDEX1 [INDEX2]…`
-
-* Bookmarks the event at `INDEX1` and pins it to the top of the event list.
-* You may bookmark **more than one event at a time** by specifying multiple indexes, eg `emark 1 2`
-* `INDEX1` and `INDEX2` refers to the index number shown in the displayed event list.
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-
-`INDEX` **must be a positive integer**, e.g. 1, 2, 3,…
-</div>
-
-**Examples:**
-
-Input | Expected Output
---------|------------------
-`emark 2` | Bookmarks the second event of **currently displayed** event list in SoConnect. <br><br> _The expected display is similar to [Bookmarking a contact](#bookmarking-a-contact-cmark)_
-
-_See Also: [Removing bookmark of an event](#removing-bookmark-of-an-event-eunmark)_
 
 
 ### Clearing all events: `eclear`
@@ -746,30 +723,56 @@ Input | Expected Output
 `elist d/ at/` | Shows **all events** in SoConnect with **only their names, start date and time and description** (if available). You should see this message in the message box: <br>`Listed all events` <br><br> You should also see the event list displays all events with **only the specified _fields_**: ![List Events](images/demo-screenshots/elistEx.png)
 
 
-### Removing bookmark of an event: `eunmark`
+### Marking an event: `emark`
 
-Removes bookmark of the specified event(s).
+Marks the specified event(s).
 
-**Format:** `eunmark INDEX1 [INDEX2]...`
+**Format:** `emark INDEX [INDEX]…`
 
-* Removes bookmark of the event at `INDEX1`.
-* You may **remove bookmarks of more than one event** by specifying multiple indexes, eg `eunmark 1 2`
-* `INDEX1` and `INDEX2` refers to the index number shown in the displayed event list.
+* Marks the event at `INDEX` and **pins it to the top** of the event list.
+* You can specify more than one `INDEX`, e.g. `emark 1 2`, the order in which the marked events appear will be in reverse order to the order you specify their corresponding indexes.
+* `INDEX` refers to the index number shown in the **currently displayed** event list.
 
-<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-* `INDEX1` and `INDEX2` **must be a positive integer**, e.g. 1, 2, 3,…
-* You must ensure that the events at `INDEX1` and `INDEX2` are **initially bookmarked**.
+`INDEX` **must be a positive integer**, e.g. 1, 2, 3,…<br>
+`INDEX` must **not be greater** than the **number of events** in the event list.
 </div>
 
 **Examples:**
 
 Input | Expected Output
 --------|------------------
-`eunmark 2` | Removes bookmark of the second event of **currently displayed** event list in SoConnect.<br><br> _The expected display is similar to [Removing bookmark of a contact](#removing-bookmark-of-a-contact-cunmark)_
-`eunmark 2 4` | Removes the bookmark of the second and fourth event in SoConnect.
+`emark 2` | Marks the second event of **currently displayed** event list in SoConnect. <br><br> _The expected display is similar to [marking a contact](#marking-a-contact-cmark)_
 
-_See Also: [Bookmarking an event](#bookmarking-an-event-emark)_
+_See Also: [Removing mark of an event](#removing-mark-of-an-event-eunmark)_
+
+
+### Removing mark of an event: `eunmark`
+
+Unmarks the specified event(s).
+
+**Format:** `eunmark INDEX [INDEX]...`
+
+* Unmarks the event at `INDEX`.
+* You may unmark **more than one event** by specifying multiple indexes, eg `eunmark 1 2`, the indexes in which the events appear will be **in the order in which** you specify them.
+* `INDEX` refers to the index number shown in the displayed event list.
+
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
+
+* `INDEX` **must be a positive integer**, e.g. 1, 2, 3,…
+* `INDEX` must **not be greater** than the **number of events** in the event list.
+* You must ensure that the event indexed at `INDEX` is **initially marked**.
+</div>
+
+**Examples:**
+
+Input | Expected Output
+--------|------------------
+`eunmark 2` | Unmarks the second event of **currently displayed** event list in SoConnect.<br><br> _The expected display is similar to [Removing mark of a contact](#removing-mark-of-a-contact-cunmark)_
+`eunmark 2 4` | Unmarks the second and fourth event in SoConnect.
+
+_See Also: [Marking an event](#Marking-an-event-emark)_
 
 
 ### Sorting events: `esort`
@@ -1059,13 +1062,13 @@ _Prefix_ | _Parameter_ Type
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-a-contact-cadd)** | `cadd n/NAME e/EMAIL [p/PHONE_NUMBER] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [t/TAG]…​` <br> e.g., `cadd n/Alex Doe e/e0123456@u.nus.edu a/COM1 #99-99 th/johnDoe99 t/Professor`
-**[Bookmark](#bookmarking-a-contact-cmark)** | `cmark INDEX`<br> e.g. `cmark 2`
 **[Clear](#clearing-all-contacts-cclear)** | `cclear`
 **[Delete](#deleting-a-contact-cdelete)** | `cdelete INDEX1[-INDEX2]`<br> e.g. `cdelete 3` <br> e.g. `cdelete 1-5`
 **[Edit](#editing-a-contact-cedit)** | `cedit INDEX [n/NAME] [e/EMAIL] [p/PHONE] [a/ADDRESS] [th/TELEGRAM_HANDLE] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​​`<br> e.g.`cedit 2 p/91234567 e/agentX@thehightable.com` <br> e.g. `cedit 1 n/Betsy Crower dt/*`
 **[Find](#finding-contacts-cfind)** | `cfind [KEYWORD]… [e/KEYWORD…] [p/KEYWORD…] [a/KEYWORD…] [th/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]`<br> e.g. `cfind alex david`
 **[List](#listing-all-contacts-clist)** | `clist [e/] [p/] [a/] [th/] [z/] [t/]` <br> e.g. `clist` <br> e.g. `clist e/ p/`
-**[Remove Bookmark](#removing-bookmark-of-a-contact-cunmark)** | `cunmark INDEX [INDEX]…`<br> e.g. `cunmark 2` <br> e.g. `cunmark 2 3`
+**[Mark](#marking-a-contact-cmark)** | `cmark INDEX`<br> e.g. `cmark 2`
+**[Remove mark](#removing-mark-of-a-contact-cunmark)** | `cunmark INDEX [INDEX]…`<br> e.g. `cunmark 2` <br> e.g. `cunmark 2 3`
 **[View](#viewing-a-contact-cview)** | `cview INDEX`<br> e.g. `cview 2`
 
 **Event Management**
@@ -1073,14 +1076,14 @@ Action | Format, Examples
 Action | Format, Examples
 --------|------------------
 **[Add](#adding-an-event-eadd)** | `eadd n/NAME at/START_TIME [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [t/TAG]…​ ` <br> e.g., `eadd n/Summer Party at/12-12-2021 15:12 a/123, Clementi Rd, 1234665 t/fun`
-**[Bookmark](#bookmarking-an-event-emark)** | `emark INDEX`<br> e.g. `emark 2`
 **[Clear](#clearing-all-events-eclear)** | `eclear`
 **[Delete](#deleting-an-event-edelete)** | `edelete INDEX`<br> e.g., `edelete 3` <br> e.g., `edelete 1-5`
 **[Edit](#editing-an-event-eedit)** | `eedit INDEX [n/NAME] [at/START_TIME] [end/END_TIME] [d/DESCRIPTION] [a/ADDRESS] [z/ZOOM] [dt/TAG_DELETED]…​ [t/TAG_ADDED]…​`<br> e.g.,`eedit 2 n/CS2103T Exam dt/CCA t/Hard` <br> e.g., `eedit 3 dt/*`
 **[Find](#finding-events-efind)** | `efind [KEYWORDS]… [at/KEYWORD…] [end/KEYWORD…] [d/KEYWORD…] [a/KEYWORD…] [z/KEYWORD…] [t/KEYWORD…]` <br> e.g., `efind meet` <br> e.g., `efind t/CS2103T Intern`
 **[Link](#linking-an-event-to-contacts-elink)** | `elink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> `elink 2 c/1 c/2`
 **[List](#listing-all-events-elist)** | `elist [at/] [end/] [d/] [a/] [z/] [t/]` <br> e.g., `elist` <br> e.g., `elist d/ at/`
-**[Remove Bookmark](#removing-bookmark-of-an-event-eunmark)** | `eunmark INDEX [INDEX]…`<br> e.g. `eunmark 2` <br> e.g. `eunmark 2 4`
+**[Mark](#marking-an-event-emark)** | `emark INDEX`<br> e.g. `emark 2`
+**[Remove mark](#removing-mark-of-an-event-eunmark)** | `eunmark INDEX [INDEX]…`<br> e.g. `eunmark 2` <br> e.g. `eunmark 2 4`
 **[Sort](#sorting-events-esort)** | `esort`
 **[Unlink](#unlinking-an-event-from-contacts-eunlink)** | `eunlink EVENT_INDEX c/CONTACT_INDEX [c/CONTACT_INDEX]...`<br> e.g., `eunlink 2 c/1` <br> e.g., `eunlink 3 c/*`
 **[View](#viewing-an-event-eview)** | `eview INDEX`<br> e.g. `eview 1`
@@ -1101,9 +1104,6 @@ ________________________________________________________________________________
 
 Word | Explanation
 --------|------------------
-**SoC** | School of Computing, the faculty in NUS that specialises in computer science degree courses.
-**Professors** | Instructors who conduct lectures and teach modules in NUS.
-**Teaching Assistants** | NUS student teachers employed to conduct small classes known as tutorials.
 **Command Line Interface (CLI)** | Text-based application where user interact with the application by **typing in texts/ commands**
 **Command** | A string of words and characters you type to perform an action, each command has its own **Command format**.
 **Command Format** | The structure that a command must abide by for it to be executed.
