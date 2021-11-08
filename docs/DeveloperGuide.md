@@ -1180,6 +1180,43 @@ testers are expected to do more exploratory testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
+### Adding a contact
+
+1. Test case: `cadd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`<br>
+    Expected: A new contact named John Doe with the specified detail will be added to the end of the contact list. Success message displayed.
+   
+2. Test case: `cadd n/Jane Doe p/1298701`<br>
+    Expected: No contact added. Error details shown in the status message.
+   
+3. Test case: `cadd n/Alex Yeoh e/alexYeoh@gmail.com`<br>
+    Expected: No contact added. Error details shown in the status message.
+   
+4. Other invalid `cadd` commands: `cadd n/`, `cadd n/John Doe e/`, `cadd n/* e/test@gmail.com`<br>
+   Expected: No contact added. Error details shown in the status message.
+
+### Finding a contact
+1. Test case: `cfind Alex`<br>
+    Expected: A list of contacts with names that match`Alex` will be displayed. Success message displayed.
+   
+2. Test case: `cfind alex`<br>
+    Expected: Similar to previous.
+   
+3. Test case: `cfind e/bernice`<br>
+    Expected: A list of contacts with emails that match `bernice` will be displayed. Success message displayed.
+
+4. Test case: `cfind e/bernice a/geylang`<br>
+   Expected: A list of contacts with emails that match `bernice` or with addresses that match `geylang` will be displayed. Success message displayed.
+
+5. Test case: `cfind a/`<br>
+    Expected: No change in the displayed contact list. Error details displayed in the status message.
+   
+6. Test case: `cfind`<br>
+   Expected: No change in the displayed contact list. Error details displayed in the status message.
+   
+7. Other invalid `cfind` commands: `cfind a/ e/`, `cfind a/alex e/`<br>
+    Expected: No change in the displayed contact list. Error details displayed in the status message.
+  
+
 ### Deleting an event
 
 Deleting an event while all events are being shown
@@ -1217,44 +1254,43 @@ Prerequisites: At least one event in the list.
      Expected: All events listed with all _fields_ displayed. All events listed shown in the status message.
 
   1. Other incorrect `elist` commands to try: `elist 123`, `elist at/0000`, `elist xyz/` (where xyz is not a valid prefix)<br>
-     Expected: No change in display. Error message shown in status bar.
+     Expected: No change in display. Error details displayed in the status message.
 
 ### Linking an event to one or more contacts
 
    Prerequisites: There is at least one event and one contact in their respective list.
 
 1. Test case: `elink 1 c/1`<br>
-   Expected: The event at index `1` is linked to the contact at index `1`. The successfulness of the link is shown in the status message.
+   Expected: The event at index `1` is linked to the contact at index `1`. Success details shown in the status message.
    
 2. Test case: `elink 2 c/1 c/2 c/3`<br>
    Expected: The event at index `2` is linked to each of the contacts at indexes `1`, `2` and `3`.
 
 3. Test case: `elink * c/1` (where x is an index larger than the event list size)<br>
-   Expected: No change in display. Error message shown in status bar.
+   Expected: No change in display. Error details displayed in the status message.
 
 3. Test case: `elink 1 c/*` (where x is an index larger than the contact list size)<br>
-   Expected: No change in display. Error message shown in status bar.
+   Expected: No change in display. Error details displayed in the status message.
 
 4. Other incorrect `elink` commands to try: `elink`, `elink 1`, `elink c/1`<br>
-   Expected: No change in display. Error message shown in status bar.
-   
+   Expected: No change in display. Error details displayed in the status message.  
 
 ### Undoing/Redoing a command
 
 1. Test case: `cadd n/Amy e/amy@mail.com p/1987911` followed by `undo`<br>
-    Expected: A new contact named Amy is added after the first command is then removed after the `undo` command. Success messages displayed in the status bar after each command.
+    Expected: A new contact named Amy is added after the first command is then removed after the `undo` command. Success messages displayed after each command.
    
 2. Test case: `cfind Alex` followed by `undo 12`<br>
-    Expected: A filtered list with contact name Alex Yeoh will be displayed after the first command. A full contact list will be displayed after `undo`command. Success messages displayed in the status bar after each command.
+    Expected: A filtered list with contact name Alex Yeoh will be displayed after the first command. A full contact list will be displayed after `undo`command. Success messages displayed after each command.
 
 3. Test case: `cdelete 1` followed by `undo` and `redo`<br>
-   Expected: First contact in the contact list is removed from the displayed contact list after the first command. The contact is restored after the `undo` command, and is removed again after the `redo` command. Success messages will be displayed after each command.
+   Expected: First contact in the contact list is removed from the displayed contact list after the first command. The contact is restored after the `undo` command, and is removed again after the `redo` command. Success messages displayed after each command.
 
 4. Test case: `undo` without any previous command<br>
-    Expected: No change in display. Error message is displayed in the status bar.
+    Expected: No change in display. Error details displayed in the status message.
    
-5. Test case: `redo` without any previous `undo` command.<br>
-    Expected: No change in display. Error message is displayed in the status bar.
+5. Test case: `redo` without any previous `undo` command<br>
+    Expected: No change in display. Error details displayed in the status message.
 
 ### Saving data
 
