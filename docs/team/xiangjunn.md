@@ -45,8 +45,10 @@ Given below are my notable contributions to the project.
 
 * **Documentation**:
     * User Guide:
-        * Added documentation for the features `cdelete`, `cclear`, `eadd` and `elist` [\#19](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/19)
+        * Added documentation for the features `cdelete`, `cclear`, `eadd` and `elist` (Pull request [\#19](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/19))
+        * Added documentation for the feature `elink` (Pull request [\#131](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/131))
     * Developer Guide:
+        * Added documentation for product scope and user stories (Pull request [\#33](https://github.com/AY2122S1-CS2103T-W15-3/tp/pull/33))
         * Added implementation details of the `elink` feature, which include sequence diagram, activity diagram and design considerations.
         * Added instruction for manual testing for `elink` feature.
         * Added use cases for editing events and linking an event to one or more contacts 
