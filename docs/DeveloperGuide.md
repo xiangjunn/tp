@@ -1295,12 +1295,12 @@ Prerequisites: At least one event in the list.
 ### GUI
 
 1. Test case: For any event with a linked contact, click on the linked contact (labeled in yellow) <br>
-   Expected: Only linked contact(s) of the chosen event is displayed in the contact list. Clicking on the same linked contact again will display the full contact list.
+   Expected: Only linked contact(s) of the chosen event will be displayed in the contact list. Clicking on the same linked contact again will display the full contact list.
 
 2. Test case: Click on any field in the contact and event list (except for tag)<br>
     Expected: The chosen field will be copied to clipboard. Success details displayed in the status message.
    
-3. Test case: For any contact with a zoom or telegram link (underlined in blue), click on any of the links<br>
+3. Test case: Click on any zoom or telegram link (underlined in blue)<br>
     Expected: The chosen link is opened in browser. Success details displayed in the status message.
    
 

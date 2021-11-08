@@ -4,23 +4,23 @@
 start
 :User enters cmark command in the command box;
 :CMarkCommandParser parses the command;
-if () then (arguments are valid)
+if () then ([arguments are valid])
 
     :Generate list of indexes;
 
-    if() then (indexes not greater than length of contact list)
+    if() then ([indexes not greater than length of contact list])
         : get contact corresponding to the index
                         in the contact list;
         : create a new marked contact;
         : replace the original contact with the marked contact;
         : rearrange contacts in order;
 
-    else (false)
+    else ([else])
         :throw CommandException with
                 invalid contact displayed;
     endif
 
-else (false)
+else ([else])
 :throw ParseException with invalid command
 format message and command usage;
 endif
