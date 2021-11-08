@@ -857,7 +857,7 @@ Shows a calendar of all the events.
       ![calendar](images/demo-screenshots/Calendar.png)
 
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 
 * Alternatively, you can view the calendar using the top menu bar via `File -> Calendar` or press `F2`.
 * If an event does not have a specified end date and time, the calendar will treat the duration of the event as **one hour**.
