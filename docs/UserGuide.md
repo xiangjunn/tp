@@ -132,7 +132,7 @@ SoConnect will tell you that the _Command Format_ is invalid.
 
 4. Double-click the file to start SoConnect. This is how SoConnect looks like:<br>
 
-   ![Ui](images/Ui.png)
+   ![Overview](images/demo-screenshots/overview.png)
 
     <div markdown="span" class="alert alert-info">:information_source: **Note:**
    SoConnect comes with some sample contacts and events upon installation.
